@@ -1,0 +1,16 @@
+{
+  "name": "avixo-cloud",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ежедневен генератор на рекламни визуали за avixo.eu — рендерира с Chrome и качва в Google Drive.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "daily": "node src/daily.mjs",
+    "test:local": "node src/daily.mjs --count 3 --no-upload"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0",
+    "puppeteer": "^23.10.4"
+  }
+}

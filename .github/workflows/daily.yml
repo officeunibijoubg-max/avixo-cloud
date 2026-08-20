@@ -1,0 +1,75 @@
+name: Дневни визуали
+
+on:
+  schedule:
+    # 07:00 Европа/София. Cron е винаги в UTC, а България мени часа два пъти
+    # годишно — затова са два реда със защита вътре в стъпката, вместо един,
+    # който да се разминава с половин година.
+    - cron: '0 4 * * *'   # лятно време (EEST, UTC+3)
+    - cron: '0 5 * * *'   # зимно време (EET,  UTC+2)
+  workflow_dispatch:
+    inputs:
+      url:
+        description: 'Конкретен продуктов URL (празно = по ротация)'
+        required: false
+      count:
+        description: 'Брой варианти'
+        required: false
+        default: '12'
+
+concurrency:
+  group: daily-visuals
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # Пали се само ако в София наистина е 7 часа. Двата cron-а покриват
+      # лятното и зимното време; тази проверка спира грешния от двата.
+      - name: Проверка на местния час
+        id: gate
+        run: |
+          HOUR=$(TZ=Europe/Sofia date +%H)
+          echo "В София е $HOUR ч."
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          elif [ "$HOUR" = "07" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Не е 7:00 местно време — пропускам."
+          fi
+
+      - uses: actions/setup-node@v4
+        if: steps.gate.outputs.run == 'true'
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Инсталация
+        if: steps.gate.outputs.run == 'true'
+        run: npm ci
+
+      - name: Рендер и качване
+        if: steps.gate.outputs.run == 'true'
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          DRIVE_PARENT_FOLDER_ID: ${{ secrets.DRIVE_PARENT_FOLDER_ID }}
+        run: |
+          node src/daily.mjs \
+            ${{ github.event.inputs.url && format('--url {0}', github.event.inputs.url) || '' }} \
+            --count ${{ github.event.inputs.count || '12' }}
+
+      # Ако качването се провали, поне визуалите да не се загубят.
+      - name: Запази изхода при провал
+        if: failure() && steps.gate.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: visuals-${{ github.run_id }}
+          path: .work/out
+          retention-days: 7
+          if-no-files-found: ignore
