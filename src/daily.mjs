@@ -137,10 +137,13 @@ async function main() {
     }
 
     const parentId = process.env.DRIVE_PARENT_FOLDER_ID;
-    const sa = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
-    if (!parentId || !sa) throw new Error('Липсва DRIVE_PARENT_FOLDER_ID или GOOGLE_SERVICE_ACCOUNT_JSON.');
+    if (!parentId) throw new Error('Липсва DRIVE_PARENT_FOLDER_ID.');
 
-    const drive = driveClient(sa);
+    const drive = driveClient({
+      clientId:     process.env.GOOGLE_OAUTH_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      refreshToken: process.env.GOOGLE_OAUTH_REFRESH_TOKEN,
+    });
     const folderName = `${date}_${name}`;
     console.log(`Качвам в Drive: ${folderName}`);
     const folderId = await ensureFolder(drive, parentId, folderName);

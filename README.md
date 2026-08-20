@@ -13,29 +13,30 @@
 
 ## Еднократна настройка
 
-### 1 · Service account за Google Drive
+### 1 · OAuth достъп до Google Drive
 
-Конекторът на Drive не става за това: през него всеки байт минава като base64
-през контекста на модела, а един пуск е ~10 MB. Service account-ът качва
-директно от сървъра.
+**Не използвай service account.** Той няма собствена дискова квота — при качване
+Google отказва с „Service Accounts do not have storage quota". Заобикалянията
+(Shared Drive, domain-wide delegation) искат Google Workspace. С OAuth файловете
+се качват от името на потребителя, в неговата квота.
 
-1. [Google Cloud Console](https://console.cloud.google.com/) → нов проект (или съществуващ)
+1. [Google Cloud Console](https://console.cloud.google.com/) → проекта
 2. **APIs & Services → Library** → включи **Google Drive API**
-3. **IAM & Admin → Service Accounts** → *Create service account* → *Keys* → *Add key* → **JSON**
-4. Отвори свалените JSON и виж полето `client_email` — нещо от вида
-   `avixo-bot@проект.iam.gserviceaccount.com`
-5. В Google Drive отвори папката **ad-formats** → *Share* → добави този имейл като **Editor**
-
-> Стъпка 5 се пропуска най-често. Без нея service account-ът е валиден, но не
-> вижда папката, и пускът гърми с „File not found".
-
+3. **APIs & Services → OAuth consent screen** → User type **External** →
+   попълни име и имейл → добави scope `https://www.googleapis.com/auth/drive`
+4. **Publishing status → Publish app** (In production). Ако остане в *Testing*,
+   refresh token-ът изтича след **7 дни** и пускът спира да работи.
+5. **Credentials → Create credentials → OAuth client ID** → тип **Desktop app**
+6. Издай refresh token еднократно (виж `docs/oauth.md`)
 ### 2 · Секрети в GitHub
 
 Repo → *Settings* → *Secrets and variables* → *Actions* → *New repository secret*:
 
 | Име | Стойност |
 |---|---|
-| `GOOGLE_SERVICE_ACCOUNT_JSON` | цялото съдържание на свалените JSON |
+| `GOOGLE_OAUTH_CLIENT_ID` | от OAuth клиента |
+| `GOOGLE_OAUTH_CLIENT_SECRET` | от OAuth клиента |
+| `GOOGLE_OAUTH_REFRESH_TOKEN` | издаденият token |
 | `DRIVE_PARENT_FOLDER_ID` | `1oc7Uif00huv56USnxcdCMvzyIYUP_H0A` |
 
 ID-то на папката е частта след `/folders/` в нейния URL.

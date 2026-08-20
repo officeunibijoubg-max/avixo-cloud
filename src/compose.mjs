@@ -45,11 +45,16 @@ export function compose(p, lib, dark, count = 12) {
   const secondary = dark ? lib.themes.dark : lib.themes.light;
 
   const variants = [];
+  // Отделни броячи за двете половини: общият индекс би повтарял една и съща
+  // палитра по три пъти подред, преди да се смени.
+  let pi = 0, si = 0;
   for (let i = 0; i < count; i++) {
     const a = angles[i % angles.length];
     // всеки четвърти взима палитра от слабата половина
-    const pool = i % 4 === 3 ? secondary : primary;
-    const theme = pool[Math.floor(i / 4) % pool.length] ?? pool[0];
+    const useSecondary = i % 4 === 3;
+    const theme = useSecondary
+      ? secondary[si++ % secondary.length]
+      : primary[pi++ % primary.length];
 
     const n = String(i + 1).padStart(2, '0');
     variants.push({
