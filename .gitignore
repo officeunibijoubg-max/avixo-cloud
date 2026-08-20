@@ -1,4 +1,12 @@
 node_modules/
 .work/
 *.log
-service-account*.json
+
+# Ключове на service account. Репото е публично, а Google автоматично
+# деактивира ключове, засечени в публични репота — затова шаблоните са широки.
+# Свалените от конзолата файлове се казват <проект>-<хеш>.json, което НЕ
+# съвпада с "service-account*.json".
+*.json
+!package.json
+!package-lock.json
+!src/hooks.json
