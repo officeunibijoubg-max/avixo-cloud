@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "description": "Ежедневен генератор на рекламни визуали за avixo.eu — рендерира с Chrome и качва в Google Drive.",
-  "engines": { "node": ">=20" },
+  "engines": { "node": ">=22" },
   "scripts": {
     "daily": "node src/daily.mjs",
     "test:local": "node src/daily.mjs --count 3 --no-upload"

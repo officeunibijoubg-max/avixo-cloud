@@ -46,12 +46,13 @@ jobs:
       - uses: actions/setup-node@v4
         if: steps.gate.outputs.run == 'true'
         with:
-          node-version: '20'
-          cache: npm
+          node-version: '22'
 
+      # npm install, не npm ci: в репото няма package-lock.json, а ci работи
+      # само с него. По същата причина няма и cache: npm — иска lock файл.
       - name: Инсталация
         if: steps.gate.outputs.run == 'true'
-        run: npm ci
+        run: npm install --no-audit --no-fund
 
       - name: Рендер и качване
         if: steps.gate.outputs.run == 'true'
