@@ -3,8 +3,7 @@ name: Дневни визуали
 on:
   schedule:
     # 07:00 Европа/София. Cron е винаги в UTC, а България мени часа два пъти
-    # годишно — затова са два реда със защита вътре в стъпката, вместо един,
-    # който да се разминава с половин година.
+    # годишно — затова са два реда, а проверката по-долу пуска само верния.
     - cron: '0 4 * * *'   # лятно време (EEST, UTC+3)
     - cron: '0 5 * * *'   # зимно време (EET,  UTC+2)
   workflow_dispatch:
@@ -32,12 +31,12 @@ jobs:
       # лятното и зимното време; тази проверка спира грешния от двата.
       - name: Проверка на местния час
         id: gate
+        env:
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           HOUR=$(TZ=Europe/Sofia date +%H)
           echo "В София е $HOUR ч."
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          elif [ "$HOUR" = "07" ]; then
+          if [ "$EVENT_NAME" = "workflow_dispatch" ] || [ "$HOUR" = "07" ]; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
@@ -59,10 +58,17 @@ jobs:
         env:
           GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
           DRIVE_PARENT_FOLDER_ID: ${{ secrets.DRIVE_PARENT_FOLDER_ID }}
+          # Входът минава през променливи на средата, а не се интерполира с
+          # ${{ }} вътре в командата — иначе стойност от формата може да
+          # изпълни произволна shell команда на runner-а.
+          PRODUCT_URL: ${{ github.event.inputs.url }}
+          VARIANT_COUNT: ${{ github.event.inputs.count }}
         run: |
-          node src/daily.mjs \
-            ${{ github.event.inputs.url && format('--url {0}', github.event.inputs.url) || '' }} \
-            --count ${{ github.event.inputs.count || '12' }}
+          ARGS="--count ${VARIANT_COUNT:-12}"
+          if [ -n "$PRODUCT_URL" ]; then
+            ARGS="$ARGS --url $PRODUCT_URL"
+          fi
+          node src/daily.mjs $ARGS
 
       # Ако качването се провали, поне визуалите да не се загубят.
       - name: Запази изхода при провал
