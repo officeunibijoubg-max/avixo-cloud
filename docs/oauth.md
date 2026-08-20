@@ -10,7 +10,7 @@
 Отвори този URL в браузър, като замениш `CLIENT_ID`:
 
 ```
-https://accounts.google.com/o/oauth2/v2/auth?client_id=CLIENT_ID&redirect_uri=http://localhost&response_type=code&scope=https://www.googleapis.com/auth/drive&access_type=offline&prompt=consent
+https://accounts.google.com/o/oauth2/v2/auth?client_id=CLIENT_ID&redirect_uri=http://localhost&response_type=code&scope=https://www.googleapis.com/auth/drive.file&access_type=offline&prompt=consent
 ```
 
 Влез с акаунта, който притежава папката, и разреши достъпа.
@@ -73,3 +73,20 @@ node -e "import('./src/drive.mjs').then(async m=>{
 ```
 
 Ако върне ID на папка, достъпът работи.
+
+## Защо `drive.file`, а не `drive`
+
+`drive` е „ограничен" scope при Google — иска верификация на приложението и
+показва предупредителен екран. `drive.file` не е ограничен: минава без преглед.
+
+По-важното е обхватът. Refresh token-ът живее в GitHub секретите на публично
+репо. Със `drive` изтичане би дало достъп до целия Drive; със `drive.file` —
+само до файловете, които приложението самó е създало.
+
+Ограничението: приложението **не вижда** чужди файлове. Затова `ensureFolder`
+не може да намери папка, създадена извън него — при първи пуск просто създава
+своя, а следващите пускове я намират. Родителската папка `ad-formats` се ползва
+само като адрес при създаване, което `drive.file` позволява.
+
+Ако Drive върне 403/404 за родителската папка, върни `drive` в Data Access и
+преиздай token-а.

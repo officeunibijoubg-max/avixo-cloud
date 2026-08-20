@@ -23,7 +23,7 @@ Google отказва с „Service Accounts do not have storage quota". Зао�
 1. [Google Cloud Console](https://console.cloud.google.com/) → проекта
 2. **APIs & Services → Library** → включи **Google Drive API**
 3. **APIs & Services → OAuth consent screen** → User type **External** →
-   попълни име и имейл → добави scope `https://www.googleapis.com/auth/drive`
+   попълни име и имейл → добави scope (нужен е само `https://www.googleapis.com/auth/drive.file`
 4. **Publishing status → Publish app** (In production). Ако остане в *Testing*,
    refresh token-ът изтича след **7 дни** и пускът спира да работи.
 5. **Credentials → Create credentials → OAuth client ID** → тип **Desktop app**
