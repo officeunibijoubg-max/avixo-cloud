@@ -142,6 +142,14 @@ async function main() {
     // накрая, а Google връща на това само „invalid_grant" — без да подскаже защо.
     const env = (k) => (process.env[k] || '').trim();
 
+    // Дължините, не стойностите: сгрешен или отрязан секрет се вижда веднага,
+    // без да се разкрива нищо в лога.
+    for (const k of ['GOOGLE_OAUTH_CLIENT_ID','GOOGLE_OAUTH_CLIENT_SECRET',
+                     'GOOGLE_OAUTH_REFRESH_TOKEN','DRIVE_PARENT_FOLDER_ID']) {
+      const v = env(k);
+      console.log(`  ${k.padEnd(28)} ${v ? `${v.length} знака` : 'ЛИПСВА'}`);
+    }
+
     const parentId = env('DRIVE_PARENT_FOLDER_ID');
     if (!parentId) throw new Error('Липсва DRIVE_PARENT_FOLDER_ID.');
 
