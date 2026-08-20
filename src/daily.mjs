@@ -5,7 +5,9 @@
 //   node src/daily.mjs --count 6 --no-upload  бърз локален тест
 //
 // Променливи на средата:
-//   GOOGLE_SERVICE_ACCOUNT_JSON   ключът на service account-а (целият JSON)
+//   GOOGLE_OAUTH_CLIENT_ID        OAuth клиент (Desktop app)
+//   GOOGLE_OAUTH_CLIENT_SECRET
+//   GOOGLE_OAUTH_REFRESH_TOKEN    еднократно издаден, не изтича
 //   DRIVE_PARENT_FOLDER_ID        папката ad-formats в Drive
 
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
