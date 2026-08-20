@@ -138,13 +138,17 @@ async function main() {
       return;
     }
 
-    const parentId = process.env.DRIVE_PARENT_FOLDER_ID;
+    // Режем празните знаци: при копиране в GitHub секрет лесно се хваща нов ред
+    // накрая, а Google връща на това само „invalid_grant" — без да подскаже защо.
+    const env = (k) => (process.env[k] || '').trim();
+
+    const parentId = env('DRIVE_PARENT_FOLDER_ID');
     if (!parentId) throw new Error('Липсва DRIVE_PARENT_FOLDER_ID.');
 
     const drive = driveClient({
-      clientId:     process.env.GOOGLE_OAUTH_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
-      refreshToken: process.env.GOOGLE_OAUTH_REFRESH_TOKEN,
+      clientId:     env('GOOGLE_OAUTH_CLIENT_ID'),
+      clientSecret: env('GOOGLE_OAUTH_CLIENT_SECRET'),
+      refreshToken: env('GOOGLE_OAUTH_REFRESH_TOKEN'),
     });
     const folderName = `${date}_${name}`;
     console.log(`Качвам в Drive: ${folderName}`);
