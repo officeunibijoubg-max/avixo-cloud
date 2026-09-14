@@ -27,7 +27,13 @@ export async function readCatalog(browser, categoryUrls) {
           const src = img.getAttribute('src') || '';
           const m = src.match(/\/products\/(\d+)\//);
           const a = img.closest('a');
-          if (m && a) out.push({ ref: Number(m[1]), href: a.getAttribute('href'), title: img.alt || '' });
+          const href = a ? a.getAttribute('href') || '' : '';
+          // Витрината пълни решетката на луксозните парфюми и с детски парфюми
+          // (напр. Tubbees), когато категорията е тънка — тях ги пропускаме, това
+          // не е публиката на пуска.
+          if (m && a && !/^\/detski-parfiumi\//.test(href)) {
+            out.push({ ref: Number(m[1]), href, title: img.alt || '' });
+          }
         });
         return out;
       });
