@@ -1,0 +1,8 @@
+# Родителският .gitignore скрива *.json (ключове на service account);
+# тук JSON файловете са нормална конфигурация.
+!*.json
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
