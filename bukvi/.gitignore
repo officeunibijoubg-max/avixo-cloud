@@ -6,3 +6,6 @@ node_modules/
 out/
 next-env.d.ts
 *.tsbuildinfo
+
+# Генерира се при build от файловете в public/audio/
+public/audio/manifest.json

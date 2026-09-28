@@ -59,8 +59,20 @@ npm run build   # статичен export в out/ + офлайн списък в
 При easy/normal се сравнява и по място, и само по форма (bbox нормализация); при hard — само по форма.
 Всяка промяна на праговете трябва да минава `npm test` (включва матрица на объркване за А, Б, О, М, 1, 2, 3, 8).
 
+## Записан глас
+
+`src/content/voiceScript.ts` изрежда всяка изговаряна фраза с постоянно id; `npm run voice-script`
+пише `docs/voice-script.csv`. Файл `public/audio/<id>.mp3` (или .m4a/.ogg/.wav) заменя синтезатора
+за този текст; `scripts/audio-manifest.mjs` прави `audio/manifest.json` при build. Нова фраза в
+`phrases.ts` → добави я и в `voiceScript.ts`.
+
+## Профили
+
+Активното дете е в `progress`; неактивните — в `stored` (`services/profiles.ts`, persist версия 3).
+Героят (`settings.mascot`) се пази в профила при смяна; останалите настройки са общи.
+
 ## Следващи стъпки
 
-- Записан професионален глас → `RECORDED_AUDIO` в `speech.ts` (браузърният TTS остава резервен).
-- Професионални илюстрации могат да заменят `Illustration.tsx` (ключовете са в `words.ts`).
-- Островът на думите (срички и думи), „Предизвикателство на деня“, профили за няколко деца, cloud sync.
+- Записване на гласа по `docs/voice-script.csv`.
+- Професионални илюстрации могат да заменят `Illustration.tsx` (ключовете са в `words.ts` и `wordsIsland.ts`).
+- Още думи на Острова (с букви Р–Я), cloud sync на профилите.

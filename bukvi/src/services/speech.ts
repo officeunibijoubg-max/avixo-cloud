@@ -2,6 +2,7 @@ import type { CharacterLesson } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { phrases } from "@/content/phrases";
 import { DEFAULT_TTS_SPELLING, type TtsSpelling } from "@/config/speech";
+import { voiceLines } from "@/content/voiceScript";
 
 // Слой за говор. Екраните викат само speakCharacter / speakWord / speakPhrase.
 // Днес говори Web Speech API; утре — записани .mp3 файлове, без промяна в екраните.
@@ -13,14 +14,28 @@ export interface SpeechEngine {
   cancel(): void;
 }
 
-/** Предварително записани файлове: текст → URL. Празно, докато няма записи. */
-export const RECORDED_AUDIO: Record<string, string> = {
-  // "А. А като автобус.": "/audio/letters/a.mp3",
-};
-
+/**
+ * Записан глас. Файловете се слагат в `public/audio/` с имена от сценария
+ * (content/voiceScript.ts, напр. `letter-a-intro.mp3`); при build
+ * `scripts/audio-manifest.mjs` ги описва в `audio/manifest.json`.
+ * Фрази без запис продължават с браузърния глас.
+ */
 class RecordedAudioEngine implements SpeechEngine {
   private current: HTMLAudioElement | null = null;
-  constructor(private files: Record<string, string>) {}
+  /** текст → URL на файла; пълни се, когато manifest.json се зареди. */
+  private files: Record<string, string> = {};
+
+  constructor() {
+    if (typeof window === "undefined" || typeof fetch === "undefined") return;
+    fetch("/audio/manifest.json")
+      .then((r): Promise<Record<string, string>> | Record<string, string> => (r.ok ? r.json() : {}))
+      .then((manifest) => {
+        const idByText = new Map(voiceLines().map((l) => [l.text, l.id]));
+        for (const [text, id] of idByText) if (manifest[id]) this.files[text] = `/audio/${manifest[id]}`;
+      })
+      .catch(() => {});
+  }
+
   canSpeak(text: string) {
     return typeof Audio !== "undefined" && text in this.files;
   }
@@ -110,7 +125,7 @@ export function prepareForTts(text: string, spelling: TtsSpelling = state.spelli
 let engines: SpeechEngine[] | null = null;
 
 function getEngines(): SpeechEngine[] {
-  if (!engines) engines = [new RecordedAudioEngine(RECORDED_AUDIO), new WebSpeechEngine()];
+  if (!engines) engines = [new RecordedAudioEngine(), new WebSpeechEngine()];
   return engines;
 }
 

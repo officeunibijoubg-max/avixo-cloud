@@ -3,6 +3,10 @@
 
 const pick = <T,>(list: readonly T[]): T => list[Math.floor(Math.random() * list.length)];
 
+// Случайните похвали — изнесени, за да влязат в списъка за записан глас.
+export const PRAISE = ["Браво!", "Страхотно!", "Супер!", "Много добре!", "Отлично!"] as const;
+export const ENCOURAGE = ["Опитай пак.", "Почти успя!", "Можеш го!"] as const;
+
 export const phrases = {
   // Урок
   // Изговаряме звука на буквата и в двете части — синтезаторът чете самотна „Б“ като „бе“.
@@ -21,11 +25,11 @@ export const phrases = {
   // Обратна връзка
   correctFor: (_kind: "letter" | "number", spoken: string) => `Браво! Написа ${spoken}!`,
   bravoPoints: (coins: number) => `Браво! +${coins} 🪙`,
-  praise: () => pick(["Браво!", "Страхотно!", "Супер!", "Много добре!", "Отлично!"] as const),
+  praise: () => pick(PRAISE),
   almost: "Почти! Нека опитаме пак.",
   /** Кратко, видимо обяснение къде е грешката. */
   showWhere: "Виж къде излезе от буквата.",
-  encourage: () => pick(["Опитай пак.", "Почти успя!", "Можеш го!"] as const),
+  encourage: () => pick(ENCOURAGE),
   hintFollow: "Следвай звездичката.",
   hintWatch: "Гледай как се пише.",
   tooLittle: "Напиши цялата буква.",
