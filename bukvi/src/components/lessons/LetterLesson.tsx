@@ -4,6 +4,7 @@ import type { CharacterLesson } from "@/lib/types";
 import { phrases } from "@/content/phrases";
 import { speakCharacter } from "@/services/speech";
 import { SoundButton } from "@/components/game/SoundButton";
+import { Illustration } from "@/components/illustrations/Illustration";
 
 /** Горната част на урока за буква: буквата, „А като Автобус“, картинка и 🔊. */
 export function LetterLesson({ lesson }: { lesson: CharacterLesson }) {
@@ -14,9 +15,7 @@ export function LetterLesson({ lesson }: { lesson: CharacterLesson }) {
         {lesson.character}
       </div>
       <div className="flex flex-1 flex-col items-center gap-2 text-center">
-        <span className="text-7xl lg:text-8xl" aria-hidden>
-          {lesson.exampleImage}
-        </span>
+        <Illustration name={lesson.exampleImage} size={112} />
         {word ? (
           <p className="text-2xl font-extrabold sm:text-3xl">
             {phrases.asPrefix(lesson.character)}
@@ -26,7 +25,14 @@ export function LetterLesson({ lesson }: { lesson: CharacterLesson }) {
             </span>
           </p>
         ) : (
-          <p className="text-muted max-w-xs text-base font-bold text-slate-600 sm:text-lg">{lesson.note}</p>
+          <p className="text-3xl font-extrabold tracking-wide">
+            {/* Буквата в думата е оцветена: „сиНЬо“. */}
+            {(lesson.inWord ?? "").split("").map((ch, i) => (
+              <span key={i} className={ch.toUpperCase() === lesson.character ? "text-violet-600 underline decoration-4 underline-offset-4" : undefined}>
+                {ch}
+              </span>
+            ))}
+          </p>
         )}
       </div>
       <SoundButton size="lg" onPlay={() => void speakCharacter(lesson)} />

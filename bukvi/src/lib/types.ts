@@ -1,3 +1,5 @@
+import type { TtsSpelling } from "@/config/speech";
+
 // Общи типове за уроците, шаблоните, оценяването и прогреса.
 
 /** Точка в координатите на шаблона: квадрат 0..100 × 0..100, y расте надолу. */
@@ -26,8 +28,8 @@ export type CharacterLesson = {
   exampleImage?: string;
   /** За цифрите — колко предмета да покажем. */
   count?: number;
-  /** Кратко обяснение за символи без подходяща дума (Ь). */
-  note?: string;
+  /** Кратка дума, в която се вижда буквата (за Ь, с която не започва дума). */
+  inWord?: string;
   templates: StrokeTemplate[];
 };
 
@@ -53,16 +55,26 @@ export type CharacterProgress = {
 };
 
 export type PlayerProgress = {
-  totalPoints: number;
-  stars: number;
-  level: number;
+  /** Монети за харчене в магазина (печелят се от писане и игри). */
+  coins: number;
+  /** Всички спечелени монети досега — не намалява при покупка. */
+  coinsEarned: number;
   streak: number;
   bestStreak: number;
-  unlockedRewards: string[];
   characters: Record<string, CharacterProgress>;
   /** Броим упражненията и минигрите за родителския екран. */
   exercises: number;
   gamesPlayed: number;
+  /** Купени предмети от магазина (ид-та от data/shop.ts). */
+  owned: string[];
+  /** Какво е облечено/сложено в момента. */
+  equipped: { accessory?: string; background?: string };
+  /** Спечелени стикери (от Днешно приключение). */
+  stickers: string[];
+  /** Секунди активна игра за деня: "2026-09-28" → секунди. */
+  playSeconds: Record<string, number>;
+  /** Дни, в които е завършено Днешното приключение. */
+  adventuresDone: string[];
 };
 
 export type Settings = {
@@ -74,6 +86,12 @@ export type Settings = {
   largeUI: boolean;
   reduceMotion: boolean;
   difficulty: Difficulty;
+  /** Светлият шаблон на буквата в лесен/нормален режим. */
+  showGuide: boolean;
+  /** Родителят може да отключи всички точки от картата. */
+  unlockAll: boolean;
   /** Ключ от config/mascot.ts. */
   mascot: string;
+  /** Как звуците на буквите („Бъ“) се подават на синтезатора — зависи от устройството. */
+  ttsSpelling: TtsSpelling;
 };

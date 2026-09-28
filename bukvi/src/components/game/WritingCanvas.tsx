@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from "react";
 import type { Difficulty, Point, StrokeTemplate, WritingResult } from "@/lib/types";
-import { gradeFor, isPassing, pathLength, scoreDrawing } from "@/services/scoring";
+import { diagnoseDrawing, gradeFor, isPassing, pathLength, scoreDrawing, type DrawingDiagnosis } from "@/services/scoring";
 import { StrokeGuide, type GuideAnimation, type GuideMode } from "./StrokeGuide";
 import { useGameStore } from "@/store/gameStore";
 import { cn } from "@/lib/cn";
@@ -26,17 +26,24 @@ export type WritingCanvasProps = {
   hintKey?: number;
   /** Докато се показва резултат, не се пише. */
   locked?: boolean;
+  /**
+   * Проверка без бутон: след кратка пауза. Вярното се приема веднага,
+   * а при грешка се изчаква малко повече, ако детето още мисли.
+   */
+  autoCheck?: boolean;
   ref?: React.Ref<WritingCanvasHandle>;
 };
 
 type InkPoint = Point & { w: number };
 
-const INK = { drawing: "#6d28d9", correct: "#16a34a", wrong: "#e11d48" } as const;
+const INK = { drawing: "#6d28d9", correct: "#16a34a", wrong: "#fb7185", off: "#dc2626" } as const;
 const LINE_WIDTH = 5.5; // в единици на шаблона
 /** При пауза толкова време — проверяваме тихо; ако е вярно, приключваме сами. */
 const AUTO_CHECK_MS = 1100;
-/** При по-дълга пауза проверяваме, дори да не е вярно (детето явно е готово). */
-const IDLE_CHECK_MS = 4500;
+/** Ако е написана цялата буква, но не е вярна — проверяваме след толкова пауза. */
+const DONE_CHECK_MS = 2600;
+/** Ако е написана само част — чакаме по-дълго, детето може да мисли. */
+const IDLE_CHECK_MS = 5000;
 
 /**
  * Полето за писане. Мастилото е в <canvas> (бързо при touch), шаблонът е SVG отдолу.
@@ -54,6 +61,7 @@ export function WritingCanvas({
   hint = "none",
   hintKey = 0,
   locked = false,
+  autoCheck = true,
   ref,
 }: WritingCanvasProps) {
   const reduceMotion = useGameStore((s) => s.settings.reduceMotion);
@@ -62,6 +70,7 @@ export function WritingCanvas({
   const activePointer = useRef<number | null>(null);
   const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
   const [hasInk, setHasInk] = useState(false);
+  const [diagnosis, setDiagnosis] = useState<DrawingDiagnosis | null>(null);
 
   const template = templates[0];
   const templateLength = useMemo(() => template.strokes.reduce((a, s) => a + pathLength(s), 0), [template]);
@@ -83,28 +92,32 @@ export function WritingCanvas({
   }, []);
 
   const redraw = useCallback(
-    (color: string) => {
+    (color: string, off?: boolean[][]) => {
       const canvas = canvasRef.current;
       const ctx = setupContext();
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, 100, 100);
       ctx.strokeStyle = color;
       ctx.fillStyle = color;
-      for (const s of strokesRef.current) {
+      strokesRef.current.forEach((s, si) => {
         if (s.length === 1) {
+          ctx.fillStyle = off?.[si]?.[0] ? INK.off : color;
           ctx.beginPath();
           ctx.arc(s[0].x, s[0].y, s[0].w / 2, 0, Math.PI * 2);
           ctx.fill();
-          continue;
+          return;
         }
         for (let i = 1; i < s.length; i++) {
-          ctx.lineWidth = (s[i - 1].w + s[i].w) / 2;
+          // Мастилото извън буквата — по-наситено и по-дебело, за да се вижда къде е грешката.
+          const isOff = off?.[si]?.[i] || off?.[si]?.[i - 1];
+          ctx.strokeStyle = isOff ? INK.off : color;
+          ctx.lineWidth = ((s[i - 1].w + s[i].w) / 2) * (isOff ? 1.35 : 1);
           ctx.beginPath();
           ctx.moveTo(s[i - 1].x, s[i - 1].y);
           ctx.lineTo(s[i].x, s[i].y);
           ctx.stroke();
         }
-      }
+      });
     },
     [setupContext],
   );
@@ -120,16 +133,22 @@ export function WritingCanvas({
       if (canvas.width !== size) {
         canvas.width = size;
         canvas.height = size;
-        redraw(inkColor);
+        redraw(inkColor, diagnosis?.offShape);
       }
     };
     resize();
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);
     return () => ro.disconnect();
-  }, [redraw, inkColor]);
+  }, [redraw, inkColor, diagnosis]);
 
-  useEffect(() => redraw(inkColor), [inkColor, redraw]);
+  // При грешка показваме къде: мастилото извън буквата и липсващите части.
+  useEffect(() => {
+    if (feedback === "wrong") setDiagnosis(diagnoseDrawing(strokesRef.current, templates[0], difficulty));
+    else setDiagnosis(null);
+  }, [feedback, templates, difficulty]);
+
+  useEffect(() => redraw(inkColor, diagnosis?.offShape), [inkColor, redraw, diagnosis]);
 
   const clearTimers = () => {
     timers.current.forEach(clearTimeout);
@@ -174,16 +193,14 @@ export function WritingCanvas({
 
   const scheduleAutoCheck = () => {
     clearTimers();
+    if (!autoCheck) return;
     const ink = strokesRef.current.reduce((a, s) => a + pathLength(s), 0);
-    if (strokesRef.current.length < minStrokes || ink < templateLength * 0.6) {
-      timers.current.push(setTimeout(check, IDLE_CHECK_MS));
-      return;
-    }
+    const looksComplete = strokesRef.current.length >= minStrokes && ink >= templateLength * 0.6;
     timers.current.push(
       setTimeout(() => {
         const { score } = evaluate();
         if (isPassing(score, difficulty)) finish(score);
-        else timers.current.push(setTimeout(check, IDLE_CHECK_MS - AUTO_CHECK_MS));
+        else timers.current.push(setTimeout(check, (looksComplete ? DONE_CHECK_MS : IDLE_CHECK_MS) - AUTO_CHECK_MS));
       }, AUTO_CHECK_MS),
     );
   };
@@ -240,8 +257,15 @@ export function WritingCanvas({
     scheduleAutoCheck();
   };
 
+  // След проверка винаги показваме буквата: зелена при успех, а при грешка — за да се види разминаването.
   const guideMode: GuideMode =
-    hint !== "none" ? "solid" : !showGuide || difficulty === "hard" ? "none" : difficulty === "easy" ? "solid" : "dashed";
+    hint !== "none" || feedback !== null
+      ? "solid"
+      : !showGuide || difficulty === "hard"
+        ? "none"
+        : difficulty === "easy"
+          ? "solid"
+          : "dashed";
 
   return (
     <div
@@ -257,6 +281,8 @@ export function WritingCanvas({
         mode={guideMode}
         showArrows={guideMode === "solid" && (difficulty === "easy" || hint !== "none")}
         showStart={guideMode !== "none" && !feedback}
+        celebrate={feedback === "correct"}
+        missed={diagnosis?.missed}
         animation={hint}
         animationKey={hintKey}
         reduceMotion={reduceMotion}

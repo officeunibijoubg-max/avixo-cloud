@@ -8,8 +8,10 @@ import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { pickOne } from "@/lib/random";
 import { WriteRoundGame } from "@/components/games/WriteRoundGame";
+import { Illustration } from "@/components/illustrations/Illustration";
 
-const ANIMALS = ["🐞", "🐥", "🐸", "🐰", "🐟", "🦋", "🐢", "🐝"];
+// Какво броим — илюстрации в стила на Лъвчо.
+const ANIMALS = ["ladybug", "duckling", "frog", "bunny", "kitten", "elephant", "teddy", "deer"];
 
 /** Игра 8 — „Цифрово броене“: преброй животните и напиши числото. */
 export default function CountWriteGame() {
@@ -21,9 +23,9 @@ export default function CountWriteGame() {
   const visual = useCallback((l: CharacterLesson) => {
     const animal = ANIMALS[Number(l.id) % ANIMALS.length];
     return (
-      <div className="card-soft grid grid-cols-3 place-items-center gap-2 rounded-3xl bg-white p-4 text-5xl shadow-md sm:text-6xl" aria-hidden>
+      <div className="card-soft grid grid-cols-3 place-items-center gap-2 rounded-3xl bg-white p-4 shadow-md" aria-hidden>
         {Array.from({ length: l.count ?? 0 }, (_, i) => (
-          <span key={i}>{animal}</span>
+          <Illustration key={i} name={animal} size={64} />
         ))}
       </div>
     );

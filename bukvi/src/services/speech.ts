@@ -1,6 +1,7 @@
 import type { CharacterLesson } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { phrases } from "@/content/phrases";
+import { DEFAULT_TTS_SPELLING, type TtsSpelling } from "@/config/speech";
 
 // Слой за говор. Екраните викат само speakCharacter / speakWord / speakPhrase.
 // Днес говори Web Speech API; утре — записани .mp3 файлове, без промяна в екраните.
@@ -87,7 +88,25 @@ class WebSpeechEngine implements SpeechEngine {
 
 // ───────────────────────── публичен API ─────────────────────────
 
-const state = { enabled: true, volume: 0.8 };
+const state: { enabled: boolean; volume: number; spelling: TtsSpelling } = {
+  enabled: true,
+  volume: 0.8,
+  spelling: DEFAULT_TTS_SPELLING,
+};
+
+// Самостоятелна сричка „съгласна + ъ“ или самотна „ъ“ (звукът на буква, а не част от дума).
+const LETTER_SOUND = /(^|[\s.,!?„“"])([бвгджзклмнпрстфхцчшщ]?ъ)(?=$|[\s.,!?„“"])/giu;
+
+/** Пренаписва звуковете на буквите така, че синтезаторът да ги каже, а не да ги спелува. */
+export function prepareForTts(text: string, spelling: TtsSpelling = state.spelling): string {
+  if (spelling === "plain") return text;
+  return text.replace(LETTER_SOUND, (_, before: string, sound: string) => {
+    const s = sound.toLowerCase();
+    if (spelling === "double") return before + s + "ъ";
+    if (spelling === "accent") return before + s + "\u0300";
+    return before + s;
+  });
+}
 let engines: SpeechEngine[] | null = null;
 
 function getEngines(): SpeechEngine[] {
@@ -95,9 +114,10 @@ function getEngines(): SpeechEngine[] {
   return engines;
 }
 
-export function configureSpeech(opts: { enabled: boolean; volume: number }) {
+export function configureSpeech(opts: { enabled: boolean; volume: number; spelling?: TtsSpelling }) {
   state.enabled = opts.enabled;
   state.volume = opts.volume;
+  if (opts.spelling) state.spelling = opts.spelling;
   if (!opts.enabled) cancelSpeech();
 }
 
@@ -107,10 +127,12 @@ export function hasBulgarianVoice(): boolean {
   return getEngines().some((e) => e instanceof WebSpeechEngine && e.canSpeak());
 }
 
-export function speakPhrase(text: string): Promise<void> {
+export function speakPhrase(text: string, spelling: TtsSpelling = state.spelling): Promise<void> {
   if (!state.enabled || typeof window === "undefined") return Promise.resolve();
   const engine = getEngines().find((e) => e.canSpeak(text));
-  return engine ? engine.speak(text, state.volume) : Promise.resolve();
+  if (!engine) return Promise.resolve();
+  // Записите се търсят по оригиналния текст; на синтезатора подаваме пренаписания.
+  return engine.speak(engine instanceof WebSpeechEngine ? prepareForTts(text, spelling) : text, state.volume);
 }
 
 export function cancelSpeech() {
@@ -123,5 +145,10 @@ export const speakCharacter = (lesson: CharacterLesson) => speakPhrase(lesson.sp
 
 export const speakWord = (word: string) => speakPhrase(word);
 
-export const speakWriteTask = (lesson: CharacterLesson) =>
-  speakPhrase(lesson.type === "letter" ? phrases.writeLetter(lesson.spokenName) : phrases.writeNumber(lesson.spokenName));
+/** „Проследи буквата А.“ (с шаблон) или „Напиши буквата А.“ (без шаблон). */
+export const writeTaskText = (lesson: CharacterLesson, trace: boolean) =>
+  lesson.type === "letter"
+    ? (trace ? phrases.traceLetter : phrases.writeLetter)(lesson.spokenName)
+    : (trace ? phrases.traceNumber : phrases.writeNumber)(lesson.spokenName);
+
+export const speakWriteTask = (lesson: CharacterLesson, trace = false) => speakPhrase(writeTaskText(lesson, trace));

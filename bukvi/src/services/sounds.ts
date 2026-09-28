@@ -87,3 +87,38 @@ export function playSound(name: SoundName) {
     osc.stop(now + n.t + n.d + 0.05);
   }
 }
+
+// ───────────────────────── фонова музика ─────────────────────────
+// Тиха, бавна мелодия от пентатоника — без файлове. Тръгва след първото докосване
+// (браузърите не пускат звук преди това) и спира веднага при изключване.
+
+const MELODY = [523.25, 587.33, 659.25, 783.99, 880, 783.99, 659.25, 587.33, 523.25, 440, 523.25, 659.25];
+let musicTimer: ReturnType<typeof setInterval> | null = null;
+let musicStep = 0;
+
+function musicTick() {
+  const ac = getContext();
+  if (!ac || ac.state !== "running") return;
+  const now = ac.currentTime + 0.02;
+  const osc = ac.createOscillator();
+  const g = ac.createGain();
+  osc.type = "sine";
+  osc.frequency.value = MELODY[musicStep % MELODY.length] / 2;
+  musicStep += 1;
+  const peak = 0.035 * state.volume;
+  g.gain.setValueAtTime(0, now);
+  g.gain.linearRampToValueAtTime(peak, now + 0.08);
+  g.gain.exponentialRampToValueAtTime(0.0005, now + 0.9);
+  osc.connect(g).connect(ac.destination);
+  osc.start(now);
+  osc.stop(now + 1);
+}
+
+export function setMusic(enabled: boolean) {
+  if (typeof window === "undefined") return;
+  if (enabled && !musicTimer) musicTimer = setInterval(musicTick, 700);
+  if (!enabled && musicTimer) {
+    clearInterval(musicTimer);
+    musicTimer = null;
+  }
+}

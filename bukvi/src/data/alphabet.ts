@@ -24,10 +24,10 @@ export const letterLessons: CharacterLesson[] = ALPHABET.map((character) => {
     character,
     type: "letter",
     spokenName: w.spokenName,
-    spokenText: phrases.letterIntro(w.spokenName, w.word),
+    spokenText: w.inWord ? phrases.letterInWord(w.spokenName, w.inWord) : phrases.letterIntro(w.spokenName, w.word),
     exampleWord: w.word,
     exampleImage: w.image,
-    note: w.note,
+    inWord: w.inWord,
     templates: letterTemplates[character],
   };
 });

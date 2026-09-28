@@ -5,36 +5,60 @@ const pick = <T,>(list: readonly T[]): T => list[Math.floor(Math.random() * list
 
 export const phrases = {
   // Урок
-  // Изговаряме името на буквата и в двете части — синтезаторът чете самотна „Б“ като „бе“.
+  // Изговаряме звука на буквата и в двете части — синтезаторът чете самотна „Б“ като „бе“.
   letterIntro: (spoken: string, word?: string) =>
-    word ? `${spoken}. ${spoken} като ${word}.` : `${spoken}.`,
-  numberIntro: (name: string) => `${name}.`,
+    word ? `Това е ${spoken}. ${spoken} като ${word}.` : `Това е ${spoken}.`,
+  /** За букви, с които не започва дума (Ь): „Виждаме го в думата синьо.“ */
+  letterInWord: (spoken: string, word: string) => `Това е ${spoken}. Виждаме го в думата ${word}.`,
+  numberIntro: (name: string) => `Това е ${name.toLowerCase()}.`,
   writeLetter: (spoken: string) => `Напиши буквата ${spoken}.`,
   writeNumber: (char: string) => `Напиши числото ${char}.`,
+  traceLetter: (spoken: string) => `Проследи буквата ${spoken}.`,
+  traceNumber: (name: string) => `Проследи числото ${name.toLowerCase()}.`,
   /** „А като “ — думата след него се оцветява отделно. */
   asPrefix: (char: string) => `${char} като `,
 
   // Обратна връзка
-  correctFor: (kind: "letter" | "number", spoken: string) =>
-    kind === "letter" ? `Браво! Това е буквата ${spoken}!` : `Браво! Това е числото ${spoken}!`,
+  correctFor: (_kind: "letter" | "number", spoken: string) => `Браво! Написа ${spoken}!`,
+  bravoPoints: (coins: number) => `Браво! +${coins} 🪙`,
   praise: () => pick(["Браво!", "Страхотно!", "Супер!", "Много добре!", "Отлично!"] as const),
-  almost: "Почти! Опитай още веднъж.",
+  almost: "Почти! Нека опитаме пак.",
+  /** Кратко, видимо обяснение къде е грешката. */
+  showWhere: "Виж къде излезе от буквата.",
   encourage: () => pick(["Опитай пак.", "Почти успя!", "Можеш го!"] as const),
   hintFollow: "Следвай звездичката.",
   hintWatch: "Гледай как се пише.",
   tooLittle: "Напиши цялата буква.",
-  starEarned: "Спечели звезда!",
-  rewardUnlocked: (name: string) => `Нова награда: ${name}!`,
+  starEarned: "Нова звезда!",
+  levelUp: (level: number) => `Ниво ${level}! Браво!`,
+  stickerEarned: "Нов стикер за албума!",
+  bought: (name: string) => `Купи ${name}! Супер!`,
+  needCoins: (n: number) => `Трябват още ${n} монети. Поиграй още малко!`,
 
   // Маскот
   greeting: (name: string) => `Здравей! Аз съм ${name}. Хайде да играем!`,
   pickLetter: "Избери буква!",
+  mapHello: "Натисни точката до мен и продължаваме!",
+  lockedNode: "Първо мини предишната точка!",
+  lockedWorld: "Този свят се отключва, когато минеш предишния!",
+  comingSoon: "Скоро!",
+  pickWorld: "Къде ще пътуваме днес?",
   pickNumber: "Избери цифра!",
   pickGame: "На какво ще играем?",
+
+  // Днешно приключение
+  adventureToday: (spoken: string) => `Днес ще научим ${spoken}!`,
+  adventureListen: "Чуй буквата. Натисни високоговорителя!",
+  adventureWriteAlone: (spoken: string) => `Сега напиши ${spoken} без помощ!`,
+  adventurePicture: (spoken: string) => `Коя картинка започва с ${spoken}?`,
+  adventurePictureIn: (spoken: string) => `В коя картинка се крие ${spoken}?`,
+  adventureDone: "Мисията е изпълнена! Ето ти стикер!",
+  adventureAgain: "Днешното приключение е минато. Можеш да играеш пак!",
 
   // Игри
   findLetter: (spoken: string) => `Намери буквата ${spoken}.`,
   findNumber: (name: string) => `Намери числото ${name}.`,
+  findHeard: "Слушай и намери буквата! 👂",
   startsWith: (word: string) => `${word}. С коя буква започва ${word}?`,
   startsWithQuestion: (word: string) => `С коя буква започва ${word}?`,
   popBalloon: (spoken: string) => `Спукай балона с буквата ${spoken}.`,
@@ -69,7 +93,7 @@ export const ui = {
   back: "Назад",
   home: "Начало",
   again: "Пак",
-  points: "точки",
+  coins: "монети",
   stars: "звезди",
   level: "Ниво",
   streak: "поредни",

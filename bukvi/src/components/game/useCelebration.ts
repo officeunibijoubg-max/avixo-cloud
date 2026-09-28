@@ -7,7 +7,7 @@ import { speakPhrase } from "@/services/speech";
 import { phrases } from "@/content/phrases";
 import type { Celebration } from "./RewardAnimation";
 
-/** Показва награда след верен отговор: конфети, точки, звезда, нова награда — със звуци. */
+/** Показва награда след верен отговор: конфети, монети, звезда, ниво или стикер — със звуци. */
 export function useCelebration() {
   const [celebration, setCelebration] = useState<Celebration | null>(null);
   const seq = useRef(0);
@@ -17,15 +17,18 @@ export function useCelebration() {
     setCelebration({ id: seq.current, ...delta });
     playSound("confetti");
     if (delta.starsGained > 0) setTimeout(() => playSound("star"), 500);
-    if (delta.newRewards.length > 0) {
+    if (delta.levelUp || delta.sticker) {
       setTimeout(() => {
-        playSound("reward");
-        void speakPhrase(phrases.rewardUnlocked(delta.newRewards[0].name));
+        playSound(delta.levelUp ? "levelUp" : "reward");
+        void speakPhrase(delta.sticker ? phrases.stickerEarned : phrases.levelUp(delta.levelUp as number));
       }, 1600);
     }
   }, []);
 
-  const closeReward = useCallback(() => setCelebration((c) => (c ? { ...c, newRewards: [] } : c)), []);
+  const closeReward = useCallback(
+    () => setCelebration((c) => (c ? { ...c, levelUp: undefined, sticker: undefined } : c)),
+    [],
+  );
 
   return { celebration, celebrate, closeReward };
 }

@@ -1,21 +1,29 @@
 import type { CharacterProgress, PlayerProgress } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { POINTS } from "@/config/points";
-import type { Reward } from "@/data/rewards";
-import { levelForPoints, rewardsForStars, starsForPoints } from "./rewards";
+import { LEVELS } from "@/data/lessons";
+import { getShopItem, STICKERS } from "@/data/shop";
 
 // Чисти функции върху прогреса — лесни за тест и за бъдещ cloud sync.
+//
+// Три отделни системи с ясен смисъл:
+//   ⭐ звезди — колко добре е усвоен всеки урок (0–3 на символ);
+//   🪙 монети — печелят се от писане и игри и се харчат в магазина;
+//   ниво — общият напредък: колко групи символи са минати.
 
 export const emptyProgress = (): PlayerProgress => ({
-  totalPoints: 0,
-  stars: 0,
-  level: 1,
+  coins: 0,
+  coinsEarned: 0,
   streak: 0,
   bestStreak: 0,
-  unlockedRewards: [],
   characters: {},
   exercises: 0,
   gamesPlayed: 0,
+  owned: [],
+  equipped: {},
+  stickers: [],
+  playSeconds: {},
+  adventuresDone: [],
 });
 
 const emptyChar = (character: string): CharacterProgress => ({
@@ -27,41 +35,60 @@ const emptyChar = (character: string): CharacterProgress => ({
   mastered: false,
 });
 
+// ───────────────────────── звезди ─────────────────────────
+
+/** 1⭐ — написал я е вярно; 2⭐ — поне 2 пъти и добре; 3⭐ — поне 3 пъти и отлично. */
+export function lessonStars(c: CharacterProgress | undefined): number {
+  if (!c || c.correct === 0) return 0;
+  if (c.correct >= 3 && c.bestScore >= 85) return 3;
+  if (c.correct >= 2 && c.bestScore >= 75) return 2;
+  return 1;
+}
+
+export const starsFor = (p: PlayerProgress, character: string) => lessonStars(p.characters[character]);
+
+export const totalStars = (p: PlayerProgress) =>
+  Object.values(p.characters).reduce((a, c) => a + lessonStars(c), 0);
+
+// ───────────────────────── ниво ─────────────────────────
+
+/** Ниво = 1 + броят групи (от LEVELS), в които всеки символ има поне една ⭐. */
+export function levelOf(p: PlayerProgress): number {
+  const done = LEVELS.filter((l) => l.characters.every((c) => starsFor(p, c) > 0)).length;
+  return 1 + done;
+}
+
+export const MAX_LEVEL = LEVELS.length + 1;
+
+// ───────────────────────── записи ─────────────────────────
+
 export type ProgressDelta = {
-  points: number;
+  coins: number;
+  /** С колко звезди се е вдигнал урокът (0, ако не се е вдигнал). */
   starsGained: number;
-  newRewards: Reward[];
+  /** Ново ниво, ако е достигнато. */
+  levelUp?: number;
+  /** Нов стикер (от Днешно приключение). */
+  sticker?: string;
 };
 
-/** Точките за верен опит според това кой поред е и дали е имало подсказка. */
+/** Монети за верен опит според това кой поред е и дали е имало подсказка. */
 export function pointsForAttempt(attempt: number, hintShown: boolean): number {
   if (hintShown) return POINTS.afterHint;
   return attempt <= 1 ? POINTS.firstTry : attempt === 2 ? POINTS.secondTry : POINTS.afterHint;
 }
 
-function addPoints(p: PlayerProgress, points: number): { progress: PlayerProgress; delta: ProgressDelta } {
-  const totalPoints = p.totalPoints + points;
-  const stars = starsForPoints(totalPoints);
-  const earned = rewardsForStars(stars).filter((r) => !p.unlockedRewards.includes(r.id));
-  return {
-    progress: {
-      ...p,
-      totalPoints,
-      stars,
-      level: levelForPoints(totalPoints),
-      unlockedRewards: [...p.unlockedRewards, ...earned.map((r) => r.id)],
-    },
-    delta: { points, starsGained: stars - p.stars, newRewards: earned },
-  };
+function earn(p: PlayerProgress, coins: number): PlayerProgress {
+  return { ...p, coins: p.coins + coins, coinsEarned: p.coinsEarned + coins };
 }
 
-/** Записва един опит за изписване. Грешен опит не отнема точки — само нулира поредицата. */
+/** Записва един опит за изписване. Грешен опит не отнема нищо — само нулира поредицата. */
 export function recordWriting(
   p: PlayerProgress,
   character: string,
   score: number,
   isCorrect: boolean,
-  points: number,
+  coins: number,
 ): { progress: PlayerProgress; delta: ProgressDelta } {
   const prev = p.characters[character] ?? emptyChar(character);
   const correct = prev.correct + (isCorrect ? 1 : 0);
@@ -75,22 +102,101 @@ export function recordWriting(
     mastered: prev.mastered || (correct >= APP_CONFIG.masteryCorrect && bestScore >= APP_CONFIG.masteryScore),
   };
   const streak = isCorrect ? p.streak + 1 : 0;
-  const base: PlayerProgress = {
-    ...p,
-    streak,
-    bestStreak: Math.max(p.bestStreak, streak),
-    exercises: p.exercises + 1,
-    characters: { ...p.characters, [character]: ch },
+  const next: PlayerProgress = earn(
+    {
+      ...p,
+      streak,
+      bestStreak: Math.max(p.bestStreak, streak),
+      exercises: p.exercises + 1,
+      characters: { ...p.characters, [character]: ch },
+    },
+    isCorrect ? coins : 0,
+  );
+  const levelBefore = levelOf(p);
+  const levelAfter = levelOf(next);
+  return {
+    progress: next,
+    delta: {
+      coins: isCorrect ? coins : 0,
+      starsGained: lessonStars(ch) - lessonStars(prev),
+      levelUp: levelAfter > levelBefore ? levelAfter : undefined,
+    },
   };
-  return addPoints(base, isCorrect ? points : 0);
 }
 
 /** Верен или грешен избор в минигра. */
 export function recordGameAnswer(p: PlayerProgress, isCorrect: boolean): { progress: PlayerProgress; delta: ProgressDelta } {
   const streak = isCorrect ? p.streak + 1 : 0;
-  const base = { ...p, streak, bestStreak: Math.max(p.bestStreak, streak) };
-  return addPoints(base, isCorrect ? POINTS.miniGameCorrect : 0);
+  const coins = isCorrect ? POINTS.miniGameCorrect : 0;
+  return {
+    progress: earn({ ...p, streak, bestStreak: Math.max(p.bestStreak, streak) }, coins),
+    delta: { coins, starsGained: 0 },
+  };
+}
+
+// ───────────────────────── магазин ─────────────────────────
+
+export type BuyResult = { ok: true; progress: PlayerProgress } | { ok: false; reason: "owned" | "coins" | "unknown" };
+
+export function buyItem(p: PlayerProgress, id: string): BuyResult {
+  const item = getShopItem(id);
+  if (!item) return { ok: false, reason: "unknown" };
+  if (p.owned.includes(id)) return { ok: false, reason: "owned" };
+  if (p.coins < item.price) return { ok: false, reason: "coins" };
+  const progress: PlayerProgress = { ...p, coins: p.coins - item.price, owned: [...p.owned, id] };
+  // Новата вещ веднага се слага — детето вижда за какво е платило.
+  return { ok: true, progress: equipItem(progress, id) };
+}
+
+/** Слага или сваля аксесоар/фон. Играчките и приятелите не се „обличат“. */
+export function equipItem(p: PlayerProgress, id: string | null, slot?: "accessory" | "background"): PlayerProgress {
+  if (id === null) return slot ? { ...p, equipped: { ...p.equipped, [slot]: undefined } } : p;
+  const item = getShopItem(id);
+  if (!item || !p.owned.includes(id)) return p;
+  if (item.category === "accessory") return { ...p, equipped: { ...p.equipped, accessory: id } };
+  if (item.category === "background") return { ...p, equipped: { ...p.equipped, background: id } };
+  return p;
+}
+
+// ───────────────────────── стикери и време ─────────────────────────
+
+export const todayKey = (d = new Date()) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+/** Завършено Днешно приключение: нов стикер (следващият, който още няма) и бонус монети. */
+export function completeAdventure(p: PlayerProgress, day = todayKey()): { progress: PlayerProgress; delta: ProgressDelta } {
+  const sticker = STICKERS.find((s) => !p.stickers.includes(s)) ?? STICKERS[p.stickers.length % STICKERS.length];
+  const coins = POINTS.adventureBonus;
+  const progress = earn(
+    {
+      ...p,
+      stickers: p.stickers.includes(sticker) ? p.stickers : [...p.stickers, sticker],
+      adventuresDone: p.adventuresDone.includes(day) ? p.adventuresDone : [...p.adventuresDone, day],
+    },
+    coins,
+  );
+  return { progress, delta: { coins, starsGained: 0, sticker } };
+}
+
+export function addPlayTime(p: PlayerProgress, seconds: number, day = todayKey()): PlayerProgress {
+  return { ...p, playSeconds: { ...p.playSeconds, [day]: (p.playSeconds[day] ?? 0) + seconds } };
 }
 
 /** Точност за символ в проценти (за родителския екран). */
 export const accuracy = (c: CharacterProgress) => (c.attempts ? Math.round((c.correct / c.attempts) * 100) : 0);
+
+/** Прехвърля стар запис (с точки и звезди на всеки 50 точки) към новия модел. */
+export function migrateProgress(old: Record<string, unknown>): PlayerProgress {
+  const base = { ...emptyProgress(), ...(old as Partial<PlayerProgress>) };
+  const legacyPoints = typeof old.totalPoints === "number" ? old.totalPoints : 0;
+  if (!("coins" in old)) {
+    base.coins = legacyPoints;
+    base.coinsEarned = legacyPoints;
+  }
+  const cleaned = base as PlayerProgress & Record<string, unknown>;
+  delete cleaned.totalPoints;
+  delete cleaned.stars;
+  delete cleaned.level;
+  delete cleaned.unlockedRewards;
+  return cleaned;
+}

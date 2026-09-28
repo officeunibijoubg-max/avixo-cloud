@@ -303,3 +303,49 @@ export function gradeFor(score: number): ScoreGrade {
 }
 
 export const isPassing = (score: number, difficulty: Difficulty) => score >= TOLERANCE[difficulty].passScore;
+
+// ───────────────────────── обяснение на грешката ─────────────────────────
+
+export type DrawingDiagnosis = {
+  /** За всяка точка от всяко движение на детето: излязла ли е извън формата. */
+  offShape: boolean[][];
+  /** Парчетата от шаблона, през които детето не е минало. */
+  missed: Stroke[];
+};
+
+/**
+ * Показва на детето къде е сгрешило: кое мастило е извън буквата и коя част
+ * от буквата липсва. Сравнява по мястото на екрана, защото там детето гледа.
+ */
+export function diagnoseDrawing(strokes: Stroke[], template: StrokeTemplate, difficulty: Difficulty): DrawingDiagnosis {
+  const tol = TOLERANCE[difficulty];
+  const limit = (tol.near + tol.far) / 2;
+  const { samples } = sampleTemplate(template);
+  // Сгъстяваме мастилото, за да не „пропуснем“ части между две далечни точки.
+  const userPts = strokes.flatMap((s) => resample(s, 1.5));
+
+  const offShape = strokes.map((s) =>
+    s.map((pt) => {
+      let best = Infinity;
+      for (const t of samples) best = Math.min(best, dist(t, pt));
+      return best > limit;
+    }),
+  );
+
+  const missed: Stroke[] = [];
+  let run: Stroke = [];
+  samples.forEach((s, i) => {
+    let best = Infinity;
+    for (const u of userPts) best = Math.min(best, dist(s, u));
+    const isMissed = best > limit;
+    if (isMissed) run.push({ x: s.x, y: s.y });
+    const next = samples[i + 1];
+    if (!isMissed || !next || next.stroke !== s.stroke) {
+      // Много късите пропуски са шум, не ги показваме.
+      if (run.length >= 3) missed.push(run);
+      run = [];
+    }
+  });
+
+  return { offShape, missed };
+}

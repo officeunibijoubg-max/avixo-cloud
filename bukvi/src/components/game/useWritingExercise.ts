@@ -13,14 +13,22 @@ import type { WritingCanvasHandle, WritingFeedback } from "./WritingCanvas";
 import type { MascotMood } from "./Mascot";
 import { useCelebration } from "./useCelebration";
 
-const WRONG_PAUSE_MS = 1600;
+// Достатъчно дълго, за да се види къде детето е излязло от буквата.
+const WRONG_PAUSE_MS = 2800;
 
 /**
  * Цялата логика на един опит за изписване: оценка → зелено/червено,
  * точки, говор, нов опит, подсказка след 2 грешки и демонстрация след 3.
  * Ползва се от урока и от игрите с писане, за да не се дублира.
  */
-export function useWritingExercise(lesson: CharacterLesson, opts: { onSolved?: (result: WritingResult) => void } = {}) {
+export function useWritingExercise(
+  lesson: CharacterLesson,
+  opts: {
+    onSolved?: (result: WritingResult) => void;
+    /** Звездичката показва движението веднага в началото (лесен режим). */
+    introHint?: boolean;
+  } = {},
+) {
   const canvasRef = useRef<WritingCanvasHandle>(null);
   const recordWriting = useGameStore((s) => s.recordWriting);
   const { celebration, celebrate, closeReward } = useCelebration();
@@ -37,17 +45,19 @@ export function useWritingExercise(lesson: CharacterLesson, opts: { onSolved?: (
   const onSolvedRef = useRef(opts.onSolved);
   onSolvedRef.current = opts.onSolved;
 
+  const introHint = opts.introHint ?? false;
   const reset = useCallback(() => {
     if (pending.current) clearTimeout(pending.current);
     canvasRef.current?.clear();
     setAttempt(1);
     setFails(0);
     setFeedback(null);
-    setHint("none");
+    setHint(introHint ? "star" : "none");
+    setHintKey((k) => k + 1);
     setLabel(null);
     setMood("happy");
     setSolved(false);
-  }, []);
+  }, [introHint]);
 
   // Нов символ → нова задача.
   useEffect(() => reset(), [lesson.id, reset]);
@@ -57,7 +67,7 @@ export function useWritingExercise(lesson: CharacterLesson, opts: { onSolved?: (
     setHint(kind);
     setHintKey((k) => k + 1);
     setLabel(kind === "demo" ? phrases.hintWatch : feedbackLabels.hint);
-    setMood("think");
+    setMood("point");
     void speakPhrase(kind === "demo" ? phrases.hintWatch : phrases.hintFollow);
   }, []);
 
@@ -69,8 +79,8 @@ export function useWritingExercise(lesson: CharacterLesson, opts: { onSolved?: (
         setFeedback("correct");
         setSolved(true);
         setHint("none");
-        setMood("cheer");
-        setLabel(result.grade === "excellent" ? feedbackLabels.excellent : feedbackLabels.correct);
+        setMood(result.grade === "excellent" ? "dance" : "clap");
+        setLabel(phrases.bravoPoints(points));
         playSound("correct");
         celebrate(delta);
         void speakPhrase(phrases.correctFor(lesson.type, lesson.spokenName));
@@ -80,10 +90,10 @@ export function useWritingExercise(lesson: CharacterLesson, opts: { onSolved?: (
 
       recordWriting(lesson.character, result.score, false, 0);
       setFeedback("wrong");
-      setMood("think");
-      setLabel(result.grade === "almost" ? feedbackLabels.almost : feedbackLabels.retry);
+      setMood("encourage");
+      setLabel(phrases.showWhere);
       playSound("wrong");
-      void speakPhrase(result.grade === "almost" ? phrases.almost : phrases.encourage());
+      void speakPhrase(phrases.almost);
 
       const nextFails = fails + 1;
       pending.current = setTimeout(() => {

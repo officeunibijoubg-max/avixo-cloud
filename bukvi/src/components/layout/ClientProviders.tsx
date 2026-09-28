@@ -2,12 +2,14 @@
 
 import { useEffect } from "react";
 import { useGameStore } from "@/store/gameStore";
-import { configureSounds } from "@/services/sounds";
+import { configureSounds, setMusic } from "@/services/sounds";
 import { configureSpeech } from "@/services/speech";
+import { getShopItem } from "@/data/shop";
 
 /** Зарежда прогреса, прилага настройките и регистрира service worker-а. */
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   const settings = useGameStore((s) => s.settings);
+  const backgroundId = useGameStore((s) => s.progress.equipped.background);
 
   useEffect(() => {
     void useGameStore.persist.rehydrate();
@@ -18,12 +20,40 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     configureSounds({ enabled: settings.sound, volume: settings.volume });
-    configureSpeech({ enabled: settings.speech, volume: settings.volume });
+    setMusic(settings.music);
+    configureSpeech({ enabled: settings.speech, volume: settings.volume, spelling: settings.ttsSpelling });
     const root = document.documentElement;
     root.dataset.contrast = String(settings.highContrast);
     root.dataset.large = String(settings.largeUI);
     root.dataset.motion = settings.reduceMotion ? "reduce" : "full";
   }, [settings]);
+
+  // Фонът от магазина се слага на цялата страница.
+  useEffect(() => {
+    const bg = getShopItem(backgroundId ?? "")?.background;
+    if (bg) {
+      document.body.dataset.bg = backgroundId;
+      document.body.style.setProperty("--app-bg", bg);
+    } else {
+      delete document.body.dataset.bg;
+      document.body.style.removeProperty("--app-bg");
+    }
+  }, [backgroundId]);
+
+  // Време за игра (за родителя): броим само когато екранът е видим и детето
+  // е докосвало нещо през последната минута.
+  useEffect(() => {
+    let last = Date.now();
+    const touch = () => (last = Date.now());
+    window.addEventListener("pointerdown", touch);
+    const id = setInterval(() => {
+      if (document.visibilityState === "visible" && Date.now() - last < 60_000) useGameStore.getState().addPlayTime(15);
+    }, 15_000);
+    return () => {
+      window.removeEventListener("pointerdown", touch);
+      clearInterval(id);
+    };
+  }, []);
 
   return <>{children}</>;
 }
