@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { StrokeTemplate } from "@/lib/types";
+import type { Stroke, StrokeTemplate } from "@/lib/types";
 import { measure, toPathD } from "@/lib/polyline";
 
 export type GuideMode = "solid" | "dashed" | "none";
@@ -17,6 +17,10 @@ type Props = {
   animationKey?: number;
   reduceMotion?: boolean;
   onAnimationDone?: () => void;
+  /** Вярно изписване: цялата буква светва зелено. */
+  celebrate?: boolean;
+  /** Частите от буквата, през които детето не е минало (показват се при грешка). */
+  missed?: Stroke[];
 };
 
 const SPEED = { star: 55, demo: 45 }; // единици в секунда
@@ -26,7 +30,18 @@ const PAUSE_BETWEEN = 0.35; // секунди между движенията
  * SVG слой под мастилото: тетрадни линии, светлият шаблон, стрелки,
  * начални точки с номера и анимирана звездичка/молив, които показват как се пише.
  */
-export function StrokeGuide({ template, mode, showArrows, showStart, animation = "none", animationKey = 0, reduceMotion, onAnimationDone }: Props) {
+export function StrokeGuide({
+  template,
+  mode,
+  showArrows,
+  showStart,
+  animation = "none",
+  animationKey = 0,
+  reduceMotion,
+  onAnimationDone,
+  celebrate,
+  missed,
+}: Props) {
   const measured = useMemo(() => template.strokes.map(measure), [template]);
   // Центърът на буквата — номерата на движенията се слагат навън от него, за да не се застъпват.
   const center = useMemo(() => {
@@ -45,7 +60,10 @@ export function StrokeGuide({ template, mode, showArrows, showStart, animation =
     if (reduceMotion) {
       // Без движение: показваме направо целия път.
       setAnim({ stroke: measured.length, dist: 0 });
-      const t = setTimeout(() => doneRef.current?.(), 1200);
+      const t = setTimeout(() => {
+        setAnim(null);
+        doneRef.current?.();
+      }, 2000);
       return () => clearTimeout(t);
     }
     const speed = SPEED[animation];
@@ -70,7 +88,8 @@ export function StrokeGuide({ template, mode, showArrows, showStart, animation =
         }
         t -= PAUSE_BETWEEN;
       }
-      setAnim({ stroke: measured.length, dist: 0 });
+      // Следата изчезва, за да не се бърка с мастилото на детето.
+      setAnim(null);
       doneRef.current?.();
     };
     raf = requestAnimationFrame(tick);
@@ -93,8 +112,8 @@ export function StrokeGuide({ template, mode, showArrows, showStart, animation =
             key={`g${i}`}
             d={toPathD(s)}
             fill="none"
-            stroke={mode === "solid" ? "#e2e8f0" : "#cbd5e1"}
-            strokeWidth={mode === "solid" ? 9 : 1.4}
+            stroke={celebrate ? "#86efac" : mode === "solid" ? "#e2e8f0" : "#cbd5e1"}
+            strokeWidth={mode === "solid" ? (celebrate ? 11 : 9) : 1.4}
             strokeDasharray={mode === "dashed" ? "3 3" : undefined}
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -105,6 +124,23 @@ export function StrokeGuide({ template, mode, showArrows, showStart, animation =
         template.strokes.map((s, i) => (
           <path key={`c${i}`} d={toPathD(s)} fill="none" stroke="#cbd5e1" strokeWidth="0.7" strokeDasharray="1.5 2" strokeLinecap="round" />
         ))}
+
+      {/* Липсващите части: оранжев пунктир, който пулсира. */}
+      {missed && missed.length > 0 && (
+        <g className={reduceMotion ? undefined : "animate-pulse"}>
+          {missed.map((s, i) => (
+            <path
+              key={`m${i}`}
+              d={toPathD(s)}
+              fill="none"
+              stroke="#f97316"
+              strokeWidth="5"
+              strokeOpacity="0.85"
+              strokeLinecap="round"
+            />
+          ))}
+        </g>
+      )}
 
       {showArrows &&
         measured.map((m, i) => {

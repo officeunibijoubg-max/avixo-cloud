@@ -145,5 +145,10 @@ export const speakCharacter = (lesson: CharacterLesson) => speakPhrase(lesson.sp
 
 export const speakWord = (word: string) => speakPhrase(word);
 
-export const speakWriteTask = (lesson: CharacterLesson) =>
-  speakPhrase(lesson.type === "letter" ? phrases.writeLetter(lesson.spokenName) : phrases.writeNumber(lesson.spokenName));
+/** „Проследи буквата А.“ (с шаблон) или „Напиши буквата А.“ (без шаблон). */
+export const writeTaskText = (lesson: CharacterLesson, trace: boolean) =>
+  lesson.type === "letter"
+    ? (trace ? phrases.traceLetter : phrases.writeLetter)(lesson.spokenName)
+    : (trace ? phrases.traceNumber : phrases.writeNumber)(lesson.spokenName);
+
+export const speakWriteTask = (lesson: CharacterLesson, trace = false) => speakPhrase(writeTaskText(lesson, trace));

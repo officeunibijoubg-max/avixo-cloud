@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useGameStore } from "@/store/gameStore";
-import { configureSounds } from "@/services/sounds";
+import { configureSounds, setMusic } from "@/services/sounds";
 import { configureSpeech } from "@/services/speech";
 
 /** Зарежда прогреса, прилага настройките и регистрира service worker-а. */
@@ -18,6 +18,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     configureSounds({ enabled: settings.sound, volume: settings.volume });
+    setMusic(settings.music);
     configureSpeech({ enabled: settings.speech, volume: settings.volume, spelling: settings.ttsSpelling });
     const root = document.documentElement;
     root.dataset.contrast = String(settings.highContrast);

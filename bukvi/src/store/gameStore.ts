@@ -20,6 +20,7 @@ export const defaultSettings: Settings = {
   largeUI: false,
   reduceMotion: false,
   difficulty: "easy",
+  showGuide: true,
   mascot: DEFAULT_MASCOT,
   ttsSpelling: DEFAULT_TTS_SPELLING,
 };

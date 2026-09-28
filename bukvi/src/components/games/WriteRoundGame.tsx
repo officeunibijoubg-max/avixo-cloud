@@ -119,6 +119,7 @@ function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, onSo
             templates={lesson.templates}
             difficulty={difficulty}
             showGuide={false}
+            autoCheck={difficulty !== "hard"}
             attempt={ex.attempt}
             feedback={ex.feedback}
             hint={ex.hint}
@@ -130,7 +131,9 @@ function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, onSo
         {!ex.solved && (
           <div className="flex w-full max-w-[min(100%,76dvh)] gap-3">
             <BigButton icon="🧽" label={ui.clear} onClick={ex.clear} color="bg-amber-100" disabled={ex.locked} />
-            <BigButton icon="✅" label={ui.check} onClick={ex.check} color="bg-leaf text-white" className="flex-1" disabled={ex.locked} />
+            {difficulty === "hard" && (
+              <BigButton icon="✅" label={ui.check} onClick={ex.check} color="bg-leaf text-white" className="flex-1" disabled={ex.locked} />
+            )}
           </div>
         )}
       </section>

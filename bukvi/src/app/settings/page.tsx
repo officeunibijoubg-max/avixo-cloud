@@ -36,6 +36,9 @@ export default function SettingsPage() {
 function SettingsForm() {
   const settings = useGameStore((s) => s.settings);
   const update = useGameStore((s) => s.updateSettings);
+  const resetProgress = useGameStore((s) => s.resetProgress);
+  const [confirmReset, setConfirmReset] = useState(false);
+  const [resetDone, setResetDone] = useState(false);
   const [voice, setVoice] = useState<boolean | null>(null);
 
   // Гласовете се зареждат асинхронно — проверяваме малко по-късно.
@@ -65,8 +68,11 @@ function SettingsForm() {
         ))}
       </div>
 
+      <Toggle icon="✏️" label="Показвай шаблона на буквата" checked={settings.showGuide} onChange={(v) => update({ showGuide: v })} />
+
       <h2 className="mt-4 text-xl font-black">Звук</h2>
       <Toggle icon="🔔" label="Звукови ефекти" checked={settings.sound} onChange={(v) => update({ sound: v })} />
+      <Toggle icon="🎵" label="Тиха музика" checked={settings.music} onChange={(v) => update({ music: v })} />
       <Toggle icon="🗣️" label="Говор" checked={settings.speech} onChange={(v) => update({ speech: v })} />
       {voice === false && (
         <p className="rounded-2xl bg-amber-100 p-3 text-sm font-bold">
@@ -125,6 +131,32 @@ function SettingsForm() {
       <Toggle icon="🌓" label="Висок контраст" checked={settings.highContrast} onChange={(v) => update({ highContrast: v })} />
       <Toggle icon="🔍" label="По-големи елементи" checked={settings.largeUI} onChange={(v) => update({ largeUI: v })} />
       <Toggle icon="🐢" label="Без анимации" checked={settings.reduceMotion} onChange={(v) => update({ reduceMotion: v })} />
+
+      <h2 className="mt-4 text-xl font-black">Прогрес</h2>
+      {resetDone ? (
+        <p className="rounded-2xl bg-green-100 p-4 font-bold">Прогресът е нулиран.</p>
+      ) : confirmReset ? (
+        <div className="flex flex-wrap gap-3">
+          <button
+            type="button"
+            onClick={() => {
+              resetProgress();
+              setConfirmReset(false);
+              setResetDone(true);
+            }}
+            className="rounded-2xl bg-rose-600 px-6 py-3 text-lg font-black text-white"
+          >
+            Да, изтрий целия прогрес
+          </button>
+          <button type="button" onClick={() => setConfirmReset(false)} className="rounded-2xl bg-slate-200 px-6 py-3 text-lg font-bold">
+            Отказ
+          </button>
+        </div>
+      ) : (
+        <button type="button" onClick={() => setConfirmReset(true)} className="self-start rounded-2xl bg-slate-200 px-6 py-3 text-lg font-bold">
+          🗑️ Нулирай прогреса
+        </button>
+      )}
     </div>
   );
 }

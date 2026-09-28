@@ -26,7 +26,14 @@ export function LetterLesson({ lesson }: { lesson: CharacterLesson }) {
             </span>
           </p>
         ) : (
-          <p className="text-muted max-w-xs text-base font-bold text-slate-600 sm:text-lg">{lesson.note}</p>
+          <p className="text-3xl font-extrabold tracking-wide">
+            {/* Буквата в думата е оцветена: „сиНЬо“. */}
+            {(lesson.inWord ?? "").split("").map((ch, i) => (
+              <span key={i} className={ch.toUpperCase() === lesson.character ? "text-violet-600 underline decoration-4 underline-offset-4" : undefined}>
+                {ch}
+              </span>
+            ))}
+          </p>
         )}
       </div>
       <SoundButton size="lg" onPlay={() => void speakCharacter(lesson)} />

@@ -102,3 +102,25 @@ describe("различава символите от демонстрацион�
       });
     }
 });
+
+describe("обяснение на грешката", () => {
+  it("вярната А няма нищо извън формата", async () => {
+    const { diagnoseDrawing } = await import("./scoring");
+    const a = lesson("А");
+    const d = diagnoseDrawing(a.templates[0].strokes, a.templates[0], "easy");
+    expect(d.offShape.flat().some(Boolean)).toBe(false);
+    expect(d.missed).toHaveLength(0);
+  });
+
+  it("А без чертичка: липсва чертичката; драсване встрани е извън формата", async () => {
+    const { diagnoseDrawing } = await import("./scoring");
+    const a = lesson("А");
+    const legs = a.templates[0].strokes.slice(0, 2);
+    const stray = [{ x: 85, y: 20 }, { x: 95, y: 30 }];
+    const d = diagnoseDrawing([...legs, stray], a.templates[0], "easy");
+    expect(d.missed.length).toBeGreaterThan(0);
+    expect(d.missed[0].every((p) => Math.abs(p.y - 60) < 1)).toBe(true);
+    expect(d.offShape[2].every(Boolean)).toBe(true);
+    expect(d.offShape[0].some(Boolean)).toBe(false);
+  });
+});

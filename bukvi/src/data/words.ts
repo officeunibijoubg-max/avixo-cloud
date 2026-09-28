@@ -10,8 +10,10 @@ export type LetterWord = {
    * Как точно да се подаде на синтезатора решава services/speech.ts (виж ttsSpelling).
    */
   spokenName: string;
-  /** За букви без подходяща дума. */
-  note?: string;
+  /** За букви, с които не започва дума (Ь): кратка дума, в която се вижда буквата. */
+  inWord?: string;
+  /** Подробното правило — за родителя, не за детето. */
+  parentNote?: string;
 };
 
 export const letterWords: Record<string, LetterWord> = {
@@ -44,8 +46,9 @@ export const letterWords: Record<string, LetterWord> = {
   Ъ: { word: "ъгъл", image: "📐", spokenName: "Ъ" },
   Ь: {
     spokenName: "Ер малък",
-    note: "Ь не започва дума. Пишем я само след съгласна и преди О: както в „шофьор“ и „синьо“.",
-    image: "🔤",
+    inWord: "синьо",
+    image: "💙",
+    parentNote: "Ь не започва дума. Пише се само след съгласна и пред О: „шофьор“, „синьо“.",
   },
   Ю: { word: "юла", image: "🌀", spokenName: "Ю" },
   Я: { word: "ябълка", image: "🍎", spokenName: "Я" },

@@ -28,8 +28,8 @@ export type CharacterLesson = {
   exampleImage?: string;
   /** За цифрите — колко предмета да покажем. */
   count?: number;
-  /** Кратко обяснение за символи без подходяща дума (Ь). */
-  note?: string;
+  /** Кратка дума, в която се вижда буквата (за Ь, с която не започва дума). */
+  inWord?: string;
   templates: StrokeTemplate[];
 };
 
@@ -76,6 +76,8 @@ export type Settings = {
   largeUI: boolean;
   reduceMotion: boolean;
   difficulty: Difficulty;
+  /** Светлият шаблон на буквата в лесен/нормален режим. */
+  showGuide: boolean;
   /** Ключ от config/mascot.ts. */
   mascot: string;
   /** Как звуците на буквите („Бъ“) се подават на синтезатора — зависи от устройството. */

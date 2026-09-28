@@ -5,20 +5,26 @@ const pick = <T,>(list: readonly T[]): T => list[Math.floor(Math.random() * list
 
 export const phrases = {
   // Урок
-  // Изговаряме името на буквата и в двете части — синтезаторът чете самотна „Б“ като „бе“.
+  // Изговаряме звука на буквата и в двете части — синтезаторът чете самотна „Б“ като „бе“.
   letterIntro: (spoken: string, word?: string) =>
-    word ? `${spoken}. ${spoken} като ${word}.` : `${spoken}.`,
-  numberIntro: (name: string) => `${name}.`,
+    word ? `Това е ${spoken}. ${spoken} като ${word}.` : `Това е ${spoken}.`,
+  /** За букви, с които не започва дума (Ь): „Виждаме го в думата синьо.“ */
+  letterInWord: (spoken: string, word: string) => `Това е ${spoken}. Виждаме го в думата ${word}.`,
+  numberIntro: (name: string) => `Това е ${name.toLowerCase()}.`,
   writeLetter: (spoken: string) => `Напиши буквата ${spoken}.`,
   writeNumber: (char: string) => `Напиши числото ${char}.`,
+  traceLetter: (spoken: string) => `Проследи буквата ${spoken}.`,
+  traceNumber: (name: string) => `Проследи числото ${name.toLowerCase()}.`,
   /** „А като “ — думата след него се оцветява отделно. */
   asPrefix: (char: string) => `${char} като `,
 
   // Обратна връзка
-  correctFor: (kind: "letter" | "number", spoken: string) =>
-    kind === "letter" ? `Браво! Това е буквата ${spoken}!` : `Браво! Това е числото ${spoken}!`,
+  correctFor: (_kind: "letter" | "number", spoken: string) => `Браво! Написа ${spoken}!`,
+  bravoPoints: (points: number) => `Браво! +${points} ⭐`,
   praise: () => pick(["Браво!", "Страхотно!", "Супер!", "Много добре!", "Отлично!"] as const),
-  almost: "Почти! Опитай още веднъж.",
+  almost: "Почти! Нека опитаме пак.",
+  /** Кратко, видимо обяснение къде е грешката. */
+  showWhere: "Виж къде излезе от буквата.",
   encourage: () => pick(["Опитай пак.", "Почти успя!", "Можеш го!"] as const),
   hintFollow: "Следвай звездичката.",
   hintWatch: "Гледай как се пише.",
