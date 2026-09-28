@@ -363,6 +363,72 @@ const ART: Record<string, () => ReactElement> = {
       <path d="M16 58 H84 M19 72 H81 M36 44 L38 86 M50 44 V86 M64 44 L62 86" fill="none" {...line} strokeWidth={2} opacity="0.6" />
     </>
   ),
+  mom: () => (
+    <>
+      <path d="M22 60 Q16 22 50 16 Q84 22 78 60 Q80 80 68 86 H32 Q20 80 22 60 Z" fill="#92400e" {...line} />
+      <circle cx="50" cy="50" r="24" fill="#fed7aa" {...line} />
+      <path d="M28 44 Q34 24 50 26 Q66 24 72 44 Q60 34 50 38 Q40 34 28 44 Z" fill="#92400e" />
+      <Eye x={41} y={50} />
+      <Eye x={59} y={50} />
+      <circle cx="35" cy="58" r="4" fill="#fb7185" opacity="0.5" />
+      <circle cx="65" cy="58" r="4" fill="#fb7185" opacity="0.5" />
+      <path d="M43 62 Q50 69 57 62" fill="#e11d48" {...line} strokeWidth={2} />
+      <path d="M30 90 Q50 76 70 90" fill="#f472b6" {...line} />
+    </>
+  ),
+  grandma: () => (
+    <>
+      <circle cx="50" cy="20" r="11" fill="#e5e7eb" {...line} />
+      <circle cx="50" cy="52" r="26" fill="#fed7aa" {...line} />
+      <path d="M24 50 Q24 26 50 26 Q76 26 76 50 Q64 38 50 40 Q36 38 24 50 Z" fill="#e5e7eb" {...line} />
+      <circle cx="41" cy="52" r="6" fill="#fff" opacity="0.6" {...line} strokeWidth={2} />
+      <circle cx="59" cy="52" r="6" fill="#fff" opacity="0.6" {...line} strokeWidth={2} />
+      <path d="M47 52 H53" {...line} strokeWidth={2} />
+      <circle cx="41" cy="52" r="2.2" fill={O} />
+      <circle cx="59" cy="52" r="2.2" fill={O} />
+      <path d="M43 65 Q50 71 57 65" fill="none" {...line} strokeWidth={2} />
+      <path d="M28 92 Q50 76 72 92" fill="#8b5cf6" {...line} />
+    </>
+  ),
+  eye: () => (
+    <>
+      <path d="M8 50 Q50 10 92 50 Q50 90 8 50 Z" fill="#fff" {...line} />
+      <circle cx="50" cy="50" r="17" fill="#38bdf8" {...line} />
+      <circle cx="50" cy="50" r="8" fill={O} />
+      <circle cx="55" cy="44" r="4" fill="#fff" />
+      <path d="M22 30 L18 22 M36 22 L34 13 M50 19 V10 M64 22 L66 13 M78 30 L82 22" {...line} strokeWidth={2.5} />
+    </>
+  ),
+  house: () => (
+    <>
+      <path d="M18 48 V88 H82 V48" fill="#fde68a" {...line} />
+      <path d="M8 52 L50 16 L92 52 Z" fill="#ef4444" {...line} />
+      <rect x="42" y="62" width="16" height="26" rx="3" fill="#b45309" {...line} />
+      <rect x="24" y="58" width="12" height="12" rx="2" fill="#bae6fd" {...line} />
+      <rect x="64" y="58" width="12" height="12" rx="2" fill="#bae6fd" {...line} />
+      <rect x="66" y="22" width="8" height="14" fill="#94a3b8" {...line} />
+    </>
+  ),
+  horse: () => (
+    <>
+      <path d="M30 88 L32 64 M44 88 L42 66 M62 88 L62 66 M76 88 L74 64" {...line} strokeWidth={7} stroke="#92400e" />
+      <ellipse cx="54" cy="58" rx="28" ry="15" fill="#b45309" {...line} />
+      <path d="M30 52 Q22 30 26 18 L40 16 Q44 34 40 52 Z" fill="#b45309" {...line} />
+      <path d="M24 20 Q12 26 14 36 Q20 40 28 34" fill="#b45309" {...line} />
+      <path d="M40 16 Q48 24 44 44 M42 22 Q50 30 46 48" fill="none" stroke="#1f2937" strokeWidth="5" strokeLinecap="round" />
+      <path d="M82 54 Q94 58 90 76" fill="none" stroke="#1f2937" strokeWidth="5" strokeLinecap="round" />
+      <Eye x={30} y={26} r={2.5} />
+    </>
+  ),
+  water: () => (
+    <>
+      <path d="M24 20 H76 L70 88 H30 Z" fill="#e0f2fe" {...line} />
+      <path d="M27 44 H73 L70 88 H30 Z" fill="#38bdf8" />
+      <path d="M24 20 H76 L70 88 H30 Z" fill="none" {...line} />
+      <path d="M27 44 Q38 38 50 44 Q62 50 73 44" fill="none" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
+      <ellipse cx="38" cy="64" rx="3" ry="8" fill="#fff" opacity="0.6" />
+    </>
+  ),
   letters: () => (
     <>
       <rect x="10" y="30" width="36" height="36" rx="8" fill="#c4b5fd" {...line} />

@@ -1,5 +1,6 @@
 import { ALPHABET } from "./alphabet";
 import { DIGITS } from "./numbers";
+import { WORD_ITEMS } from "./wordsIsland";
 
 // Картата на приключението: светове с точки (по един символ на точка).
 // Детето минава точките подред; следващата се отключва с поне една ⭐ на предишната.
@@ -13,6 +14,8 @@ export type World = {
   /** Цвят на пътеката и фона на картата. */
   theme: { path: string; bg: string; node: string };
   characters: string[];
+  /** Какво има по точките: символи (по подразбиране) или думи. */
+  kind?: "characters" | "words";
   /** Свят, който трябва да е минат, за да се отключи този. */
   requires?: string;
   comingSoon?: boolean;
@@ -48,11 +51,12 @@ export const WORLDS: World[] = [
     id: "words",
     title: "Островът на думите",
     icon: "🏝️",
-    decor: ["🌴", "🐚", "🦀", "⛵"],
+    decor: ["🌴", "🐚", "🦀", "⛵", "🐠", "🌺"],
     theme: { path: "#f9a8d4", bg: "linear-gradient(180deg,#fce7f3,#e0f2fe)", node: "bg-pink-300" },
-    characters: [],
-    requires: "mountain",
-    comingSoon: true,
+    kind: "words",
+    // Думите са само от букви А–П, затова островът се отваря след Гората.
+    characters: WORD_ITEMS.map((w) => w.text),
+    requires: "forest",
   },
 ];
 

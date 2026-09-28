@@ -1,6 +1,7 @@
 import type { CharacterLesson } from "@/lib/types";
 import { letterLessons } from "./alphabet";
 import { numberLessons } from "./numbers";
+import { WORD_ITEMS } from "./wordsIsland";
 
 export const allLessons: CharacterLesson[] = [...numberLessons, ...letterLessons];
 
@@ -28,6 +29,8 @@ export const LEVELS: LevelDef[] = [
   { level: 5, title: "Л – П", characters: ["Л", "М", "Н", "О", "П"] },
   { level: 6, title: "Р – У", characters: ["Р", "С", "Т", "У"] },
   { level: 7, title: "Ф – Я", characters: ["Ф", "Х", "Ц", "Ч", "Ш", "Щ", "Ъ", "Ь", "Ю", "Я"] },
+  { level: 8, title: "Срички", characters: WORD_ITEMS.filter((w) => w.kind === "syllable").map((w) => w.text) },
+  { level: 9, title: "Думи", characters: WORD_ITEMS.filter((w) => w.kind === "word").map((w) => w.text) },
 ];
 
 export { letterLessons, numberLessons };

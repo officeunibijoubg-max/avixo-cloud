@@ -11,7 +11,12 @@ import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
 import { Mascot } from "@/components/game/Mascot";
 
-const HREF: Record<string, string> = { numbers: "/learn/numbers/", forest: "/learn/letters/", mountain: "/learn/letters/#mountain" };
+const HREF: Record<string, string> = {
+  numbers: "/learn/numbers/",
+  forest: "/learn/letters/",
+  mountain: "/learn/letters/#mountain",
+  words: "/learn/words/",
+};
 
 /** Картата на световете: Градът на цифрите, Гората и Планината на буквите, Островът на думите. */
 export default function WorldsPage() {

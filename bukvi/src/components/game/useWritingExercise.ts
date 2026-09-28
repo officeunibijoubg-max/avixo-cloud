@@ -27,6 +27,11 @@ export function useWritingExercise(
     onSolved?: (result: WritingResult) => void;
     /** Звездичката показва движението веднага в началото (лесен режим). */
     introHint?: boolean;
+    /**
+     * Тих успех: без „Браво! Написа…“ и без конфети — за буквите вътре в дума,
+     * където празнуваме цялата дума накрая.
+     */
+    quietSuccess?: boolean;
   } = {},
 ) {
   const canvasRef = useRef<WritingCanvasHandle>(null);
@@ -44,6 +49,8 @@ export function useWritingExercise(
   const pending = useRef<ReturnType<typeof setTimeout> | null>(null);
   const onSolvedRef = useRef(opts.onSolved);
   onSolvedRef.current = opts.onSolved;
+  const quietRef = useRef(opts.quietSuccess ?? false);
+  quietRef.current = opts.quietSuccess ?? false;
 
   const introHint = opts.introHint ?? false;
   const reset = useCallback(() => {
@@ -82,8 +89,10 @@ export function useWritingExercise(
         setMood(result.grade === "excellent" ? "dance" : "clap");
         setLabel(phrases.bravoPoints(points));
         playSound("correct");
-        celebrate(delta);
-        void speakPhrase(phrases.correctFor(lesson.type, lesson.spokenName));
+        if (!quietRef.current) {
+          celebrate(delta);
+          void speakPhrase(phrases.correctFor(lesson.type, lesson.spokenName));
+        }
         onSolvedRef.current?.(result);
         return;
       }

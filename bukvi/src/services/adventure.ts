@@ -38,12 +38,13 @@ export function currentNode(p: PlayerProgress, w: World, unlockAll = false): num
  * ако всички са минати — най-слабо усвоената.
  */
 export function pickAdventureLetter(p: PlayerProgress): string {
-  for (const w of WORLDS.filter((x) => x.id !== "numbers" && !x.comingSoon)) {
+  const letterWorlds = WORLDS.filter((x) => x.id !== "numbers" && x.kind !== "words" && !x.comingSoon);
+  for (const w of letterWorlds) {
     if (!isWorldUnlocked(p, w)) continue;
     const next = w.characters.find((c) => starsFor(p, c) === 0);
     if (next) return next;
   }
-  const letters = WORLDS.filter((x) => x.id !== "numbers").flatMap((w) => w.characters);
+  const letters = letterWorlds.flatMap((w) => w.characters);
   return [...letters].sort((a, b) => {
     const pa = p.characters[a];
     const pb = p.characters[b];
@@ -54,7 +55,7 @@ export function pickAdventureLetter(p: PlayerProgress): string {
 /** Трудните символи: поне 2 опита и под 70% точност, или 1 звезда след много опити. */
 export function hardCharacters(p: PlayerProgress): string[] {
   return Object.values(p.characters)
-    .filter((c) => c.attempts >= 2 && accuracy(c) < 70)
+    .filter((c) => c.character.length === 1 && c.attempts >= 2 && accuracy(c) < 70)
     .sort((a, b) => accuracy(a) - accuracy(b))
     .map((c) => c.character);
 }

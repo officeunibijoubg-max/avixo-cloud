@@ -55,6 +55,13 @@ export const phrases = {
   adventureDone: "Мисията е изпълнена! Ето ти стикер!",
   adventureAgain: "Днешното приключение е минато. Можеш да играеш пак!",
 
+  // Островът на думите
+  wordIntro: (spoken: string, syllable: boolean) =>
+    syllable ? `Това е ${spoken}. Напиши ${spoken} буква по буква.` : `${spoken}. Напиши ${spoken} буква по буква.`,
+  wordNextLetter: (letter: string) => `Сега ${letter}.`,
+  wordDone: (spoken: string) => `Браво! Написа ${spoken}!`,
+  wordTask: (text: string) => `Напиши ${text} буква по буква.`,
+
   // Игри
   findLetter: (spoken: string) => `Намери буквата ${spoken}.`,
   findNumber: (name: string) => `Намери числото ${name}.`,

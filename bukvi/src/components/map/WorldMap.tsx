@@ -4,6 +4,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { World } from "@/data/adventure";
 import { getLessonByChar } from "@/data/lessons";
+import { getWordByText } from "@/data/wordsIsland";
+import { LionSvg } from "@/components/game/LionSvg";
 import { MASCOTS, DEFAULT_MASCOT } from "@/config/mascot";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
@@ -47,8 +49,11 @@ export function WorldMap({ world, onMessage }: { world: World; onMessage?: (text
   }, [hydrated, scrolled, worldOpen]);
 
   const tap = (c: string, i: number) => {
+    // Точката е или символ (урок), или сричка/дума от Острова на думите.
     const lesson = getLessonByChar(c);
-    if (!lesson) return;
+    const word = getWordByText(c);
+    const href = lesson ? `/practice/${lesson.id}/` : word ? `/word/${word.id}/` : null;
+    if (!href) return;
     if (!isNodeUnlocked(progress, world, i, unlockAll)) {
       playSound("wrong");
       const text = worldOpen ? phrases.lockedNode : phrases.lockedWorld;
@@ -57,7 +62,7 @@ export function WorldMap({ world, onMessage }: { world: World; onMessage?: (text
       return;
     }
     playSound("click");
-    router.push(`/practice/${lesson.id}/`);
+    router.push(href);
   };
 
   return (
@@ -104,7 +109,9 @@ export function WorldMap({ world, onMessage }: { world: World; onMessage?: (text
           >
             <span
               className={cn(
-                "relative flex size-20 items-center justify-center rounded-full border-4 border-white text-5xl font-black shadow-[0_6px_0_rgb(0_0_0/0.15)] sm:size-24 sm:text-6xl",
+                "relative flex size-20 items-center justify-center rounded-full border-4 border-white font-black shadow-[0_6px_0_rgb(0_0_0/0.15)] sm:size-24",
+                // Думите са по-дълги — по-малък шрифт, за да се съберат в кръгчето.
+                c.length === 1 ? "text-5xl sm:text-6xl" : c.length === 2 ? "text-3xl sm:text-4xl" : "text-xl sm:text-2xl",
                 !unlocked && "bg-slate-200 text-slate-400",
                 unlocked && stars > 0 && world.theme.node,
                 unlocked && stars === 0 && "bg-white",
@@ -113,8 +120,8 @@ export function WorldMap({ world, onMessage }: { world: World; onMessage?: (text
             >
               {unlocked ? c : "🔒"}
               {isCurrent && (
-                <span className="absolute -right-12 top-0 animate-bob text-5xl" aria-hidden>
-                  {hero}
+                <span className="absolute -right-14 -top-2 text-5xl" aria-hidden>
+                  {mascotKey === "lion" ? <LionSvg pose="point" size={60} /> : hero}
                 </span>
               )}
             </span>

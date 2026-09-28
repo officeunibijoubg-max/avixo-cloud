@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { letterLessons } from "./alphabet";
+import { ALPHABET, letterLessons } from "./alphabet";
+import { WORD_ITEMS } from "./wordsIsland";
 import { numberLessons } from "./numbers";
 import { prepareForTts } from "@/services/speech";
 import { hasIllustration } from "@/components/illustrations/Illustration";
@@ -8,6 +9,12 @@ describe("илюстрациите", () => {
   it("всяка буква и цифра има собствена илюстрация (не системно емоджи)", () => {
     for (const l of [...letterLessons, ...numberLessons])
       expect(hasIllustration(l.exampleImage) || l.exampleImage === "lion", `${l.character}: ${l.exampleImage}`).toBe(true);
+    for (const w of WORD_ITEMS.filter((x) => x.image)) expect(hasIllustration(w.image), w.text).toBe(true);
+  });
+
+  it("думите от Острова са само от букви от Гората (А–П)", () => {
+    const forest = new Set(ALPHABET.slice(0, 16));
+    for (const w of WORD_ITEMS) for (const c of w.text) expect(forest.has(c as never), `${w.text}: ${c}`).toBe(true);
   });
 });
 
