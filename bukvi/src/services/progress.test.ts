@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import {
   buyItem,
+  challengeCount,
+  challengeFor,
   completeAdventure,
+  dayStreak,
   emptyProgress,
   levelOf,
   migrateProgress,
@@ -14,6 +17,7 @@ import {
 import { isCharacterUnlocked, isWorldUnlocked, pickAdventureLetter } from "./adventure";
 import { WORLDS } from "@/data/adventure";
 import { POINTS } from "@/config/points";
+import { CHALLENGE_BONUS } from "@/config/challenges";
 
 const write = (p = emptyProgress(), c: string, score = 90, ok = true) => recordWriting(p, c, score, ok, 10).progress;
 
@@ -80,6 +84,46 @@ describe("ниво и отключване", () => {
     expect(pickAdventureLetter(p)).toBe("А");
     p = write(p, "А");
     expect(pickAdventureLetter(p)).toBe("Б");
+  });
+});
+
+describe("предизвикателство на деня", () => {
+  // Намираме ден, в който предизвикателството е „напиши N букви“.
+  const letterDay = (() => {
+    for (let i = 0; i < 14; i++) {
+      const d = `2026-10-${String(1 + i).padStart(2, "0")}`;
+      if (challengeFor(d).metric === "letters") return d;
+    }
+    throw new Error("няма ден с букви");
+  })();
+
+  it("брои верните букви и дава бонуса веднъж", () => {
+    const goal = challengeFor(letterDay).goal;
+    let p = emptyProgress();
+    let done = 0;
+    for (let i = 0; i < goal + 2; i++) {
+      const r = recordWriting(p, "А", 90, true, 10, letterDay);
+      p = r.progress;
+      if (r.delta.challengeDone) done += 1;
+    }
+    expect(done).toBe(1);
+    expect(challengeCount(p, letterDay)).toBe(goal + 2);
+    expect(p.coins).toBe((goal + 2) * 10 + CHALLENGE_BONUS);
+    expect(p.challengeDays).toEqual([letterDay]);
+  });
+
+  it("грешки и цифри не се броят за букви", () => {
+    let p = recordWriting(emptyProgress(), "А", 20, false, 0, letterDay).progress;
+    p = recordWriting(p, "3", 90, true, 10, letterDay).progress;
+    expect(challengeCount(p, letterDay)).toBe(0);
+  });
+
+  it("поредицата от дни се прекъсва при пропуснат ден", () => {
+    const p = { ...emptyProgress(), challengeDays: ["2026-10-01", "2026-10-02", "2026-10-03", "2026-10-05"] };
+    expect(dayStreak(p, "2026-10-03")).toBe(3);
+    expect(dayStreak(p, "2026-10-04")).toBe(3); // днес още не е изпълнено — броим до вчера
+    expect(dayStreak(p, "2026-10-05")).toBe(1);
+    expect(dayStreak(p, "2026-10-07")).toBe(0);
   });
 });
 

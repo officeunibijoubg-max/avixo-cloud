@@ -1,4 +1,5 @@
 import type { TtsSpelling } from "@/config/speech";
+import type { ChallengeMetric } from "@/config/challenges";
 
 // Общи типове за уроците, шаблоните, оценяването и прогреса.
 
@@ -75,6 +76,10 @@ export type PlayerProgress = {
   playSeconds: Record<string, number>;
   /** Дни, в които е завършено Днешното приключение. */
   adventuresDone: string[];
+  /** Броячите за Предизвикателството на деня (нулират се всеки ден). */
+  daily: { day: string; counts: Partial<Record<ChallengeMetric, number>> };
+  /** Дни с изпълнено предизвикателство — от тях се смята поредицата 🔥. */
+  challengeDays: string[];
 };
 
 export type Settings = {

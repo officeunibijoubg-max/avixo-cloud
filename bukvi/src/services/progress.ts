@@ -3,6 +3,7 @@ import { APP_CONFIG } from "@/config/app";
 import { POINTS } from "@/config/points";
 import { LEVELS } from "@/data/lessons";
 import { getShopItem, STICKERS } from "@/data/shop";
+import { CHALLENGE_BONUS, CHALLENGES, type Challenge, type ChallengeMetric } from "@/config/challenges";
 
 // Чисти функции върху прогреса — лесни за тест и за бъдещ cloud sync.
 //
@@ -24,6 +25,8 @@ export const emptyProgress = (): PlayerProgress => ({
   stickers: [],
   playSeconds: {},
   adventuresDone: [],
+  daily: { day: "", counts: {} },
+  challengeDays: [],
 });
 
 const emptyChar = (character: string): CharacterProgress => ({
@@ -70,6 +73,8 @@ export type ProgressDelta = {
   levelUp?: number;
   /** Нов стикер (от Днешно приключение). */
   sticker?: string;
+  /** Току-що изпълнено Предизвикателство на деня (бонусът е отделно от `coins`). */
+  challengeDone?: { bonus: number; streak: number };
 };
 
 /** Монети за верен опит според това кой поред е и дали е имало подсказка. */
@@ -89,6 +94,7 @@ export function recordWriting(
   score: number,
   isCorrect: boolean,
   coins: number,
+  day = todayKey(),
 ): { progress: PlayerProgress; delta: ProgressDelta } {
   const prev = p.characters[character] ?? emptyChar(character);
   const correct = prev.correct + (isCorrect ? 1 : 0);
@@ -114,24 +120,75 @@ export function recordWriting(
   );
   const levelBefore = levelOf(p);
   const levelAfter = levelOf(next);
+  const metric: ChallengeMetric = character.length > 1 ? "words" : /\d/.test(character) ? "numbers" : "letters";
+  const daily = isCorrect ? bumpDaily(next, metric, day) : { progress: next };
   return {
-    progress: next,
+    progress: daily.progress,
     delta: {
       coins: isCorrect ? coins : 0,
       starsGained: lessonStars(ch) - lessonStars(prev),
       levelUp: levelAfter > levelBefore ? levelAfter : undefined,
+      challengeDone: daily.challengeDone,
     },
   };
 }
 
 /** Верен или грешен избор в минигра. */
-export function recordGameAnswer(p: PlayerProgress, isCorrect: boolean): { progress: PlayerProgress; delta: ProgressDelta } {
+export function recordGameAnswer(
+  p: PlayerProgress,
+  isCorrect: boolean,
+  day = todayKey(),
+): { progress: PlayerProgress; delta: ProgressDelta } {
   const streak = isCorrect ? p.streak + 1 : 0;
   const coins = isCorrect ? POINTS.miniGameCorrect : 0;
-  return {
-    progress: earn({ ...p, streak, bestStreak: Math.max(p.bestStreak, streak) }, coins),
-    delta: { coins, starsGained: 0 },
-  };
+  const next = earn({ ...p, streak, bestStreak: Math.max(p.bestStreak, streak) }, coins);
+  const daily = isCorrect ? bumpDaily(next, "games", day) : { progress: next };
+  return { progress: daily.progress, delta: { coins, starsGained: 0, challengeDone: daily.challengeDone } };
+}
+
+// ───────────────────────── предизвикателство на деня ─────────────────────────
+
+/** Поредният номер на деня — за да се сменя предизвикателството всеки ден по ред. */
+const dayNumber = (day: string) => Math.floor(Date.parse(`${day}T12:00:00Z`) / 86_400_000);
+
+export const challengeFor = (day = todayKey()): Challenge => CHALLENGES[((dayNumber(day) % CHALLENGES.length) + CHALLENGES.length) % CHALLENGES.length];
+
+/** Колко е направено днес по метриката на днешното предизвикателство. */
+export function challengeCount(p: PlayerProgress, day = todayKey()): number {
+  const c = challengeFor(day);
+  return p.daily?.day === day ? (p.daily.counts[c.metric] ?? 0) : 0;
+}
+
+/** Поредица от дни с изпълнено предизвикателство, до днес (или до вчера, ако днес още не е). */
+export function dayStreak(p: PlayerProgress, day = todayKey()): number {
+  const done = new Set(p.challengeDays ?? []);
+  let n = dayNumber(day);
+  if (!done.has(dayKey(n))) n -= 1;
+  let streak = 0;
+  while (done.has(dayKey(n))) {
+    streak += 1;
+    n -= 1;
+  }
+  return streak;
+}
+
+function dayKey(n: number): string {
+  return new Date(n * 86_400_000 + 12 * 3_600_000).toISOString().slice(0, 10);
+}
+
+/** Отброява действие за деня; ако предизвикателството стане изпълнено — дава бонуса веднъж. */
+function bumpDaily(
+  p: PlayerProgress,
+  metric: ChallengeMetric,
+  day: string,
+): { progress: PlayerProgress; challengeDone?: ProgressDelta["challengeDone"] } {
+  const counts = p.daily?.day === day ? p.daily.counts : {};
+  const next: PlayerProgress = { ...p, daily: { day, counts: { ...counts, [metric]: (counts[metric] ?? 0) + 1 } } };
+  const c = challengeFor(day);
+  const days = next.challengeDays ?? [];
+  if (c.metric !== metric || days.includes(day) || (next.daily.counts[metric] ?? 0) < c.goal) return { progress: next };
+  const progress = earn({ ...next, challengeDays: [...days, day] }, CHALLENGE_BONUS);
+  return { progress, challengeDone: { bonus: CHALLENGE_BONUS, streak: dayStreak(progress, day) } };
 }
 
 // ───────────────────────── магазин ─────────────────────────
@@ -167,7 +224,7 @@ export const todayKey = (d = new Date()) =>
 export function completeAdventure(p: PlayerProgress, day = todayKey()): { progress: PlayerProgress; delta: ProgressDelta } {
   const sticker = STICKERS.find((s) => !p.stickers.includes(s)) ?? STICKERS[p.stickers.length % STICKERS.length];
   const coins = POINTS.adventureBonus;
-  const progress = earn(
+  const earned = earn(
     {
       ...p,
       stickers: p.stickers.includes(sticker) ? p.stickers : [...p.stickers, sticker],
@@ -175,7 +232,8 @@ export function completeAdventure(p: PlayerProgress, day = todayKey()): { progre
     },
     coins,
   );
-  return { progress, delta: { coins, starsGained: 0, sticker } };
+  const daily = bumpDaily(earned, "adventure", day);
+  return { progress: daily.progress, delta: { coins, starsGained: 0, sticker, challengeDone: daily.challengeDone } };
 }
 
 export function addPlayTime(p: PlayerProgress, seconds: number, day = todayKey()): PlayerProgress {

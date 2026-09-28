@@ -55,6 +55,11 @@ export const phrases = {
   adventureDone: "Мисията е изпълнена! Ето ти стикер!",
   adventureAgain: "Днешното приключение е минато. Можеш да играеш пак!",
 
+  // Предизвикателство на деня
+  challengeDone: (streak: number) =>
+    streak > 1 ? `Предизвикателството е изпълнено! ${streak} дни подред!` : "Предизвикателството е изпълнено!",
+  challengeToday: "Днешното предизвикателство",
+
   // Островът на думите
   wordIntro: (spoken: string, syllable: boolean) =>
     syllable ? `Това е ${spoken}. Напиши ${spoken} буква по буква.` : `${spoken}. Напиши ${spoken} буква по буква.`,

@@ -9,6 +9,7 @@ import { BigButton } from "@/components/ui/BigButton";
 import { Mascot } from "@/components/game/Mascot";
 import { StarCounter } from "@/components/game/StarCounter";
 import { CoinCounter } from "@/components/game/CoinCounter";
+import { DailyChallengeCard } from "@/components/game/DailyChallengeCard";
 import { levelOf, MAX_LEVEL, todayKey } from "@/services/progress";
 import { pickAdventureLetter } from "@/services/adventure";
 import { playSound } from "@/services/sounds";
@@ -60,6 +61,8 @@ export default function HomePage() {
           <span className="text-lg font-bold opacity-90">{doneToday ? "✓ Минато днес — може пак!" : "Нова буква, игри и стикер 🎁"}</span>
         </span>
       </Link>
+
+      <DailyChallengeCard />
 
       <nav className="grid flex-1 grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
         <BigButton href="/learn/" icon="🗺️" label="Карта" size="lg" color="bg-lime-200" />
