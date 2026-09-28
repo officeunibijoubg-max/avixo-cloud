@@ -54,7 +54,10 @@ export async function readProduct(browser, url) {
 
     const raw = await page.evaluate(() => {
       const el = document.querySelector('script[type="application/ld+json"]');
-      const old = document.querySelector('.old_price');
+      // Страницата показва .old_price и в лентата "свързани продукти" под
+      // основния продукт — просто querySelector() лапва първата съвпадаща
+      // (чужда) цена, когато основният продукт няма собствена стара цена.
+      const old = [...document.querySelectorAll('.old_price')].find((n) => !n.closest('.product-list-item'));
       return { ld: el ? el.textContent : null, oldPrice: old ? old.textContent : null };
     });
     if (!raw.ld) throw new Error(`Няма JSON-LD: ${url}`);
