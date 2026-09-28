@@ -39,6 +39,8 @@ const WEEKDAY = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
 
 function Dashboard() {
   const progress = useGameStore((s) => s.progress);
+  const profile = useGameStore((s) => s.profiles.find((p) => p.id === s.activeId));
+  const hasMany = useGameStore((s) => s.profiles.length > 1);
 
   const chars = Object.values(progress.characters).filter((c) => c.attempts > 0);
   const inSet = (set: readonly string[]) => chars.filter((c) => set.includes(c.character));
@@ -67,6 +69,14 @@ function Dashboard() {
 
   return (
     <div className="flex flex-col gap-6 text-base">
+      {/* Таблото е за детето, което играе в момента; другото се избира от „Кой играе?“. */}
+      <div className="flex flex-wrap items-center gap-3">
+        <span className="text-5xl">{profile?.avatar}</span>
+        <span className="text-2xl font-black">{profile?.name}</span>
+        <Link href="/profiles/" className="rounded-2xl bg-white px-4 py-2 font-bold shadow-sm">
+          {hasMany ? "Смени детето" : "Добави дете"}
+        </Link>
+      </div>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {cards.map((c) => (
           <div key={c.label} className="card-soft rounded-2xl bg-white p-4 shadow-sm">

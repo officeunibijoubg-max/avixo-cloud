@@ -19,6 +19,7 @@ export default function HomePage() {
   const mascotKey = useGameStore((s) => s.settings.mascot);
   const progress = useGameStore((s) => s.progress);
   const hydrated = useGameStore((s) => s.hydrated);
+  const profile = useGameStore((s) => s.profiles.find((p) => p.id === s.activeId));
   const level = levelOf(progress);
   const mascot = MASCOTS[mascotKey] ?? MASCOTS[DEFAULT_MASCOT];
   const greeting = phrases.greeting(mascot.name);
@@ -28,6 +29,15 @@ export default function HomePage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-5 px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
       <header className="flex items-center gap-3">
+        {/* Кой играе — натискането води към избора на дете. */}
+        <Link
+          href="/profiles/"
+          className="card-soft flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-4 text-xl font-black shadow-sm"
+          aria-label={phrases.whoPlays}
+        >
+          <span className="flex size-10 items-center justify-center rounded-full bg-violet-100 text-3xl">{profile?.avatar}</span>
+          <span className="max-w-32 truncate">{profile?.name}</span>
+        </Link>
         <span className="card-soft rounded-full bg-white px-4 py-2 text-xl font-black shadow-sm" aria-label={`${ui.level} ${level}`}>
           🏅 {ui.level} {level}
           <span className="text-base text-slate-400">/{MAX_LEVEL}</span>

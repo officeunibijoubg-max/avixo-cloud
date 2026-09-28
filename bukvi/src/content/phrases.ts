@@ -55,6 +55,10 @@ export const phrases = {
   adventureDone: "Мисията е изпълнена! Ето ти стикер!",
   adventureAgain: "Днешното приключение е минато. Можеш да играеш пак!",
 
+  // Профили
+  whoPlays: "Кой играе?",
+  helloChild: (name: string) => `Здравей, ${name}!`,
+
   // Предизвикателство на деня
   challengeDone: (streak: number) =>
     streak > 1 ? `Предизвикателството е изпълнено! ${streak} дни подред!` : "Предизвикателството е изпълнено!",
