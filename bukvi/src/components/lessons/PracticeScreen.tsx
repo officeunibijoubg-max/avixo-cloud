@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import type { CharacterLesson } from "@/lib/types";
 import { nextLesson } from "@/data/lessons";
-import { ui } from "@/content/phrases";
+import { phrases, ui } from "@/content/phrases";
+import { isCharacterUnlocked } from "@/services/adventure";
 import { useGameStore } from "@/store/gameStore";
 import { cancelSpeech, speakCharacter, speakWriteTask, writeTaskText } from "@/services/speech";
 import { PageShell } from "@/components/ui/PageShell";
@@ -27,6 +28,7 @@ export function PracticeScreen({ lesson }: { lesson: CharacterLesson }) {
   const ex = useWritingExercise(lesson, { introHint: trace && difficulty === "easy" });
   const next = nextLesson(lesson);
   const back = lesson.type === "letter" ? "/learn/letters/" : "/learn/numbers/";
+  const locked = useGameStore((s) => s.hydrated && !isCharacterUnlocked(s.progress, lesson.character, s.settings.unlockAll));
 
   // Представяме символа и задачата. (Без докосване някои браузъри мълчат — 🔊 е винаги наблизо.)
   useEffect(() => {
@@ -35,6 +37,17 @@ export function PracticeScreen({ lesson }: { lesson: CharacterLesson }) {
   }, [lesson, trace]);
 
   const task = writeTaskText({ ...lesson, spokenName: lesson.type === "letter" ? lesson.character : lesson.spokenName }, trace);
+
+  if (locked)
+    return (
+      <PageShell back={back}>
+        <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
+          <span className="text-9xl">🔒</span>
+          <Mascot message={phrases.lockedNode} mood="think" />
+          <BigButton href={back} icon="🗺️" label="Към картата" color="bg-sky-200" size="lg" />
+        </div>
+      </PageShell>
+    );
 
   return (
     <PageShell back={back}>

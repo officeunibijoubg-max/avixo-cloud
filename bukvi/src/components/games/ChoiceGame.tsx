@@ -89,7 +89,7 @@ export function ChoiceGame({ title, makeRound, rounds = 8 }: Props) {
         round && (
           <div className="flex flex-1 flex-col items-center gap-6">
             <div className="flex w-full items-center gap-3">
-              <Mascot compact message={round.caption} mood={solved ? "cheer" : wrong.length ? "think" : "happy"} className="flex-1" />
+              <Mascot compact message={round.caption} mood={solved ? "clap" : wrong.length ? "encourage" : "point"} className="flex-1" />
               <SoundButton size="lg" onPlay={() => void speakPhrase(round.prompt)} />
             </div>
             <Progress current={index} total={rounds} />

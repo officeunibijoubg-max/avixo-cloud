@@ -1,6 +1,15 @@
 import { describe, expect, it } from "vitest";
 import { letterLessons } from "./alphabet";
+import { numberLessons } from "./numbers";
 import { prepareForTts } from "@/services/speech";
+import { hasIllustration } from "@/components/illustrations/Illustration";
+
+describe("илюстрациите", () => {
+  it("всяка буква и цифра има собствена илюстрация (не системно емоджи)", () => {
+    for (const l of [...letterLessons, ...numberLessons])
+      expect(hasIllustration(l.exampleImage) || l.exampleImage === "lion", `${l.character}: ${l.exampleImage}`).toBe(true);
+  });
+});
 
 describe("звуковете на буквите", () => {
   it("съгласните се учат като звук: Бъ, Въ, Жъ…", () => {

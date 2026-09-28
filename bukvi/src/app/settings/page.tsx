@@ -133,6 +133,7 @@ function SettingsForm() {
       <Toggle icon="🐢" label="Без анимации" checked={settings.reduceMotion} onChange={(v) => update({ reduceMotion: v })} />
 
       <h2 className="mt-4 text-xl font-black">Прогрес</h2>
+      <Toggle icon="🗺️" label="Отключи всички точки от картата" checked={settings.unlockAll} onChange={(v) => update({ unlockAll: v })} />
       {resetDone ? (
         <p className="rounded-2xl bg-green-100 p-4 font-bold">Прогресът е нулиран.</p>
       ) : confirmReset ? (

@@ -20,7 +20,7 @@ export const phrases = {
 
   // Обратна връзка
   correctFor: (_kind: "letter" | "number", spoken: string) => `Браво! Написа ${spoken}!`,
-  bravoPoints: (points: number) => `Браво! +${points} ⭐`,
+  bravoPoints: (coins: number) => `Браво! +${coins} 🪙`,
   praise: () => pick(["Браво!", "Страхотно!", "Супер!", "Много добре!", "Отлично!"] as const),
   almost: "Почти! Нека опитаме пак.",
   /** Кратко, видимо обяснение къде е грешката. */
@@ -29,18 +29,36 @@ export const phrases = {
   hintFollow: "Следвай звездичката.",
   hintWatch: "Гледай как се пише.",
   tooLittle: "Напиши цялата буква.",
-  starEarned: "Спечели звезда!",
-  rewardUnlocked: (name: string) => `Нова награда: ${name}!`,
+  starEarned: "Нова звезда!",
+  levelUp: (level: number) => `Ниво ${level}! Браво!`,
+  stickerEarned: "Нов стикер за албума!",
+  bought: (name: string) => `Купи ${name}! Супер!`,
+  needCoins: (n: number) => `Трябват още ${n} монети. Поиграй още малко!`,
 
   // Маскот
   greeting: (name: string) => `Здравей! Аз съм ${name}. Хайде да играем!`,
   pickLetter: "Избери буква!",
+  mapHello: "Натисни точката до мен и продължаваме!",
+  lockedNode: "Първо мини предишната точка!",
+  lockedWorld: "Този свят се отключва, когато минеш предишния!",
+  comingSoon: "Скоро!",
+  pickWorld: "Къде ще пътуваме днес?",
   pickNumber: "Избери цифра!",
   pickGame: "На какво ще играем?",
+
+  // Днешно приключение
+  adventureToday: (spoken: string) => `Днес ще научим ${spoken}!`,
+  adventureListen: "Чуй буквата. Натисни високоговорителя!",
+  adventureWriteAlone: (spoken: string) => `Сега напиши ${spoken} без помощ!`,
+  adventurePicture: (spoken: string) => `Коя картинка започва с ${spoken}?`,
+  adventurePictureIn: (spoken: string) => `В коя картинка се крие ${spoken}?`,
+  adventureDone: "Мисията е изпълнена! Ето ти стикер!",
+  adventureAgain: "Днешното приключение е минато. Можеш да играеш пак!",
 
   // Игри
   findLetter: (spoken: string) => `Намери буквата ${spoken}.`,
   findNumber: (name: string) => `Намери числото ${name}.`,
+  findHeard: "Слушай и намери буквата! 👂",
   startsWith: (word: string) => `${word}. С коя буква започва ${word}?`,
   startsWithQuestion: (word: string) => `С коя буква започва ${word}?`,
   popBalloon: (spoken: string) => `Спукай балона с буквата ${spoken}.`,
@@ -75,7 +93,7 @@ export const ui = {
   back: "Назад",
   home: "Начало",
   again: "Пак",
-  points: "точки",
+  coins: "монети",
   stars: "звезди",
   level: "Ниво",
   streak: "поредни",

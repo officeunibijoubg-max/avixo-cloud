@@ -24,13 +24,26 @@ type Props = {
   visual?: (lesson: CharacterLesson) => React.ReactNode;
   difficulty: Difficulty;
   rounds?: number;
+  /** С шаблон и звездичка (упражнение на трудни букви) или без (игрите). */
+  showGuide?: boolean;
+  back?: string;
 };
 
 /**
  * Игри с писане без готова буква (Чуй и напиши, Преброй и напиши).
  * Всяко вярно изписване придвижва героя с една стъпка по пътя към наградата (Буквен път).
  */
-export function WriteRoundGame({ title, pickLesson, prompt, caption, visual, difficulty, rounds = 5 }: Props) {
+export function WriteRoundGame({
+  title,
+  pickLesson,
+  prompt,
+  caption,
+  visual,
+  difficulty,
+  rounds = 5,
+  showGuide = false,
+  back = "/games/",
+}: Props) {
   const [lesson, setLesson] = useState<CharacterLesson | null>(null);
   const [step, setStep] = useState(0);
   const countGame = useGameStore((s) => s.countGame);
@@ -61,7 +74,7 @@ export function WriteRoundGame({ title, pickLesson, prompt, caption, visual, dif
   };
 
   return (
-    <PageShell back="/games/" title={title}>
+    <PageShell back={back} title={title}>
       {step >= rounds ? (
         <GameEnd correct={rounds * 2} onAgain={restart} />
       ) : (
@@ -75,6 +88,7 @@ export function WriteRoundGame({ title, pickLesson, prompt, caption, visual, dif
             caption={caption(lesson)}
             visual={visual?.(lesson)}
             difficulty={difficulty}
+            showGuide={showGuide}
             onSolved={onSolved}
           />
         )
@@ -91,11 +105,12 @@ type RoundProps = {
   caption: string;
   visual?: React.ReactNode;
   difficulty: Difficulty;
+  showGuide: boolean;
   onSolved: () => void;
 };
 
-function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, onSolved }: RoundProps) {
-  const ex = useWritingExercise(lesson, { onSolved });
+function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, showGuide, onSolved }: RoundProps) {
+  const ex = useWritingExercise(lesson, { onSolved, introHint: showGuide });
 
   useEffect(() => {
     void speakPhrase(prompt);
@@ -118,7 +133,7 @@ function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, onSo
             character={lesson.character}
             templates={lesson.templates}
             difficulty={difficulty}
-            showGuide={false}
+            showGuide={showGuide}
             autoCheck={difficulty !== "hard"}
             attempt={ex.attempt}
             feedback={ex.feedback}

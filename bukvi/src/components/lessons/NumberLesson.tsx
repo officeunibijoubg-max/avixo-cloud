@@ -3,6 +3,7 @@
 import type { CharacterLesson } from "@/lib/types";
 import { speakCharacter } from "@/services/speech";
 import { SoundButton } from "@/components/game/SoundButton";
+import { Illustration } from "@/components/illustrations/Illustration";
 
 /** Горната част на урока за цифра: цифрата, името ѝ и толкова предмета. */
 export function NumberLesson({ lesson }: { lesson: CharacterLesson }) {
@@ -13,8 +14,12 @@ export function NumberLesson({ lesson }: { lesson: CharacterLesson }) {
         {lesson.character}
       </div>
       <div className="flex flex-1 flex-col items-center gap-2 text-center">
-        <div className="flex max-w-64 flex-wrap justify-center gap-1 text-4xl lg:text-5xl" aria-hidden>
-          {count === 0 ? <span className="opacity-60">{lesson.exampleImage}</span> : Array.from({ length: count }, (_, i) => <span key={i}>{lesson.exampleImage}</span>)}
+        <div className="flex max-w-64 flex-wrap justify-center gap-1" aria-hidden>
+          {count === 0 ? (
+            <Illustration name={lesson.exampleImage} size={72} className="opacity-60" />
+          ) : (
+            Array.from({ length: count }, (_, i) => <Illustration key={i} name={lesson.exampleImage} size={count > 6 ? 40 : 48} />)
+          )}
         </div>
         <p className="text-3xl font-extrabold text-amber-700">{lesson.spokenName}</p>
       </div>

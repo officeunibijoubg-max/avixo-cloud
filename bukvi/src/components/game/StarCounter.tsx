@@ -1,10 +1,12 @@
 "use client";
 
 import { useGameStore } from "@/store/gameStore";
+import { totalStars } from "@/services/progress";
 import { ui } from "@/content/phrases";
 
+/** Звездите от уроците: колко добре са усвоени буквите и цифрите. */
 export function StarCounter() {
-  const stars = useGameStore((s) => s.progress.stars);
+  const stars = useGameStore((s) => totalStars(s.progress));
   return (
     <div
       id="star-counter"

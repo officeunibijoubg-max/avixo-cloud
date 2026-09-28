@@ -67,7 +67,7 @@ export function useWritingExercise(
     setHint(kind);
     setHintKey((k) => k + 1);
     setLabel(kind === "demo" ? phrases.hintWatch : feedbackLabels.hint);
-    setMood("think");
+    setMood("point");
     void speakPhrase(kind === "demo" ? phrases.hintWatch : phrases.hintFollow);
   }, []);
 
@@ -79,7 +79,7 @@ export function useWritingExercise(
         setFeedback("correct");
         setSolved(true);
         setHint("none");
-        setMood("cheer");
+        setMood(result.grade === "excellent" ? "dance" : "clap");
         setLabel(phrases.bravoPoints(points));
         playSound("correct");
         celebrate(delta);
@@ -90,7 +90,7 @@ export function useWritingExercise(
 
       recordWriting(lesson.character, result.score, false, 0);
       setFeedback("wrong");
-      setMood("think");
+      setMood("encourage");
       setLabel(phrases.showWhere);
       playSound("wrong");
       void speakPhrase(phrases.almost);

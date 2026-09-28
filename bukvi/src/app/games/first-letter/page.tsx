@@ -6,6 +6,7 @@ import { GAMES } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { optionsWith, pickOne } from "@/lib/random";
 import { ChoiceGame, type ChoiceRound } from "@/components/games/ChoiceGame";
+import { Illustration } from "@/components/illustrations/Illustration";
 
 // Буквите с ясна примерна дума (без Ь, чиято дума умишлено липсва).
 const withWords = letterLessons.filter((l) => l.exampleWord);
@@ -20,9 +21,7 @@ export default function FirstLetterGame() {
       caption: phrases.startsWithQuestion(word),
       visual: (
         <div className="card-soft flex flex-col items-center rounded-[2rem] bg-white px-10 py-4 shadow-md">
-          <span className="text-8xl sm:text-9xl" aria-hidden>
-            {lesson.exampleImage}
-          </span>
+          <Illustration name={lesson.exampleImage} size={150} />
           {/* Първата буква е скрита — иначе отговорът е пред очите. */}
           <span className="text-3xl font-black tracking-wide">
             <span className="text-grape">?</span>

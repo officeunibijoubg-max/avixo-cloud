@@ -1,17 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
 import { ALPHABET } from "@/data/alphabet";
 import { DIGITS } from "@/data/numbers";
+import { letterWords } from "@/data/words";
 import { useGameStore } from "@/store/gameStore";
-import { accuracy } from "@/services/progress";
+import { accuracy, levelOf, MAX_LEVEL, lessonStars, todayKey, totalStars } from "@/services/progress";
+import { hardCharacters } from "@/services/adventure";
 import type { CharacterProgress } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
 import { ParentGate } from "@/components/layout/ParentGate";
-
-const MIN_ATTEMPTS_FOR_HARD = 2;
 
 export default function ParentPage() {
   return (
@@ -23,34 +22,48 @@ export default function ParentPage() {
   );
 }
 
+const minutes = (sec: number) => Math.round(sec / 60);
+
+/** Последните 7 дни (включително днес) като ключове "ГГГГ-ММ-ДД". */
+function lastDays(n: number): string[] {
+  const out: string[] = [];
+  for (let i = n - 1; i >= 0; i--) {
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    out.push(todayKey(d));
+  }
+  return out;
+}
+
+const WEEKDAY = ["Нд", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
+
 function Dashboard() {
   const progress = useGameStore((s) => s.progress);
-  const resetProgress = useGameStore((s) => s.resetProgress);
-  const [confirmReset, setConfirmReset] = useState(false);
 
   const chars = Object.values(progress.characters).filter((c) => c.attempts > 0);
-  const letters = chars.filter((c) => (ALPHABET as readonly string[]).includes(c.character));
-  const digits = chars.filter((c) => (DIGITS as readonly string[]).includes(c.character));
+  const inSet = (set: readonly string[]) => chars.filter((c) => set.includes(c.character));
+  const letters = inSet(ALPHABET);
+  const digits = inSet(DIGITS);
   const totalAttempts = chars.reduce((a, c) => a + c.attempts, 0);
   const totalCorrect = chars.reduce((a, c) => a + c.correct, 0);
   const avg = totalAttempts ? Math.round((totalCorrect / totalAttempts) * 100) : 0;
-  const byAccuracy = [...chars].sort((a, b) => accuracy(b) - accuracy(a) || b.bestScore - a.bestScore);
-  const strongest = byAccuracy.filter((c) => accuracy(c) >= 70).slice(0, 5);
-  const hardest = [...chars]
-    .filter((c) => c.attempts >= MIN_ATTEMPTS_FOR_HARD && accuracy(c) < 70)
-    .sort((a, b) => accuracy(a) - accuracy(b))
-    .slice(0, 5);
+  const hard = hardCharacters(progress);
+  const days = lastDays(7);
+  const week = days.map((d) => progress.playSeconds[d] ?? 0);
+  const maxDay = Math.max(60, ...week);
 
   const cards = [
-    { label: "Научени букви", value: `${letters.filter((c) => c.mastered).length} / ${ALPHABET.length}` },
-    { label: "Научени цифри", value: `${digits.filter((c) => c.mastered).length} / ${DIGITS.length}` },
+    { label: "Минути днес", value: minutes(progress.playSeconds[todayKey()] ?? 0) },
+    { label: "Минути за 7 дни", value: minutes(week.reduce((a, b) => a + b, 0)) },
+    { label: "Усвоени букви", value: `${letters.filter((c) => c.mastered).length} / ${ALPHABET.length}` },
+    { label: "Усвоени цифри", value: `${digits.filter((c) => c.mastered).length} / ${DIGITS.length}` },
     { label: "Средна точност", value: `${avg}%` },
-    { label: "Общо упражнения", value: progress.exercises },
-    { label: "Изиграни игри", value: progress.gamesPlayed },
-    { label: "Точки", value: progress.totalPoints },
-    { label: "Звезди", value: progress.stars },
-    { label: "Най-дълга поредица", value: progress.bestStreak },
+    { label: "Опити / грешки", value: `${totalAttempts} / ${totalAttempts - totalCorrect}` },
+    { label: "Ниво", value: `${levelOf(progress)} / ${MAX_LEVEL}` },
+    { label: "Звезди · приключения", value: `${totalStars(progress)} · ${progress.adventuresDone.length}` },
   ];
+
+  const byChar = (set: readonly string[]) => set.map((c) => progress.characters[c]).filter((c): c is CharacterProgress => !!c && c.attempts > 0);
 
   return (
     <div className="flex flex-col gap-6 text-base">
@@ -63,51 +76,50 @@ function Dashboard() {
         ))}
       </div>
 
+      <Section title="⏱️ Време за игра (минути)">
+        <div className="flex h-32 items-end gap-3">
+          {days.map((d, i) => (
+            <div key={d} className="flex flex-1 flex-col items-center gap-1">
+              <span className="text-sm font-bold tabular-nums">{minutes(week[i])}</span>
+              <span className="w-full rounded-t-lg bg-sky" style={{ height: `${Math.max(4, (week[i] / maxDay) * 80)}px` }} />
+              <span className="text-muted text-xs font-bold text-slate-500">{WEEKDAY[new Date(`${d}T12:00`).getDay()]}</span>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="🌱 Трудни символи">
+        {hard.length ? (
+          <>
+            <p className="text-muted mb-2 text-slate-600">Препоръчваме още упражнения:</p>
+            {hard.slice(0, 6).map((c) => (
+              <Row key={c} c={progress.characters[c]} />
+            ))}
+            <Link
+              href="/review/"
+              className="mt-3 inline-flex min-h-14 items-center gap-2 rounded-2xl bg-grape px-6 py-3 text-lg font-black text-white"
+            >
+              ✏️ Упражнявай трудните букви
+            </Link>
+          </>
+        ) : (
+          <Empty text="Няма трудни символи засега. 👍" />
+        )}
+      </Section>
+
       <div className="grid gap-4 md:grid-cols-2">
-        <Section title="💪 Най-силни">
-          {strongest.length ? strongest.map((c) => <Row key={c.character} c={c} />) : <Empty />}
-        </Section>
-        <Section title="🌱 Най-трудни">
-          {hardest.length ? (
-            hardest.map((c) => <Row key={c.character} c={c} note="Препоръчваме още упражнения." />)
-          ) : (
-            <Empty />
-          )}
-        </Section>
+        <Section title="🔤 Букви">{byChar(ALPHABET).length ? byChar(ALPHABET).map((c) => <Row key={c.character} c={c} />) : <Empty />}</Section>
+        <Section title="🔢 Цифри">{byChar(DIGITS).length ? byChar(DIGITS).map((c) => <Row key={c.character} c={c} />) : <Empty />}</Section>
       </div>
 
-      <Section title="📋 Всички упражнявани символи">
-        {byAccuracy.length ? (
-          <div className="grid grid-cols-2 gap-x-6 sm:grid-cols-3 lg:grid-cols-4">
-            {byAccuracy.map((c) => (
-              <Row key={c.character} c={c} />
-            ))}
-          </div>
-        ) : (
-          <Empty />
-        )}
+      <Section title="ℹ️ За буквата Ь">
+        <p className="text-slate-700">{letterWords["Ь"].parentNote}</p>
       </Section>
 
       <div className="flex flex-wrap gap-3">
         <Link href="/settings/" className="rounded-2xl bg-grape px-6 py-3 text-lg font-black text-white">
-          ⚙️ Настройки
+          ⚙️ Настройки и нулиране
         </Link>
-        {confirmReset ? (
-          <button
-            type="button"
-            onClick={() => {
-              resetProgress();
-              setConfirmReset(false);
-            }}
-            className="rounded-2xl bg-rose-600 px-6 py-3 text-lg font-black text-white"
-          >
-            Да, изтрий целия прогрес
-          </button>
-        ) : (
-          <button type="button" onClick={() => setConfirmReset(true)} className="rounded-2xl bg-slate-200 px-6 py-3 text-lg font-bold">
-            Нулирай прогреса
-          </button>
-        )}
       </div>
       <p className="text-muted text-sm text-slate-500">
         Всички данни се пазят само на това устройство. Приложението не събира лични данни, няма реклами и проследяване.
@@ -125,8 +137,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Row({ c, note }: { c: CharacterProgress; note?: string }) {
+/** „А — 94% · 12 опита · 1 грешка · ⭐⭐⭐“ */
+function Row({ c }: { c: CharacterProgress }) {
   const pct = accuracy(c);
+  const mistakes = c.attempts - c.correct;
   return (
     <div className="flex items-center gap-3 border-b border-slate-100 py-2 last:border-0">
       <span className="w-10 text-3xl font-black">{c.character}</span>
@@ -134,11 +148,14 @@ function Row({ c, note }: { c: CharacterProgress; note?: string }) {
         <div className="h-3 overflow-hidden rounded-full bg-slate-100">
           <div className={cn("h-full rounded-full", pct >= 80 ? "bg-leaf" : pct >= 60 ? "bg-sun" : "bg-coral")} style={{ width: `${pct}%` }} />
         </div>
-        {note && <div className="text-muted mt-1 text-sm text-slate-500">{note}</div>}
+        <div className="text-muted mt-1 text-xs font-bold text-slate-500">
+          {c.attempts} опита · {mistakes} {mistakes === 1 ? "грешка" : "грешки"} · {"⭐".repeat(lessonStars(c)) || "—"}
+          {c.mastered && " · усвоена ✓"}
+        </div>
       </div>
-      <span className="w-12 text-right font-black tabular-nums">{pct}%</span>
+      <span className="w-12 text-right text-lg font-black tabular-nums">{pct}%</span>
     </div>
   );
 }
 
-const Empty = () => <p className="text-muted text-slate-500">Още няма достатъчно упражнения.</p>;
+const Empty = ({ text = "Още няма упражнения." }: { text?: string }) => <p className="text-muted text-slate-500">{text}</p>;

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ScoreCounter } from "@/components/game/ScoreCounter";
+import { CoinCounter } from "@/components/game/CoinCounter";
 import { StarCounter } from "@/components/game/StarCounter";
 import { ui } from "@/content/phrases";
 import { playSound } from "@/services/sounds";
@@ -32,7 +32,7 @@ export function PageShell({ children, back, title, showScore = true }: Props) {
         {showScore && (
           <div className="ml-auto flex items-center gap-2">
             <StarCounter />
-            <ScoreCounter />
+            <CoinCounter />
           </div>
         )}
       </header>
