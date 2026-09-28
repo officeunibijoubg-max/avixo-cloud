@@ -6,9 +6,8 @@ export type LetterWord = {
   word?: string;
   image?: string;
   /**
-   * Как синтезаторът да каже буквата. Ползваме азбучните имена („бе“, „ве“, „ер голям“),
-   * защото срички като „Бъ“ гласовете спелуват и четат „ъ“ като „ер малък“.
-   * Звуковото „бъ“ ще дойде със записаните аудио файлове.
+   * Звукът на буквата, както се учи в детската градина („Бъ“, „Въ“).
+   * Как точно да се подаде на синтезатора решава services/speech.ts (виж ttsSpelling).
    */
   spokenName: string;
   /** За букви без подходяща дума. */
@@ -17,32 +16,32 @@ export type LetterWord = {
 
 export const letterWords: Record<string, LetterWord> = {
   А: { word: "автобус", image: "🚌", spokenName: "А" },
-  Б: { word: "балон", image: "🎈", spokenName: "бе" },
-  В: { word: "влак", image: "🚂", spokenName: "ве" },
-  Г: { word: "гъба", image: "🍄", spokenName: "ге" },
-  Д: { word: "диня", image: "🍉", spokenName: "де" },
+  Б: { word: "балон", image: "🎈", spokenName: "Бъ" },
+  В: { word: "влак", image: "🚂", spokenName: "Въ" },
+  Г: { word: "гъба", image: "🍄", spokenName: "Гъ" },
+  Д: { word: "диня", image: "🍉", spokenName: "Дъ" },
   Е: { word: "елен", image: "🦌", spokenName: "Е" },
-  Ж: { word: "жаба", image: "🐸", spokenName: "же" },
-  З: { word: "зайче", image: "🐰", spokenName: "зе" },
+  Ж: { word: "жаба", image: "🐸", spokenName: "Жъ" },
+  З: { word: "зайче", image: "🐰", spokenName: "Зъ" },
   И: { word: "игла", image: "🪡", spokenName: "И" },
   Й: { word: "йо-йо", image: "🪀", spokenName: "И кратко" },
-  К: { word: "коте", image: "🐱", spokenName: "ка" },
-  Л: { word: "лъв", image: "🦁", spokenName: "ел" },
-  М: { word: "мече", image: "🧸", spokenName: "ем" },
-  Н: { word: "нос", image: "👃", spokenName: "ен" },
+  К: { word: "коте", image: "🐱", spokenName: "Къ" },
+  Л: { word: "лъв", image: "🦁", spokenName: "Лъ" },
+  М: { word: "мече", image: "🧸", spokenName: "Мъ" },
+  Н: { word: "нос", image: "👃", spokenName: "Нъ" },
   О: { word: "облак", image: "☁️", spokenName: "О" },
-  П: { word: "пате", image: "🐥", spokenName: "пе" },
-  Р: { word: "ракета", image: "🚀", spokenName: "ер" },
-  С: { word: "слон", image: "🐘", spokenName: "се" },
-  Т: { word: "топка", image: "⚽", spokenName: "те" },
+  П: { word: "пате", image: "🐥", spokenName: "Пъ" },
+  Р: { word: "ракета", image: "🚀", spokenName: "Ръ" },
+  С: { word: "слон", image: "🐘", spokenName: "Съ" },
+  Т: { word: "топка", image: "⚽", spokenName: "Тъ" },
   У: { word: "ухо", image: "👂", spokenName: "У" },
-  Ф: { word: "фея", image: "🧚", spokenName: "еф" },
-  Х: { word: "хляб", image: "🍞", spokenName: "ха" },
-  Ц: { word: "цвете", image: "🌸", spokenName: "це" },
-  Ч: { word: "чадър", image: "☂️", spokenName: "че" },
-  Ш: { word: "шапка", image: "👒", spokenName: "ша" },
-  Щ: { word: "щъркел", image: "🐦", spokenName: "ща" },
-  Ъ: { word: "ъгъл", image: "📐", spokenName: "ер голям" },
+  Ф: { word: "фея", image: "🧚", spokenName: "Фъ" },
+  Х: { word: "хляб", image: "🍞", spokenName: "Хъ" },
+  Ц: { word: "цвете", image: "🌸", spokenName: "Цъ" },
+  Ч: { word: "чадър", image: "☂️", spokenName: "Чъ" },
+  Ш: { word: "шапка", image: "👒", spokenName: "Шъ" },
+  Щ: { word: "щъркел", image: "🐦", spokenName: "Щъ" },
+  Ъ: { word: "ъгъл", image: "📐", spokenName: "Ъ" },
   Ь: {
     spokenName: "Ер малък",
     note: "Ь не започва дума. Пишем я само след съгласна и преди О: както в „шофьор“ и „синьо“.",

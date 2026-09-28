@@ -10,6 +10,12 @@ import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
 import { Toggle } from "@/components/ui/Toggle";
 import { ParentGate } from "@/components/layout/ParentGate";
+import { TTS_SPELLINGS } from "@/config/speech";
+import { getLessonByChar } from "@/data/lessons";
+import { phrases } from "@/content/phrases";
+
+// Пробният текст: сричка, дума и задача — за да се чуе как звучат буквите.
+const SAMPLE = [getLessonByChar("Б")?.spokenText, phrases.writeLetter(getLessonByChar("Ж")?.spokenName ?? "")].join(" ");
 
 const DIFFICULTIES: { id: Difficulty; icon: string; title: string; text: string }[] = [
   { id: "easy", icon: "🌟", title: "Лесно", text: "Видима буква, стрелки, голям толеранс" },
@@ -68,6 +74,33 @@ function SettingsForm() {
           на екрана. Български глас може да се добави от настройките на устройството (Език и говор).
         </p>
       )}
+      <div className="card-soft rounded-2xl bg-white p-4 shadow-sm">
+        <p className="text-lg font-bold">🔤 Как звучат буквите</p>
+        <p className="text-muted mb-3 text-sm text-slate-500">
+          Натиснете всеки вариант и изберете този, при който таблетът казва „Бъ“, а не „бе“ или „ер малък“.
+          Изборът се пази само на това устройство.
+        </p>
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {TTS_SPELLINGS.map((v) => (
+            <button
+              key={v.id}
+              type="button"
+              onClick={() => {
+                update({ ttsSpelling: v.id });
+                void speakPhrase(SAMPLE, v.id);
+              }}
+              className={cn(
+                "flex flex-col items-center gap-1 rounded-2xl border-2 border-slate-200 p-3 font-bold",
+                settings.ttsSpelling === v.id && "border-grape bg-violet-50 ring-2 ring-grape",
+              )}
+            >
+              <span className="text-2xl">🔊</span>
+              <span>{v.label}</span>
+              {settings.ttsSpelling === v.id && <span className="text-sm text-grape">✓ избран</span>}
+            </button>
+          ))}
+        </div>
+      </div>
       <label className="card-soft flex min-h-16 items-center gap-4 rounded-2xl bg-white px-5 py-3 text-lg font-bold shadow-sm">
         <span className="text-3xl" aria-hidden>
           🔊

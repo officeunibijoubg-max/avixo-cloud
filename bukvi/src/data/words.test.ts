@@ -1,19 +1,22 @@
 import { describe, expect, it } from "vitest";
 import { letterLessons } from "./alphabet";
-import { phrases } from "@/content/phrases";
+import { prepareForTts } from "@/services/speech";
 
-describe("текстове за синтезатора на говор", () => {
-  // Срички като „Бъ“ гласовете спелуват буква по буква и казват „ъ“ като „ер малък“.
-  const badSyllable = /(^|[\s.,!?])[бвгджзклмнпрстфхцчшщ]ъ(?=$|[\s.,!?])/iu;
-
-  it("няма самостоятелни срички съгласна + ъ", () => {
+describe("звуковете на буквите", () => {
+  it("съгласните се учат като звук: Бъ, Въ, Жъ…", () => {
+    const vowels = ["А", "Е", "И", "О", "У", "Ю", "Я"];
     for (const l of letterLessons) {
-      const texts = [l.spokenText, phrases.writeLetter(l.spokenName), phrases.correctFor("letter", l.spokenName)];
-      for (const t of texts) expect(t, l.character).not.toMatch(badSyllable);
+      if (vowels.includes(l.character) || ["Й", "Ъ", "Ь"].includes(l.character)) continue;
+      expect(l.spokenName, l.character).toBe(`${l.character}ъ`);
     }
   });
 
-  it("Ъ не се казва сама (гласовете я четат като „ер малък“)", () => {
-    for (const l of letterLessons) expect(l.spokenName.trim(), l.character).not.toBe("Ъ");
+  it("пренаписва само самостоятелните звукове, не думите", () => {
+    const text = "Бъ. Бъ като балон. Напиши буквата Ъ, като в ъгъл.";
+    expect(prepareForTts(text, "plain")).toBe(text);
+    expect(prepareForTts(text, "lower")).toBe("бъ. бъ като балон. Напиши буквата ъ, като в ъгъл.");
+    expect(prepareForTts(text, "double")).toBe("бъъ. бъъ като балон. Напиши буквата ъъ, като в ъгъл.");
+    expect(prepareForTts("Жъ.", "accent")).toBe("жъ̀.");
+    expect(prepareForTts("чадър, гъба, лъв", "double")).toBe("чадър, гъба, лъв");
   });
 });

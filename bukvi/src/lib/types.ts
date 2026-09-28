@@ -1,3 +1,5 @@
+import type { TtsSpelling } from "@/config/speech";
+
 // Общи типове за уроците, шаблоните, оценяването и прогреса.
 
 /** Точка в координатите на шаблона: квадрат 0..100 × 0..100, y расте надолу. */
@@ -76,4 +78,6 @@ export type Settings = {
   difficulty: Difficulty;
   /** Ключ от config/mascot.ts. */
   mascot: string;
+  /** Как звуците на буквите („Бъ“) се подават на синтезатора — зависи от устройството. */
+  ttsSpelling: TtsSpelling;
 };

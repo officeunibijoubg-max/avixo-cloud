@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import type { PlayerProgress, Settings } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { DEFAULT_MASCOT } from "@/config/mascot";
+import { DEFAULT_TTS_SPELLING } from "@/config/speech";
 import { emptyProgress, recordGameAnswer, recordWriting, type ProgressDelta } from "@/services/progress";
 
 // Едно хранилище за прогреса и настройките, пазено в localStorage.
@@ -20,6 +21,7 @@ export const defaultSettings: Settings = {
   reduceMotion: false,
   difficulty: "easy",
   mascot: DEFAULT_MASCOT,
+  ttsSpelling: DEFAULT_TTS_SPELLING,
 };
 
 type GameState = {
