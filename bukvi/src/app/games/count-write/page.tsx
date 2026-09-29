@@ -1,5 +1,6 @@
 "use client";
 
+import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import type { CharacterLesson } from "@/lib/types";
 import { numberLessons } from "@/data/numbers";
@@ -14,7 +15,7 @@ import { Illustration } from "@/components/illustrations/Illustration";
 const ANIMALS = ["ladybug", "duckling", "frog", "bunny", "kitten", "elephant", "teddy", "deer"];
 
 /** Игра 8 — „Цифрово броене“: преброй животните и напиши числото. */
-export default function CountWriteGame() {
+function CountWriteGame() {
   const difficulty = useGameStore((s) => s.settings.difficulty);
   const pickLesson = useCallback(
     (prev: CharacterLesson | null) => pickOne(numberLessons.filter((l) => l.id !== "0" && l.id !== prev?.id)),
@@ -39,5 +40,13 @@ export default function CountWriteGame() {
       visual={visual}
       difficulty={difficulty === "hard" ? "hard" : "normal"}
     />
+  );
+}
+
+export default function Page() {
+  return (
+    <FeatureGate id="count-write">
+      <CountWriteGame />
+    </FeatureGate>
   );
 }

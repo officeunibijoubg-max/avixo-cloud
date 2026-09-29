@@ -10,6 +10,7 @@ import { Mascot } from "@/components/game/Mascot";
 import { StarCounter } from "@/components/game/StarCounter";
 import { CoinCounter } from "@/components/game/CoinCounter";
 import { DailyChallengeCard } from "@/components/game/DailyChallengeCard";
+import { NextUnlockCard, UnlockPopup } from "@/components/game/UnlockProgress";
 import { levelOf, MAX_LEVEL, todayKey } from "@/services/progress";
 import { pickAdventureLetter } from "@/services/adventure";
 import { playSound } from "@/services/sounds";
@@ -73,6 +74,8 @@ export default function HomePage() {
       </Link>
 
       <DailyChallengeCard />
+      <NextUnlockCard />
+      <UnlockPopup />
 
       <nav className="grid flex-1 grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
         <BigButton href="/learn/" icon="🗺️" label="Карта" size="lg" color="bg-lime-200" />

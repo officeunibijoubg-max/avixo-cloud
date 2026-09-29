@@ -57,6 +57,7 @@ type GameState = {
   equip: (id: string | null, slot?: "accessory" | "background") => void;
   completeAdventure: () => ProgressDelta;
   addPlayTime: (seconds: number) => void;
+  markUnlocksSeen: (ids: string[]) => void;
   updateSettings: (patch: Partial<Settings>) => void;
   resetProgress: () => void;
   // Профили (няколко деца на едно устройство).
@@ -110,6 +111,10 @@ export const useGameStore = create<GameState>()(
         return delta;
       },
       addPlayTime: (seconds) => set((s) => ({ progress: addPlayTime(s.progress, seconds) })),
+      markUnlocksSeen: (ids) =>
+        set((s) => ({
+          progress: { ...s.progress, seenUnlocks: [...new Set([...(s.progress.seenUnlocks ?? []), ...ids])] },
+        })),
       updateSettings: (patch) => set((s) => ({ settings: { ...s.settings, ...patch } })),
       resetProgress: () => set({ progress: emptyProgress() }),
       profiles: [defaultProfile()],

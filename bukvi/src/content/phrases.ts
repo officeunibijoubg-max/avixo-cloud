@@ -81,6 +81,16 @@ export const phrases = {
   firstSoundQ: (word: string) => `Кой е първият звук в „${word}“?`,
   lastSoundQ: (word: string) => `Кой е последният звук в „${word}“?`,
 
+  // Отключване
+  needLetters: (n: number) => (n === 1 ? "научи още 1 буква" : `научи още ${n} букви`),
+  needDigits: (n: number) => (n === 1 ? "научи още 1 цифра" : `научи още ${n} цифри`),
+  needWords: (n: number) => (n === 1 ? "напиши още 1 дума" : `напиши още ${n} думи`),
+  needWorld: (title: string) => `мини „${title}“`,
+  lockedFeature: (missing: string) => `Заключено! За да отключиш, ${missing}.`,
+  nextUnlock: "Следва да отключиш",
+  unlockedNew: (title: string) => `Отключи нова игра: ${title.replace(/[?!]$/, "")}!`,
+  unlockedMany: "Отключи нови игри!",
+
   // Сричане и четене
   buildWord: (word: string) => `${word}. Подреди сричките.`,
   buildWordQ: "Подреди сричките на думата!",

@@ -18,6 +18,8 @@ export type World = {
   kind?: "characters" | "words";
   /** Свят, който трябва да е минат, за да се отключи този. */
   requires?: string;
+  /** Или: колко главни букви (с поне една ⭐) трябва да знае детето. */
+  unlockLetters?: number;
   comingSoon?: boolean;
 };
 
@@ -29,6 +31,8 @@ export const WORLDS: World[] = [
     decor: ["🏠", "🏫", "🚌", "🏢", "🚦", "🎡", "🏪", "🚲"],
     theme: { path: "#fbbf24", bg: "linear-gradient(180deg,#fef3c7,#fde68a)", node: "bg-amber-300" },
     characters: [...DIGITS],
+    // Първо буквите: градът е нов свят-награда след първите букви.
+    unlockLetters: 5,
   },
   {
     id: "forest",

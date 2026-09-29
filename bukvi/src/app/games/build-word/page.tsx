@@ -1,5 +1,6 @@
 "use client";
 
+import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { READING_WORDS, type ReadingWord } from "@/data/readingWords";
 import { gameTitle } from "@/data/games";
@@ -27,7 +28,7 @@ type Tile = { id: number; text: string };
  * „Сглоби думата“ — сричане: детето чува думата и я подрежда от срички
  * (МА + МА = МАМА). Всяка сричка се изговаря при натискане, накрая — цялата дума.
  */
-export default function BuildWordGame() {
+function BuildWordGame() {
   const recordGameAnswer = useGameStore((s) => s.recordGameAnswer);
   const countGame = useGameStore((s) => s.countGame);
   const { celebration, celebrate, closeReward } = useCelebration();
@@ -143,5 +144,13 @@ export default function BuildWordGame() {
       )}
       <RewardAnimation celebration={celebration} onCloseReward={closeReward} />
     </PageShell>
+  );
+}
+
+export default function Page() {
+  return (
+    <FeatureGate id="build-word">
+      <BuildWordGame />
+    </FeatureGate>
   );
 }

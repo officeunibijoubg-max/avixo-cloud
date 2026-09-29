@@ -1,5 +1,6 @@
 "use client";
 
+import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import { ALPHABET } from "@/data/alphabet";
 import { gameTitle } from "@/data/games";
@@ -14,7 +15,7 @@ import { Illustration } from "@/components/illustrations/Illustration";
  * „Звуците в думата“ — звуков анализ, основното умение преди четенето:
  * детето чува думата и намира първия или последния ѝ звук.
  */
-export default function SoundsGame() {
+function SoundsGame() {
   const makeRound = useCallback((index: number): ChoiceRound => {
     // Редуваме: първи звук, последен звук.
     const askLast = index % 2 === 1;
@@ -46,4 +47,12 @@ export default function SoundsGame() {
     };
   }, []);
   return <ChoiceGame title={gameTitle("sounds")} makeRound={makeRound} />;
+}
+
+export default function Page() {
+  return (
+    <FeatureGate id="sounds">
+      <SoundsGame />
+    </FeatureGate>
+  );
 }

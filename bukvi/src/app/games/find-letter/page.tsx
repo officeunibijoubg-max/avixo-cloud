@@ -1,5 +1,6 @@
 "use client";
 
+import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import { ALPHABET, letterLessons } from "@/data/alphabet";
 import { gameTitle } from "@/data/games";
@@ -14,7 +15,7 @@ import { ChoiceGame, type ChoiceRound } from "@/components/games/ChoiceGame";
  * и я намира между приличащи ѝ (М между Н, Ш и Л). Буквата не се показва,
  * освен ако устройството няма български глас.
  */
-export default function FindLetterGame() {
+function FindLetterGame() {
   const makeRound = useCallback((): ChoiceRound => {
     const lesson = pickOne(letterLessons);
     return {
@@ -25,4 +26,12 @@ export default function FindLetterGame() {
     };
   }, []);
   return <ChoiceGame title={gameTitle("find-letter")} makeRound={makeRound} />;
+}
+
+export default function Page() {
+  return (
+    <FeatureGate id="find-letter">
+      <FindLetterGame />
+    </FeatureGate>
+  );
 }

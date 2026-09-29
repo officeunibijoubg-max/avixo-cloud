@@ -1,5 +1,6 @@
 "use client";
 
+import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import { READING_WORDS } from "@/data/readingWords";
 import { gameTitle } from "@/data/games";
@@ -12,7 +13,7 @@ import { Illustration } from "@/components/illustrations/Illustration";
  * „Прочети и избери“ — първо четене: думата е написана (разделена на срички),
  * но НЕ се изговаря. Детето я прочита и избира картинката.
  */
-export default function ReadWordGame() {
+function ReadWordGame() {
   const makeRound = useCallback((): ChoiceRound => {
     const w = pickOne(READING_WORDS);
     const others = shuffle(READING_WORDS.filter((x) => x.image !== w.image)).slice(0, 2);
@@ -37,4 +38,12 @@ export default function ReadWordGame() {
     };
   }, []);
   return <ChoiceGame title={gameTitle("read-word")} makeRound={makeRound} rounds={6} />;
+}
+
+export default function Page() {
+  return (
+    <FeatureGate id="read-word">
+      <ReadWordGame />
+    </FeatureGate>
+  );
 }

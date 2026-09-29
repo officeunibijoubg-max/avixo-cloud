@@ -1,6 +1,6 @@
 import type { PlayerProgress } from "@/lib/types";
 import { WORLDS, type World } from "@/data/adventure";
-import { accuracy, starsFor } from "./progress";
+import { accuracy, learnedLetterCount, starsFor } from "./progress";
 
 // Отключване по картата: светът се отваря, когато предходният е минат;
 // всяка точка — когато предишната има поне една ⭐.
@@ -10,10 +10,16 @@ export const isWorldDone = (p: PlayerProgress, w: World) =>
 
 export function isWorldUnlocked(p: PlayerProgress, w: World, unlockAll = false): boolean {
   if (w.comingSoon) return false;
-  if (unlockAll || !w.requires) return true;
+  if (unlockAll) return true;
+  if (w.unlockLetters && learnedLetterCount(p) < w.unlockLetters) return false;
+  if (!w.requires) return true;
   const req = WORLDS.find((x) => x.id === w.requires);
   return !!req && isWorldDone(p, req);
 }
+
+/** Колко още букви трябват, за да се отвори светът (0, ако не зависи от букви). */
+export const lettersToUnlock = (p: PlayerProgress, w: World) =>
+  Math.max(0, (w.unlockLetters ?? 0) - learnedLetterCount(p));
 
 export function isNodeUnlocked(p: PlayerProgress, w: World, index: number, unlockAll = false): boolean {
   if (!isWorldUnlocked(p, w, unlockAll)) return false;

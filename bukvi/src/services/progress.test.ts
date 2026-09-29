@@ -127,6 +127,31 @@ describe("предизвикателство на деня", () => {
   });
 });
 
+describe("постепенно отключване", () => {
+  it("игрите и Градът на цифрите се отключват с научените букви", async () => {
+    const { isFeatureUnlocked, nextUnlock } = await import("./unlocks");
+    const numbers = WORLDS.find((w) => w.id === "numbers")!;
+    let p = emptyProgress();
+    expect(isFeatureUnlocked(p, "find-letter")).toBe(false);
+    expect(isWorldUnlocked(p, numbers)).toBe(false);
+    expect(nextUnlock(p)?.feature.id).toBe("find-letter");
+    for (const c of ["А", "Б", "В"]) p = write(p, c);
+    expect(isFeatureUnlocked(p, "find-letter")).toBe(true);
+    expect(isFeatureUnlocked(p, "balloons")).toBe(false);
+    for (const c of ["Г", "Д"]) p = write(p, c);
+    expect(isWorldUnlocked(p, numbers)).toBe(true);
+    expect(isFeatureUnlocked(emptyProgress(), "read-word", true)).toBe(true);
+  });
+
+  it("предизвикателството на деня не дава задача за заключени неща", () => {
+    const p = emptyProgress();
+    for (let i = 1; i <= 14; i++) {
+      const c = challengeFor(`2026-10-${String(i).padStart(2, "0")}`, p);
+      expect(["letters", "adventure"]).toContain(c.metric);
+    }
+  });
+});
+
 describe("магазин и стикери", () => {
   it("купуване: само с достатъчно монети, веднъж, и веднага се слага", () => {
     let p = emptyProgress();
@@ -145,7 +170,9 @@ describe("магазин и стикери", () => {
     const b = completeAdventure(a.progress, "2026-09-29");
     expect(a.delta.sticker).toBeTruthy();
     expect(b.delta.sticker).not.toBe(a.delta.sticker);
-    expect(b.progress.coins).toBe(POINTS.adventureBonus * 2);
+    // Ако в някой от дните предизвикателството е „мини приключението“, идва и неговият бонус.
+    const challengeBonus = [a, b].filter((r) => r.delta.challengeDone).length * CHALLENGE_BONUS;
+    expect(b.progress.coins).toBe(POINTS.adventureBonus * 2 + challengeBonus);
     expect(b.progress.adventuresDone).toEqual(["2026-09-28", "2026-09-29"]);
   });
 

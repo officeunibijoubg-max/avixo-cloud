@@ -2,6 +2,9 @@ import type { CharacterProgress, PlayerProgress } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { POINTS } from "@/config/points";
 import { LEVELS } from "@/data/lessons";
+import { ALPHABET } from "@/data/alphabet";
+import { WORLDS } from "@/data/adventure";
+import { FEATURES } from "@/data/unlocks";
 import { getShopItem, STICKERS } from "@/data/shop";
 import { CHALLENGE_BONUS, CHALLENGES, type Challenge, type ChallengeMetric } from "@/config/challenges";
 
@@ -27,6 +30,7 @@ export const emptyProgress = (): PlayerProgress => ({
   adventuresDone: [],
   daily: { day: "", counts: {} },
   challengeDays: [],
+  seenUnlocks: [],
 });
 
 const emptyChar = (character: string): CharacterProgress => ({
@@ -49,6 +53,9 @@ export function lessonStars(c: CharacterProgress | undefined): number {
 }
 
 export const starsFor = (p: PlayerProgress, character: string) => lessonStars(p.characters[character]);
+
+/** Колко главни букви детето вече знае (с поне една ⭐). */
+export const learnedLetterCount = (p: PlayerProgress) => ALPHABET.filter((c) => starsFor(p, c) > 0).length;
 
 export const totalStars = (p: PlayerProgress) =>
   Object.values(p.characters).reduce((a, c) => a + lessonStars(c), 0);
@@ -151,11 +158,29 @@ export function recordGameAnswer(
 /** Поредният номер на деня — за да се сменя предизвикателството всеки ден по ред. */
 const dayNumber = (day: string) => Math.floor(Date.parse(`${day}T12:00:00Z`) / 86_400_000);
 
-export const challengeFor = (day = todayKey()): Challenge => CHALLENGES[((dayNumber(day) % CHALLENGES.length) + CHALLENGES.length) % CHALLENGES.length];
+/** Може ли детето вече да изпълни такава задача (нужните игри/светове са отключени). */
+function isFeasible(p: PlayerProgress, c: Challenge): boolean {
+  const letters = learnedLetterCount(p);
+  if (c.metric === "numbers") return letters >= (WORLDS.find((w) => w.id === "numbers")?.unlockLetters ?? 0);
+  if (c.metric === "games") return letters >= Math.min(...FEATURES.map((f) => f.unlock.letters ?? Infinity));
+  if (c.metric === "words") return (WORLDS.find((w) => w.id === "forest")?.characters ?? []).every((ch) => starsFor(p, ch) > 0);
+  return true;
+}
+
+/**
+ * Днешното предизвикателство: по ред от списъка, но само измежду задачите, които
+ * детето вече може да изпълни. Веднъж избрано, остава същото до края на деня.
+ */
+export function challengeFor(day = todayKey(), p?: PlayerProgress): Challenge {
+  const fixed = p?.daily?.day === day && p.daily.challengeId ? CHALLENGES.find((c) => c.id === p.daily.challengeId) : undefined;
+  if (fixed) return fixed;
+  const list = p ? CHALLENGES.filter((c) => isFeasible(p, c)) : CHALLENGES;
+  return list[((dayNumber(day) % list.length) + list.length) % list.length];
+}
 
 /** Колко е направено днес по метриката на днешното предизвикателство. */
 export function challengeCount(p: PlayerProgress, day = todayKey()): number {
-  const c = challengeFor(day);
+  const c = challengeFor(day, p);
   return p.daily?.day === day ? (p.daily.counts[c.metric] ?? 0) : 0;
 }
 
@@ -183,8 +208,11 @@ function bumpDaily(
   day: string,
 ): { progress: PlayerProgress; challengeDone?: ProgressDelta["challengeDone"] } {
   const counts = p.daily?.day === day ? p.daily.counts : {};
-  const next: PlayerProgress = { ...p, daily: { day, counts: { ...counts, [metric]: (counts[metric] ?? 0) + 1 } } };
-  const c = challengeFor(day);
+  const c = challengeFor(day, p);
+  const next: PlayerProgress = {
+    ...p,
+    daily: { day, challengeId: c.id, counts: { ...counts, [metric]: (counts[metric] ?? 0) + 1 } },
+  };
   const days = next.challengeDays ?? [];
   if (c.metric !== metric || days.includes(day) || (next.daily.counts[metric] ?? 0) < c.goal) return { progress: next };
   const progress = earn({ ...next, challengeDays: [...days, day] }, CHALLENGE_BONUS);

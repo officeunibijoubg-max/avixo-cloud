@@ -77,9 +77,11 @@ export type PlayerProgress = {
   /** Дни, в които е завършено Днешното приключение. */
   adventuresDone: string[];
   /** Броячите за Предизвикателството на деня (нулират се всеки ден). */
-  daily: { day: string; counts: Partial<Record<ChallengeMetric, number>> };
+  daily: { day: string; challengeId?: string; counts: Partial<Record<ChallengeMetric, number>> };
   /** Дни с изпълнено предизвикателство — от тях се смята поредицата 🔥. */
   challengeDays: string[];
+  /** Отключени игри, за които детето вече е видяло картата „Отключи нова игра!“. */
+  seenUnlocks: string[];
 };
 
 export type Settings = {

@@ -1,5 +1,6 @@
 "use client";
 
+import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ALPHABET, letterLessons } from "@/data/alphabet";
 import { gameTitle } from "@/data/games";
@@ -24,7 +25,7 @@ const SPAWN_MS = 1100;
 const COLORS = ["#f472b6", "#38bdf8", "#fbbf24", "#a78bfa", "#4ade80", "#fb923c", "#f87171"];
 
 /** Игра 6 — „Балони“: спукай балона с правилната буква. */
-export default function BalloonsGame() {
+function BalloonsGame() {
   const reduceMotion = useGameStore((s) => s.settings.reduceMotion);
   const recordGameAnswer = useGameStore((s) => s.recordGameAnswer);
   const countGame = useGameStore((s) => s.countGame);
@@ -159,5 +160,13 @@ export default function BalloonsGame() {
       )}
       <RewardAnimation celebration={celebration} onCloseReward={closeReward} />
     </PageShell>
+  );
+}
+
+export default function Page() {
+  return (
+    <FeatureGate id="balloons">
+      <BalloonsGame />
+    </FeatureGate>
   );
 }

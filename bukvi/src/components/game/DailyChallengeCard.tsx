@@ -11,7 +11,7 @@ export function DailyChallengeCard() {
   const progress = useGameStore((s) => s.progress);
   const hydrated = useGameStore((s) => s.hydrated);
   const day = todayKey();
-  const challenge = challengeFor(day);
+  const challenge = challengeFor(day, progress);
   const count = hydrated ? Math.min(challenge.goal, challengeCount(progress, day)) : 0;
   const done = (progress.challengeDays ?? []).includes(day);
   const streak = hydrated ? dayStreak(progress, day) : 0;
