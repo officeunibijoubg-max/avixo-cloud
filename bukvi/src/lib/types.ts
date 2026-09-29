@@ -124,4 +124,6 @@ export type Settings = {
   ttsSpelling: TtsSpelling;
   /** Чий глас: записаният (работи на всяко устройство) или синтезаторът на устройството. */
   voice: VoiceSource;
+  /** Кой записан глас (id от config/voices.ts): женски или мъжки. */
+  voiceName: string;
 };

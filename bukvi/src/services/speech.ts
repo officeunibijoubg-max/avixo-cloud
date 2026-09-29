@@ -3,6 +3,7 @@ import { APP_CONFIG } from "@/config/app";
 import { phrases } from "@/content/phrases";
 import { DEFAULT_TTS_SPELLING, type TtsSpelling } from "@/config/speech";
 import { voiceLines } from "@/content/voiceScript";
+import { DEFAULT_VOICE, VOICES, VOICE_SAMPLE_ID } from "@/config/voices";
 
 // Слой за говор. Екраните викат само speakCharacter / speakWord / speakPhrase.
 // Днес говори Web Speech API; утре — записани .mp3 файлове, без промяна в екраните.
@@ -16,11 +17,11 @@ export interface SpeechEngine {
 
 /**
  * Записан глас. Всяка фраза от сценария (content/voiceScript.ts) има файл
- * `public/audio/<id>.mp3` — генериран (scripts/generate-voice.py) или записан на ръка
- * със същото име. Файлът се търси направо по id-то, без да чакаме списък, защото на
- * много Android таблети синтезаторът няма български и записът е единственият глас.
- * `audio/manifest.json` (ако се зареди) казва кои са записани на ръка и файловете с
- * друго разширение (.m4a, .ogg).
+ * `public/audio/<глас>/<id>.mp3` за всеки глас от config/voices.ts (женски/мъжки,
+ * генерирани от scripts/generate-voice.py). Файлът се търси направо по id-то, без да
+ * чакаме списък, защото на много Android таблети синтезаторът няма български и
+ * записът е единственият глас. Запис на ръка `public/audio/<id>.mp3` е с предимство;
+ * `audio/manifest.json` (ако се зареди) казва кои са те.
  */
 class RecordedAudioEngine implements SpeechEngine {
   private current: HTMLAudioElement | null = null;
@@ -35,7 +36,7 @@ class RecordedAudioEngine implements SpeechEngine {
     if (typeof window === "undefined" || typeof fetch === "undefined") return;
     fetch("/audio/manifest.json", { cache: "no-cache" })
       .then((r): Promise<Partial<Manifest>> | Partial<Manifest> => (r.ok ? r.json() : {}))
-      .then((m) => (this.manifest = { files: m.files ?? {}, generated: m.generated ?? [] }))
+      .then((m) => (this.manifest = { files: m.files ?? {} }))
       .catch(() => {});
   }
 
@@ -52,7 +53,7 @@ class RecordedAudioEngine implements SpeechEngine {
   /** Записано на ръка (не генерирано) — има предимство и пред гласа на устройството. */
   isHuman(text: string) {
     const id = this.idOf(text);
-    return !!id && !!this.manifest?.files[id] && !this.manifest.generated.includes(id);
+    return !!id && !!this.manifest?.files[id];
   }
 
   get count() {
@@ -67,7 +68,8 @@ class RecordedAudioEngine implements SpeechEngine {
   play(text: string, volume: number): Promise<boolean> {
     this.cancel();
     const id = this.idOf(text)!;
-    const src = `/audio/${this.manifest?.files[id] ?? `${id}.mp3`}`;
+    const human = this.manifest?.files[id];
+    const src = human ? `/audio/${human}` : `/audio/${state.voiceName}/${id}.mp3`;
     return new Promise<boolean>((resolve) => {
       const audio = new Audio(src);
       audio.volume = volume;
@@ -93,7 +95,8 @@ class RecordedAudioEngine implements SpeechEngine {
   }
 }
 
-type Manifest = { files: Record<string, string>; generated: string[] };
+/** Записите на ръка: id → файл в public/audio/. */
+type Manifest = { files: Record<string, string> };
 
 class WebSpeechEngine implements SpeechEngine {
   voice: SpeechSynthesisVoice | null = null;
@@ -176,11 +179,12 @@ class WebSpeechEngine implements SpeechEngine {
 
 // ───────────────────────── публичен API ─────────────────────────
 
-const state: { enabled: boolean; volume: number; spelling: TtsSpelling; voice: VoiceSource } = {
+const state: { enabled: boolean; volume: number; spelling: TtsSpelling; voice: VoiceSource; voiceName: string } = {
   enabled: true,
   volume: 0.8,
   spelling: DEFAULT_TTS_SPELLING,
   voice: "recorded",
+  voiceName: DEFAULT_VOICE,
 };
 
 // Самостоятелна сричка „съгласна + ъ“ или самотна „ъ“ (звукът на буква, а не част от дума).
@@ -204,11 +208,18 @@ function getEngines(): Engines {
   return engines;
 }
 
-export function configureSpeech(opts: { enabled: boolean; volume: number; spelling?: TtsSpelling; voice?: VoiceSource }) {
+export function configureSpeech(opts: {
+  enabled: boolean;
+  volume: number;
+  spelling?: TtsSpelling;
+  voice?: VoiceSource;
+  voiceName?: string;
+}) {
   state.enabled = opts.enabled;
   state.volume = opts.volume;
   if (opts.spelling) state.spelling = opts.spelling;
   if (opts.voice) state.voice = opts.voice;
+  if (opts.voiceName && VOICES.some((v) => v.id === opts.voiceName)) state.voiceName = opts.voiceName;
   if (!opts.enabled) cancelSpeech();
 }
 
@@ -297,3 +308,15 @@ export const writeTaskText = (lesson: CharacterLesson, trace: boolean) =>
     : (trace ? phrases.traceNumber : phrases.writeNumber)(lesson.spokenName);
 
 export const speakWriteTask = (lesson: CharacterLesson, trace = false) => speakPhrase(writeTaskText(lesson, trace));
+
+/** Прослушване на записан глас в настройките (без значение кой е избран). */
+export function previewVoice(voiceId: string): Promise<void> {
+  if (typeof window === "undefined" || typeof Audio === "undefined") return Promise.resolve();
+  cancelSpeech();
+  return new Promise<void>((resolve) => {
+    const audio = new Audio(`/audio/${voiceId}/${VOICE_SAMPLE_ID}.mp3`);
+    audio.volume = state.volume;
+    audio.onended = audio.onerror = () => resolve();
+    audio.play().catch(() => resolve());
+  });
+}

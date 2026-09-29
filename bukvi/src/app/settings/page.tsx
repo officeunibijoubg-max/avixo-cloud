@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Difficulty, VoiceSource } from "@/lib/types";
+import type { Difficulty } from "@/lib/types";
+import { VOICES as VOICE_LIST } from "@/config/voices";
 import { useGameStore } from "@/store/gameStore";
-import { configureSpeech, hasBulgarianVoice, speakPhrase, speechInfo } from "@/services/speech";
+import { configureSpeech, hasBulgarianVoice, previewVoice, speakPhrase, speechInfo } from "@/services/speech";
 import { playSound, soundState } from "@/services/sounds";
 import { ui } from "@/content/phrases";
 import { cn } from "@/lib/cn";
@@ -81,10 +82,10 @@ function SoundCheck() {
   );
 }
 
-const VOICES: { id: VoiceSource; label: string; text: string }[] = [
-  { id: "recorded", label: "🎙️ Записан глас (препоръчан)", text: "Работи на всяко устройство, и на Android без български синтезатор." },
-  { id: "device", label: "📱 Гласът на устройството", text: "Ако таблетът има хубав български глас. Без него се ползва записаният." },
-];
+const GENDERS = [
+  { id: "female", title: "Женски глас" },
+  { id: "male", title: "Мъжки глас" },
+] as const;
 
 function SettingsForm() {
   const settings = useGameStore((s) => s.settings);
@@ -129,26 +130,65 @@ function SettingsForm() {
       <Toggle icon="🗣️" label="Говор" checked={settings.speech} onChange={(v) => update({ speech: v })} />
       <div className="card-soft rounded-2xl bg-white p-4 shadow-sm">
         <p className="text-lg font-bold">🎙️ Чий глас говори</p>
-        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {VOICES.map((v) => (
-            <button
-              key={v.id}
-              type="button"
-              onClick={() => {
-                update({ voice: v.id });
-                configureSpeech({ enabled: settings.speech, volume: settings.volume, voice: v.id });
-                void speakPhrase("Браво!");
-              }}
-              className={cn(
-                "flex flex-col items-start gap-1 rounded-2xl border-2 border-slate-200 p-3 text-left font-bold",
-                settings.voice === v.id && "border-grape bg-violet-50 ring-2 ring-grape",
-              )}
-            >
-              <span>{v.label}</span>
-              <span className="text-sm font-normal text-slate-500">{v.text}</span>
-            </button>
-          ))}
-        </div>
+        <p className="text-muted text-sm text-slate-500">Натиснете ▶, за да чуете гласа, после го изберете.</p>
+        {GENDERS.map((g) => (
+          <div key={g.id} className="mt-3">
+            <p className="mb-2 font-black">{g.title}</p>
+            <div className="grid grid-cols-2 gap-3">
+              {VOICE_LIST.filter((v) => v.gender === g.id).map((v) => {
+                const chosen = settings.voice === "recorded" && settings.voiceName === v.id;
+                return (
+                  <div
+                    key={v.id}
+                    className={cn(
+                      "flex items-center gap-2 rounded-2xl border-2 border-slate-200 p-2",
+                      chosen && "border-grape bg-violet-50 ring-2 ring-grape",
+                    )}
+                  >
+                    <button
+                      type="button"
+                      aria-label={`Чуй ${v.name}`}
+                      onClick={() => void previewVoice(v.id)}
+                      className="flex size-12 shrink-0 items-center justify-center rounded-full bg-sky text-2xl text-white"
+                    >
+                      ▶
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        update({ voice: "recorded", voiceName: v.id });
+                        configureSpeech({ enabled: settings.speech, volume: settings.volume, voice: "recorded", voiceName: v.id });
+                        void previewVoice(v.id);
+                      }}
+                      className="flex flex-1 items-center gap-2 text-left text-lg font-bold"
+                    >
+                      <span className="text-3xl">{v.icon}</span>
+                      <span className="flex-1">{v.name}</span>
+                      {chosen && <span className="text-grape">✓</span>}
+                    </button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+        <button
+          type="button"
+          onClick={() => {
+            update({ voice: "device" });
+            configureSpeech({ enabled: settings.speech, volume: settings.volume, voice: "device" });
+            void speakPhrase(phrases.soundWorks);
+          }}
+          className={cn(
+            "mt-3 flex w-full flex-col items-start gap-1 rounded-2xl border-2 border-slate-200 p-3 text-left font-bold",
+            settings.voice === "device" && "border-grape bg-violet-50 ring-2 ring-grape",
+          )}
+        >
+          <span>📱 Гласът на устройството</span>
+          <span className="text-sm font-normal text-slate-500">
+            Ако таблетът има хубав български глас. Без него се ползва избраният записан глас.
+          </span>
+        </button>
         {settings.voice === "device" && voice === false && (
           <p className="mt-3 rounded-2xl bg-amber-100 p-3 text-sm font-bold">
             На това устройство няма български глас, затова се ползва записаният. На Android: Настройки → Система → Езици →

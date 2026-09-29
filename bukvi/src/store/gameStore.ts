@@ -4,6 +4,7 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { PlayerProgress, Settings } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
+import { DEFAULT_VOICE } from "@/config/voices";
 import { DEFAULT_MASCOT } from "@/config/mascot";
 import { DEFAULT_TTS_SPELLING } from "@/config/speech";
 import {
@@ -48,6 +49,7 @@ export const defaultSettings: Settings = {
   mascot: DEFAULT_MASCOT,
   ttsSpelling: DEFAULT_TTS_SPELLING,
   voice: "recorded",
+  voiceName: DEFAULT_VOICE,
 };
 
 type GameState = {
