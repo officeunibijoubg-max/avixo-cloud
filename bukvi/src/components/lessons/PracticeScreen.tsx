@@ -27,7 +27,7 @@ export function PracticeScreen({ lesson }: { lesson: CharacterLesson }) {
   const manualCheck = difficulty === "hard";
   const ex = useWritingExercise(lesson, { introHint: trace && difficulty === "easy" });
   const next = nextLesson(lesson);
-  const back = lesson.lowercase ? "/learn/small/" : lesson.type === "letter" ? "/learn/letters/" : "/learn/numbers/";
+  const back = "/learn/";
   const locked = useGameStore((s) => s.hydrated && !isCharacterUnlocked(s.progress, lesson.character, s.settings.unlockAll));
 
   // Представяме символа и задачата. (Без докосване някои браузъри мълчат — 🔊 е винаги наблизо.)

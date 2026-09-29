@@ -22,7 +22,7 @@ import { useWritingExercise } from "@/components/game/useWritingExercise";
 import { useCelebration } from "@/components/game/useCelebration";
 import { Illustration } from "@/components/illustrations/Illustration";
 
-const BACK = "/learn/words/";
+const BACK = "/learn/";
 
 /**
  * Сричка или дума от Острова на думите: детето я пише буква по буква,
@@ -33,6 +33,7 @@ export function WordScreen({
   back = BACK,
   nextHref,
   task,
+  onNext,
 }: {
   word: WordItem;
   back?: string;
@@ -40,6 +41,8 @@ export function WordScreen({
   nextHref?: string;
   /** Текстът в балончето на Лъвчо докато пише. */
   task?: string;
+  /** Вместо адрес — действие за „Напред“ (в пътя на обучение). */
+  onNext?: () => void;
 }) {
   const router = useRouter();
   const letters = word.text.split("").map((c) => getLessonByChar(c)).filter((l): l is CharacterLesson => !!l);
@@ -130,7 +133,7 @@ export function WordScreen({
                   color="bg-leaf text-white"
                   pulse
                   className="flex-1"
-                  onClick={() => router.push(nextLink)}
+                  onClick={() => (onNext ? onNext() : router.push(nextLink))}
                 />
               </div>
             </div>

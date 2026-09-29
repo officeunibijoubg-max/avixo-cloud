@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { phrases } from "@/content/phrases";
+import { gameTitle } from "@/data/games";
 import { useGameStore } from "@/store/gameStore";
 import { playSound } from "@/services/sounds";
 import { cancelSpeech, speakPhrase } from "@/services/speech";
@@ -30,10 +31,10 @@ export type ChoiceRound = {
   wide?: boolean;
 };
 
-type Props = { title: string; makeRound: (index: number) => ChoiceRound; rounds?: number; back?: string };
+type Props = { game: string; makeRound: (index: number) => ChoiceRound; rounds?: number; back?: string };
 
 /** Обща механика за игрите „избери правилния отговор“ (Коя е буквата?, С коя буква започва?). */
-export function ChoiceGame({ title, makeRound, rounds = 8, back = "/games/" }: Props) {
+export function ChoiceGame({ game, makeRound, rounds = 8, back = "/games/" }: Props) {
   const recordGameAnswer = useGameStore((s) => s.recordGameAnswer);
   const countGame = useGameStore((s) => s.countGame);
   const { celebration, celebrate, closeReward } = useCelebration();
@@ -71,7 +72,7 @@ export function ChoiceGame({ title, makeRound, rounds = 8, back = "/games/" }: P
       celebrate(recordGameAnswer(true));
       void speakPhrase(phrases.praise());
       timer.current = setTimeout(() => {
-        if (index + 1 >= rounds) countGame();
+        if (index + 1 >= rounds) countGame(game);
         setIndex((i) => i + 1);
       }, 1500);
     } else if (!wrong.includes(option)) {
@@ -88,7 +89,7 @@ export function ChoiceGame({ title, makeRound, rounds = 8, back = "/games/" }: P
   }, []);
 
   return (
-    <PageShell back={back} title={title}>
+    <PageShell back={back} title={gameTitle(game)}>
       {index >= rounds ? (
         <GameEnd correct={correctCount} onAgain={restart} />
       ) : (

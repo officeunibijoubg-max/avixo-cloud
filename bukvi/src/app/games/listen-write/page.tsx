@@ -1,10 +1,9 @@
 "use client";
 
+import { knownLetters } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import type { CharacterLesson } from "@/lib/types";
-import { letterLessons } from "@/data/alphabet";
-import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { pickOne } from "@/lib/random";
@@ -14,12 +13,12 @@ import { WriteRoundGame } from "@/components/games/WriteRoundGame";
 function ListenWriteGame() {
   const difficulty = useGameStore((s) => s.settings.difficulty);
   const pickLesson = useCallback(
-    (prev: CharacterLesson | null) => pickOne(letterLessons.filter((l) => l.id !== prev?.id)),
+    (prev: CharacterLesson | null) => pickOne(knownLetters().filter((l) => l.id !== prev?.id)),
     [],
   );
   return (
     <WriteRoundGame
-      title={gameTitle("listen-write")}
+      game="listen-write"
       pickLesson={pickLesson}
       prompt={(l) => phrases.listenWrite(l.spokenName)}
       // Без глас детето трябва да види коя е буквата — затова е и в балончето.

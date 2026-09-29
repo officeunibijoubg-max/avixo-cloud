@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { STORIES, type Story } from "@/content/stories";
 import { phrases, ui } from "@/content/phrases";
@@ -8,7 +9,7 @@ import { ALPHABET } from "@/data/alphabet";
 import { getLessonByChar } from "@/data/lessons";
 import { similarOptions } from "@/data/similar";
 import { useGameStore } from "@/store/gameStore";
-import { missingFor } from "@/services/unlocks";
+import { lockReason } from "@/services/unlocks";
 import { playSound } from "@/services/sounds";
 import { cancelSpeech, speakPhrase } from "@/services/speech";
 import { cn } from "@/lib/cn";
@@ -21,7 +22,19 @@ import { useCelebration } from "@/components/game/useCelebration";
 
 /** Приказки с Лъвчо: списък (отключват се една по една) и четене страница по страница. */
 function Stories() {
+  // ?id=… — отваря направо приказката (от пътя на обучение), ако е стигната.
+  const params = useSearchParams();
+  const progress = useGameStore((s) => s.progress);
+  const unlockAll = useGameStore((s) => s.settings.unlockAll);
+  const wanted = STORIES.find((x) => x.id === params.get("id"));
+  const hydrated = useGameStore((s) => s.hydrated);
   const [story, setStory] = useState<Story | null>(null);
+  const [opened, setOpened] = useState(false);
+  useEffect(() => {
+    if (!hydrated || opened) return;
+    setOpened(true);
+    if (wanted && lockReason(progress, `story:${wanted.id}`, unlockAll).length === 0) setStory(wanted);
+  }, [hydrated, opened, wanted, progress, unlockAll]);
   return story ? <Reader story={story} onClose={() => setStory(null)} /> : <StoryList onPick={setStory} />;
 }
 
@@ -34,7 +47,7 @@ function StoryList({ onPick }: { onPick: (s: Story) => void }) {
       <Mascot compact message={message} className="mb-4" />
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3">
         {STORIES.map((s) => {
-          const missing = unlockAll ? [] : missingFor(progress, s.unlock);
+          const missing = lockReason(progress, `story:${s.id}`, unlockAll);
           const open = missing.length === 0;
           return (
             <button
@@ -107,7 +120,7 @@ function Reader({ story, onClose }: { story: Story; onClose: () => void }) {
       setSolved(true);
       playSound("correct");
       celebrate(recordGameAnswer(true));
-      countGame();
+      countGame(`story-${story.id}`);
       void speakPhrase(phrases.storyEnd(lesson?.spokenName ?? o));
     } else if (!wrong.includes(o)) {
       setWrong((w) => [...w, o]);
@@ -157,7 +170,8 @@ function Reader({ story, onClose }: { story: Story; onClose: () => void }) {
           {solved && (
             <div className="flex w-full max-w-md gap-3">
               <BigButton icon="🔁" label={ui.again} onClick={() => { setPage(0); setSolved(false); setWrong([]); }} color="bg-sky-100" />
-              <BigButton icon="📚" label="Още приказки" onClick={onClose} color="bg-leaf text-white" className="flex-1" pulse />
+              <BigButton icon="📚" ariaLabel="Още приказки" onClick={onClose} color="bg-amber-100" />
+              <BigButton href="/step/" icon="➡️" label={phrases.continuePath} color="bg-leaf text-white" className="flex-1" pulse />
             </div>
           )}
         </div>
@@ -170,7 +184,9 @@ function Reader({ story, onClose }: { story: Story; onClose: () => void }) {
 export default function Page() {
   return (
     <FeatureGate id="stories">
-      <Stories />
+      <Suspense fallback={null}>
+        <Stories />
+      </Suspense>
     </FeatureGate>
   );
 }

@@ -22,9 +22,10 @@ export function GameEnd({ correct, onAgain }: { correct: number; onAgain: () => 
       <p className="text-4xl font-black">
         {"⭐".repeat(Math.min(5, Math.max(1, Math.round(correct / 2))))}
       </p>
-      <div className="flex w-full max-w-md gap-4">
+      <div className="flex w-full max-w-lg gap-3">
         <BigButton href="/games/" icon="🎮" ariaLabel={ui.back} color="bg-sky-100" />
-        <BigButton icon="🔁" label={ui.again} onClick={onAgain} color="bg-leaf text-white" className="flex-1" pulse />
+        <BigButton icon="🔁" ariaLabel={ui.again} onClick={onAgain} color="bg-amber-100" />
+        <BigButton href="/step/" icon="➡️" label={phrases.continuePath} color="bg-leaf text-white" className="flex-1" pulse />
       </div>
     </div>
   );

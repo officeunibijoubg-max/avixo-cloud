@@ -34,6 +34,7 @@ export default function ReviewPage() {
   return (
     <WriteRoundGame
       key={list.map((l) => l.id).join()}
+      game="review"
       title="Трудните букви"
       back="/parent/"
       pickLesson={pickLesson}

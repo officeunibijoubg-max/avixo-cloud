@@ -7,7 +7,7 @@ import { speakPhrase } from "@/services/speech";
 import { cn } from "@/lib/cn";
 
 /** Карта „Предизвикателство на деня“: задача, напредък и поредицата от дни 🔥. */
-export function DailyChallengeCard() {
+export function DailyChallengeCard({ className }: { className?: string }) {
   const progress = useGameStore((s) => s.progress);
   const hydrated = useGameStore((s) => s.hydrated);
   const day = todayKey();
@@ -23,6 +23,7 @@ export function DailyChallengeCard() {
       className={cn(
         "card-soft flex w-full items-center gap-4 rounded-[1.75rem] px-5 py-4 text-left shadow-sm",
         done ? "bg-green-100" : "bg-white/80",
+        className,
       )}
     >
       <span className="text-5xl" aria-hidden>

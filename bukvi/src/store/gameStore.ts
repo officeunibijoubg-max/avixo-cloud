@@ -55,7 +55,8 @@ type GameState = {
   hydrated: boolean;
   recordWriting: (character: string, score: number, isCorrect: boolean, coins: number) => ProgressDelta;
   recordGameAnswer: (isCorrect: boolean) => ProgressDelta;
-  countGame: () => void;
+  /** Изиграна докрай игра (или прочетена приказка „story-<id>“). */
+  countGame: (id: string) => void;
   buy: (id: string) => BuyResult;
   /** Слага/сваля купена вещ на нейното място. */
   toggleEquip: (id: string) => void;
@@ -103,7 +104,14 @@ export const useGameStore = create<GameState>()(
         set({ progress });
         return delta;
       },
-      countGame: () => set((s) => ({ progress: { ...s.progress, gamesPlayed: s.progress.gamesPlayed + 1 } })),
+      countGame: (id) =>
+        set((s) => ({
+          progress: {
+            ...s.progress,
+            gamesPlayed: s.progress.gamesPlayed + 1,
+            played: { ...s.progress.played, [id]: (s.progress.played?.[id] ?? 0) + 1 },
+          },
+        })),
       buy: (id) => {
         const res = buyItem(get().progress, id);
         if (res.ok) set({ progress: res.progress });

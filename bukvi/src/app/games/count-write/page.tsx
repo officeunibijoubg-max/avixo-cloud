@@ -1,10 +1,9 @@
 "use client";
 
+import { knownDigits } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import type { CharacterLesson } from "@/lib/types";
-import { numberLessons } from "@/data/numbers";
-import { gameTitle } from "@/data/games";
 import { COUNT_ITEMS as ANIMALS } from "@/data/math";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
@@ -16,7 +15,7 @@ import { Illustration } from "@/components/illustrations/Illustration";
 function CountWriteGame() {
   const difficulty = useGameStore((s) => s.settings.difficulty);
   const pickLesson = useCallback(
-    (prev: CharacterLesson | null) => pickOne(numberLessons.filter((l) => l.id !== "0" && l.id !== prev?.id)),
+    (prev: CharacterLesson | null) => pickOne(knownDigits().filter((l) => l.id !== prev?.id)),
     [],
   );
   const visual = useCallback((l: CharacterLesson) => {
@@ -31,7 +30,7 @@ function CountWriteGame() {
   }, []);
   return (
     <WriteRoundGame
-      title={gameTitle("count-write")}
+      game="count-write"
       pickLesson={pickLesson}
       prompt={() => phrases.countThem}
       caption={() => phrases.countThem}

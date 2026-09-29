@@ -5,7 +5,7 @@ import { GAME_GROUPS, GAMES } from "@/data/games";
 import { getFeature } from "@/data/unlocks";
 import { phrases, ui } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
-import { missingFor } from "@/services/unlocks";
+import { featureLockReason } from "@/services/unlocks";
 import { playSound } from "@/services/sounds";
 import { speakPhrase } from "@/services/speech";
 import { PageShell } from "@/components/ui/PageShell";
@@ -20,9 +20,8 @@ export default function GamesPage() {
 
   // Какво липсва за всяка игра ([] = отключена). До зареждането всичко изглежда заключено.
   const missing = (id: string) => {
-    const f = getFeature(id);
-    if (!f || unlockAll) return [];
-    return hydrated ? missingFor(progress, f.unlock) : ["…"];
+    if (!getFeature(id) || unlockAll) return [];
+    return hydrated ? featureLockReason(progress, id) : ["…"];
   };
 
   return (

@@ -3,8 +3,7 @@ import { APP_CONFIG } from "@/config/app";
 import { POINTS } from "@/config/points";
 import { LEVELS } from "@/data/lessons";
 import { ALPHABET } from "@/data/alphabet";
-import { WORLDS } from "@/data/adventure";
-import { FEATURES } from "@/data/unlocks";
+import { isReached } from "./path";
 import { getShopItem, STICKERS, type WearSlot } from "@/data/shop";
 import { CHALLENGE_BONUS, CHALLENGES, type Challenge, type ChallengeMetric } from "@/config/challenges";
 
@@ -23,6 +22,7 @@ export const emptyProgress = (): PlayerProgress => ({
   characters: {},
   exercises: 0,
   gamesPlayed: 0,
+  played: {},
   owned: [],
   equipped: {},
   stickers: [],
@@ -163,10 +163,9 @@ const dayNumber = (day: string) => Math.floor(Date.parse(`${day}T12:00:00Z`) / 8
 
 /** Може ли детето вече да изпълни такава задача (нужните игри/светове са отключени). */
 function isFeasible(p: PlayerProgress, c: Challenge): boolean {
-  const letters = learnedLetterCount(p);
-  if (c.metric === "numbers") return letters >= (WORLDS.find((w) => w.id === "numbers")?.unlockLetters ?? 0);
-  if (c.metric === "games") return letters >= Math.min(...FEATURES.map((f) => f.unlock.letters ?? Infinity));
-  if (c.metric === "words") return (WORLDS.find((w) => w.id === "forest")?.characters ?? []).every((ch) => starsFor(p, ch) > 0);
+  if (c.metric === "numbers") return isReached(p, "char:1");
+  if (c.metric === "games") return isReached(p, "game:find-letter");
+  if (c.metric === "words") return isReached(p, "word:МА");
   return true;
 }
 

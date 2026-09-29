@@ -1,30 +1,24 @@
 import type { PlayerProgress } from "@/lib/types";
 import { WORLDS, type World } from "@/data/adventure";
-import { accuracy, learnedLetterCount, starsFor } from "./progress";
+import { PATH } from "@/data/path";
+import { accuracy, starsFor } from "./progress";
+import { currentStep, currentStepIndex, isReached } from "./path";
 
-// Отключване по картата: светът се отваря, когато предходният е минат;
-// всяка точка — когато предишната има поне една ⭐.
+// Картите на световете показват буквите по групи, но кое е отворено решава
+// пътят на обучение: отворено е всичко, до което детето е стигнало.
 
 export const isWorldDone = (p: PlayerProgress, w: World) =>
   w.characters.length > 0 && w.characters.every((c) => starsFor(p, c) > 0);
 
+const nodeKey = (w: World, c: string) => (w.kind === "words" ? `word:${c}` : `char:${c}`);
+
 export function isWorldUnlocked(p: PlayerProgress, w: World, unlockAll = false): boolean {
   if (w.comingSoon) return false;
-  if (unlockAll) return true;
-  if (w.unlockLetters && learnedLetterCount(p) < w.unlockLetters) return false;
-  if (!w.requires) return true;
-  const req = WORLDS.find((x) => x.id === w.requires);
-  return !!req && isWorldDone(p, req);
+  return w.characters.some((c) => isReached(p, nodeKey(w, c), unlockAll));
 }
 
-/** Колко още букви трябват, за да се отвори светът (0, ако не зависи от букви). */
-export const lettersToUnlock = (p: PlayerProgress, w: World) =>
-  Math.max(0, (w.unlockLetters ?? 0) - learnedLetterCount(p));
-
 export function isNodeUnlocked(p: PlayerProgress, w: World, index: number, unlockAll = false): boolean {
-  if (!isWorldUnlocked(p, w, unlockAll)) return false;
-  if (unlockAll || index === 0) return true;
-  return starsFor(p, w.characters[index - 1]) > 0;
+  return isReached(p, nodeKey(w, w.characters[index]), unlockAll);
 }
 
 export function isCharacterUnlocked(p: PlayerProgress, character: string, unlockAll = false): boolean {
@@ -33,24 +27,24 @@ export function isCharacterUnlocked(p: PlayerProgress, character: string, unlock
   return isNodeUnlocked(p, w, w.characters.indexOf(character), unlockAll);
 }
 
-/** Точката, до която е стигнало детето в света (първата отключена без звезда). */
+/** Точката от този свят, която е текущата стъпка по пътя (или първата отворена без звезда). */
 export function currentNode(p: PlayerProgress, w: World, unlockAll = false): number {
+  const step = currentStep(p);
+  const now = step?.kind === "char" ? step.char : step?.kind === "word" ? step.text : null;
+  if (now && w.characters.includes(now)) return w.characters.indexOf(now);
   const i = w.characters.findIndex((c, idx) => isNodeUnlocked(p, w, idx, unlockAll) && starsFor(p, c) === 0);
-  return i === -1 ? w.characters.length - 1 : i;
+  return i === -1 ? -1 : i;
 }
 
 /**
- * Буквата за Днешното приключение: следващата нова буква по картата;
- * ако всички са минати — най-слабо усвоената.
+ * Буквата за урока: текущата буква по пътя; ако сега е друга стъпка — следващата
+ * буква по пътя; ако всичко е минато — най-слабо усвоената.
  */
 export function pickAdventureLetter(p: PlayerProgress): string {
-  const letterWorlds = WORLDS.filter((x) => x.id !== "numbers" && x.kind !== "words" && !x.comingSoon);
-  for (const w of letterWorlds) {
-    if (!isWorldUnlocked(p, w)) continue;
-    const next = w.characters.find((c) => starsFor(p, c) === 0);
-    if (next) return next;
-  }
-  const letters = letterWorlds.flatMap((w) => w.characters);
+  const from = currentStepIndex(p);
+  const next = PATH.slice(from).find((s) => s.kind === "char");
+  if (next?.kind === "char") return next.char;
+  const letters = PATH.flatMap((s) => (s.kind === "char" ? [s.char] : []));
   return [...letters].sort((a, b) => {
     const pa = p.characters[a];
     const pb = p.characters[b];

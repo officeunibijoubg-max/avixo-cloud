@@ -2,7 +2,6 @@
 
 import { useCallback } from "react";
 import { FeatureGate } from "@/components/layout/FeatureGate";
-import { gameTitle } from "@/data/games";
 import { COUNT_ITEMS, compareRound } from "@/data/math";
 import { phrases } from "@/content/phrases";
 import { pickOne } from "@/lib/random";
@@ -27,7 +26,7 @@ function CompareGame() {
       optionLabel: (o) => String(counts[o]),
     };
   }, []);
-  return <ChoiceGame title={gameTitle("compare")} makeRound={makeRound} rounds={6} />;
+  return <ChoiceGame game="compare" makeRound={makeRound} rounds={6} />;
 }
 
 export default function Page() {

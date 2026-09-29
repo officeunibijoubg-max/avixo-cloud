@@ -1,21 +1,20 @@
 "use client";
 
+import { knownLetters } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
-import { ALPHABET, letterLessons } from "@/data/alphabet";
-import { gameTitle } from "@/data/games";
+import { ALPHABET } from "@/data/alphabet";
 import { phrases } from "@/content/phrases";
 import { optionsWith, pickOne } from "@/lib/random";
 import { ChoiceGame, type ChoiceRound } from "@/components/games/ChoiceGame";
 import { Illustration } from "@/components/illustrations/Illustration";
 
 // Буквите с ясна примерна дума (без Ь, чиято дума умишлено липсва).
-const withWords = letterLessons.filter((l) => l.exampleWord);
 
 /** Игра 3 — „С коя буква започва?“: картинка, дума и три букви. */
 function FirstLetterGame() {
   const makeRound = useCallback((): ChoiceRound => {
-    const lesson = pickOne(withWords);
+    const lesson = pickOne(knownLetters().filter((l) => l.exampleWord));
     const word = lesson.exampleWord as string;
     return {
       prompt: phrases.startsWith(word),
@@ -34,7 +33,7 @@ function FirstLetterGame() {
       answer: lesson.character,
     };
   }, []);
-  return <ChoiceGame title={gameTitle("first-letter")} makeRound={makeRound} />;
+  return <ChoiceGame game="first-letter" makeRound={makeRound} />;
 }
 
 export default function Page() {

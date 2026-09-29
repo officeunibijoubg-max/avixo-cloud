@@ -83,6 +83,8 @@ export type PlayerProgress = {
   /** Броим упражненията и минигрите за родителския екран. */
   exercises: number;
   gamesPlayed: number;
+  /** Колко пъти е изиграна всяка игра/приказка (ид → брой) — за стъпките от пътя. */
+  played: Record<string, number>;
   /** Купени предмети от магазина (ид-та от data/shop.ts). */
   owned: string[];
   /** Какво е облечено/сложено в момента. */

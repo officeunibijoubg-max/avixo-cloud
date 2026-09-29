@@ -2,7 +2,6 @@
 
 import { useCallback } from "react";
 import { FeatureGate } from "@/components/layout/FeatureGate";
-import { gameTitle } from "@/data/games";
 import { COUNT_ITEMS, numberName, numberOptions, subRound } from "@/data/math";
 import { phrases } from "@/content/phrases";
 import { pickOne } from "@/lib/random";
@@ -26,7 +25,7 @@ function SubtractGame() {
       answer: String(answer),
     };
   }, []);
-  return <ChoiceGame title={gameTitle("subtract")} makeRound={makeRound} rounds={6} />;
+  return <ChoiceGame game="subtract" makeRound={makeRound} rounds={6} />;
 }
 
 export default function Page() {
