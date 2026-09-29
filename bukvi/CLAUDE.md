@@ -63,10 +63,13 @@ npm run build   # статичен export в out/ + офлайн списък в
 
 ## Записан глас
 
-`src/content/voiceScript.ts` изрежда всяка изговаряна фраза с постоянно id; `npm run voice-script`
-пише `docs/voice-script.csv`. Файл `public/audio/<id>.mp3` (или .m4a/.ogg/.wav) заменя синтезатора
-за този текст; `scripts/audio-manifest.mjs` прави `audio/manifest.json` при build. Нова фраза в
-`phrases.ts` → добави я и в `voiceScript.ts`.
+`src/content/voiceScript.ts` изрежда всяка изговаряна фраза с постоянно (уникално) id; `npm run voice-script`
+пише `docs/voice-script.csv`. `scripts/generate-voice.py` генерира MP3 за всяка фраза със свободния
+български глас на Piper (`bg_BG-dimitar-medium`, `pip install piper-tts lameenc`) — така има звук и на Android
+без български синтезатор. Файл `public/audio/<id>.mp3`, записан на ръка, е с предимство и не се презаписва.
+Ред: запис на ръка → генериран → синтезатор (или синтезаторът преди генерирания, ако в Настройки е избран
+„Гласът на устройството“ и има български глас). Записите не са в офлайн списъка — кешират се при първо пускане.
+Нова фраза в `phrases.ts` → добави я и в `voiceScript.ts`, после `npm run voice-script` и генераторът.
 
 ## Профили
 
@@ -92,6 +95,6 @@ npm run build   # статичен export в out/ + офлайн списък в
 
 ## Следващи стъпки
 
-- Записване на гласа по `docs/voice-script.csv`.
+- По-хубав глас: запис на ръка по `docs/voice-script.csv` (заменя генерирания файл за файл).
 - Професионални илюстрации могат да заменят `Illustration.tsx` (ключовете са в `words.ts` и `wordsIsland.ts`).
 - Още думи на Острова (с букви Р–Я), cloud sync на профилите.

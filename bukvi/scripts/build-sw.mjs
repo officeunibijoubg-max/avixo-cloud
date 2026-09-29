@@ -18,6 +18,8 @@ async function walk(dir) {
 const files = (await walk(OUT))
   .map((f) => "/" + path.relative(OUT, f).split(path.sep).join("/"))
   .filter((f) => f !== "/sw.js" && !f.endsWith(".txt") && !f.endsWith(".map"))
+  // Гласовите записи са много — кешират се при първо пускане, не наведнъж.
+  .filter((f) => !/^\/audio\/.+\.(mp3|m4a|aac|ogg|wav)$/.test(f) && f !== "/audio/generated.json")
   // Страниците се кешират по адрес с наклонена черта (trailingSlash).
   .map((f) => (f.endsWith("/index.html") ? f.slice(0, -"index.html".length) : f))
   .filter((f) => f !== "/404.html")

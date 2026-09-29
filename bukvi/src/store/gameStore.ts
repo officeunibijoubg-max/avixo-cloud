@@ -47,6 +47,7 @@ export const defaultSettings: Settings = {
   unlockAll: false,
   mascot: DEFAULT_MASCOT,
   ttsSpelling: DEFAULT_TTS_SPELLING,
+  voice: "recorded",
 };
 
 type GameState = {

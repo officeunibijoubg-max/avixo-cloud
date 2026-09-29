@@ -21,7 +21,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     configureSounds({ enabled: settings.sound, volume: settings.volume });
     setMusic(settings.music);
-    configureSpeech({ enabled: settings.speech, volume: settings.volume, spelling: settings.ttsSpelling });
+    configureSpeech({ enabled: settings.speech, volume: settings.volume, spelling: settings.ttsSpelling, voice: settings.voice });
     const root = document.documentElement;
     root.dataset.contrast = String(settings.highContrast);
     root.dataset.large = String(settings.largeUI);

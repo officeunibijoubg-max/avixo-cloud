@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { Difficulty } from "@/lib/types";
+import type { Difficulty, VoiceSource } from "@/lib/types";
 import { useGameStore } from "@/store/gameStore";
-import { hasBulgarianVoice, speakPhrase, speechInfo } from "@/services/speech";
+import { configureSpeech, hasBulgarianVoice, speakPhrase, speechInfo } from "@/services/speech";
 import { playSound, soundState } from "@/services/sounds";
 import { ui } from "@/content/phrases";
 import { cn } from "@/lib/cn";
@@ -38,13 +38,14 @@ function SoundCheck() {
   const [info, setInfo] = useState<string | null>(null);
   const run = () => {
     playSound("correct");
-    void speakPhrase("Браво! Звукът работи.");
+    void speakPhrase(phrases.soundWorks);
     // Малко по-късно — гласовете и звукът се включват асинхронно.
     setTimeout(() => {
       const s = speechInfo();
       setInfo(
         [
           `Ефекти: ${soundState() === "running" ? "✅ работят" : `⚠️ ${soundState()}`}`,
+          `Записан глас: ${s.recorded ? `✅ ${s.recorded} фрази` : "⚠️ не е зареден (няма връзка?)"}`,
           `Говор в браузъра: ${s.supported ? "✅ има" : "❌ няма"}`,
           `Гласове: ${s.voices}`,
           `Български глас: ${s.bulgarianVoice ?? (s.voices === 0 ? "списъкът е празен — опитваме по подразбиране" : "❌ няма")}`,
@@ -61,6 +62,11 @@ function SoundCheck() {
     </div>
   );
 }
+
+const VOICES: { id: VoiceSource; label: string; text: string }[] = [
+  { id: "recorded", label: "🎙️ Записан глас (препоръчан)", text: "Работи на всяко устройство, и на Android без български синтезатор." },
+  { id: "device", label: "📱 Гласът на устройството", text: "Ако таблетът има хубав български глас. Без него се ползва записаният." },
+];
 
 function SettingsForm() {
   const settings = useGameStore((s) => s.settings);
@@ -103,13 +109,35 @@ function SettingsForm() {
       <Toggle icon="🔔" label="Звукови ефекти" checked={settings.sound} onChange={(v) => update({ sound: v })} />
       <Toggle icon="🎵" label="Тиха музика" checked={settings.music} onChange={(v) => update({ music: v })} />
       <Toggle icon="🗣️" label="Говор" checked={settings.speech} onChange={(v) => update({ speech: v })} />
-      {voice === false && (
-        <p className="rounded-2xl bg-amber-100 p-3 text-sm font-bold">
-          На това устройство няма български глас за синтез на говор. Приложението работи и без него — текстовете се показват
-          на екрана. На Android: Настройки → Система → Езици → Преобразуване на текст в говор → Предпочитана машина „Google“ →
-          ⚙️ → Инсталиране на гласови данни → Български.
-        </p>
-      )}
+      <div className="card-soft rounded-2xl bg-white p-4 shadow-sm">
+        <p className="text-lg font-bold">🎙️ Чий глас говори</p>
+        <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {VOICES.map((v) => (
+            <button
+              key={v.id}
+              type="button"
+              onClick={() => {
+                update({ voice: v.id });
+                configureSpeech({ enabled: settings.speech, volume: settings.volume, voice: v.id });
+                void speakPhrase("Браво!");
+              }}
+              className={cn(
+                "flex flex-col items-start gap-1 rounded-2xl border-2 border-slate-200 p-3 text-left font-bold",
+                settings.voice === v.id && "border-grape bg-violet-50 ring-2 ring-grape",
+              )}
+            >
+              <span>{v.label}</span>
+              <span className="text-sm font-normal text-slate-500">{v.text}</span>
+            </button>
+          ))}
+        </div>
+        {settings.voice === "device" && voice === false && (
+          <p className="mt-3 rounded-2xl bg-amber-100 p-3 text-sm font-bold">
+            На това устройство няма български глас, затова се ползва записаният. На Android: Настройки → Система → Езици →
+            Преобразуване на текст в говор → машина „Google“ → ⚙️ → Инсталиране на гласови данни → Български.
+          </p>
+        )}
+      </div>
       <SoundCheck />
       <p className="text-muted text-sm text-slate-500">
         Ако няма звук: проверете силата на звука за медии (не на звънене) и дали таблетът не е в режим „Без звук“.

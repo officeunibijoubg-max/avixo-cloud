@@ -103,6 +103,8 @@ export type PlayerProgress = {
   seenUnlocks: string[];
 };
 
+export type VoiceSource = "recorded" | "device";
+
 export type Settings = {
   sound: boolean;
   speech: boolean;
@@ -120,4 +122,6 @@ export type Settings = {
   mascot: string;
   /** Как звуците на буквите („Бъ“) се подават на синтезатора — зависи от устройството. */
   ttsSpelling: TtsSpelling;
+  /** Чий глас: записаният (работи на всяко устройство) или синтезаторът на устройството. */
+  voice: VoiceSource;
 };
