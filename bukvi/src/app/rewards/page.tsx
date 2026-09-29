@@ -11,6 +11,7 @@ import { playSound } from "@/services/sounds";
 import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
 import { Mascot } from "@/components/game/Mascot";
+import { HeroSvg } from "@/components/game/hero/HeroSvg";
 
 /** Моите награди: звезди, монети, ниво, албум със стикери и моята стая. */
 export default function RewardsPage() {
@@ -73,9 +74,9 @@ export default function RewardsPage() {
               updateSettings({ mascot: h });
             }}
             aria-label={MASCOTS[h].name}
-            className={cn("card-soft flex size-24 flex-col items-center justify-center rounded-3xl bg-white text-5xl shadow-sm", mascot === h && "ring-4 ring-grape")}
+            className={cn("card-soft flex w-28 flex-col items-center justify-center rounded-3xl bg-white p-2 shadow-sm", mascot === h && "ring-4 ring-grape")}
           >
-            {MASCOTS[h].emoji}
+            <HeroSvg hero={h} size={56} />
             <span className="text-sm font-bold">{MASCOTS[h].name}</span>
           </button>
         ))}

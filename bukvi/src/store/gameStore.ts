@@ -11,7 +11,10 @@ import {
   buyItem,
   completeAdventure,
   emptyProgress,
-  equipItem,
+  toggleEquip,
+  unequipSlot,
+  migrateEquipped,
+  type EquipSlot,
   migrateProgress,
   recordGameAnswer,
   recordWriting,
@@ -54,7 +57,9 @@ type GameState = {
   recordGameAnswer: (isCorrect: boolean) => ProgressDelta;
   countGame: () => void;
   buy: (id: string) => BuyResult;
-  equip: (id: string | null, slot?: "accessory" | "background") => void;
+  /** Слага/сваля купена вещ на нейното място. */
+  toggleEquip: (id: string) => void;
+  unequip: (slot: EquipSlot) => void;
   completeAdventure: () => ProgressDelta;
   addPlayTime: (seconds: number) => void;
   markUnlocksSeen: (ids: string[]) => void;
@@ -104,7 +109,8 @@ export const useGameStore = create<GameState>()(
         if (res.ok) set({ progress: res.progress });
         return res;
       },
-      equip: (id, slot) => set((s) => ({ progress: equipItem(s.progress, id, slot) })),
+      toggleEquip: (id) => set((s) => ({ progress: toggleEquip(s.progress, id) })),
+      unequip: (slot) => set((s) => ({ progress: unequipSlot(s.progress, slot) })),
       completeAdventure: () => {
         const { progress, delta } = completeAdventure(get().progress);
         set({ progress });
@@ -127,10 +133,11 @@ export const useGameStore = create<GameState>()(
     }),
     {
       name: APP_CONFIG.storageKey,
-      version: 3,
+      version: 4,
       storage: createJSONStorage(() => localStorage),
       partialize: (s) => ({ progress: s.progress, settings: s.settings, profiles: s.profiles, activeId: s.activeId, stored: s.stored }),
       // v1 → v2: точките стават монети. v2 → v3: досегашният прогрес става профил „Дете“.
+      // v3 → v4: единственият аксесоар отива на своето място (глава, лице…).
       migrate: (persisted, version) => {
         const p = (persisted ?? {}) as {
           progress?: Record<string, unknown>;
@@ -140,12 +147,13 @@ export const useGameStore = create<GameState>()(
           stored?: Record<string, PlayerProgress>;
         };
         const progress = version < 2 ? migrateProgress(p.progress ?? {}) : (p.progress as PlayerProgress | undefined);
+        const stored = Object.fromEntries(Object.entries(p.stored ?? {}).map(([id, sp]) => [id, migrateEquipped(sp)]));
         return {
-          progress: { ...emptyProgress(), ...progress },
+          progress: migrateEquipped({ ...emptyProgress(), ...progress }),
           settings: { ...defaultSettings, ...p.settings },
           profiles: p.profiles ?? [defaultProfile()],
           activeId: p.activeId ?? defaultProfile().id,
-          stored: p.stored ?? {},
+          stored,
         };
       },
       // Нови полета от бъдещи версии получават стойности по подразбиране.

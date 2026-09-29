@@ -164,7 +164,7 @@ describe("магазин и стикери", () => {
     expect(r.ok).toBe(true);
     if (!r.ok) return;
     expect(r.progress.coins).toBe(30);
-    expect(r.progress.equipped.accessory).toBe("acc-glasses");
+    expect(r.progress.equipped.face).toBe("acc-glasses");
     expect(buyItem(r.progress, "acc-glasses")).toEqual({ ok: false, reason: "owned" });
   });
 
@@ -214,5 +214,34 @@ describe("седмичен отчет", () => {
     expect(r.learned).toEqual(["Б"]);
     expect(r.practiced.sort()).toEqual(["А", "Б"]);
     expect(r.idea).toMatch(/Б|балон/);
+  });
+});
+
+describe("облекло на героя", () => {
+  it("всяко нещо отива на своето място и няколко се носят наведнъж", async () => {
+    const { toggleEquip, migrateEquipped } = await import("./progress");
+    let p = { ...emptyProgress(), coins: 500 };
+    for (const id of ["acc-crown", "acc-glasses", "acc-balloon"]) {
+      const r = buyItem(p, id);
+      if (r.ok) p = r.progress;
+    }
+    expect(p.equipped).toMatchObject({ head: "acc-crown", face: "acc-glasses", hand: "acc-balloon" });
+    p = toggleEquip(p, "acc-crown");
+    expect(p.equipped.head).toBeUndefined();
+    expect(p.equipped.face).toBe("acc-glasses");
+    // Старият запис с един „accessory“ се пренася на мястото му.
+    const old = { ...emptyProgress(), owned: ["acc-crown"], equipped: { accessory: "acc-crown" } };
+    expect(migrateEquipped(old).equipped).toEqual({ head: "acc-crown", accessory: undefined });
+  });
+
+  it("всеки аксесоар има място и рисунка, всеки приятел — герой", async () => {
+    const { SHOP_ITEMS } = await import("@/data/shop");
+    const { WEAR_ART } = await import("@/components/game/hero/wearables");
+    const { SPECIES } = await import("@/components/game/hero/species");
+    for (const i of SHOP_ITEMS.filter((x) => x.category === "accessory")) {
+      expect(i.slot, i.id).toBeTruthy();
+      expect(WEAR_ART[i.id], i.id).toBeTruthy();
+    }
+    for (const i of SHOP_ITEMS.filter((x) => x.category === "friend")) expect(SPECIES[i.mascot!], i.id).toBeTruthy();
   });
 });

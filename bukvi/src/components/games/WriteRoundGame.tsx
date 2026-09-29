@@ -2,14 +2,13 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CharacterLesson, Difficulty } from "@/lib/types";
-import { MASCOTS, DEFAULT_MASCOT } from "@/config/mascot";
 import { useGameStore } from "@/store/gameStore";
 import { cancelSpeech, speakPhrase } from "@/services/speech";
 import { cn } from "@/lib/cn";
 import { ui } from "@/content/phrases";
 import { PageShell } from "@/components/ui/PageShell";
 import { BigButton } from "@/components/ui/BigButton";
-import { Mascot } from "@/components/game/Mascot";
+import { CurrentHero, Mascot } from "@/components/game/Mascot";
 import { SoundButton } from "@/components/game/SoundButton";
 import { WritingCanvas } from "@/components/game/WritingCanvas";
 import { RewardAnimation } from "@/components/game/RewardAnimation";
@@ -159,8 +158,6 @@ function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, show
 
 /** Игра 7 — „Буквен път“: героят крачи към наградата с всяко вярно изписване. */
 function LetterPath({ step, total }: { step: number; total: number }) {
-  const key = useGameStore((s) => s.settings.mascot);
-  const hero = (MASCOTS[key] ?? MASCOTS[DEFAULT_MASCOT]).emoji;
   return (
     <div className="card-soft flex items-center justify-between gap-1 rounded-3xl bg-white/80 p-3 shadow-sm" aria-label={`${step}/${total}`}>
       {Array.from({ length: total + 1 }, (_, i) => (
@@ -172,7 +169,7 @@ function LetterPath({ step, total }: { step: number; total: number }) {
             i === total && "bg-amber-100",
           )}
         >
-          {i === step ? <span className="animate-bob">{hero}</span> : i === total ? "🎁" : i < step ? "⭐" : ""}
+          {i === step ? <CurrentHero pose="happy" size={36} className="animate-bob" /> : i === total ? "🎁" : i < step ? "⭐" : ""}
         </div>
       ))}
     </div>

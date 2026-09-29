@@ -4,6 +4,15 @@
 const pick = <T,>(list: readonly T[]): T => list[Math.floor(Math.random() * list.length)];
 
 // Случайните похвали — изнесени, за да влязат в списъка за записан глас.
+/** Какво казва героят, когато облече нещо. */
+export const WEAR_FUN = [
+  "Уау! Изглеждам страхотно!",
+  "Ха-ха! Колко съм смешен!",
+  "Вижте ме! Супер съм!",
+  "Много ми харесва! Благодаря!",
+  "Сега съм най-модерният!",
+] as const;
+
 export const PRAISE = ["Браво!", "Страхотно!", "Супер!", "Много добре!", "Отлично!"] as const;
 export const ENCOURAGE = ["Опитай пак.", "Почти успя!", "Можеш го!"] as const;
 
@@ -29,6 +38,7 @@ export const phrases = {
     kind === "shape" ? `Браво! Нарисува ${spoken}!` : `Браво! Написа ${spoken}!`,
   bravoPoints: (coins: number) => `Браво! +${coins} 🪙`,
   praise: () => pick(PRAISE),
+  wearFun: () => pick(WEAR_FUN),
   almost: "Почти! Нека опитаме пак.",
   /** Кратко, видимо обяснение къде е грешката. */
   showWhere: "Виж къде излезе от буквата.",
@@ -41,6 +51,11 @@ export const phrases = {
   stickerEarned: "Нов стикер за албума!",
   bought: (name: string) => `Купи ${name}! Супер!`,
   needCoins: (n: number) => `Трябват още ${n} монети. Поиграй още малко!`,
+  shopHello: "Добре дошъл в магазина! Докосни нещо, за да го пробваш.",
+  tryOn: (name: string) => `${name}! Харесва ли ти?`,
+  tryFriend: (name: string) => `Здравей, аз съм ${name}! Ще играем ли заедно?`,
+  takeOff: "Свалих го!",
+  takeOffAll: "Свалих всичко!",
 
   // Маскот
   greeting: (name: string) => `Здравей! Аз съм ${name}. Хайде да играем!`,

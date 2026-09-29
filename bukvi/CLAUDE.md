@@ -31,7 +31,9 @@ npm run build   # статичен export в out/ + офлайн списък в
   `progress.ts` (чисти функции: звезди, монети, ниво, магазин, стикери, време), `adventure.ts` (отключване, буква за деня, трудни символи).
 - `src/store/gameStore.ts` — Zustand + localStorage (persist версия 2, миграция от точки към монети; ръчна хидратация).
 - `src/components/game/` — `WritingCanvas`, `StrokeGuide`, `useWritingExercise` (цялата логика на опит),
-  `LionSvg` (Лъвчо с 9 пози), `Mascot`, `RewardAnimation`, броячите.
+  `hero/HeroSvg` (8 героя с общ скелет и 9 пози; `species.tsx` — по какво се различават,
+  `wearables.tsx` — рисуваните дрехи по места: глава/лице/врат/гръб/ръка), `Mascot` (`CurrentHero`), `RewardAnimation`, броячите.
+  Нова дреха: запис в `data/shop.ts` със `slot` + рисунка в `WEAR_ART` (тест проверява, че има).
 - `src/components/illustrations/Illustration.tsx` — илюстрациите на думите в стила на Лъвчо (SVG, офлайн).
 - `src/components/games/` — обща механика: `ChoiceGame` (избор), `WriteRoundGame` (писане + „Буквен път“).
 - `src/components/map/WorldMap.tsx` — пътеката с точки за един свят.
@@ -68,7 +70,7 @@ npm run build   # статичен export в out/ + офлайн списък в
 
 ## Профили
 
-Активното дете е в `progress`; неактивните — в `stored` (`services/profiles.ts`, persist версия 3).
+Активното дете е в `progress`; неактивните — в `stored` (`services/profiles.ts`, persist версия 4 — v4 пренася стария единствен аксесоар на мястото му).
 Героят (`settings.mascot`) се пази в профила при смяна; останалите настройки са общи.
 
 ## Постепенно отключване

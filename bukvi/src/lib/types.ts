@@ -61,6 +61,17 @@ export type CharacterProgress = {
   firstDay?: string;
 };
 
+/** Какво е облечено на героя (по едно на място) и избраният фон. `accessory` е от старата версия. */
+export type Equipped = {
+  head?: string;
+  face?: string;
+  neck?: string;
+  back?: string;
+  hand?: string;
+  background?: string;
+  accessory?: string;
+};
+
 export type PlayerProgress = {
   /** Монети за харчене в магазина (печелят се от писане и игри). */
   coins: number;
@@ -75,7 +86,7 @@ export type PlayerProgress = {
   /** Купени предмети от магазина (ид-та от data/shop.ts). */
   owned: string[];
   /** Какво е облечено/сложено в момента. */
-  equipped: { accessory?: string; background?: string };
+  equipped: Equipped;
   /** Спечелени стикери (от Днешно приключение). */
   stickers: string[];
   /** Секунди активна игра за деня: "2026-09-28" → секунди. */

@@ -5,7 +5,7 @@ import { LEVELS } from "@/data/lessons";
 import { ALPHABET } from "@/data/alphabet";
 import { WORLDS } from "@/data/adventure";
 import { FEATURES } from "@/data/unlocks";
-import { getShopItem, STICKERS } from "@/data/shop";
+import { getShopItem, STICKERS, type WearSlot } from "@/data/shop";
 import { CHALLENGE_BONUS, CHALLENGES, type Challenge, type ChallengeMetric } from "@/config/challenges";
 
 // Чисти функции върху прогреса — лесни за тест и за бъдещ cloud sync.
@@ -236,14 +236,38 @@ export function buyItem(p: PlayerProgress, id: string): BuyResult {
   return { ok: true, progress: equipItem(progress, id) };
 }
 
-/** Слага или сваля аксесоар/фон. Играчките и приятелите не се „обличат“. */
-export function equipItem(p: PlayerProgress, id: string | null, slot?: "accessory" | "background"): PlayerProgress {
-  if (id === null) return slot ? { ...p, equipped: { ...p.equipped, [slot]: undefined } } : p;
+export type EquipSlot = WearSlot | "background";
+
+/** Слага аксесоар на неговото място (или фон). Играчките и приятелите не се „обличат“. */
+export function equipItem(p: PlayerProgress, id: string): PlayerProgress {
   const item = getShopItem(id);
   if (!item || !p.owned.includes(id)) return p;
-  if (item.category === "accessory") return { ...p, equipped: { ...p.equipped, accessory: id } };
+  if (item.category === "accessory" && item.slot) return { ...p, equipped: { ...p.equipped, [item.slot]: id } };
   if (item.category === "background") return { ...p, equipped: { ...p.equipped, background: id } };
   return p;
+}
+
+/** Сваля каквото има на това място. */
+export const unequipSlot = (p: PlayerProgress, slot: EquipSlot): PlayerProgress => ({
+  ...p,
+  equipped: { ...p.equipped, [slot]: undefined },
+});
+
+/** Слага, ако не е сложено; сваля, ако вече е. */
+export function toggleEquip(p: PlayerProgress, id: string): PlayerProgress {
+  const item = getShopItem(id);
+  const slot: EquipSlot | undefined = item?.category === "background" ? "background" : item?.slot;
+  if (!slot) return p;
+  return p.equipped[slot] === id ? unequipSlot(p, slot) : equipItem(p, id);
+}
+
+/** Старият единствен „accessory“ отива на своето място (глава/лице). */
+export function migrateEquipped(p: PlayerProgress): PlayerProgress {
+  const old = p.equipped?.accessory;
+  if (!old) return p;
+  const slot = getShopItem(old)?.slot;
+  const equipped = { ...p.equipped, accessory: undefined };
+  return { ...p, equipped: slot ? { ...equipped, [slot]: old } : equipped };
 }
 
 // ───────────────────────── стикери и време ─────────────────────────

@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import type { World } from "@/data/adventure";
 import { getLessonByChar } from "@/data/lessons";
 import { getWordByText } from "@/data/wordsIsland";
-import { LionSvg } from "@/components/game/LionSvg";
-import { MASCOTS, DEFAULT_MASCOT } from "@/config/mascot";
+import { CurrentHero } from "@/components/game/Mascot";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { starsFor } from "@/services/progress";
@@ -27,8 +26,6 @@ export function WorldMap({ world, onMessage }: { world: World; onMessage?: (text
   const progress = useGameStore((s) => s.progress);
   const unlockAll = useGameStore((s) => s.settings.unlockAll);
   const hydrated = useGameStore((s) => s.hydrated);
-  const mascotKey = useGameStore((s) => s.settings.mascot);
-  const hero = (MASCOTS[mascotKey] ?? MASCOTS[DEFAULT_MASCOT]).emoji;
   const current = currentNode(progress, world, unlockAll);
   const worldOpen = isWorldUnlocked(progress, world, unlockAll);
   const currentRef = useRef<HTMLButtonElement>(null);
@@ -121,7 +118,7 @@ export function WorldMap({ world, onMessage }: { world: World; onMessage?: (text
               {unlocked ? c : "🔒"}
               {isCurrent && (
                 <span className="absolute -right-14 -top-2 text-5xl" aria-hidden>
-                  {mascotKey === "lion" ? <LionSvg pose="point" size={60} /> : hero}
+                  <CurrentHero pose="point" size={60} />
                 </span>
               )}
             </span>
