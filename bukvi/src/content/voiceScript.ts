@@ -2,6 +2,7 @@ import { letterLessons } from "@/data/alphabet";
 import { numberLessons } from "@/data/numbers";
 import { WORD_ITEMS } from "@/data/wordsIsland";
 import { COLORS, shapeLessons } from "@/data/shapes";
+import { STORIES } from "./stories";
 import { SHOP_ITEMS } from "@/data/shop";
 import { LEVELS } from "@/data/lessons";
 import { CHALLENGES } from "@/config/challenges";
@@ -58,6 +59,8 @@ export function voiceLines(): VoiceLine[] {
   }
   for (const c of COLORS) add("Цветове", `color-${c.id}`, phrases.touchColor(c.name));
 
+  for (const st of STORIES) st.pages.forEach((pg, i) => add(`Приказка: ${st.title}`, `story-${st.id}-${i + 1}`, pg.text));
+
   const g = "Общи фрази";
   PRAISE.forEach((t, i) => add(g, `praise-${i + 1}`, t));
   ENCOURAGE.forEach((t, i) => add(g, `encourage-${i + 1}`, t));
@@ -73,6 +76,10 @@ export function voiceLines(): VoiceLine[] {
   add(g, "locked-world", phrases.lockedWorld);
   add(g, "small-hello", phrases.smallHello);
   add(g, "name-task", phrases.nameTask);
+  add(g, "memory-start", phrases.memoryStart);
+  add(g, "memory-no", phrases.memoryNo);
+  add(g, "story-pick", phrases.storyPick);
+  add(g, "story-question", phrases.storyQuestion);
   add(g, "compare-more", phrases.compareMore);
   add(g, "compare-fewer", phrases.compareFewer);
   add(g, "name-not-set", phrases.nameNotSet);

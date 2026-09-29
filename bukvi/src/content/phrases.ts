@@ -81,6 +81,14 @@ export const phrases = {
   // Форми и цветове
   drawShape: (name: string) => `Нарисувай ${name}.`,
   touchColor: (color: string) => `Докосни ${color}!`,
+  // Мемори
+  memoryStart: "Намери двойките: буквата и картинката, която започва с нея!",
+  memoryPair: (spoken: string, word: string) => `${spoken} като ${word}!`,
+  memoryNo: "Не си пасват. Запомни ги!",
+  // Приказки
+  storyPick: "Избери приказка! Нови се отключват, когато научиш още букви.",
+  storyQuestion: "Коя буква чу най-много в приказката?",
+  storyEnd: (spoken: string) => `Браво! Приказката беше за буквата ${spoken}!`,
   // Числа
   compareMore: "Къде има повече?",
   compareFewer: "Къде има по-малко?",
