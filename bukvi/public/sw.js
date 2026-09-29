@@ -30,7 +30,8 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(req.url);
   if (url.origin !== self.location.origin) return;
 
-  if (req.mode === "navigate") {
+  // Страниците и списъкът със записите: първо мрежата (за нова версия), при липса — кешът.
+  if (req.mode === "navigate" || url.pathname === "/audio/manifest.json") {
     event.respondWith(
       fetch(req)
         .then((res) => {

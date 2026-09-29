@@ -33,25 +33,37 @@ export default function SettingsPage() {
   );
 }
 
+const RECORDED_STATUS = {
+  playing: "✅ свири",
+  blocked: "⚠️ браузърът спря звука — докоснете екрана и натиснете пак",
+  missing: "⚠️ записът не се зареди — проверете интернета",
+  none: "… още не е пуснат — натиснете пак",
+} as const;
+
+/** Вграденият браузър на Messenger/Facebook/Instagram често спира звука — по-добре Chrome. */
+const IN_APP_BROWSER = /FBAN|FBAV|FB_IAB|FBIOS|Messenger|Instagram/i;
+
 /** „Провери звука“: пуска ефект и глас и показва какво вижда устройството — за бърза диагностика. */
 function SoundCheck() {
   const [info, setInfo] = useState<string | null>(null);
+  const [inApp, setInApp] = useState(false);
+  useEffect(() => setInApp(IN_APP_BROWSER.test(navigator.userAgent)), []);
   const run = () => {
     playSound("correct");
     void speakPhrase(phrases.soundWorks);
-    // Малко по-късно — гласовете и звукът се включват асинхронно.
+    // Малко по-късно — гласът и звукът се включват асинхронно (записът се тегли от мрежата).
     setTimeout(() => {
       const s = speechInfo();
       setInfo(
         [
           `Ефекти: ${soundState() === "running" ? "✅ работят" : `⚠️ ${soundState()}`}`,
-          `Записан глас: ${s.recorded ? `✅ ${s.recorded} фрази` : "⚠️ не е зареден (няма връзка?)"}`,
+          `Записан глас: ${RECORDED_STATUS[s.recordedLast]}`,
           `Говор в браузъра: ${s.supported ? "✅ има" : "❌ няма"}`,
           `Гласове: ${s.voices}`,
           `Български глас: ${s.bulgarianVoice ?? (s.voices === 0 ? "списъкът е празен — опитваме по подразбиране" : "❌ няма")}`,
         ].join("\n"),
       );
-    }, 700);
+    }, 2000);
   };
   return (
     <div className="card-soft flex flex-col gap-2 rounded-2xl bg-white p-4 shadow-sm">
@@ -59,6 +71,12 @@ function SoundCheck() {
         🔊 Провери звука
       </button>
       {info && <pre className="whitespace-pre-wrap font-sans text-base font-bold">{info}</pre>}
+      {inApp && (
+        <p className="rounded-2xl bg-amber-100 p-3 text-sm font-bold">
+          Отворено е в браузъра на Messenger/Facebook. За сигурен звук и работа без интернет отворете сайта в Chrome
+          (⋮ горе вдясно → „Отваряне в Chrome“) и изберете „Добавяне към началния екран“.
+        </p>
+      )}
     </div>
   );
 }

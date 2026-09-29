@@ -15,50 +15,78 @@ export interface SpeechEngine {
 }
 
 /**
- * Записан глас. Файловете са в `public/audio/` с имена от сценария
- * (content/voiceScript.ts, напр. `letter-a-intro.mp3`); при build
- * `scripts/audio-manifest.mjs` ги описва в `audio/manifest.json`.
- * Записаните на ръка (напр. гласът на мама) са с предимство пред генерираните
- * (scripts/generate-voice.py), а генерираните — пред синтезатора на устройството,
- * защото на много Android таблети той няма български и мълчи.
+ * Записан глас. Всяка фраза от сценария (content/voiceScript.ts) има файл
+ * `public/audio/<id>.mp3` — генериран (scripts/generate-voice.py) или записан на ръка
+ * със същото име. Файлът се търси направо по id-то, без да чакаме списък, защото на
+ * много Android таблети синтезаторът няма български и записът е единственият глас.
+ * `audio/manifest.json` (ако се зареди) казва кои са записани на ръка и файловете с
+ * друго разширение (.m4a, .ogg).
  */
 class RecordedAudioEngine implements SpeechEngine {
   private current: HTMLAudioElement | null = null;
-  /** текст → URL на файла; пълни се, когато manifest.json се зареди. */
-  private files: Record<string, string> = {};
-  readonly ready: Promise<void>;
+  private idByText: Map<string, string> | null = null;
+  /** Файлове, които не са се заредили (няма ги или няма връзка) — за тях говори синтезаторът. */
+  private failed = new Set<string>();
+  private manifest: Manifest | null = null;
+  /** Какво стана с последното пускане — за „Провери звука“. */
+  last: "none" | "playing" | "blocked" | "missing" = "none";
 
-  constructor(private readonly kind: "human" | "generated") {
-    if (typeof window === "undefined" || typeof fetch === "undefined") {
-      this.ready = Promise.resolve();
-      return;
-    }
-    this.ready = loadManifest().then((m) => {
-      const idByText = new Map(voiceLines().map((l) => [l.text, l.id]));
-      const generated = new Set(m.generated);
-      for (const [text, id] of idByText) {
-        const file = m.files[id];
-        if (file && generated.has(id) === (this.kind === "generated")) this.files[text] = `/audio/${file}`;
-      }
-    });
+  constructor() {
+    if (typeof window === "undefined" || typeof fetch === "undefined") return;
+    fetch("/audio/manifest.json", { cache: "no-cache" })
+      .then((r): Promise<Partial<Manifest>> | Partial<Manifest> => (r.ok ? r.json() : {}))
+      .then((m) => (this.manifest = { files: m.files ?? {}, generated: m.generated ?? [] }))
+      .catch(() => {});
+  }
+
+  private idOf(text: string) {
+    this.idByText ??= new Map(voiceLines().map((l) => [l.text, l.id]));
+    return this.idByText.get(text);
   }
 
   canSpeak(text: string) {
-    return typeof Audio !== "undefined" && text in this.files;
+    const id = this.idOf(text);
+    return typeof Audio !== "undefined" && !!id && !this.failed.has(id);
   }
+
+  /** Записано на ръка (не генерирано) — има предимство и пред гласа на устройството. */
+  isHuman(text: string) {
+    const id = this.idOf(text);
+    return !!id && !!this.manifest?.files[id] && !this.manifest.generated.includes(id);
+  }
+
   get count() {
-    return Object.keys(this.files).length;
+    return this.idByText?.size ?? voiceLines().length;
   }
+
   speak(text: string, volume: number) {
+    return this.play(text, volume).then(() => {});
+  }
+
+  /** Пуска записа; `false`, ако файлът не можа да се зареди (тогава говори синтезаторът). */
+  play(text: string, volume: number): Promise<boolean> {
     this.cancel();
-    return new Promise<void>((resolve) => {
-      const audio = new Audio(this.files[text]);
+    const id = this.idOf(text)!;
+    const src = `/audio/${this.manifest?.files[id] ?? `${id}.mp3`}`;
+    return new Promise<boolean>((resolve) => {
+      const audio = new Audio(src);
       audio.volume = volume;
-      audio.onended = audio.onerror = () => resolve();
+      audio.onplaying = () => (this.last = "playing");
+      audio.onended = () => resolve(true);
+      audio.onerror = () => {
+        this.failed.add(id);
+        this.last = "missing";
+        resolve(false);
+      };
       this.current = audio;
-      audio.play().catch(() => resolve());
+      audio.play().catch((e: unknown) => {
+        // NotAllowedError: браузърът още не разрешава звук (преди първо докосване).
+        if (e instanceof DOMException && e.name === "NotAllowedError") this.last = "blocked";
+        resolve(true);
+      });
     });
   }
+
   cancel() {
     this.current?.pause();
     this.current = null;
@@ -66,14 +94,6 @@ class RecordedAudioEngine implements SpeechEngine {
 }
 
 type Manifest = { files: Record<string, string>; generated: string[] };
-let manifest: Promise<Manifest> | null = null;
-function loadManifest(): Promise<Manifest> {
-  manifest ??= fetch("/audio/manifest.json")
-    .then((r): Promise<Partial<Manifest>> | Partial<Manifest> => (r.ok ? r.json() : {}))
-    .then((m) => ({ files: m.files ?? {}, generated: m.generated ?? [] }))
-    .catch(() => ({ files: {}, generated: [] }));
-  return manifest;
-}
 
 class WebSpeechEngine implements SpeechEngine {
   voice: SpeechSynthesisVoice | null = null;
@@ -176,20 +196,12 @@ export function prepareForTts(text: string, spelling: TtsSpelling = state.spelli
     return before + s;
   });
 }
-type Engines = { human: RecordedAudioEngine; generated: RecordedAudioEngine; web: WebSpeechEngine };
+type Engines = { recorded: RecordedAudioEngine; web: WebSpeechEngine };
 let engines: Engines | null = null;
 
 function getEngines(): Engines {
-  engines ??= { human: new RecordedAudioEngine("human"), generated: new RecordedAudioEngine("generated"), web: new WebSpeechEngine() };
+  engines ??= { recorded: new RecordedAudioEngine(), web: new WebSpeechEngine() };
   return engines;
-}
-
-/** Кой ще каже фразата: запис на ръка → (гласът на устройството, ако е избран и го има) → генериран запис → синтезатор. */
-function pickEngine(text: string): SpeechEngine | undefined {
-  const { human, generated, web } = getEngines();
-  const order: SpeechEngine[] =
-    state.voice === "device" && web.hasVoice() ? [human, web, generated] : [human, generated, web];
-  return order.find((e) => e.canSpeak(text));
 }
 
 export function configureSpeech(opts: { enabled: boolean; volume: number; spelling?: TtsSpelling; voice?: VoiceSource }) {
@@ -230,9 +242,10 @@ export function unlockSpeech(): boolean {
 
 /** За бутона „Провери звука“ в настройките. */
 export function speechInfo() {
-  const { web, human, generated } = getEngines();
+  const { web, recorded } = getEngines();
   return {
-    recorded: human.count + generated.count,
+    recorded: recorded.count,
+    recordedLast: recorded.last,
     supported: !!web?.supported(),
     voices: web?.voiceCount ?? 0,
     bulgarianVoice: web?.voice ? `${web.voice.name} (${web.voice.lang})` : null,
@@ -246,18 +259,15 @@ export function speakPhrase(text: string, spelling: TtsSpelling = state.spelling
     pending = [...pending, { text, spelling }].slice(-2);
     return Promise.resolve();
   }
-  // Изчакваме списъка със записите (веднъж, в началото), иначе първата фраза би отишла
-  // към синтезатора, който на много Android таблети мълчи.
-  const { human, generated } = getEngines();
-  const token = ++speakToken;
-  return Promise.race([Promise.all([human.ready, generated.ready]), new Promise((r) => setTimeout(r, 1500))]).then(() => {
-    if (token !== speakToken) return; // междувременно е поискана друга фраза
-    const engine = pickEngine(text);
-    if (!engine) return;
-    const all = getEngines();
-    [all.human, all.generated, all.web].forEach((e) => e !== engine && e.cancel());
-    // Записите се търсят по оригиналния текст; на синтезатора подаваме пренаписания.
-    return engine.speak(engine instanceof WebSpeechEngine ? prepareForTts(text, spelling) : text, state.volume);
+  const { recorded, web } = getEngines();
+  cancelSpeech();
+  const token = speakToken;
+  const synth = () => (web.canSpeak() ? web.speak(prepareForTts(text, spelling), state.volume) : Promise.resolve());
+  // Гласът на устройството — само ако е избран, има български и няма запис на ръка.
+  if (state.voice === "device" && web.hasVoice() && !recorded.isHuman(text)) return synth();
+  if (!recorded.canSpeak(text)) return synth();
+  return recorded.play(text, state.volume).then((ok) => {
+    if (!ok && token === speakToken) return synth(); // файлът липсва/няма връзка
   });
 }
 
@@ -266,8 +276,9 @@ let speakToken = 0;
 export function cancelSpeech() {
   if (typeof window === "undefined") return;
   speakToken++;
-  const { human, generated, web } = getEngines();
-  [human, generated, web].forEach((e) => e.cancel());
+  const { recorded, web } = getEngines();
+  recorded.cancel();
+  web.cancel();
 }
 
 /** „А. А като автобус.“ или „Три.“ */
