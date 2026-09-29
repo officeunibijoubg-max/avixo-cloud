@@ -25,8 +25,14 @@ const files = (await walk(OUT))
   .filter((f) => f !== "/404.html")
   .sort();
 
+// Версията зависи и от съдържанието (не само от имената), за да се обнови кешът
+// при всяка промяна — напр. нов manifest.json или презаписан глас.
 const hash = createHash("sha256");
-for (const f of files) hash.update(f);
+for (const f of (await walk(OUT)).sort()) {
+  if (f.endsWith("sw.js")) continue;
+  hash.update(f);
+  hash.update(await readFile(f));
+}
 const version = hash.digest("hex").slice(0, 12);
 
 const swPath = path.join(OUT, "sw.js");
