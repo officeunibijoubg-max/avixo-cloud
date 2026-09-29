@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import type { CharacterLesson } from "@/lib/types";
 import { numberLessons } from "@/data/numbers";
-import { GAMES } from "@/data/games";
+import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { pickOne } from "@/lib/random";
@@ -32,7 +32,7 @@ export default function CountWriteGame() {
   }, []);
   return (
     <WriteRoundGame
-      title={GAMES[4].title}
+      title={gameTitle("count-write")}
       pickLesson={pickLesson}
       prompt={() => phrases.countThem}
       caption={() => phrases.countThem}

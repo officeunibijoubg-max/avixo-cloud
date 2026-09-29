@@ -22,12 +22,18 @@ export type ChoiceRound = {
   visual?: React.ReactNode;
   options: string[];
   answer: string;
+  /** Как да изглежда вариантът (картинка, група предмети…); по подразбиране — самият текст. */
+  renderOption?: (option: string) => React.ReactNode;
+  /** Достъпно име на варианта, ако не е текстът му. */
+  optionLabel?: (option: string) => string;
+  /** Вариантите са широки (напр. групи предмети) — по 2 на ред. */
+  wide?: boolean;
 };
 
-type Props = { title: string; makeRound: (index: number) => ChoiceRound; rounds?: number };
+type Props = { title: string; makeRound: (index: number) => ChoiceRound; rounds?: number; back?: string };
 
 /** Обща механика за игрите „избери правилния отговор“ (Коя е буквата?, С коя буква започва?). */
-export function ChoiceGame({ title, makeRound, rounds = 8 }: Props) {
+export function ChoiceGame({ title, makeRound, rounds = 8, back = "/games/" }: Props) {
   const recordGameAnswer = useGameStore((s) => s.recordGameAnswer);
   const countGame = useGameStore((s) => s.countGame);
   const { celebration, celebrate, closeReward } = useCelebration();
@@ -82,7 +88,7 @@ export function ChoiceGame({ title, makeRound, rounds = 8 }: Props) {
   }, []);
 
   return (
-    <PageShell back="/games/" title={title}>
+    <PageShell back={back} title={title}>
       {index >= rounds ? (
         <GameEnd correct={correctCount} onAgain={restart} />
       ) : (
@@ -94,7 +100,12 @@ export function ChoiceGame({ title, makeRound, rounds = 8 }: Props) {
             </div>
             <Progress current={index} total={rounds} />
             {round.visual}
-            <div className={cn("grid w-full max-w-3xl gap-4", round.options.length === 3 ? "grid-cols-3" : "grid-cols-2 lg:grid-cols-4")}>
+            <div
+              className={cn(
+                "grid w-full max-w-3xl gap-4",
+                round.wide ? "grid-cols-2" : round.options.length === 3 ? "grid-cols-3" : "grid-cols-2 lg:grid-cols-4",
+              )}
+            >
               {round.options.map((o, i) => {
                 const isWrong = wrong.includes(o);
                 const isRight = solved && o === round.answer;
@@ -103,13 +114,14 @@ export function ChoiceGame({ title, makeRound, rounds = 8 }: Props) {
                     key={o}
                     type="button"
                     onClick={() => choose(o)}
-                    aria-label={o}
+                    aria-label={round.optionLabel?.(o) ?? o}
                     className={cn(
-                      "card-soft flex aspect-square items-center justify-center rounded-[2rem] text-7xl font-black shadow-[0_8px_0_rgb(0_0_0/0.12)] transition active:translate-y-1 sm:text-8xl",
+                      "card-soft flex items-center justify-center rounded-[2rem] p-2 text-7xl font-black shadow-[0_8px_0_rgb(0_0_0/0.12)] transition active:translate-y-1 sm:text-8xl",
+                      round.wide ? "min-h-48" : "aspect-square",
                       isRight ? "scale-105 bg-leaf text-white" : isWrong ? "animate-wiggle bg-rose-200 opacity-50" : tileColor(i),
                     )}
                   >
-                    {o}
+                    {round.renderOption ? round.renderOption(o) : o}
                   </button>
                 );
               })}

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ALPHABET, letterLessons } from "@/data/alphabet";
-import { GAMES } from "@/data/games";
+import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { playSound } from "@/services/sounds";
@@ -105,7 +105,7 @@ export default function BalloonsGame() {
   };
 
   return (
-    <PageShell back="/games/" title={GAMES[2].title}>
+    <PageShell back="/games/" title={gameTitle("balloons")}>
       {done ? (
         <GameEnd correct={GOAL * 2} onAgain={restart} />
       ) : (

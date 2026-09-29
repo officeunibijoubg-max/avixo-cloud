@@ -3,7 +3,7 @@
 import { useCallback } from "react";
 import type { CharacterLesson } from "@/lib/types";
 import { letterLessons } from "@/data/alphabet";
-import { GAMES } from "@/data/games";
+import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { pickOne } from "@/lib/random";
@@ -18,7 +18,7 @@ export default function ListenWriteGame() {
   );
   return (
     <WriteRoundGame
-      title={GAMES[3].title}
+      title={gameTitle("listen-write")}
       pickLesson={pickLesson}
       prompt={(l) => phrases.listenWrite(l.spokenName)}
       // Без глас детето трябва да види коя е буквата — затова е и в балончето.

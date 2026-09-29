@@ -75,6 +75,18 @@ export const phrases = {
   wordDone: (spoken: string) => `Браво! Написа ${spoken}!`,
   wordTask: (text: string) => `Напиши ${text} буква по буква.`,
 
+  // Звуков анализ
+  firstSound: (word: string) => `${word}. Кой е първият звук в думата ${word}?`,
+  lastSound: (word: string) => `${word}. Кой е последният звук в думата ${word}?`,
+  firstSoundQ: (word: string) => `Кой е първият звук в „${word}“?`,
+  lastSoundQ: (word: string) => `Кой е последният звук в „${word}“?`,
+
+  // Сричане и четене
+  buildWord: (word: string) => `${word}. Подреди сричките.`,
+  buildWordQ: "Подреди сричките на думата!",
+  wordBuilt: (syllables: string, word: string) => `${syllables}. ${word}! Браво!`,
+  readWord: "Прочети думата и избери картинката!",
+
   // Игри
   findLetter: (spoken: string) => `Намери буквата ${spoken}.`,
   findNumber: (name: string) => `Намери числото ${name}.`,

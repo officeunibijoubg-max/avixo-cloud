@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { ALPHABET, letterLessons } from "@/data/alphabet";
-import { GAMES } from "@/data/games";
+import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { optionsWith, pickOne } from "@/lib/random";
 import { ChoiceGame, type ChoiceRound } from "@/components/games/ChoiceGame";
@@ -33,5 +33,5 @@ export default function FirstLetterGame() {
       answer: lesson.character,
     };
   }, []);
-  return <ChoiceGame title={GAMES[1].title} makeRound={makeRound} />;
+  return <ChoiceGame title={gameTitle("first-letter")} makeRound={makeRound} />;
 }

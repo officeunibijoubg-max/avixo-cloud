@@ -2,7 +2,7 @@
 
 import { useCallback } from "react";
 import { ALPHABET, letterLessons } from "@/data/alphabet";
-import { GAMES } from "@/data/games";
+import { gameTitle } from "@/data/games";
 import { similarOptions } from "@/data/similar";
 import { phrases } from "@/content/phrases";
 import { hasBulgarianVoice } from "@/services/speech";
@@ -24,5 +24,5 @@ export default function FindLetterGame() {
       answer: lesson.character,
     };
   }, []);
-  return <ChoiceGame title={GAMES[0].title} makeRound={makeRound} />;
+  return <ChoiceGame title={gameTitle("find-letter")} makeRound={makeRound} />;
 }
