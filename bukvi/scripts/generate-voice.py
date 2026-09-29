@@ -75,7 +75,18 @@ def make_synth(voice: str, model: str | None, speed: float | None):
     st = tts.get_voice_style(voice_name=style)
 
     def synth(text: str) -> tuple[bytes, int]:
-        wav, _ = tts.synthesize(text, voice_style=st, lang="bg", speed=speed or 0.95)
+        # Supertonic не познава някои знаци (кавички „“, емоджи…) — махаме ги и опитваме пак.
+        clean = text
+        for _ in range(3):
+            try:
+                wav, _ = tts.synthesize(clean, voice_style=st, lang="bg", speed=speed or 0.95)
+                break
+            except ValueError as e:
+                bad = re.findall(r"'(.)'", str(e))
+                if not bad:
+                    raise
+                clean = "".join(" " if c in bad else c for c in clean)
+                clean = re.sub(r"\s+", " ", clean).strip()
         pcm = (np.clip(np.asarray(wav).reshape(-1), -1, 1) * 32767).astype("<i2").tobytes()
         return pcm, tts.sample_rate
 
