@@ -15,6 +15,7 @@ export const GAMES: GameDef[] = [
   { id: "first-letter", href: "/games/first-letter/", icon: "🍎", title: "С коя буква започва?", color: "bg-pink-200", group: "letters" },
   { id: "balloons", href: "/games/balloons/", icon: "🎈", title: "Балони", color: "bg-amber-200", group: "letters" },
   { id: "listen-write", href: "/games/listen-write/", icon: "👂", title: "Чуй и напиши", color: "bg-violet-200", group: "letters" },
+  { id: "my-name", href: "/games/my-name/", icon: "✍️", title: "Моето име", color: "bg-yellow-200", group: "letters" },
   { id: "sounds", href: "/games/sounds/", icon: "🗣️", title: "Звуците в думата", color: "bg-teal-200", group: "reading" },
   { id: "build-word", href: "/games/build-word/", icon: "🧩", title: "Сглоби думата", color: "bg-orange-200", group: "reading" },
   { id: "read-word", href: "/games/read-word/", icon: "📖", title: "Прочети и избери", color: "bg-rose-200", group: "reading" },

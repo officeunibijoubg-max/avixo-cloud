@@ -23,6 +23,7 @@ export const FEATURES: Feature[] = [
   { id: "balloons", title: "Балони", icon: "🎈", href: "/games/balloons/", unlock: { letters: 8 } },
   { id: "sounds", title: "Звуците в думата", icon: "🗣️", href: "/games/sounds/", unlock: { letters: 10 } },
   { id: "listen-write", title: "Чуй и напиши", icon: "👂", href: "/games/listen-write/", unlock: { letters: 12 } },
+  { id: "my-name", title: "Моето име", icon: "✍️", href: "/games/my-name/", unlock: { letters: 14 } },
   { id: "build-word", title: "Сглоби думата", icon: "🧩", href: "/games/build-word/", unlock: { world: "forest" } },
   { id: "read-word", title: "Прочети и избери", icon: "📖", href: "/games/read-word/", unlock: { words: 3 } },
 ];

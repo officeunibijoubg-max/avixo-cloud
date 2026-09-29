@@ -28,7 +28,19 @@ const BACK = "/learn/words/";
  * Сричка или дума от Острова на думите: детето я пише буква по буква,
  * с шаблон и звездичка за всяка буква. Накрая празнуваме цялата дума.
  */
-export function WordScreen({ word }: { word: WordItem }) {
+export function WordScreen({
+  word,
+  back = BACK,
+  nextHref,
+  task,
+}: {
+  word: WordItem;
+  back?: string;
+  /** Накъде води „Напред“ накрая; по подразбиране — следващата дума от Острова. */
+  nextHref?: string;
+  /** Текстът в балончето на Лъвчо докато пише. */
+  task?: string;
+}) {
   const router = useRouter();
   const letters = word.text.split("").map((c) => getLessonByChar(c)).filter((l): l is CharacterLesson => !!l);
   const [index, setIndex] = useState(0);
@@ -38,6 +50,7 @@ export function WordScreen({ word }: { word: WordItem }) {
   const { celebration, celebrate, closeReward } = useCelebration();
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const next = WORD_ITEMS[(WORD_ITEMS.findIndex((w) => w.id === word.id) + 1) % WORD_ITEMS.length];
+  const nextLink = nextHref ?? `/word/${next.id}/`;
 
   const intro = phrases.wordIntro(word.spoken, word.kind === "syllable");
   useEffect(() => {
@@ -71,17 +84,17 @@ export function WordScreen({ word }: { word: WordItem }) {
 
   if (locked)
     return (
-      <PageShell back={BACK}>
+      <PageShell back={back}>
         <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
           <span className="text-9xl">🔒</span>
           <Mascot message={phrases.lockedNode} mood="think" />
-          <BigButton href={BACK} icon="🗺️" label="Към картата" color="bg-sky-200" size="lg" />
+          <BigButton href={back} icon="🗺️" label="Към картата" color="bg-sky-200" size="lg" />
         </div>
       </PageShell>
     );
 
   return (
-    <PageShell back={BACK}>
+    <PageShell back={back}>
       <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-start lg:gap-6">
         <aside className="flex flex-col gap-4 lg:w-80 lg:shrink-0">
           <div className="card-soft flex items-center gap-4 rounded-[2rem] bg-white/80 p-4 shadow-md lg:flex-col lg:p-6">
@@ -117,7 +130,7 @@ export function WordScreen({ word }: { word: WordItem }) {
                   color="bg-leaf text-white"
                   pulse
                   className="flex-1"
-                  onClick={() => router.push(`/word/${next.id}/`)}
+                  onClick={() => router.push(nextLink)}
                 />
               </div>
             </div>
@@ -126,7 +139,7 @@ export function WordScreen({ word }: { word: WordItem }) {
               <LetterStep
                 key={`${index}-${letters[index].id}`}
                 lesson={letters[index]}
-                task={phrases.wordTask(word.text)}
+                task={task ?? phrases.wordTask(word.text)}
                 onSolved={onLetterSolved}
               />
             )

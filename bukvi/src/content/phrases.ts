@@ -77,6 +77,10 @@ export const phrases = {
   wordNextLetter: (letter: string) => `Сега ${letter}.`,
   wordDone: (spoken: string) => `Браво! Написа ${spoken}!`,
   wordTask: (text: string) => `Напиши ${text} буква по буква.`,
+  // Моето име
+  nameTask: "Напиши името си буква по буква.",
+  nameNeedLetters: (letters: string) => `Научи и буквите ${letters} и ще напишеш цялото си име!`,
+  nameNotSet: "Помоли мама или татко да напишат името ти в „Кой играе?“.",
 
   // Звуков анализ
   firstSound: (word: string) => `${word}. Кой е първият звук в думата ${word}?`,

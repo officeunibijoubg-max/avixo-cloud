@@ -65,6 +65,8 @@ export function voiceLines(): VoiceLine[] {
   add(g, "locked-node", phrases.lockedNode);
   add(g, "locked-world", phrases.lockedWorld);
   add(g, "small-hello", phrases.smallHello);
+  add(g, "name-task", phrases.nameTask);
+  add(g, "name-not-set", phrases.nameNotSet);
   add(g, "adventure-listen", phrases.adventureListen);
   add(g, "adventure-done", phrases.adventureDone);
   for (let lvl = 2; lvl <= LEVELS.length + 1; lvl++) add(g, `level-${lvl}`, phrases.levelUp(lvl));
