@@ -134,8 +134,11 @@ describe("постепенно отключване", () => {
     let p = emptyProgress();
     expect(isFeatureUnlocked(p, "find-letter")).toBe(false);
     expect(isWorldUnlocked(p, numbers)).toBe(false);
+    expect(nextUnlock(p)?.feature.id).toBe("shapes");
+    for (const c of ["А", "Б"]) p = write(p, c);
+    expect(isFeatureUnlocked(p, "shapes")).toBe(true);
     expect(nextUnlock(p)?.feature.id).toBe("find-letter");
-    for (const c of ["А", "Б", "В"]) p = write(p, c);
+    p = write(p, "В");
     expect(isFeatureUnlocked(p, "find-letter")).toBe(true);
     expect(isFeatureUnlocked(p, "balloons")).toBe(false);
     for (const c of ["Г", "Д"]) p = write(p, c);
