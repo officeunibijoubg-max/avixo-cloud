@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import type { Difficulty } from "@/lib/types";
 import { useGameStore } from "@/store/gameStore";
-import { hasBulgarianVoice, speakPhrase } from "@/services/speech";
-import { playSound } from "@/services/sounds";
+import { hasBulgarianVoice, speakPhrase, speechInfo } from "@/services/speech";
+import { playSound, soundState } from "@/services/sounds";
 import { ui } from "@/content/phrases";
 import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
@@ -30,6 +30,35 @@ export default function SettingsPage() {
         <SettingsForm />
       </ParentGate>
     </PageShell>
+  );
+}
+
+/** „Провери звука“: пуска ефект и глас и показва какво вижда устройството — за бърза диагностика. */
+function SoundCheck() {
+  const [info, setInfo] = useState<string | null>(null);
+  const run = () => {
+    playSound("correct");
+    void speakPhrase("Браво! Звукът работи.");
+    // Малко по-късно — гласовете и звукът се включват асинхронно.
+    setTimeout(() => {
+      const s = speechInfo();
+      setInfo(
+        [
+          `Ефекти: ${soundState() === "running" ? "✅ работят" : `⚠️ ${soundState()}`}`,
+          `Говор в браузъра: ${s.supported ? "✅ има" : "❌ няма"}`,
+          `Гласове: ${s.voices}`,
+          `Български глас: ${s.bulgarianVoice ?? (s.voices === 0 ? "списъкът е празен — опитваме по подразбиране" : "❌ няма")}`,
+        ].join("\n"),
+      );
+    }, 700);
+  };
+  return (
+    <div className="card-soft flex flex-col gap-2 rounded-2xl bg-white p-4 shadow-sm">
+      <button type="button" onClick={run} className="self-start rounded-2xl bg-sky px-6 py-3 text-lg font-black text-white">
+        🔊 Провери звука
+      </button>
+      {info && <pre className="whitespace-pre-wrap font-sans text-base font-bold">{info}</pre>}
+    </div>
   );
 }
 
@@ -77,9 +106,14 @@ function SettingsForm() {
       {voice === false && (
         <p className="rounded-2xl bg-amber-100 p-3 text-sm font-bold">
           На това устройство няма български глас за синтез на говор. Приложението работи и без него — текстовете се показват
-          на екрана. Български глас може да се добави от настройките на устройството (Език и говор).
+          на екрана. На Android: Настройки → Система → Езици → Преобразуване на текст в говор → Предпочитана машина „Google“ →
+          ⚙️ → Инсталиране на гласови данни → Български.
         </p>
       )}
+      <SoundCheck />
+      <p className="text-muted text-sm text-slate-500">
+        Ако няма звук: проверете силата на звука за медии (не на звънене) и дали таблетът не е в режим „Без звук“.
+      </p>
       <div className="card-soft rounded-2xl bg-white p-4 shadow-sm">
         <p className="text-lg font-bold">🔤 Как звучат буквите</p>
         <p className="text-muted mb-3 text-sm text-slate-500">
