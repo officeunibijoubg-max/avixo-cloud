@@ -19,6 +19,14 @@ import { ENCOURAGE, PRAISE, phrases } from "./phrases";
 // с постоянно id. Файлът `public/audio/<id>.mp3` (или .m4a/.ogg) заменя синтезатора
 // за точно този текст — останалите фрази продължават с браузърния глас.
 
+// Латински имена на файловете (кирилица в адрес понякога се чупи).
+const LATIN: Record<string, string> = {
+  А: "a", Б: "b", В: "v", Г: "g", Д: "d", Е: "e", Ж: "zh", З: "z", И: "i", Й: "y", К: "k", Л: "l", М: "m", Н: "n",
+  О: "o", П: "p", Р: "r", С: "s", Т: "t", У: "u", Ф: "f", Х: "h", Ц: "ts", Ч: "ch", Ш: "sh", Щ: "sht", Ъ: "a2", Ь: "y2",
+  Ю: "yu", Я: "ya",
+};
+const latin = (text: string) => [...text.toUpperCase()].map((c) => LATIN[c] ?? c).join("");
+
 export type VoiceLine = { id: string; text: string; group: string };
 
 export function voiceLines(): VoiceLine[] {
@@ -106,7 +114,7 @@ export function voiceLines(): VoiceLine[] {
     add("Четене", `read-${w.image}`, word);
     add("Четене", `build-${w.image}`, phrases.buildWord(word));
     add("Четене", `built-${w.image}`, phrases.wordBuilt(w.syllables.map((x) => x.toLowerCase()).join(" - "), word));
-    w.syllables.forEach((x) => add("Четене", `syl-${x}`, x.toLowerCase()));
+    w.syllables.forEach((x) => add("Четене", `syl-${latin(x)}`, x.toLowerCase()));
   }
   add("Четене", "read-word", phrases.readWord);
 
