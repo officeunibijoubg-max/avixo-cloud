@@ -77,6 +77,11 @@ export const phrases = {
   wordNextLetter: (letter: string) => `Сега ${letter}.`,
   wordDone: (spoken: string) => `Браво! Написа ${spoken}!`,
   wordTask: (text: string) => `Напиши ${text} буква по буква.`,
+  // Числа
+  compareMore: "Къде има повече?",
+  compareFewer: "Къде има по-малко?",
+  addQuestion: (a: string, b: string) => `${a} и още ${b}. Колко станаха?`,
+  subQuestion: (a: string, b: string) => `Имаше ${a}. ${b} избягаха. Колко останаха?`,
   // Моето име
   nameTask: "Напиши името си буква по буква.",
   nameNeedLetters: (letters: string) => `Научи и буквите ${letters} и ще напишеш цялото си име!`,

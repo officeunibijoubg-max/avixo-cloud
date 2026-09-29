@@ -66,6 +66,8 @@ export function voiceLines(): VoiceLine[] {
   add(g, "locked-world", phrases.lockedWorld);
   add(g, "small-hello", phrases.smallHello);
   add(g, "name-task", phrases.nameTask);
+  add(g, "compare-more", phrases.compareMore);
+  add(g, "compare-fewer", phrases.compareFewer);
   add(g, "name-not-set", phrases.nameNotSet);
   add(g, "adventure-listen", phrases.adventureListen);
   add(g, "adventure-done", phrases.adventureDone);

@@ -5,14 +5,12 @@ import { useCallback } from "react";
 import type { CharacterLesson } from "@/lib/types";
 import { numberLessons } from "@/data/numbers";
 import { gameTitle } from "@/data/games";
+import { COUNT_ITEMS as ANIMALS } from "@/data/math";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { pickOne } from "@/lib/random";
 import { WriteRoundGame } from "@/components/games/WriteRoundGame";
 import { Illustration } from "@/components/illustrations/Illustration";
-
-// Какво броим — илюстрации в стила на Лъвчо.
-const ANIMALS = ["ladybug", "duckling", "frog", "bunny", "kitten", "elephant", "teddy", "deer"];
 
 /** Игра 8 — „Цифрово броене“: преброй животните и напиши числото. */
 function CountWriteGame() {
