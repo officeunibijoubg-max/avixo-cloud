@@ -46,6 +46,9 @@ export const SIMILAR: Record<string, string[]> = {
 
 /** `count` различни варианта: целта + приличащи ѝ, при нужда допълнени от `pool`. */
 export function similarOptions(target: string, count: number, pool: readonly string[]): string[] {
+  // Малките букви: избираме като за главните и после ги смаляваме.
+  if (target !== target.toUpperCase())
+    return similarOptions(target.toUpperCase(), count, pool.map((c) => c.toUpperCase())).map((c) => c.toLowerCase());
   const near = (SIMILAR[target] ?? []).filter((c) => c !== target);
   const extra = pool.filter((c) => c !== target && !near.includes(c));
   const picked = [...near.slice(0, count - 1)];

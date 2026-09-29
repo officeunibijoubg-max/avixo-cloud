@@ -32,6 +32,8 @@ export function voiceLines(): VoiceLine[] {
     add(g, `letter-${l.id}-picture`, (l.inWord ? phrases.adventurePictureIn : phrases.adventurePicture)(s));
     add(g, `letter-${l.id}-next`, phrases.wordNextLetter(s));
     if (l.exampleWord) add(g, `letter-${l.id}-startswith`, phrases.startsWith(l.exampleWord));
+    add(g, `letter-${l.id}-small-trace`, phrases.traceSmallLetter(s));
+    add(g, `letter-${l.id}-small-write`, phrases.writeSmallLetter(s));
   }
 
   for (const n of numberLessons) {
@@ -62,6 +64,7 @@ export function voiceLines(): VoiceLine[] {
   add(g, "sticker-earned", phrases.stickerEarned);
   add(g, "locked-node", phrases.lockedNode);
   add(g, "locked-world", phrases.lockedWorld);
+  add(g, "small-hello", phrases.smallHello);
   add(g, "adventure-listen", phrases.adventureListen);
   add(g, "adventure-done", phrases.adventureDone);
   for (let lvl = 2; lvl <= LEVELS.length + 1; lvl++) add(g, `level-${lvl}`, phrases.levelUp(lvl));

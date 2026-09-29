@@ -31,6 +31,8 @@ export type CharacterLesson = {
   count?: number;
   /** Кратка дума, в която се вижда буквата (за Ь, с която не започва дума). */
   inWord?: string;
+  /** Малка буква (а, б, в…). */
+  lowercase?: boolean;
   templates: StrokeTemplate[];
 };
 

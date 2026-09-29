@@ -227,7 +227,9 @@ export const speakWord = (word: string) => speakPhrase(word);
 
 /** „Проследи буквата А.“ (с шаблон) или „Напиши буквата А.“ (без шаблон). */
 export const writeTaskText = (lesson: CharacterLesson, trace: boolean) =>
-  lesson.type === "letter"
+  lesson.lowercase
+    ? (trace ? phrases.traceSmallLetter : phrases.writeSmallLetter)(lesson.spokenName)
+    : lesson.type === "letter"
     ? (trace ? phrases.traceLetter : phrases.writeLetter)(lesson.spokenName)
     : (trace ? phrases.traceNumber : phrases.writeNumber)(lesson.spokenName);
 

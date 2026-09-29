@@ -1,4 +1,4 @@
-import { ALPHABET } from "./alphabet";
+import { ALPHABET, LOWERCASE } from "./alphabet";
 import { DIGITS } from "./numbers";
 import { WORD_ITEMS } from "./wordsIsland";
 
@@ -50,6 +50,15 @@ export const WORLDS: World[] = [
     theme: { path: "#93c5fd", bg: "linear-gradient(180deg,#e0f2fe,#e0e7ff)", node: "bg-sky-300" },
     characters: ALPHABET.slice(16),
     requires: "forest",
+  },
+  {
+    id: "lowercase",
+    title: "Долината на малките букви",
+    icon: "🌈",
+    decor: ["🌷", "🦋", "🐝", "🌻", "🐞", "🍀", "🌸", "🐌"],
+    theme: { path: "#c4b5fd", bg: "linear-gradient(180deg,#f5f3ff,#fdf2f8)", node: "bg-violet-300" },
+    characters: [...LOWERCASE],
+    requires: "mountain",
   },
   {
     id: "words",

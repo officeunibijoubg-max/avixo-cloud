@@ -15,6 +15,7 @@ const HREF: Record<string, string> = {
   numbers: "/learn/numbers/",
   forest: "/learn/letters/",
   mountain: "/learn/letters/#mountain",
+  lowercase: "/learn/small/",
   words: "/learn/words/",
 };
 

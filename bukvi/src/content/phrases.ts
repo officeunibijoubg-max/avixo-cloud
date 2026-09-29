@@ -18,6 +18,8 @@ export const phrases = {
   writeLetter: (spoken: string) => `Напиши буквата ${spoken}.`,
   writeNumber: (char: string) => `Напиши числото ${char}.`,
   traceLetter: (spoken: string) => `Проследи буквата ${spoken}.`,
+  writeSmallLetter: (spoken: string) => `Напиши малката буква ${spoken}.`,
+  traceSmallLetter: (spoken: string) => `Проследи малката буква ${spoken}.`,
   traceNumber: (name: string) => `Проследи числото ${name.toLowerCase()}.`,
   /** „А като “ — думата след него се оцветява отделно. */
   asPrefix: (char: string) => `${char} като `,
@@ -43,6 +45,7 @@ export const phrases = {
   greeting: (name: string) => `Здравей! Аз съм ${name}. Хайде да играем!`,
   pickLetter: "Избери буква!",
   mapHello: "Натисни точката до мен и продължаваме!",
+  smallHello: "Всяка голяма буква си има малко братче. Хайде да ги напишем!",
   lockedNode: "Първо мини предишната точка!",
   lockedWorld: "Този свят се отключва, когато минеш предишния!",
   comingSoon: "Скоро!",

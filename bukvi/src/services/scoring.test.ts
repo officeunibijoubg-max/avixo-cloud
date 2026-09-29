@@ -35,8 +35,8 @@ const lesson = (c: string) => {
 };
 
 describe("шаблоните", () => {
-  it("има шаблон за всички 40 символа", () => {
-    expect(allLessons).toHaveLength(40);
+  it("има шаблон за всички 70 символа (цифри, главни и малки букви)", () => {
+    expect(allLessons).toHaveLength(70);
     for (const l of allLessons) expect(l.templates.length, l.character).toBeGreaterThan(0);
   });
 
