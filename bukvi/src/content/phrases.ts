@@ -81,6 +81,8 @@ export const phrases = {
   // Форми и цветове
   drawShape: (name: string) => `Нарисувай ${name}.`,
   touchColor: (color: string) => `Докосни ${color}!`,
+  // Повторение в приключението
+  reviewWrite: (spoken: string) => `Спомни си! Напиши ${spoken}.`,
   // Мемори
   memoryStart: "Намери двойките: буквата и картинката, която започва с нея!",
   memoryPair: (spoken: string, word: string) => `${spoken} като ${word}!`,

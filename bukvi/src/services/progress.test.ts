@@ -14,7 +14,7 @@ import {
   starsFor,
   totalStars,
 } from "./progress";
-import { isCharacterUnlocked, isWorldUnlocked, pickAdventureLetter } from "./adventure";
+import { isCharacterUnlocked, isWorldUnlocked, pickAdventureLetter, reviewDue } from "./adventure";
 import { WORLDS } from "@/data/adventure";
 import { POINTS } from "@/config/points";
 import { CHALLENGE_BONUS } from "@/config/challenges";
@@ -183,5 +183,23 @@ describe("магазин и стикери", () => {
     const p = migrateProgress({ totalPoints: 120, stars: 2, level: 2, unlockedRewards: [], characters: {} });
     expect(p.coins).toBe(120);
     expect("totalPoints" in p).toBe(false);
+  });
+});
+
+describe("повторение през дни", () => {
+  it("връща се към буква след 1 ден при 1⭐ и не пита за днешни", () => {
+    let p = recordWriting(emptyProgress(), "А", 90, true, 1, "2026-10-01").progress;
+    expect(p.characters["А"].lastDay).toBe("2026-10-01");
+    expect(reviewDue(p, "2026-10-01")).toBeNull();
+    expect(reviewDue(p, "2026-10-02")).toBe("А");
+    expect(reviewDue(p, "2026-10-02", "А")).toBeNull();
+    // По-просроченият е пръв.
+    p = recordWriting(p, "Б", 90, true, 1, "2026-10-05").progress;
+    expect(reviewDue(p, "2026-10-06")).toBe("А");
+  });
+
+  it("формите не се броят в предизвикателството", () => {
+    const p = recordWriting(emptyProgress(), "фигура-circle", 90, true, 1, "2026-10-01").progress;
+    expect(p.daily.counts.words ?? 0).toBe(0);
   });
 });

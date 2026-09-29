@@ -112,6 +112,7 @@ export function recordWriting(
     correct,
     lastScore: score,
     bestScore,
+    lastDay: isCorrect ? day : prev.lastDay,
     mastered: prev.mastered || (correct >= APP_CONFIG.masteryCorrect && bestScore >= APP_CONFIG.masteryScore),
   };
   const streak = isCorrect ? p.streak + 1 : 0;
@@ -128,7 +129,8 @@ export function recordWriting(
   const levelBefore = levelOf(p);
   const levelAfter = levelOf(next);
   const metric: ChallengeMetric = character.length > 1 ? "words" : /\d/.test(character) ? "numbers" : "letters";
-  const daily = isCorrect ? bumpDaily(next, metric, day) : { progress: next };
+  // Формите (фигура-…) не се броят в предизвикателството — то е за букви, цифри и думи.
+  const daily = isCorrect && !character.startsWith("фигура-") ? bumpDaily(next, metric, day) : { progress: next };
   return {
     progress: daily.progress,
     delta: {

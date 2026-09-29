@@ -7,7 +7,7 @@ import { ALPHABET } from "@/data/alphabet";
 import { similarOptions } from "@/data/similar";
 import { phrases, ui } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
-import { pickAdventureLetter } from "@/services/adventure";
+import { pickAdventureLetter, reviewDue } from "@/services/adventure";
 import { todayKey } from "@/services/progress";
 import { playSound } from "@/services/sounds";
 import { cancelSpeech, speakCharacter, speakPhrase, writeTaskText } from "@/services/speech";
@@ -24,7 +24,8 @@ import { useCelebration } from "@/components/game/useCelebration";
 import { Illustration } from "@/components/illustrations/Illustration";
 
 // Днешно приключение — кратка мисия с една буква, в този ред:
-const STEPS = ["intro", "listen", "meet", "trace", "write", "find", "picture", "reward"] as const;
+// („review“ — повторение на стара буква, само ако на някоя ѝ е дошло времето.)
+const STEPS = ["intro", "listen", "meet", "trace", "write", "find", "picture", "review", "reward"] as const;
 type Step = (typeof STEPS)[number];
 const STEP_ICONS: Record<Step, string> = {
   intro: "👋",
@@ -34,6 +35,7 @@ const STEP_ICONS: Record<Step, string> = {
   write: "✍️",
   find: "🔍",
   picture: "🎯",
+  review: "🔁",
   reward: "🎁",
 };
 
@@ -41,24 +43,30 @@ export default function AdventurePage() {
   const progress = useGameStore((s) => s.progress);
   const hydrated = useGameStore((s) => s.hydrated);
   const [letter, setLetter] = useState<string | null>(null);
+  const [review, setReview] = useState<string | null>(null);
   const [step, setStep] = useState<Step>("intro");
 
-  // Буквата се избира веднъж, след като прогресът е зареден.
+  // Буквата (и тази за повторение) се избират веднъж, след като прогресът е зареден.
   useEffect(() => {
-    if (hydrated && !letter) setLetter(pickAdventureLetter(progress));
+    if (!hydrated || letter) return;
+    const l = pickAdventureLetter(progress);
+    setLetter(l);
+    setReview(reviewDue(progress, todayKey(), l));
   }, [hydrated, letter, progress]);
 
   useEffect(() => () => cancelSpeech(), []);
 
   const lesson = letter ? getLessonByChar(letter) : undefined;
-  const next = useCallback(() => setStep((s) => STEPS[Math.min(STEPS.length - 1, STEPS.indexOf(s) + 1)]), []);
+  const reviewLesson = review ? getLessonByChar(review) : undefined;
+  const steps = useMemo(() => STEPS.filter((s) => s !== "review" || reviewLesson), [reviewLesson]);
+  const next = useCallback(() => setStep((s) => steps[Math.min(steps.length - 1, steps.indexOf(s) + 1)]), [steps]);
   const doneToday = progress.adventuresDone.includes(todayKey());
 
   return (
     <PageShell back="/" title="Днешно приключение">
       {lesson && (
         <>
-          <StepTrail step={step} />
+          <StepTrail step={step} steps={steps} />
           <div className="mt-4 flex flex-1 flex-col">
             {step === "intro" && <Intro lesson={lesson} doneToday={doneToday} onNext={next} />}
             {step === "listen" && <Listen lesson={lesson} onNext={next} />}
@@ -67,6 +75,7 @@ export default function AdventurePage() {
             {step === "write" && <WriteStep key="write" lesson={lesson} trace={false} onNext={next} />}
             {step === "find" && <Find lesson={lesson} onNext={next} />}
             {step === "picture" && <Picture lesson={lesson} onNext={next} />}
+            {step === "review" && reviewLesson && <WriteStep key="review" lesson={reviewLesson} trace={false} review onNext={next} />}
             {step === "reward" && <Reward />}
           </div>
         </>
@@ -76,11 +85,11 @@ export default function AdventurePage() {
 }
 
 /** Пътечка от стъпките: минатите са зелени, текущата подскача. */
-function StepTrail({ step }: { step: Step }) {
-  const at = STEPS.indexOf(step);
+function StepTrail({ step, steps }: { step: Step; steps: readonly Step[] }) {
+  const at = steps.indexOf(step);
   return (
-    <div className="card-soft flex items-center justify-between gap-1 rounded-3xl bg-white/80 p-2 shadow-sm" aria-label={`${at + 1}/${STEPS.length}`}>
-      {STEPS.map((s, i) => (
+    <div className="card-soft flex items-center justify-between gap-1 rounded-3xl bg-white/80 p-2 shadow-sm" aria-label={`${at + 1}/${steps.length}`}>
+      {steps.map((s, i) => (
         <span
           key={s}
           className={cn(
@@ -153,7 +162,7 @@ function Meet({ lesson, onNext }: { lesson: CharacterLesson; onNext: () => void 
 }
 
 /** Проследяване (с шаблон и звездичка) или писане без помощ. */
-function WriteStep({ lesson, trace, onNext }: { lesson: CharacterLesson; trace: boolean; onNext: () => void }) {
+function WriteStep({ lesson, trace, review = false, onNext }: { lesson: CharacterLesson; trace: boolean; review?: boolean; onNext: () => void }) {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const ex = useWritingExercise(lesson, {
     introHint: trace,
@@ -161,8 +170,9 @@ function WriteStep({ lesson, trace, onNext }: { lesson: CharacterLesson; trace: 
       timer.current = setTimeout(onNext, 2200);
     },
   });
-  const text = trace ? writeTaskText(lesson, true) : phrases.adventureWriteAlone(lesson.spokenName);
-  const shown = trace ? writeTaskText({ ...lesson, spokenName: lesson.character }, true) : phrases.adventureWriteAlone(lesson.character);
+  const alone = review ? phrases.reviewWrite : phrases.adventureWriteAlone;
+  const text = trace ? writeTaskText(lesson, true) : alone(lesson.spokenName);
+  const shown = trace ? writeTaskText({ ...lesson, spokenName: lesson.character }, true) : alone(lesson.character);
   useEffect(() => {
     void speakPhrase(text);
     return () => void (timer.current && clearTimeout(timer.current));

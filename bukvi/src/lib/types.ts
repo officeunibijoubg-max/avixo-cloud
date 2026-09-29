@@ -55,6 +55,8 @@ export type CharacterProgress = {
   bestScore: number;
   lastScore: number;
   mastered: boolean;
+  /** Денят на последното вярно изписване — за повторението през дни. */
+  lastDay?: string;
 };
 
 export type PlayerProgress = {
