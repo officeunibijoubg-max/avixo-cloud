@@ -2,7 +2,11 @@ import type { CharacterProgress, PlayerProgress } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { POINTS } from "@/config/points";
 import { LEVELS } from "@/data/lessons";
-import { getShopItem, STICKERS } from "@/data/shop";
+import { ALPHABET } from "@/data/alphabet";
+import { WORLDS } from "@/data/adventure";
+import { FEATURES } from "@/data/unlocks";
+import { getShopItem, STICKERS, type WearSlot } from "@/data/shop";
+import { CHALLENGE_BONUS, CHALLENGES, type Challenge, type ChallengeMetric } from "@/config/challenges";
 
 // Чисти функции върху прогреса — лесни за тест и за бъдещ cloud sync.
 //
@@ -24,6 +28,9 @@ export const emptyProgress = (): PlayerProgress => ({
   stickers: [],
   playSeconds: {},
   adventuresDone: [],
+  daily: { day: "", counts: {} },
+  challengeDays: [],
+  seenUnlocks: [],
 });
 
 const emptyChar = (character: string): CharacterProgress => ({
@@ -46,6 +53,9 @@ export function lessonStars(c: CharacterProgress | undefined): number {
 }
 
 export const starsFor = (p: PlayerProgress, character: string) => lessonStars(p.characters[character]);
+
+/** Колко главни букви детето вече знае (с поне една ⭐). */
+export const learnedLetterCount = (p: PlayerProgress) => ALPHABET.filter((c) => starsFor(p, c) > 0).length;
 
 export const totalStars = (p: PlayerProgress) =>
   Object.values(p.characters).reduce((a, c) => a + lessonStars(c), 0);
@@ -70,6 +80,8 @@ export type ProgressDelta = {
   levelUp?: number;
   /** Нов стикер (от Днешно приключение). */
   sticker?: string;
+  /** Току-що изпълнено Предизвикателство на деня (бонусът е отделно от `coins`). */
+  challengeDone?: { bonus: number; streak: number };
 };
 
 /** Монети за верен опит според това кой поред е и дали е имало подсказка. */
@@ -89,6 +101,7 @@ export function recordWriting(
   score: number,
   isCorrect: boolean,
   coins: number,
+  day = todayKey(),
 ): { progress: PlayerProgress; delta: ProgressDelta } {
   const prev = p.characters[character] ?? emptyChar(character);
   const correct = prev.correct + (isCorrect ? 1 : 0);
@@ -99,6 +112,8 @@ export function recordWriting(
     correct,
     lastScore: score,
     bestScore,
+    lastDay: isCorrect ? day : prev.lastDay,
+    firstDay: prev.firstDay ?? (isCorrect ? day : undefined),
     mastered: prev.mastered || (correct >= APP_CONFIG.masteryCorrect && bestScore >= APP_CONFIG.masteryScore),
   };
   const streak = isCorrect ? p.streak + 1 : 0;
@@ -114,24 +129,97 @@ export function recordWriting(
   );
   const levelBefore = levelOf(p);
   const levelAfter = levelOf(next);
+  const metric: ChallengeMetric = character.length > 1 ? "words" : /\d/.test(character) ? "numbers" : "letters";
+  // Формите (фигура-…) не се броят в предизвикателството — то е за букви, цифри и думи.
+  const daily = isCorrect && !character.startsWith("фигура-") ? bumpDaily(next, metric, day) : { progress: next };
   return {
-    progress: next,
+    progress: daily.progress,
     delta: {
       coins: isCorrect ? coins : 0,
       starsGained: lessonStars(ch) - lessonStars(prev),
       levelUp: levelAfter > levelBefore ? levelAfter : undefined,
+      challengeDone: daily.challengeDone,
     },
   };
 }
 
 /** Верен или грешен избор в минигра. */
-export function recordGameAnswer(p: PlayerProgress, isCorrect: boolean): { progress: PlayerProgress; delta: ProgressDelta } {
+export function recordGameAnswer(
+  p: PlayerProgress,
+  isCorrect: boolean,
+  day = todayKey(),
+): { progress: PlayerProgress; delta: ProgressDelta } {
   const streak = isCorrect ? p.streak + 1 : 0;
   const coins = isCorrect ? POINTS.miniGameCorrect : 0;
-  return {
-    progress: earn({ ...p, streak, bestStreak: Math.max(p.bestStreak, streak) }, coins),
-    delta: { coins, starsGained: 0 },
+  const next = earn({ ...p, streak, bestStreak: Math.max(p.bestStreak, streak) }, coins);
+  const daily = isCorrect ? bumpDaily(next, "games", day) : { progress: next };
+  return { progress: daily.progress, delta: { coins, starsGained: 0, challengeDone: daily.challengeDone } };
+}
+
+// ───────────────────────── предизвикателство на деня ─────────────────────────
+
+/** Поредният номер на деня — за да се сменя предизвикателството всеки ден по ред. */
+const dayNumber = (day: string) => Math.floor(Date.parse(`${day}T12:00:00Z`) / 86_400_000);
+
+/** Може ли детето вече да изпълни такава задача (нужните игри/светове са отключени). */
+function isFeasible(p: PlayerProgress, c: Challenge): boolean {
+  const letters = learnedLetterCount(p);
+  if (c.metric === "numbers") return letters >= (WORLDS.find((w) => w.id === "numbers")?.unlockLetters ?? 0);
+  if (c.metric === "games") return letters >= Math.min(...FEATURES.map((f) => f.unlock.letters ?? Infinity));
+  if (c.metric === "words") return (WORLDS.find((w) => w.id === "forest")?.characters ?? []).every((ch) => starsFor(p, ch) > 0);
+  return true;
+}
+
+/**
+ * Днешното предизвикателство: по ред от списъка, но само измежду задачите, които
+ * детето вече може да изпълни. Веднъж избрано, остава същото до края на деня.
+ */
+export function challengeFor(day = todayKey(), p?: PlayerProgress): Challenge {
+  const fixed = p?.daily?.day === day && p.daily.challengeId ? CHALLENGES.find((c) => c.id === p.daily.challengeId) : undefined;
+  if (fixed) return fixed;
+  const list = p ? CHALLENGES.filter((c) => isFeasible(p, c)) : CHALLENGES;
+  return list[((dayNumber(day) % list.length) + list.length) % list.length];
+}
+
+/** Колко е направено днес по метриката на днешното предизвикателство. */
+export function challengeCount(p: PlayerProgress, day = todayKey()): number {
+  const c = challengeFor(day, p);
+  return p.daily?.day === day ? (p.daily.counts[c.metric] ?? 0) : 0;
+}
+
+/** Поредица от дни с изпълнено предизвикателство, до днес (или до вчера, ако днес още не е). */
+export function dayStreak(p: PlayerProgress, day = todayKey()): number {
+  const done = new Set(p.challengeDays ?? []);
+  let n = dayNumber(day);
+  if (!done.has(dayKey(n))) n -= 1;
+  let streak = 0;
+  while (done.has(dayKey(n))) {
+    streak += 1;
+    n -= 1;
+  }
+  return streak;
+}
+
+function dayKey(n: number): string {
+  return new Date(n * 86_400_000 + 12 * 3_600_000).toISOString().slice(0, 10);
+}
+
+/** Отброява действие за деня; ако предизвикателството стане изпълнено — дава бонуса веднъж. */
+function bumpDaily(
+  p: PlayerProgress,
+  metric: ChallengeMetric,
+  day: string,
+): { progress: PlayerProgress; challengeDone?: ProgressDelta["challengeDone"] } {
+  const counts = p.daily?.day === day ? p.daily.counts : {};
+  const c = challengeFor(day, p);
+  const next: PlayerProgress = {
+    ...p,
+    daily: { day, challengeId: c.id, counts: { ...counts, [metric]: (counts[metric] ?? 0) + 1 } },
   };
+  const days = next.challengeDays ?? [];
+  if (c.metric !== metric || days.includes(day) || (next.daily.counts[metric] ?? 0) < c.goal) return { progress: next };
+  const progress = earn({ ...next, challengeDays: [...days, day] }, CHALLENGE_BONUS);
+  return { progress, challengeDone: { bonus: CHALLENGE_BONUS, streak: dayStreak(progress, day) } };
 }
 
 // ───────────────────────── магазин ─────────────────────────
@@ -148,14 +236,38 @@ export function buyItem(p: PlayerProgress, id: string): BuyResult {
   return { ok: true, progress: equipItem(progress, id) };
 }
 
-/** Слага или сваля аксесоар/фон. Играчките и приятелите не се „обличат“. */
-export function equipItem(p: PlayerProgress, id: string | null, slot?: "accessory" | "background"): PlayerProgress {
-  if (id === null) return slot ? { ...p, equipped: { ...p.equipped, [slot]: undefined } } : p;
+export type EquipSlot = WearSlot | "background";
+
+/** Слага аксесоар на неговото място (или фон). Играчките и приятелите не се „обличат“. */
+export function equipItem(p: PlayerProgress, id: string): PlayerProgress {
   const item = getShopItem(id);
   if (!item || !p.owned.includes(id)) return p;
-  if (item.category === "accessory") return { ...p, equipped: { ...p.equipped, accessory: id } };
+  if (item.category === "accessory" && item.slot) return { ...p, equipped: { ...p.equipped, [item.slot]: id } };
   if (item.category === "background") return { ...p, equipped: { ...p.equipped, background: id } };
   return p;
+}
+
+/** Сваля каквото има на това място. */
+export const unequipSlot = (p: PlayerProgress, slot: EquipSlot): PlayerProgress => ({
+  ...p,
+  equipped: { ...p.equipped, [slot]: undefined },
+});
+
+/** Слага, ако не е сложено; сваля, ако вече е. */
+export function toggleEquip(p: PlayerProgress, id: string): PlayerProgress {
+  const item = getShopItem(id);
+  const slot: EquipSlot | undefined = item?.category === "background" ? "background" : item?.slot;
+  if (!slot) return p;
+  return p.equipped[slot] === id ? unequipSlot(p, slot) : equipItem(p, id);
+}
+
+/** Старият единствен „accessory“ отива на своето място (глава/лице). */
+export function migrateEquipped(p: PlayerProgress): PlayerProgress {
+  const old = p.equipped?.accessory;
+  if (!old) return p;
+  const slot = getShopItem(old)?.slot;
+  const equipped = { ...p.equipped, accessory: undefined };
+  return { ...p, equipped: slot ? { ...equipped, [slot]: old } : equipped };
 }
 
 // ───────────────────────── стикери и време ─────────────────────────
@@ -167,7 +279,7 @@ export const todayKey = (d = new Date()) =>
 export function completeAdventure(p: PlayerProgress, day = todayKey()): { progress: PlayerProgress; delta: ProgressDelta } {
   const sticker = STICKERS.find((s) => !p.stickers.includes(s)) ?? STICKERS[p.stickers.length % STICKERS.length];
   const coins = POINTS.adventureBonus;
-  const progress = earn(
+  const earned = earn(
     {
       ...p,
       stickers: p.stickers.includes(sticker) ? p.stickers : [...p.stickers, sticker],
@@ -175,7 +287,8 @@ export function completeAdventure(p: PlayerProgress, day = todayKey()): { progre
     },
     coins,
   );
-  return { progress, delta: { coins, starsGained: 0, sticker } };
+  const daily = bumpDaily(earned, "adventure", day);
+  return { progress: daily.progress, delta: { coins, starsGained: 0, sticker, challengeDone: daily.challengeDone } };
 }
 
 export function addPlayTime(p: PlayerProgress, seconds: number, day = todayKey()): PlayerProgress {

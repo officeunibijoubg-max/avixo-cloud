@@ -5,13 +5,19 @@ import { WORLDS } from "@/data/adventure";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { starsFor } from "@/services/progress";
-import { isWorldUnlocked } from "@/services/adventure";
+import { isWorldUnlocked, lettersToUnlock } from "@/services/adventure";
 import { playSound } from "@/services/sounds";
 import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
 import { Mascot } from "@/components/game/Mascot";
 
-const HREF: Record<string, string> = { numbers: "/learn/numbers/", forest: "/learn/letters/", mountain: "/learn/letters/#mountain" };
+const HREF: Record<string, string> = {
+  numbers: "/learn/numbers/",
+  forest: "/learn/letters/",
+  mountain: "/learn/letters/#mountain",
+  lowercase: "/learn/small/",
+  words: "/learn/words/",
+};
 
 /** Картата на световете: Градът на цифрите, Гората и Планината на буквите, Островът на думите. */
 export default function WorldsPage() {
@@ -30,6 +36,13 @@ export default function WorldsPage() {
               <span className="text-2xl font-black">{w.title}</span>
               {w.comingSoon ? (
                 <span className="rounded-full bg-white/80 px-3 py-1 font-bold">{phrases.comingSoon}</span>
+              ) : !open ? (
+                <span className="rounded-full bg-white/80 px-3 py-1 font-bold">
+                  🔒{" "}
+                  {lettersToUnlock(progress, w) > 0
+                    ? phrases.needLetters(lettersToUnlock(progress, w))
+                    : phrases.needWorld(WORLDS.find((x) => x.id === w.requires)?.title ?? "")}
+                </span>
               ) : (
                 <>
                   <span className="text-3xl tracking-widest">{w.characters.slice(0, 5).join(" ")}…</span>

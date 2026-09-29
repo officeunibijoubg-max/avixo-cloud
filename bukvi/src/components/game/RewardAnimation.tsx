@@ -9,6 +9,7 @@ export type Celebration = {
   starsGained: number;
   levelUp?: number;
   sticker?: string;
+  challengeDone?: { bonus: number; streak: number };
 };
 
 const COLORS = ["#f472b6", "#38bdf8", "#fbbf24", "#22c55e", "#8b5cf6", "#fb7185"];
@@ -33,7 +34,12 @@ export function RewardAnimation({ celebration, onCloseReward }: { celebration: C
     ? { icon: celebration.sticker, text: phrases.stickerEarned }
     : celebration.levelUp
       ? { icon: "🏅", text: phrases.levelUp(celebration.levelUp) }
-      : null;
+      : celebration.challengeDone
+        ? {
+            icon: "🎯",
+            text: `${phrases.challengeDone(celebration.challengeDone.streak)} +${celebration.challengeDone.bonus} 🪙`,
+          }
+        : null;
   return (
     <div key={celebration.id} aria-live="polite">
       {pieces.map((p, i) => (

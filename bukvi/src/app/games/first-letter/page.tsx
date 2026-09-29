@@ -1,8 +1,9 @@
 "use client";
 
+import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import { ALPHABET, letterLessons } from "@/data/alphabet";
-import { GAMES } from "@/data/games";
+import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { optionsWith, pickOne } from "@/lib/random";
 import { ChoiceGame, type ChoiceRound } from "@/components/games/ChoiceGame";
@@ -12,7 +13,7 @@ import { Illustration } from "@/components/illustrations/Illustration";
 const withWords = letterLessons.filter((l) => l.exampleWord);
 
 /** Игра 3 — „С коя буква започва?“: картинка, дума и три букви. */
-export default function FirstLetterGame() {
+function FirstLetterGame() {
   const makeRound = useCallback((): ChoiceRound => {
     const lesson = pickOne(withWords);
     const word = lesson.exampleWord as string;
@@ -33,5 +34,13 @@ export default function FirstLetterGame() {
       answer: lesson.character,
     };
   }, []);
-  return <ChoiceGame title={GAMES[1].title} makeRound={makeRound} />;
+  return <ChoiceGame title={gameTitle("first-letter")} makeRound={makeRound} />;
+}
+
+export default function Page() {
+  return (
+    <FeatureGate id="first-letter">
+      <FirstLetterGame />
+    </FeatureGate>
+  );
 }

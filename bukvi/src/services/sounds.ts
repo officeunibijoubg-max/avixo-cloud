@@ -60,6 +60,24 @@ function getContext(): AudioContext | null {
   return ctx;
 }
 
+/**
+ * Вика се при първото докосване: създава/събужда звука вътре в жеста на детето
+ * и пуска кратка тишина — така Android и iOS „отключват“ Web Audio.
+ */
+export function unlockSounds() {
+  const ac = getContext();
+  if (!ac) return;
+  try {
+    const buffer = ac.createBuffer(1, 1, 22050);
+    const src = ac.createBufferSource();
+    src.buffer = buffer;
+    src.connect(ac.destination);
+    src.start(0);
+  } catch {}
+}
+
+export const soundState = () => ctx?.state ?? "няма";
+
 export function configureSounds(opts: { enabled: boolean; volume: number }) {
   state.enabled = opts.enabled;
   state.volume = opts.volume;

@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { letterLessons } from "./alphabet";
+import { ALPHABET, letterLessons } from "./alphabet";
+import { WORD_ITEMS } from "./wordsIsland";
+import { READING_WORDS } from "./readingWords";
+import { SOUND_WORDS, hasClearLastSound } from "./soundWords";
 import { numberLessons } from "./numbers";
 import { prepareForTts } from "@/services/speech";
 import { hasIllustration } from "@/components/illustrations/Illustration";
@@ -8,6 +11,26 @@ describe("илюстрациите", () => {
   it("всяка буква и цифра има собствена илюстрация (не системно емоджи)", () => {
     for (const l of [...letterLessons, ...numberLessons])
       expect(hasIllustration(l.exampleImage) || l.exampleImage === "lion", `${l.character}: ${l.exampleImage}`).toBe(true);
+    for (const w of WORD_ITEMS.filter((x) => x.image)) expect(hasIllustration(w.image), w.text).toBe(true);
+  });
+
+  it("думите от Острова са само от букви от Гората (А–П)", () => {
+    const forest = new Set(ALPHABET.slice(0, 16));
+    for (const w of WORD_ITEMS) for (const c of w.text) expect(forest.has(c as never), `${w.text}: ${c}`).toBe(true);
+  });
+});
+
+describe("думите за четене и звуков анализ", () => {
+  it("сричките образуват точно думата и има картинка", () => {
+    for (const w of READING_WORDS) {
+      expect(w.syllables.join(""), w.word).toBe(w.word);
+      expect(hasIllustration(w.image), w.word).toBe(true);
+    }
+  });
+
+  it("думите за „последния звук“ не завършват на звучна съгласна", () => {
+    for (const w of SOUND_WORDS.filter(hasClearLastSound)) expect("бвгджз").not.toContain(w.word.at(-1));
+    expect(SOUND_WORDS.filter(hasClearLastSound).length).toBeGreaterThan(15);
   });
 });
 

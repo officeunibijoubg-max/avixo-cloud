@@ -31,7 +31,9 @@ npm run build   # статичен export в out/ + офлайн списък в
   `progress.ts` (чисти функции: звезди, монети, ниво, магазин, стикери, време), `adventure.ts` (отключване, буква за деня, трудни символи).
 - `src/store/gameStore.ts` — Zustand + localStorage (persist версия 2, миграция от точки към монети; ръчна хидратация).
 - `src/components/game/` — `WritingCanvas`, `StrokeGuide`, `useWritingExercise` (цялата логика на опит),
-  `LionSvg` (Лъвчо с 9 пози), `Mascot`, `RewardAnimation`, броячите.
+  `hero/HeroSvg` (8 героя с общ скелет и 9 пози; `species.tsx` — по какво се различават,
+  `wearables.tsx` — рисуваните дрехи по места: глава/лице/врат/гръб/ръка), `Mascot` (`CurrentHero`), `RewardAnimation`, броячите.
+  Нова дреха: запис в `data/shop.ts` със `slot` + рисунка в `WEAR_ART` (тест проверява, че има).
 - `src/components/illustrations/Illustration.tsx` — илюстрациите на думите в стила на Лъвчо (SVG, офлайн).
 - `src/components/games/` — обща механика: `ChoiceGame` (избор), `WriteRoundGame` (писане + „Буквен път“).
 - `src/components/map/WorldMap.tsx` — пътеката с точки за един свят.
@@ -59,8 +61,34 @@ npm run build   # статичен export в out/ + офлайн списък в
 При easy/normal се сравнява и по място, и само по форма (bbox нормализация); при hard — само по форма.
 Всяка промяна на праговете трябва да минава `npm test` (включва матрица на объркване за А, Б, О, М, 1, 2, 3, 8).
 
+## Записан глас
+
+`src/content/voiceScript.ts` изрежда всяка изговаряна фраза с постоянно id; `npm run voice-script`
+пише `docs/voice-script.csv`. Файл `public/audio/<id>.mp3` (или .m4a/.ogg/.wav) заменя синтезатора
+за този текст; `scripts/audio-manifest.mjs` прави `audio/manifest.json` при build. Нова фраза в
+`phrases.ts` → добави я и в `voiceScript.ts`.
+
+## Профили
+
+Активното дете е в `progress`; неактивните — в `stored` (`services/profiles.ts`, persist версия 4 — v4 пренася стария единствен аксесоар на мястото му).
+Героят (`settings.mascot`) се пази в профила при смяна; останалите настройки са общи.
+
+## Постепенно отключване
+
+Всичко извън първите уроци, Днешното приключение и магазина се отключва с напредъка.
+Игрите и частите са в `data/unlocks.ts` (`FEATURES`: букви/цифри/думи/минат свят); всяка страница
+е обвита във `FeatureGate`. Световете на картата — `requires`/`unlockLetters` в `data/adventure.ts`.
+Приказките (`content/stories.ts`) имат собствено `unlock` за всяка. Нова игра → запис в `FEATURES` и `GAMES`.
+
+## Още части
+
+- Малки букви: `strokeTemplates/lowercase.ts`, уроци `<slug>-m`, светът „Долината на малките букви“ (след Планината).
+- Форми (`data/shapes.ts`, ключ „фигура-…“), цветове, числа до 10 (`data/math.ts`), Мемори, „Моето име“ (`services/name.ts`).
+- Повторение през дни: `lastDay` в прогреса → `reviewDue` → стъпка „Спомни си!“ в приключението.
+- Седмичен отчет (`services/report.ts`) и листове за печат (`/parent/print/`) в родителската зона.
+
 ## Следващи стъпки
 
-- Записан професионален глас → `RECORDED_AUDIO` в `speech.ts` (браузърният TTS остава резервен).
-- Професионални илюстрации могат да заменят `Illustration.tsx` (ключовете са в `words.ts`).
-- Островът на думите (срички и думи), „Предизвикателство на деня“, профили за няколко деца, cloud sync.
+- Записване на гласа по `docs/voice-script.csv`.
+- Професионални илюстрации могат да заменят `Illustration.tsx` (ключовете са в `words.ts` и `wordsIsland.ts`).
+- Още думи на Острова (с букви Р–Я), cloud sync на профилите.

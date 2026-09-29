@@ -2,8 +2,8 @@
 
 import { useEffect } from "react";
 import { useGameStore } from "@/store/gameStore";
-import { configureSounds, setMusic } from "@/services/sounds";
-import { configureSpeech } from "@/services/speech";
+import { configureSounds, setMusic, unlockSounds } from "@/services/sounds";
+import { configureSpeech, unlockSpeech } from "@/services/speech";
 import { getShopItem } from "@/data/shop";
 
 /** Зарежда прогреса, прилага настройките и регистрира service worker-а. */
@@ -39,6 +39,20 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       document.body.style.removeProperty("--app-bg");
     }
   }, [backgroundId]);
+
+  // Първото докосване отключва звука и гласа (изискване на браузърите, особено на Android).
+  // При докосване „активирането“ идва чак при отпускане на пръста (touchend/click),
+  // затова слушаме тези събития, а не pointerdown.
+  useEffect(() => {
+    const events = ["touchend", "click", "keydown"] as const;
+    const unlock = () => {
+      unlockSounds();
+      if (!unlockSpeech()) return; // браузърът още не е разрешил звук — чакаме следващото докосване
+      events.forEach((e) => window.removeEventListener(e, unlock, true));
+    };
+    events.forEach((e) => window.addEventListener(e, unlock, true));
+    return () => events.forEach((e) => window.removeEventListener(e, unlock, true));
+  }, []);
 
   // Време за игра (за родителя): броим само когато екранът е видим и детето
   // е докосвало нещо през последната минута.

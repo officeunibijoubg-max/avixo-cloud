@@ -1,6 +1,7 @@
 import type { CharacterLesson } from "@/lib/types";
 import { phrases } from "@/content/phrases";
 import { letterTemplates } from "./strokeTemplates/letters";
+import { lowercaseTemplates } from "./strokeTemplates/lowercase";
 import { letterWords } from "./words";
 
 /** Българската азбука — точно 30 букви, в този ред. */
@@ -31,3 +32,14 @@ export const letterLessons: CharacterLesson[] = ALPHABET.map((character) => {
     templates: letterTemplates[character],
   };
 });
+
+/** Малките букви — същият ред; звукът и думата са като на главната. */
+export const LOWERCASE = ALPHABET.map((c) => c.toLowerCase());
+
+export const lowercaseLessons: CharacterLesson[] = letterLessons.map((l) => ({
+  ...l,
+  id: `${l.id}-m`,
+  character: l.character.toLowerCase(),
+  lowercase: true,
+  templates: lowercaseTemplates[l.character.toLowerCase()],
+}));

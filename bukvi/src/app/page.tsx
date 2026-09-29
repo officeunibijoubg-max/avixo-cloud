@@ -9,6 +9,8 @@ import { BigButton } from "@/components/ui/BigButton";
 import { Mascot } from "@/components/game/Mascot";
 import { StarCounter } from "@/components/game/StarCounter";
 import { CoinCounter } from "@/components/game/CoinCounter";
+import { DailyChallengeCard } from "@/components/game/DailyChallengeCard";
+import { NextUnlockCard, UnlockPopup } from "@/components/game/UnlockProgress";
 import { levelOf, MAX_LEVEL, todayKey } from "@/services/progress";
 import { pickAdventureLetter } from "@/services/adventure";
 import { playSound } from "@/services/sounds";
@@ -18,6 +20,7 @@ export default function HomePage() {
   const mascotKey = useGameStore((s) => s.settings.mascot);
   const progress = useGameStore((s) => s.progress);
   const hydrated = useGameStore((s) => s.hydrated);
+  const profile = useGameStore((s) => s.profiles.find((p) => p.id === s.activeId));
   const level = levelOf(progress);
   const mascot = MASCOTS[mascotKey] ?? MASCOTS[DEFAULT_MASCOT];
   const greeting = phrases.greeting(mascot.name);
@@ -27,6 +30,15 @@ export default function HomePage() {
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-5 px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
       <header className="flex items-center gap-3">
+        {/* Кой играе — натискането води към избора на дете. */}
+        <Link
+          href="/profiles/"
+          className="card-soft flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-4 text-xl font-black shadow-sm"
+          aria-label={phrases.whoPlays}
+        >
+          <span className="flex size-10 items-center justify-center rounded-full bg-violet-100 text-3xl">{profile?.avatar}</span>
+          <span className="max-w-32 truncate">{profile?.name}</span>
+        </Link>
         <span className="card-soft rounded-full bg-white px-4 py-2 text-xl font-black shadow-sm" aria-label={`${ui.level} ${level}`}>
           🏅 {ui.level} {level}
           <span className="text-base text-slate-400">/{MAX_LEVEL}</span>
@@ -60,6 +72,10 @@ export default function HomePage() {
           <span className="text-lg font-bold opacity-90">{doneToday ? "✓ Минато днес — може пак!" : "Нова буква, игри и стикер 🎁"}</span>
         </span>
       </Link>
+
+      <DailyChallengeCard />
+      <NextUnlockCard />
+      <UnlockPopup />
 
       <nav className="grid flex-1 grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
         <BigButton href="/learn/" icon="🗺️" label="Карта" size="lg" color="bg-lime-200" />

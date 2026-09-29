@@ -1,61 +1,42 @@
 "use client";
 
 import { MASCOTS, DEFAULT_MASCOT } from "@/config/mascot";
+import type { Equipped } from "@/lib/types";
 import { useGameStore } from "@/store/gameStore";
 import { cn } from "@/lib/cn";
-import { getShopItem } from "@/data/shop";
-import { LionSvg, type LionPose } from "./LionSvg";
+import { HeroSvg, type HeroPose } from "./hero/HeroSvg";
 
-/** Настроенията на героя = позите на Лъвчо. */
-export type MascotMood = LionPose;
+/** Настроенията на героя = позите му. */
+export type MascotMood = HeroPose;
 
-// За героите, които още са емоджи: малка иконка за настроението.
-const MOOD_BADGE: Record<MascotMood, string> = {
-  happy: "😊",
-  wave: "👋",
-  think: "🤔",
-  point: "👉",
-  cheer: "🎉",
-  dance: "🎶",
-  clap: "👏",
-  encourage: "💪",
-  sleep: "😴",
-};
+const WEAR_SLOTS = ["back", "neck", "face", "head", "hand"] as const;
+
+/** Облечените неща в реда, в който се рисуват. */
+export const wornItems = (e: Equipped) => WEAR_SLOTS.map((s) => e[s]);
+
+/** Избраният герой и какво носи — за всички места, където се показва. */
+export function useHeroLook() {
+  const key = useGameStore((s) => s.settings.mascot);
+  const equipped = useGameStore((s) => s.progress.equipped);
+  const hero = MASCOTS[key] ? key : DEFAULT_MASCOT;
+  return { hero, wearing: wornItems(equipped) };
+}
+
+/** Текущият герой с дрехите му. */
+export function CurrentHero({ pose = "happy", size = 96, className }: { pose?: HeroPose; size?: number; className?: string }) {
+  const { hero, wearing } = useHeroLook();
+  return <HeroSvg hero={hero} pose={pose} wearing={wearing} size={size} className={className} />;
+}
 
 type Props = { message?: string; mood?: MascotMood; className?: string; compact?: boolean };
 
-/** Героят-водач. Лъвчо е SVG с пози; купените приятели засега са емоджи. */
+/** Героят-водач с балонче за текст. */
 export function Mascot({ message, mood = "happy", className, compact }: Props) {
-  const key = useGameStore((s) => s.settings.mascot);
-  const m = MASCOTS[key] ?? MASCOTS[DEFAULT_MASCOT];
-  const accessory = useGameStore((s) => getShopItem(s.progress.equipped.accessory ?? ""));
-  const isLion = key === "lion" || !MASCOTS[key];
   const size = compact ? 64 : 104;
-
   return (
     <div className={cn("flex items-center gap-3", className)}>
-      <div className="relative shrink-0" style={{ width: size }} aria-hidden>
-        {isLion ? (
-          <LionSvg pose={mood} size={size} />
-        ) : (
-          <div className={cn(mood === "cheer" || mood === "dance" ? "animate-wiggle" : "animate-bob")}>
-            <span className={compact ? "text-5xl" : "text-7xl"}>{m.emoji}</span>
-            <span className="absolute -right-2 -top-1 text-2xl">{MOOD_BADGE[mood]}</span>
-          </div>
-        )}
-        {/* Купеният аксесоар: шапка/корона на главата или очила на лицето. */}
-        {accessory && (
-          <span
-            className="pointer-events-none absolute left-1/2 -translate-x-1/2 leading-none"
-            style={
-              accessory.placement === "face"
-                ? { top: isLion ? size * 0.33 : size * 0.18, fontSize: size * 0.34 }
-                : { top: isLion ? -size * 0.14 : -size * 0.3, fontSize: size * 0.42 }
-            }
-          >
-            {accessory.icon}
-          </span>
-        )}
+      <div className="shrink-0" style={{ width: size }} aria-hidden>
+        <CurrentHero pose={mood} size={size} />
       </div>
       {message && (
         <div
