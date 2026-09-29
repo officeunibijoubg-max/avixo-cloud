@@ -203,3 +203,16 @@ describe("повторение през дни", () => {
     expect(p.daily.counts.words ?? 0).toBe(0);
   });
 });
+
+describe("седмичен отчет", () => {
+  it("брои новите и упражняваните символи за 7 дни и дава идея без екран", async () => {
+    const { weeklyReport } = await import("./report");
+    let p = recordWriting(emptyProgress(), "А", 90, true, 1, "2026-09-01").progress;
+    p = recordWriting(p, "А", 90, true, 1, "2026-10-06").progress;
+    p = recordWriting(p, "Б", 90, true, 1, "2026-10-07").progress;
+    const r = weeklyReport(p, "2026-10-08");
+    expect(r.learned).toEqual(["Б"]);
+    expect(r.practiced.sort()).toEqual(["А", "Б"]);
+    expect(r.idea).toMatch(/Б|балон/);
+  });
+});

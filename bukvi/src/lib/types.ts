@@ -57,6 +57,8 @@ export type CharacterProgress = {
   mastered: boolean;
   /** Денят на последното вярно изписване — за повторението през дни. */
   lastDay?: string;
+  /** Денят на първото вярно изписване — „ново тази седмица“ в отчета. */
+  firstDay?: string;
 };
 
 export type PlayerProgress = {

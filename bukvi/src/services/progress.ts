@@ -113,6 +113,7 @@ export function recordWriting(
     lastScore: score,
     bestScore,
     lastDay: isCorrect ? day : prev.lastDay,
+    firstDay: prev.firstDay ?? (isCorrect ? day : undefined),
     mastered: prev.mastered || (correct >= APP_CONFIG.masteryCorrect && bestScore >= APP_CONFIG.masteryScore),
   };
   const streak = isCorrect ? p.streak + 1 : 0;

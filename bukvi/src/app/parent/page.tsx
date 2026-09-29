@@ -7,6 +7,7 @@ import { letterWords } from "@/data/words";
 import { useGameStore } from "@/store/gameStore";
 import { accuracy, levelOf, MAX_LEVEL, lessonStars, todayKey, totalStars } from "@/services/progress";
 import { hardCharacters } from "@/services/adventure";
+import { weeklyReport } from "@/services/report";
 import type { CharacterProgress } from "@/lib/types";
 import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
@@ -53,6 +54,7 @@ function Dashboard() {
   const days = lastDays(7);
   const week = days.map((d) => progress.playSeconds[d] ?? 0);
   const maxDay = Math.max(60, ...week);
+  const report = weeklyReport(progress, todayKey());
 
   const cards = [
     { label: "Минути днес", value: minutes(progress.playSeconds[todayKey()] ?? 0) },
@@ -85,6 +87,26 @@ function Dashboard() {
           </div>
         ))}
       </div>
+
+      <Section title="📅 Тази седмица">
+        <ul className="flex flex-col gap-1 text-slate-700">
+          <li>
+            ⏱️ <b>{minutes(report.seconds)} мин.</b> игра · 🌟 <b>{report.adventures}</b> приключения · 🔥 <b>{report.challengeDays}</b> предизвикателства
+          </li>
+          <li>
+            🆕 Ново: <b className="text-lg">{report.learned.length ? report.learned.join(" ") : "—"}</b>
+          </li>
+          <li>
+            ✏️ Упражнявано: <b className="text-lg">{report.practiced.length ? report.practiced.join(" ") : "—"}</b>
+          </li>
+        </ul>
+        <div className="mt-3 rounded-2xl bg-amber-50 p-3 text-slate-800">
+          <b>💡 Идея без екран:</b> {report.idea}
+        </div>
+        <Link href="/parent/print/" className="mt-3 inline-flex min-h-12 items-center gap-2 rounded-2xl bg-sky-200 px-5 py-2 font-black">
+          🖨️ Листове за писане на хартия
+        </Link>
+      </Section>
 
       <Section title="⏱️ Време за игра (минути)">
         <div className="flex h-32 items-end gap-3">

@@ -81,10 +81,11 @@ function MemoryGame() {
     }
     const first = deck.find((c) => c.key === next[0])!;
     if (first.lesson.id === card.lesson.id) {
-      const text = phrases.memoryPair(card.lesson.spokenName, card.lesson.exampleWord ?? "");
+      const word = (card.lesson.exampleWord ?? "").toLowerCase();
+      const text = phrases.memoryPair(card.lesson.spokenName, word);
       setFound((f) => [...f, card.lesson.id]);
       setOpen([]);
-      setMessage(text);
+      setMessage(phrases.memoryPair(card.lesson.character, word));
       playSound("correct");
       celebrate(recordGameAnswer(true));
       void speakPhrase(text);
