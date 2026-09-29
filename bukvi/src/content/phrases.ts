@@ -18,9 +18,8 @@ export const ENCOURAGE = ["Опитай пак.", "Почти успя!", "Мо�
 
 export const phrases = {
   // Урок
-  // Изговаряме звука на буквата и в двете части — синтезаторът чете самотна „Б“ като „бе“.
-  letterIntro: (spoken: string, word?: string) =>
-    word ? `Това е ${spoken}. ${spoken} като ${word}.` : `Това е ${spoken}.`,
+  // Звукът на буквата („Бъ“), не името ѝ („бе“); без повторения — „Това е Бъ като балон.“
+  letterIntro: (spoken: string, word?: string) => (word ? `Това е ${spoken} като ${word}.` : `Това е ${spoken}.`),
   /** За букви, с които не започва дума (Ь): „Виждаме го в думата синьо.“ */
   letterInWord: (spoken: string, word: string) => `Това е ${spoken}. Виждаме го в думата ${word}.`,
   numberIntro: (name: string) => `Това е ${name.toLowerCase()}.`,
@@ -92,7 +91,7 @@ export const phrases = {
 
   // Островът на думите
   wordIntro: (spoken: string, syllable: boolean) =>
-    syllable ? `Това е ${spoken}. Напиши ${spoken} буква по буква.` : `${spoken}. Напиши ${spoken} буква по буква.`,
+    syllable ? `Напиши сричката ${spoken} буква по буква.` : `Напиши думата ${spoken} буква по буква.`,
   wordNextLetter: (letter: string) => `Сега ${letter}.`,
   wordDone: (spoken: string) => `Браво! Написа ${spoken}!`,
   wordTask: (text: string) => `Напиши ${text} буква по буква.`,
@@ -117,7 +116,7 @@ export const phrases = {
   pathLocked: "Още не сме стигнали дотук. Първо минем стъпките преди това!",
   pathDone: "Браво! Мина целия път! Можеш да повтаряш всичко, което искаш.",
   pathReplay: "Това вече го можеш. Хайде още веднъж!",
-  newGameIntro: (title: string) => `Отключи нова игра: ${title}! Хайде да я изиграем!`,
+  newGameIntro: (title: string) => `Отключи нова игра: ${title.replace(/[?!]$/, "")}! Хайде да я изиграем!`,
   newStoryIntro: (title: string) => `Нова приказка: ${title}! Хайде да я чуем!`,
   shapeIntro: (name: string) => `Хайде да нарисуваме ${name}!`,
   stepLetter: (c: string) => `Буквата ${c}`,
@@ -148,8 +147,8 @@ export const phrases = {
   nameNotSet: "Помоли мама или татко да напишат името ти в „Кой играе?“.",
 
   // Звуков анализ
-  firstSound: (word: string) => `${word}. Кой е първият звук в думата ${word}?`,
-  lastSound: (word: string) => `${word}. Кой е последният звук в думата ${word}?`,
+  firstSound: (word: string) => `Кой е първият звук в думата ${word}?`,
+  lastSound: (word: string) => `Кой е последният звук в думата ${word}?`,
   firstSoundQ: (word: string) => `Кой е първият звук в „${word}“?`,
   lastSoundQ: (word: string) => `Кой е последният звук в „${word}“?`,
 
@@ -165,7 +164,7 @@ export const phrases = {
   unlockedMany: "Отключи нови игри!",
 
   // Сричане и четене
-  buildWord: (word: string) => `${word}. Подреди сричките.`,
+  buildWord: (word: string) => `Подреди сричките на думата ${word}.`,
   buildWordQ: "Подреди сричките на думата!",
   wordBuilt: (syllables: string, word: string) => `${syllables}. ${word}! Браво!`,
   readWord: "Прочети думата и избери картинката!",
@@ -174,7 +173,7 @@ export const phrases = {
   findLetter: (spoken: string) => `Намери буквата ${spoken}.`,
   findNumber: (name: string) => `Намери числото ${name}.`,
   findHeard: "Слушай и намери буквата! 👂",
-  startsWith: (word: string) => `${word}. С коя буква започва ${word}?`,
+  startsWith: (word: string) => `С коя буква започва думата ${word}?`,
   startsWithQuestion: (word: string) => `С коя буква започва ${word}?`,
   popBalloon: (spoken: string) => `Спукай балона с буквата ${spoken}.`,
   listenWrite: (spoken: string) => `Напиши буквата ${spoken}.`,
