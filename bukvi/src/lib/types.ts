@@ -83,6 +83,8 @@ export type PlayerProgress = {
   /** Броим упражненията и минигрите за родителския екран. */
   exercises: number;
   gamesPlayed: number;
+  /** Колко пъти е изиграна всяка игра/приказка (ид → брой) — за стъпките от пътя. */
+  played: Record<string, number>;
   /** Купени предмети от магазина (ид-та от data/shop.ts). */
   owned: string[];
   /** Какво е облечено/сложено в момента. */
@@ -101,6 +103,8 @@ export type PlayerProgress = {
   seenUnlocks: string[];
 };
 
+export type VoiceSource = "recorded" | "device";
+
 export type Settings = {
   sound: boolean;
   speech: boolean;
@@ -118,4 +122,6 @@ export type Settings = {
   mascot: string;
   /** Как звуците на буквите („Бъ“) се подават на синтезатора — зависи от устройството. */
   ttsSpelling: TtsSpelling;
+  /** Чий глас: записаният (работи на всяко устройство) или синтезаторът на устройството. */
+  voice: VoiceSource;
 };

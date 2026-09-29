@@ -16,10 +16,6 @@ export type World = {
   characters: string[];
   /** Какво има по точките: символи (по подразбиране) или думи. */
   kind?: "characters" | "words";
-  /** Свят, който трябва да е минат, за да се отключи този. */
-  requires?: string;
-  /** Или: колко главни букви (с поне една ⭐) трябва да знае детето. */
-  unlockLetters?: number;
   comingSoon?: boolean;
 };
 
@@ -31,8 +27,6 @@ export const WORLDS: World[] = [
     decor: ["🏠", "🏫", "🚌", "🏢", "🚦", "🎡", "🏪", "🚲"],
     theme: { path: "#fbbf24", bg: "linear-gradient(180deg,#fef3c7,#fde68a)", node: "bg-amber-300" },
     characters: [...DIGITS],
-    // Първо буквите: градът е нов свят-награда след първите букви.
-    unlockLetters: 5,
   },
   {
     id: "forest",
@@ -49,7 +43,6 @@ export const WORLDS: World[] = [
     decor: ["🏔️", "🐐", "🌨️", "⛺", "🦅", "🌲", "❄️", "🏕️"],
     theme: { path: "#93c5fd", bg: "linear-gradient(180deg,#e0f2fe,#e0e7ff)", node: "bg-sky-300" },
     characters: ALPHABET.slice(16),
-    requires: "forest",
   },
   {
     id: "lowercase",
@@ -58,7 +51,6 @@ export const WORLDS: World[] = [
     decor: ["🌷", "🦋", "🐝", "🌻", "🐞", "🍀", "🌸", "🐌"],
     theme: { path: "#c4b5fd", bg: "linear-gradient(180deg,#f5f3ff,#fdf2f8)", node: "bg-violet-300" },
     characters: [...LOWERCASE],
-    requires: "mountain",
   },
   {
     id: "words",
@@ -67,9 +59,7 @@ export const WORLDS: World[] = [
     decor: ["🌴", "🐚", "🦀", "⛵", "🐠", "🌺"],
     theme: { path: "#f9a8d4", bg: "linear-gradient(180deg,#fce7f3,#e0f2fe)", node: "bg-pink-300" },
     kind: "words",
-    // Думите са само от букви А–П, затова островът се отваря след Гората.
     characters: WORD_ITEMS.map((w) => w.text),
-    requires: "forest",
   },
 ];
 

@@ -2,7 +2,6 @@
 
 import { useCallback } from "react";
 import { FeatureGate } from "@/components/layout/FeatureGate";
-import { gameTitle } from "@/data/games";
 import { COLORS } from "@/data/shapes";
 import { phrases } from "@/content/phrases";
 import { optionsWith, pickOne } from "@/lib/random";
@@ -26,7 +25,7 @@ function ColorsGame() {
       optionLabel: (id) => COLORS.find((x) => x.id === id)?.name ?? id,
     };
   }, []);
-  return <ChoiceGame title={gameTitle("colors")} makeRound={makeRound} rounds={8} />;
+  return <ChoiceGame game="colors" makeRound={makeRound} rounds={8} />;
 }
 
 export default function Page() {

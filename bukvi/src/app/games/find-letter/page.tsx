@@ -1,9 +1,9 @@
 "use client";
 
+import { knownLetters } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
-import { ALPHABET, letterLessons } from "@/data/alphabet";
-import { gameTitle } from "@/data/games";
+import { ALPHABET } from "@/data/alphabet";
 import { similarOptions } from "@/data/similar";
 import { phrases } from "@/content/phrases";
 import { hasBulgarianVoice } from "@/services/speech";
@@ -17,7 +17,7 @@ import { ChoiceGame, type ChoiceRound } from "@/components/games/ChoiceGame";
  */
 function FindLetterGame() {
   const makeRound = useCallback((): ChoiceRound => {
-    const lesson = pickOne(letterLessons);
+    const lesson = pickOne(knownLetters());
     return {
       prompt: phrases.findLetter(lesson.spokenName),
       caption: hasBulgarianVoice() ? phrases.findHeard : phrases.findLetter(lesson.character),
@@ -25,7 +25,7 @@ function FindLetterGame() {
       answer: lesson.character,
     };
   }, []);
-  return <ChoiceGame title={gameTitle("find-letter")} makeRound={makeRound} />;
+  return <ChoiceGame game="find-letter" makeRound={makeRound} />;
 }
 
 export default function Page() {

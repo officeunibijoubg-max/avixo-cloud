@@ -1,7 +1,5 @@
-import type { Unlock } from "@/data/unlocks";
-
 // Кратки приказки с Лъвчо. Всяка е около една буква — думите с нея светят в текста,
-// а накрая детето познава коя буква е чуло най-много. Отключват се една по една.
+// а накрая детето познава коя буква е чуло най-много. Всяка е стъпка от пътя на обучение (data/path.ts).
 
 export type Story = {
   id: string;
@@ -9,7 +7,6 @@ export type Story = {
   icon: string;
   /** Буквата на приказката (главна). */
   letter: string;
-  unlock: Unlock;
   pages: { scene: string; text: string }[];
 };
 
@@ -19,7 +16,6 @@ export const STORIES: Story[] = [
     title: "Лъвчо и балонът",
     icon: "🎈",
     letter: "Б",
-    unlock: { letters: 8 },
     pages: [
       { scene: "🦁🎈", text: "Баба даде на Лъвчо голям син балон." },
       { scene: "🌬️🎈", text: "Духна вятър и балонът полетя бързо нагоре." },
@@ -32,7 +28,6 @@ export const STORIES: Story[] = [
     title: "Мечето и мама",
     icon: "🐻",
     letter: "М",
-    unlock: { letters: 13 },
     pages: [
       { scene: "🐻🍯", text: "Малкото мече много обичаше мед." },
       { scene: "🐝🌼", text: "Мама Меца каза: „Мед правят пчелите. Хайде да ги видим!“" },
@@ -45,7 +40,6 @@ export const STORIES: Story[] = [
     title: "Жабата Жужа",
     icon: "🐸",
     letter: "Ж",
-    unlock: { letters: 16 },
     pages: [
       { scene: "🐸💧", text: "Жабата Жужа живееше в езерото." },
       { scene: "🐸☀️", text: "Един ден стана много жежко и Жужа беше жадна." },
@@ -58,7 +52,6 @@ export const STORIES: Story[] = [
     title: "Рибката Рая",
     icon: "🐟",
     letter: "Р",
-    unlock: { letters: 20 },
     pages: [
       { scene: "🐟🌊", text: "Рибката Рая плуваше в реката." },
       { scene: "🦀🐟", text: "Рачето Роко я покани да ровят в пясъка." },
@@ -71,7 +64,6 @@ export const STORIES: Story[] = [
     title: "Ябълката на Яна",
     icon: "🍎",
     letter: "Я",
-    unlock: { letters: 30 },
     pages: [
       { scene: "👧🍎", text: "Яна имаше ябълково дърво." },
       { scene: "🌳🍎🍎", text: "Ябълките бяха червени, ярки и сочни." },

@@ -1,5 +1,6 @@
 "use client";
 
+import { knownLetters } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ALPHABET, letterLessons } from "@/data/alphabet";
@@ -37,7 +38,7 @@ function BalloonsGame() {
   const done = popped >= GOAL;
 
   const newTarget = useCallback(() => {
-    const t = pickOne(letterLessons);
+    const t = pickOne(knownLetters());
     setTarget(t);
     void speakPhrase(phrases.popBalloon(t.spokenName));
     return t;
@@ -85,7 +86,7 @@ function BalloonsGame() {
       const next = popped + 1;
       setPopped(next);
       if (next >= GOAL) {
-        countGame();
+        countGame("balloons");
         setBalloons([]);
         return;
       }

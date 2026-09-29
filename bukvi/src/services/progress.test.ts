@@ -66,24 +66,17 @@ describe("ниво и отключване", () => {
     expect(r.delta.levelUp).toBe(2);
   });
 
-  it("буквите се отключват подред, планината — след гората", () => {
+  it("буквите се отварят в реда на буквара; урокът взима текущата", () => {
     let p = emptyProgress();
+    for (const id of ["rain", "road", "circle"]) p = write(p, `фигура-${id}`);
     expect(isCharacterUnlocked(p, "А")).toBe(true);
+    expect(isCharacterUnlocked(p, "О")).toBe(false);
     expect(isCharacterUnlocked(p, "Б")).toBe(false);
-    p = write(p, "А");
-    expect(isCharacterUnlocked(p, "Б")).toBe(true);
-    const mountain = WORLDS.find((w) => w.id === "mountain")!;
-    expect(isWorldUnlocked(p, mountain)).toBe(false);
-    for (const c of WORLDS.find((w) => w.id === "forest")!.characters) p = write(p, c);
-    expect(isWorldUnlocked(p, mountain)).toBe(true);
-    expect(isCharacterUnlocked(emptyProgress(), "Я", true)).toBe(true);
-  });
-
-  it("Днешното приключение взима следващата нова буква", () => {
-    let p = emptyProgress();
     expect(pickAdventureLetter(p)).toBe("А");
     p = write(p, "А");
-    expect(pickAdventureLetter(p)).toBe("Б");
+    expect(isCharacterUnlocked(p, "О")).toBe(true);
+    expect(pickAdventureLetter(p)).toBe("О");
+    expect(isCharacterUnlocked(emptyProgress(), "Я", true)).toBe(true);
   });
 });
 
@@ -127,23 +120,50 @@ describe("предизвикателство на деня", () => {
   });
 });
 
-describe("постепенно отключване", () => {
-  it("игрите и Градът на цифрите се отключват с научените букви", async () => {
-    const { isFeatureUnlocked, nextUnlock } = await import("./unlocks");
+describe("пътят на обучение", () => {
+  it("отваря само една нова стъпка наведнъж, по ред", async () => {
+    const { isFeatureUnlocked } = await import("./unlocks");
+    const { currentStep, isReached } = await import("./path");
     const numbers = WORLDS.find((w) => w.id === "numbers")!;
     let p = emptyProgress();
-    expect(isFeatureUnlocked(p, "find-letter")).toBe(false);
-    expect(isWorldUnlocked(p, numbers)).toBe(false);
-    expect(nextUnlock(p)?.feature.id).toBe("shapes");
-    for (const c of ["А", "Б"]) p = write(p, c);
+    // Начало: първата чертичка; нищо друго не е отворено.
+    expect(currentStep(p)).toEqual({ kind: "shape", id: "rain" });
+    expect(isReached(p, "char:А")).toBe(false);
+    expect(isFeatureUnlocked(p, "shapes")).toBe(false);
+    for (const id of ["rain", "road", "circle"]) p = write(p, `фигура-${id}`);
+    expect(currentStep(p)).toEqual({ kind: "char", char: "А" });
+    p = write(p, "А");
+    expect(currentStep(p)).toEqual({ kind: "char", char: "О" });
+    p = write(p, "О");
+    // След О идва игра „Форми“ — отворена е, а следващата буква още не.
+    expect(currentStep(p)).toEqual({ kind: "game", id: "shapes" });
     expect(isFeatureUnlocked(p, "shapes")).toBe(true);
-    expect(nextUnlock(p)?.feature.id).toBe("find-letter");
-    p = write(p, "В");
-    expect(isFeatureUnlocked(p, "find-letter")).toBe(true);
-    expect(isFeatureUnlocked(p, "balloons")).toBe(false);
-    for (const c of ["Г", "Д"]) p = write(p, c);
+    expect(isReached(p, "char:У")).toBe(false);
+    expect(isWorldUnlocked(p, numbers)).toBe(false);
+    p = { ...p, played: { shapes: 1 } };
+    p = write(p, "У");
+    expect(currentStep(p)).toEqual({ kind: "char", char: "1" });
     expect(isWorldUnlocked(p, numbers)).toBe(true);
+    expect(isFeatureUnlocked(p, "find-letter")).toBe(false);
     expect(isFeatureUnlocked(emptyProgress(), "read-word", true)).toBe(true);
+  });
+
+  it("думите, приказките и игрите идват след буквите, които им трябват", async () => {
+    const { PATH } = await import("@/data/path");
+    const { STORIES } = await import("@/content/stories");
+    const { FEATURES } = await import("@/data/unlocks");
+    const known = new Set<string>();
+    for (const s of PATH) {
+      if (s.kind === "char") known.add(s.char);
+      if (s.kind === "word") for (const c of s.text) expect(known.has(c), `${s.text}: ${c}`).toBe(true);
+      if (s.kind === "story") expect(known.has(STORIES.find((x) => x.id === s.id)!.letter), s.id).toBe(true);
+    }
+    // Всяка игра и приказка е на пътя точно веднъж.
+    const keys = PATH.map((s) => (s.kind === "game" || s.kind === "story" ? `${s.kind}:${s.id}` : ""));
+    for (const f of FEATURES.filter((x) => x.id !== "stories")) expect(keys.filter((k) => k === `game:${f.id}`).length, f.id).toBe(1);
+    for (const st of STORIES) expect(keys.filter((k) => k === `story:${st.id}`).length, st.id).toBe(1);
+    // Всички 30 главни, 30 малки букви и 10 цифри са на пътя.
+    expect(PATH.filter((s) => s.kind === "char").length).toBe(70);
   });
 
   it("предизвикателството на деня не дава задача за заключени неща", () => {

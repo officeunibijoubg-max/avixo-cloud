@@ -3,7 +3,6 @@
 import { useCallback } from "react";
 import type { CharacterLesson } from "@/lib/types";
 import { FeatureGate } from "@/components/layout/FeatureGate";
-import { gameTitle } from "@/data/games";
 import { shapeLessons } from "@/data/shapes";
 import { writeTaskText } from "@/services/speech";
 import { pickOne } from "@/lib/random";
@@ -26,7 +25,7 @@ function ShapesGame() {
   );
   return (
     <WriteRoundGame
-      title={gameTitle("shapes")}
+      game="shapes"
       pickLesson={pickLesson}
       prompt={(l) => writeTaskText(l, true)}
       caption={(l) => writeTaskText(l, true)}

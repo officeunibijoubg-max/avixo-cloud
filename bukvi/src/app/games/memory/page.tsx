@@ -1,13 +1,12 @@
 "use client";
 
+import { knownLetters } from "@/components/games/known";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CharacterLesson } from "@/lib/types";
 import { FeatureGate } from "@/components/layout/FeatureGate";
-import { letterLessons } from "@/data/alphabet";
 import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
-import { starsFor } from "@/services/progress";
 import { playSound } from "@/services/sounds";
 import { cancelSpeech, speakPhrase } from "@/services/speech";
 import { shuffle } from "@/lib/random";
@@ -47,9 +46,9 @@ function MemoryGame() {
   const start = useCallback(() => {
     const { progress } = useGameStore.getState();
     const gamesPlayed = progress.gamesPlayed;
-    const learned = letterLessons.filter((l) => starsFor(progress, l.character) > 0);
+    const learned = knownLetters();
     const pairs = gamesPlayed < 5 ? 3 : gamesPlayed < 15 ? 4 : 6;
-    setDeck(makeDeck(learned.length >= 3 ? learned : letterLessons.slice(0, 6), pairs));
+    setDeck(makeDeck(learned, pairs));
     setOpen([]);
     setFound([]);
     setMisses(0);
@@ -89,7 +88,7 @@ function MemoryGame() {
       playSound("correct");
       celebrate(recordGameAnswer(true));
       void speakPhrase(text);
-      if (found.length + 1 === deck.length / 2) countGame();
+      if (found.length + 1 === deck.length / 2) countGame("memory");
     } else {
       setMisses((m) => m + 1);
       setMessage(phrases.memoryNo);

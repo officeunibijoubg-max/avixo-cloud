@@ -1,9 +1,9 @@
 "use client";
 
+import { knownWords } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import { READING_WORDS } from "@/data/readingWords";
-import { gameTitle } from "@/data/games";
 import { phrases } from "@/content/phrases";
 import { pickOne, shuffle } from "@/lib/random";
 import { ChoiceGame, type ChoiceRound } from "@/components/games/ChoiceGame";
@@ -15,7 +15,7 @@ import { Illustration } from "@/components/illustrations/Illustration";
  */
 function ReadWordGame() {
   const makeRound = useCallback((): ChoiceRound => {
-    const w = pickOne(READING_WORDS);
+    const w = pickOne(knownWords(READING_WORDS, (x) => x.word));
     const others = shuffle(READING_WORDS.filter((x) => x.image !== w.image)).slice(0, 2);
     const options = shuffle([w, ...others]);
     return {
@@ -37,7 +37,7 @@ function ReadWordGame() {
       optionLabel: (img) => options.find((o) => o.image === img)?.word ?? img,
     };
   }, []);
-  return <ChoiceGame title={gameTitle("read-word")} makeRound={makeRound} rounds={6} />;
+  return <ChoiceGame game="read-word" makeRound={makeRound} rounds={6} />;
 }
 
 export default function Page() {

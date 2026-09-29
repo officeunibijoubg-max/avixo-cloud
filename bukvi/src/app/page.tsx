@@ -9,11 +9,12 @@ import { BigButton } from "@/components/ui/BigButton";
 import { Mascot } from "@/components/game/Mascot";
 import { StarCounter } from "@/components/game/StarCounter";
 import { CoinCounter } from "@/components/game/CoinCounter";
-import { DailyChallengeCard } from "@/components/game/DailyChallengeCard";
-import { NextUnlockCard, UnlockPopup } from "@/components/game/UnlockProgress";
-import { levelOf, MAX_LEVEL, todayKey } from "@/services/progress";
-import { pickAdventureLetter } from "@/services/adventure";
+import { PATH } from "@/data/path";
+import { levelOf, MAX_LEVEL } from "@/services/progress";
+import { currentStepIndex } from "@/services/path";
 import { playSound } from "@/services/sounds";
+import { stepInfo } from "@/components/path/stepInfo";
+import { cn } from "@/lib/cn";
 import { speakPhrase } from "@/services/speech";
 
 export default function HomePage() {
@@ -24,8 +25,9 @@ export default function HomePage() {
   const level = levelOf(progress);
   const mascot = MASCOTS[mascotKey] ?? MASCOTS[DEFAULT_MASCOT];
   const greeting = phrases.greeting(mascot.name);
-  const todayLetter = hydrated ? pickAdventureLetter(progress) : "";
-  const doneToday = progress.adventuresDone.includes(todayKey());
+  const current = hydrated ? currentStepIndex(progress) : 0;
+  const step = PATH[current];
+  const info = step ? stepInfo(step) : null;
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-5 px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
@@ -54,31 +56,55 @@ export default function HomePage() {
           {APP_CONFIG.name}
         </h1>
         <button type="button" onClick={() => void speakPhrase(greeting)} className="text-left">
-          <Mascot message={greeting} mood="wave" />
+          <Mascot message={hydrated && current === 0 ? phrases.pathHello : greeting} mood="wave" />
         </button>
       </div>
 
-      {/* Основната игра: Днешно приключение. */}
+      {/* Основното: ЕДНА следваща стъпка по пътя. Всичко друго е за повтаряне. */}
       <Link
-        href="/adventure/"
+        href="/step/"
         onClick={() => playSound("click")}
-        className="card-soft flex min-h-36 animate-pulse-soft items-center gap-5 rounded-[2rem] bg-gradient-to-r from-grape to-berry px-6 py-5 text-white shadow-[0_8px_0_rgb(0_0_0/0.15)]"
+        className="card-soft flex min-h-36 animate-pulse-soft items-center gap-5 rounded-[2rem] bg-gradient-to-r from-leaf to-emerald-500 px-6 py-5 text-white shadow-[0_8px_0_rgb(0_0_0/0.15)]"
       >
-        <span className="flex size-24 shrink-0 items-center justify-center rounded-3xl bg-white/25 text-7xl font-black">
-          {todayLetter || "🌟"}
+        <span className="flex size-24 shrink-0 items-center justify-center rounded-3xl bg-white/25 text-6xl font-black">
+          {hydrated ? (info?.icon ?? "🏆") : ""}
         </span>
-        <span className="flex flex-col">
-          <span className="text-3xl font-black sm:text-4xl">Днешно приключение</span>
-          <span className="text-lg font-bold opacity-90">{doneToday ? "✓ Минато днес — може пак!" : "Нова буква, игри и стикер 🎁"}</span>
+        <span className="flex flex-1 flex-col">
+          <span className="text-4xl font-black sm:text-5xl">▶ {phrases.continuePath}</span>
+          <span className="text-xl font-bold opacity-95">{info?.label ?? phrases.pathDone}</span>
         </span>
       </Link>
 
-      <DailyChallengeCard />
-      <NextUnlockCard />
-      <UnlockPopup />
+      {/* Пътечка: минатите стъпки, текущата и следващите (заключени). */}
+      {hydrated && (
+        <Link href="/learn/" className="card-soft flex items-center justify-between gap-1 rounded-3xl bg-white/80 p-3 shadow-sm" aria-label={phrases.pathTitle}>
+          {Array.from({ length: 7 }, (_, k) => current - 2 + k).map((i) => {
+            const s = PATH[i];
+            if (!s) return <span key={i} className="size-11" />;
+            const done = i < current;
+            const now = i === current;
+            return (
+              <span
+                key={i}
+                className={cn(
+                  "flex items-center justify-center rounded-full font-black",
+                  now ? "size-14 bg-leaf text-3xl text-white ring-4 ring-grape" : "size-11 text-xl",
+                  done && "bg-lime-200",
+                  !done && !now && "bg-slate-100 text-slate-300",
+                )}
+              >
+                {done ? "✓" : now ? stepInfo(s).icon : "🔒"}
+              </span>
+            );
+          })}
+          <span className="ml-1 text-sm font-bold text-slate-500">
+            {Math.min(current + 1, PATH.length)}/{PATH.length}
+          </span>
+        </Link>
+      )}
 
       <nav className="grid flex-1 grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-        <BigButton href="/learn/" icon="🗺️" label="Карта" size="lg" color="bg-lime-200" />
+        <BigButton href="/learn/" icon="🗺️" label={phrases.pathShort} size="lg" color="bg-lime-200" />
         <BigButton href="/games/" icon="🎮" label={ui.menu.play} size="lg" color="bg-sky-200" />
         <BigButton href="/rewards/" icon="🏆" label={ui.menu.rewards} size="lg" color="bg-pink-200" />
         <BigButton href="/shop/" icon="🛍️" label="Магазин" size="lg" color="bg-amber-200" />

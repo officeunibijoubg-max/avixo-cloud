@@ -11,6 +11,7 @@ import { playSound } from "@/services/sounds";
 import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
 import { Mascot } from "@/components/game/Mascot";
+import { DailyChallengeCard } from "@/components/game/DailyChallengeCard";
 import { HeroSvg } from "@/components/game/hero/HeroSvg";
 
 /** Моите награди: звезди, монети, ниво, албум със стикери и моята стая. */
@@ -44,6 +45,8 @@ export default function RewardsPage() {
           </div>
         ))}
       </div>
+
+      <DailyChallengeCard className="mt-4" />
 
       <Link
         href="/shop/"

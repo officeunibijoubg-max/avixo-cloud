@@ -1,5 +1,6 @@
 "use client";
 
+import { knownWords } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { READING_WORDS, type ReadingWord } from "@/data/readingWords";
@@ -41,7 +42,8 @@ function BuildWordGame() {
   const done = !!word && placed.length === word.syllables.length;
 
   const newRound = useCallback((prev: ReadingWord | null) => {
-    const w = pickOne(READING_WORDS.filter((x) => x.word !== prev?.word));
+    const pool = knownWords(READING_WORDS, (x) => x.word);
+    const w = pickOne(pool.filter((x) => x.word !== prev?.word));
     // Една излишна сричка от друга дума, за да има избор.
     const extra = pickOne(READING_WORDS.filter((x) => x.word !== w.word)).syllables[0];
     const all = [...w.syllables, ...(w.syllables.includes(extra) ? [] : [extra])];
@@ -80,7 +82,7 @@ function BuildWordGame() {
       timer.current = setTimeout(() => {
         const n = round + 1;
         setRound(n);
-        if (n >= ROUNDS) countGame();
+        if (n >= ROUNDS) countGame("build-word");
         else newRound(word);
       }, 2600);
     }

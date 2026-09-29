@@ -1,4 +1,4 @@
-import type { CharacterLesson } from "@/lib/types";
+import type { CharacterLesson, VoiceSource } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { phrases } from "@/content/phrases";
 import { DEFAULT_TTS_SPELLING, type TtsSpelling } from "@/config/speech";
@@ -15,29 +15,39 @@ export interface SpeechEngine {
 }
 
 /**
- * Записан глас. Файловете се слагат в `public/audio/` с имена от сценария
+ * Записан глас. Файловете са в `public/audio/` с имена от сценария
  * (content/voiceScript.ts, напр. `letter-a-intro.mp3`); при build
  * `scripts/audio-manifest.mjs` ги описва в `audio/manifest.json`.
- * Фрази без запис продължават с браузърния глас.
+ * Записаните на ръка (напр. гласът на мама) са с предимство пред генерираните
+ * (scripts/generate-voice.py), а генерираните — пред синтезатора на устройството,
+ * защото на много Android таблети той няма български и мълчи.
  */
 class RecordedAudioEngine implements SpeechEngine {
   private current: HTMLAudioElement | null = null;
   /** текст → URL на файла; пълни се, когато manifest.json се зареди. */
   private files: Record<string, string> = {};
+  readonly ready: Promise<void>;
 
-  constructor() {
-    if (typeof window === "undefined" || typeof fetch === "undefined") return;
-    fetch("/audio/manifest.json")
-      .then((r): Promise<Record<string, string>> | Record<string, string> => (r.ok ? r.json() : {}))
-      .then((manifest) => {
-        const idByText = new Map(voiceLines().map((l) => [l.text, l.id]));
-        for (const [text, id] of idByText) if (manifest[id]) this.files[text] = `/audio/${manifest[id]}`;
-      })
-      .catch(() => {});
+  constructor(private readonly kind: "human" | "generated") {
+    if (typeof window === "undefined" || typeof fetch === "undefined") {
+      this.ready = Promise.resolve();
+      return;
+    }
+    this.ready = loadManifest().then((m) => {
+      const idByText = new Map(voiceLines().map((l) => [l.text, l.id]));
+      const generated = new Set(m.generated);
+      for (const [text, id] of idByText) {
+        const file = m.files[id];
+        if (file && generated.has(id) === (this.kind === "generated")) this.files[text] = `/audio/${file}`;
+      }
+    });
   }
 
   canSpeak(text: string) {
     return typeof Audio !== "undefined" && text in this.files;
+  }
+  get count() {
+    return Object.keys(this.files).length;
   }
   speak(text: string, volume: number) {
     this.cancel();
@@ -53,6 +63,16 @@ class RecordedAudioEngine implements SpeechEngine {
     this.current?.pause();
     this.current = null;
   }
+}
+
+type Manifest = { files: Record<string, string>; generated: string[] };
+let manifest: Promise<Manifest> | null = null;
+function loadManifest(): Promise<Manifest> {
+  manifest ??= fetch("/audio/manifest.json")
+    .then((r): Promise<Partial<Manifest>> | Partial<Manifest> => (r.ok ? r.json() : {}))
+    .then((m) => ({ files: m.files ?? {}, generated: m.generated ?? [] }))
+    .catch(() => ({ files: {}, generated: [] }));
+  return manifest;
 }
 
 class WebSpeechEngine implements SpeechEngine {
@@ -85,6 +105,11 @@ class WebSpeechEngine implements SpeechEngine {
    */
   canSpeak() {
     return this.supported() && (this.voice !== null || this.voiceCount === 0);
+  }
+
+  /** Има ли истински български глас в списъка (не само „опитай с bg-BG“). */
+  hasVoice() {
+    return this.supported() && this.voice !== null;
   }
 
   speak(text: string, volume: number) {
@@ -131,10 +156,11 @@ class WebSpeechEngine implements SpeechEngine {
 
 // ───────────────────────── публичен API ─────────────────────────
 
-const state: { enabled: boolean; volume: number; spelling: TtsSpelling } = {
+const state: { enabled: boolean; volume: number; spelling: TtsSpelling; voice: VoiceSource } = {
   enabled: true,
   volume: 0.8,
   spelling: DEFAULT_TTS_SPELLING,
+  voice: "recorded",
 };
 
 // Самостоятелна сричка „съгласна + ъ“ или самотна „ъ“ (звукът на буква, а не част от дума).
@@ -150,24 +176,34 @@ export function prepareForTts(text: string, spelling: TtsSpelling = state.spelli
     return before + s;
   });
 }
-let engines: SpeechEngine[] | null = null;
+type Engines = { human: RecordedAudioEngine; generated: RecordedAudioEngine; web: WebSpeechEngine };
+let engines: Engines | null = null;
 
-function getEngines(): SpeechEngine[] {
-  if (!engines) engines = [new RecordedAudioEngine(), new WebSpeechEngine()];
+function getEngines(): Engines {
+  engines ??= { human: new RecordedAudioEngine("human"), generated: new RecordedAudioEngine("generated"), web: new WebSpeechEngine() };
   return engines;
 }
 
-export function configureSpeech(opts: { enabled: boolean; volume: number; spelling?: TtsSpelling }) {
+/** Кой ще каже фразата: запис на ръка → (гласът на устройството, ако е избран и го има) → генериран запис → синтезатор. */
+function pickEngine(text: string): SpeechEngine | undefined {
+  const { human, generated, web } = getEngines();
+  const order: SpeechEngine[] =
+    state.voice === "device" && web.hasVoice() ? [human, web, generated] : [human, generated, web];
+  return order.find((e) => e.canSpeak(text));
+}
+
+export function configureSpeech(opts: { enabled: boolean; volume: number; spelling?: TtsSpelling; voice?: VoiceSource }) {
   state.enabled = opts.enabled;
   state.volume = opts.volume;
   if (opts.spelling) state.spelling = opts.spelling;
+  if (opts.voice) state.voice = opts.voice;
   if (!opts.enabled) cancelSpeech();
 }
 
 /** Има ли изобщо как да говорим (за подсказка в настройките). */
 export function hasBulgarianVoice(): boolean {
   if (typeof window === "undefined") return false;
-  return getEngines().some((e) => e instanceof WebSpeechEngine && e.canSpeak());
+  return getEngines().web.canSpeak();
 }
 
 // Браузърите (особено Chrome на Android) не пускат звук, преди детето да е докоснало
@@ -194,8 +230,9 @@ export function unlockSpeech(): boolean {
 
 /** За бутона „Провери звука“ в настройките. */
 export function speechInfo() {
-  const web = getEngines().find((e): e is WebSpeechEngine => e instanceof WebSpeechEngine);
+  const { web, human, generated } = getEngines();
   return {
+    recorded: human.count + generated.count,
     supported: !!web?.supported(),
     voices: web?.voiceCount ?? 0,
     bulgarianVoice: web?.voice ? `${web.voice.name} (${web.voice.lang})` : null,
@@ -209,15 +246,28 @@ export function speakPhrase(text: string, spelling: TtsSpelling = state.spelling
     pending = [...pending, { text, spelling }].slice(-2);
     return Promise.resolve();
   }
-  const engine = getEngines().find((e) => e.canSpeak(text));
-  if (!engine) return Promise.resolve();
-  // Записите се търсят по оригиналния текст; на синтезатора подаваме пренаписания.
-  return engine.speak(engine instanceof WebSpeechEngine ? prepareForTts(text, spelling) : text, state.volume);
+  // Изчакваме списъка със записите (веднъж, в началото), иначе първата фраза би отишла
+  // към синтезатора, който на много Android таблети мълчи.
+  const { human, generated } = getEngines();
+  const token = ++speakToken;
+  return Promise.race([Promise.all([human.ready, generated.ready]), new Promise((r) => setTimeout(r, 1500))]).then(() => {
+    if (token !== speakToken) return; // междувременно е поискана друга фраза
+    const engine = pickEngine(text);
+    if (!engine) return;
+    const all = getEngines();
+    [all.human, all.generated, all.web].forEach((e) => e !== engine && e.cancel());
+    // Записите се търсят по оригиналния текст; на синтезатора подаваме пренаписания.
+    return engine.speak(engine instanceof WebSpeechEngine ? prepareForTts(text, spelling) : text, state.volume);
+  });
 }
+
+let speakToken = 0;
 
 export function cancelSpeech() {
   if (typeof window === "undefined") return;
-  getEngines().forEach((e) => e.cancel());
+  speakToken++;
+  const { human, generated, web } = getEngines();
+  [human, generated, web].forEach((e) => e.cancel());
 }
 
 /** „А. А като автобус.“ или „Три.“ */

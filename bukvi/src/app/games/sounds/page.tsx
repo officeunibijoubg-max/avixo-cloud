@@ -1,9 +1,9 @@
 "use client";
 
+import { knownLetters } from "@/components/games/known";
 import { FeatureGate } from "@/components/layout/FeatureGate";
 import { useCallback } from "react";
 import { ALPHABET } from "@/data/alphabet";
-import { gameTitle } from "@/data/games";
 import { similarOptions } from "@/data/similar";
 import { SOUND_WORDS, firstSound, hasClearLastSound, lastSound } from "@/data/soundWords";
 import { phrases } from "@/content/phrases";
@@ -19,7 +19,11 @@ function SoundsGame() {
   const makeRound = useCallback((index: number): ChoiceRound => {
     // Редуваме: първи звук, последен звук.
     const askLast = index % 2 === 1;
-    const pool = askLast ? SOUND_WORDS.filter(hasClearLastSound) : SOUND_WORDS;
+    // Само думи, чийто търсен звук детето вече знае.
+    const known = new Set(knownLetters().map((l) => l.character));
+    const base = askLast ? SOUND_WORDS.filter(hasClearLastSound) : SOUND_WORDS;
+    const fit = base.filter((w) => known.has(askLast ? lastSound(w) : firstSound(w)));
+    const pool = fit.length ? fit : base;
     const w = pickOne(pool);
     const answer = askLast ? lastSound(w) : firstSound(w);
     const letters = w.word.toUpperCase().split("");
@@ -46,7 +50,7 @@ function SoundsGame() {
       answer,
     };
   }, []);
-  return <ChoiceGame title={gameTitle("sounds")} makeRound={makeRound} />;
+  return <ChoiceGame game="sounds" makeRound={makeRound} />;
 }
 
 export default function Page() {

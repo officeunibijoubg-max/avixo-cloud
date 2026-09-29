@@ -6,6 +6,7 @@ import { useGameStore } from "@/store/gameStore";
 import { cancelSpeech, speakPhrase } from "@/services/speech";
 import { cn } from "@/lib/cn";
 import { ui } from "@/content/phrases";
+import { gameTitle } from "@/data/games";
 import { PageShell } from "@/components/ui/PageShell";
 import { BigButton } from "@/components/ui/BigButton";
 import { CurrentHero, Mascot } from "@/components/game/Mascot";
@@ -16,7 +17,10 @@ import { useWritingExercise } from "@/components/game/useWritingExercise";
 import { GameEnd } from "./GameEnd";
 
 type Props = {
-  title: string;
+  /** Ид на играта (от data/games.ts) — за заглавието и за пътя. */
+  game: string;
+  /** Заглавие, ако не е от каталога на игрите. */
+  title?: string;
   pickLesson: (previous: CharacterLesson | null) => CharacterLesson;
   prompt: (lesson: CharacterLesson) => string;
   caption: (lesson: CharacterLesson) => string;
@@ -33,6 +37,7 @@ type Props = {
  * Всяко вярно изписване придвижва героя с една стъпка по пътя към наградата (Буквен път).
  */
 export function WriteRoundGame({
+  game,
   title,
   pickLesson,
   prompt,
@@ -62,10 +67,10 @@ export function WriteRoundGame({
     timer.current = setTimeout(() => {
       const n = step + 1;
       setStep(n);
-      if (n >= rounds) countGame();
+      if (n >= rounds) countGame(game);
       else nextRound();
     }, 2200);
-  }, [step, rounds, countGame, nextRound]);
+  }, [step, rounds, countGame, nextRound, game]);
 
   const restart = () => {
     setStep(0);
@@ -73,7 +78,7 @@ export function WriteRoundGame({
   };
 
   return (
-    <PageShell back={back} title={title}>
+    <PageShell back={back} title={title ?? gameTitle(game)}>
       {step >= rounds ? (
         <GameEnd correct={rounds * 2} onAgain={restart} />
       ) : (

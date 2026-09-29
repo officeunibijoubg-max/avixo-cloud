@@ -51,9 +51,9 @@ function MyName() {
           )}
           <Mascot message={message} mood="encourage" />
           <BigButton
-            href={text ? "/adventure/" : "/games/"}
+            href={text ? "/step/" : "/games/"}
             icon={text ? "🌟" : "↩️"}
-            label={text ? "Към приключението" : "Назад"}
+            label={text ? phrases.continuePath : "Назад"}
             color="bg-leaf text-white"
             size="lg"
           />

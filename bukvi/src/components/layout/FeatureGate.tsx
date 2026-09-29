@@ -3,7 +3,7 @@
 import { getFeature } from "@/data/unlocks";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
-import { missingFor } from "@/services/unlocks";
+import { featureLockReason } from "@/services/unlocks";
 import { PageShell } from "@/components/ui/PageShell";
 import { BigButton } from "@/components/ui/BigButton";
 import { Mascot } from "@/components/game/Mascot";
@@ -19,7 +19,7 @@ export function FeatureGate({ id, back = "/games/", children }: { id: string; ba
   const progress = useGameStore((s) => s.progress);
   const hydrated = useGameStore((s) => s.hydrated);
   const unlockAll = useGameStore((s) => s.settings.unlockAll);
-  const missing = hydrated && feature && !unlockAll ? missingFor(progress, feature.unlock) : [];
+  const missing = hydrated && feature ? featureLockReason(progress, id, unlockAll) : [];
   if (!feature || missing.length === 0) return <>{children}</>;
   return (
     <PageShell back={back} title={feature.title}>
@@ -27,7 +27,7 @@ export function FeatureGate({ id, back = "/games/", children }: { id: string; ba
         <span className="text-9xl">🔒</span>
         <span className="text-7xl opacity-50">{feature.icon}</span>
         <Mascot message={phrases.lockedFeature(missing.join(" и "))} mood="encourage" />
-        <BigButton href="/adventure/" icon="🌟" label="Към приключението" color="bg-leaf text-white" size="lg" pulse />
+        <BigButton href="/step/" icon="➡️" label={phrases.continuePath} color="bg-leaf text-white" size="lg" pulse />
       </div>
     </PageShell>
   );
