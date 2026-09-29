@@ -13,7 +13,7 @@ export type StrokeTemplate = {
   strokes: Stroke[];
 };
 
-export type CharacterType = "letter" | "number";
+export type CharacterType = "letter" | "number" | "shape";
 
 export type CharacterLesson = {
   /** Латински slug за URL адреса, напр. "zh" за Ж, "3" за 3. */

@@ -17,9 +17,11 @@ export type Feature = { id: string; title: string; icon: string; href: string; u
 
 /** Игрите и частите извън картата. Реда на списъка е и редът, в който обикновено се отключват. */
 export const FEATURES: Feature[] = [
+  { id: "shapes", title: "Форми", icon: "🔺", href: "/games/shapes/", unlock: { letters: 2 } },
   { id: "find-letter", title: "Коя е буквата?", icon: "🔍", href: "/games/find-letter/", unlock: { letters: 3 } },
   { id: "count-write", title: "Преброй и напиши", icon: "🐞", href: "/games/count-write/", unlock: { digits: 4 } },
   { id: "compare", title: "Къде има повече?", icon: "⚖️", href: "/games/compare/", unlock: { digits: 6 } },
+  { id: "colors", title: "Цветове", icon: "🎨", href: "/games/colors/", unlock: { letters: 5 } },
   { id: "first-letter", title: "С коя буква започва?", icon: "🍎", href: "/games/first-letter/", unlock: { letters: 6 } },
   { id: "balloons", title: "Балони", icon: "🎈", href: "/games/balloons/", unlock: { letters: 8 } },
   { id: "sounds", title: "Звуците в думата", icon: "🗣️", href: "/games/sounds/", unlock: { letters: 10 } },

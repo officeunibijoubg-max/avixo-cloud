@@ -1,6 +1,7 @@
 import { letterLessons } from "@/data/alphabet";
 import { numberLessons } from "@/data/numbers";
 import { WORD_ITEMS } from "@/data/wordsIsland";
+import { COLORS, shapeLessons } from "@/data/shapes";
 import { SHOP_ITEMS } from "@/data/shop";
 import { LEVELS } from "@/data/lessons";
 import { CHALLENGES } from "@/config/challenges";
@@ -50,6 +51,12 @@ export function voiceLines(): VoiceLine[] {
     add(g, `word-${w.id}-intro`, phrases.wordIntro(w.spoken, w.kind === "syllable"));
     add(g, `word-${w.id}-bravo`, phrases.wordDone(w.spoken));
   }
+
+  for (const sh of shapeLessons) {
+    add("Форми", `${sh.id}-draw`, sh.spokenText);
+    add("Форми", `${sh.id}-bravo`, phrases.correctFor("shape", sh.spokenName));
+  }
+  for (const c of COLORS) add("Цветове", `color-${c.id}`, phrases.touchColor(c.name));
 
   const g = "Общи фрази";
   PRAISE.forEach((t, i) => add(g, `praise-${i + 1}`, t));

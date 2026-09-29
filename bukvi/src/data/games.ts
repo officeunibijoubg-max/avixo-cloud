@@ -19,6 +19,8 @@ export const GAMES: GameDef[] = [
   { id: "sounds", href: "/games/sounds/", icon: "🗣️", title: "Звуците в думата", color: "bg-teal-200", group: "reading" },
   { id: "build-word", href: "/games/build-word/", icon: "🧩", title: "Сглоби думата", color: "bg-orange-200", group: "reading" },
   { id: "read-word", href: "/games/read-word/", icon: "📖", title: "Прочети и избери", color: "bg-rose-200", group: "reading" },
+  { id: "shapes", href: "/games/shapes/", icon: "🔺", title: "Форми", color: "bg-red-200", group: "more" },
+  { id: "colors", href: "/games/colors/", icon: "🎨", title: "Цветове", color: "bg-indigo-200", group: "more" },
   { id: "count-write", href: "/games/count-write/", icon: "🐞", title: "Преброй и напиши", color: "bg-lime-200", group: "math" },
   { id: "compare", href: "/games/compare/", icon: "⚖️", title: "Къде има повече?", color: "bg-cyan-200", group: "math" },
   { id: "add", href: "/games/add/", icon: "➕", title: "Колко станаха?", color: "bg-emerald-200", group: "math" },

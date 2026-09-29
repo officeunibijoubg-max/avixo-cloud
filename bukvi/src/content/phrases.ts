@@ -25,7 +25,8 @@ export const phrases = {
   asPrefix: (char: string) => `${char} като `,
 
   // Обратна връзка
-  correctFor: (_kind: "letter" | "number", spoken: string) => `Браво! Написа ${spoken}!`,
+  correctFor: (kind: "letter" | "number" | "shape", spoken: string) =>
+    kind === "shape" ? `Браво! Нарисува ${spoken}!` : `Браво! Написа ${spoken}!`,
   bravoPoints: (coins: number) => `Браво! +${coins} 🪙`,
   praise: () => pick(PRAISE),
   almost: "Почти! Нека опитаме пак.",
@@ -77,6 +78,9 @@ export const phrases = {
   wordNextLetter: (letter: string) => `Сега ${letter}.`,
   wordDone: (spoken: string) => `Браво! Написа ${spoken}!`,
   wordTask: (text: string) => `Напиши ${text} буква по буква.`,
+  // Форми и цветове
+  drawShape: (name: string) => `Нарисувай ${name}.`,
+  touchColor: (color: string) => `Докосни ${color}!`,
   // Числа
   compareMore: "Къде има повече?",
   compareFewer: "Къде има по-малко?",
