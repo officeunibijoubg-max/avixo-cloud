@@ -1,12 +1,9 @@
 <!-- =====================================================================
-     DIRHAM · СТРАНИЦА ЗА ЧЕКАУТ
-     В ConvertBuilder: фон на страницата #07050a (скинът на чекаута е светъл и стои добре и на бял фон)
-       БЛОК 1 (HTML)  →  над checkout widget-а
-       checkout widget  +  checkout-skin-dirham.html в custom CSS
-       БЛОК 2 (HTML)  →  под checkout widget-а
+     DIRHAM PINK + GOLD · ЧЕКАУТ – ВСИЧКО В ЕДИН КОД
+     Слага се в ЕДИН HTML (code) блок НАД checkout widget-а.
+     Вътре: шапка над формата + дизайн на самия чекаут + блок с въпроси,
+     който сам се мести под формата.
      ===================================================================== -->
-
-<!-- ========================= БЛОК 1 — НАД ЧЕКАУТА ========================= -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Montserrat:wght@400;500;600;700&display=swap');
 .dhc{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --text:#f6eef4; --muted:rgba(246,238,244,.68); font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; position:relative !important; overflow:hidden !important; }
@@ -77,7 +74,7 @@
 .dhc .dh-down em{ font-style:normal !important; font-size:26px !important; color:var(--pink) !important; text-shadow:0 0 12px var(--pink); animation:dhcBounce 1.4s ease-in-out infinite !important; }
 
 /* блок 2 */
-.dhc.dh-bottom{ padding:30px 0 40px !important; }
+.dhc.dh-bottom{ clear:both !important; float:left !important; width:100% !important; margin-top:24px !important; border-radius:18px !important; padding:30px 0 40px !important; }
 .dhc .dh-trust{ display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:10px !important; margin-bottom:22px !important; }
 .dhc .dh-tr{ border-radius:16px !important; padding:16px 8px !important; background:var(--card) !important; text-align:center !important; }
 .dhc .dh-tr .dh-i{ font-size:24px !important; margin-bottom:6px !important; }
@@ -97,37 +94,613 @@
 @media (prefers-reduced-motion:reduce){
   .dhc.dhc.dhc.dhc *, .dhc.dhc.dhc.dhc *::before, .dhc.dhc.dhc.dhc *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
 }
+
+.dhc .dh-set{ display:grid !important; grid-template-columns:1fr !important; gap:14px !important; border-radius:20px !important; padding:10px 10px 18px !important; background:var(--card) !important; margin-bottom:18px !important; text-align:center !important; }
+.dhc .dh-set img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:14px !important; }
+.dhc .dh-set-name{ font:900 18px/1.2 'Unbounded',sans-serif !important; }
+.dhc .dh-set-name .dh-p{ color:var(--pink) !important; } .dhc .dh-set-name .dh-g{ color:var(--gold) !important; }
+.dhc .dh-set-sub{ font-size:12px !important; letter-spacing:1.5px !important; color:var(--muted) !important; margin:6px 0 10px !important; }
+.dhc .dh-set-price{ font:900 34px/1 'Unbounded',sans-serif !important; }
+.dhc .dh-set-price small{ display:block !important; font:600 11px/1.4 'Montserrat',sans-serif !important; letter-spacing:2px !important; color:var(--gold) !important; margin-top:6px !important; text-transform:uppercase !important; }
+@media (min-width:760px){ .dhc .dh-set{ grid-template-columns:1fr 1fr !important; align-items:center !important; padding:12px 24px 12px 12px !important; } }
+
+/* ===================== ДИЗАЙН НА ЧЕКАУТА (.widget-checkout) ===================== */
+.widget-checkout .checkout-info[data-step="info"] {
+  background: #FFF9FC !important;
+  border-radius: 16px !important;
+  padding: 32px 28px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(255, 46, 166,0.35) !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  color: #1F1218 !important;
+}
+.widget-checkout .checkout-info-inner {
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  color: #1F1218 !important;
+}
+.widget-checkout .checkout-info h2,
+.widget-checkout .checkout-info h3 {
+  font-family: 'Georgia', serif !important;
+  color: #1F1218 !important;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 0 18px 0 !important;
+  padding: 0 0 12px 0 !important;
+  border-bottom: 1px solid rgba(255, 46, 166,0.35) !important;
+  line-height: 1.3 !important;
+}
+.widget-checkout .checkout-info h3::before {
+  content: "\25C6  " !important;
+  color: #FF2EA6 !important;
+  font-size: 13px !important;
+  vertical-align: middle !important;
+  margin-right: 6px !important;
+}
+.widget-checkout .checkout-info input[type="text"],
+.widget-checkout .checkout-info input[type="email"],
+.widget-checkout .checkout-info input[type="password"],
+.widget-checkout .checkout-info input[type="tel"],
+.widget-checkout .checkout-info input[type="number"],
+.widget-checkout .checkout-info select {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(255, 46, 166, 0.45) !important;
+  border-radius: 8px !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  color: #1F1218 !important;
+  margin-bottom: 12px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+}
+.widget-checkout .checkout-info input:focus,
+.widget-checkout .checkout-info select:focus {
+  border-color: #FF2EA6 !important;
+  box-shadow: 0 0 0 3px rgba(255, 46, 166, 0.25) !important;
+  outline: none !important;
+  background: #FFFFFF !important;
+}
+.widget-checkout .checkout-info input::placeholder {
+  color: rgba(0, 0, 0, 0.4) !important;
+  font-weight: 400 !important;
+  opacity: 1 !important;
+}
+.widget-checkout .checkout-info select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='%23FF2EA6' d='M6 8L0 0h12z'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 16px center !important;
+  background-size: 12px !important;
+  padding-right: 40px !important;
+}
+.widget-checkout .checkout-info .input-row {
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 0 !important;
+}
+.widget-checkout .checkout-info .input-row > * {
+  flex: 1 !important;
+}
+.widget-checkout .checkout-steps {
+  margin-bottom: 22px !important;
+}
+.widget-checkout .steps-breadcrumbs-inner {
+  background: linear-gradient(90deg, #FFF1F8 0%, #FFE1F0 50%, #FFF1F8 100%) !important;
+  border: 1px solid rgba(255, 46, 166,0.35) !important;
+  border-radius: 10px !important;
+  padding: 14px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+.widget-checkout .checkout-style-1 .checkout-step {
+  color: rgba(0, 0, 0, 0.35) !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  border: none !important;
+  padding: 0 !important;
+}
+.widget-checkout .checkout-style-1 .checkout-step.active {
+  color: #C2187A !important;
+}
+.widget-checkout .checkout-steps svg {
+  fill: rgba(255, 46, 166, 0.6) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+.widget-checkout .login-question {
+  font-size: 13px !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+.widget-checkout .login-question a,
+.widget-checkout .toggle-fields {
+  color: #C2187A !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+}
+.widget-checkout .tick-wrapper.small {
+  background: transparent !important;
+  border: none !important;
+  padding: 8px 0 !important;
+  margin-bottom: 0 !important;
+  font-size: 13px !important;
+  color: rgba(0, 0, 0, 0.65) !important;
+}
+.widget-checkout .tick-wrapper.small input[type="checkbox"] {
+  margin-right: 8px !important;
+  accent-color: #FF2EA6 !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(255, 46, 166, 0.45) !important;
+  border-radius: 10px !important;
+  padding: 16px 20px !important;
+  margin-bottom: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 15px !important;
+  color: #1F1218 !important;
+  font-weight: 500 !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper:hover {
+  border-color: #FF2EA6 !important;
+  box-shadow: 0 5px 15px rgba(255, 46, 166, 0.25) !important;
+  transform: translateY(-1px) !important;
+  background: rgba(255, 46, 166, 0.06) !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper input[type="radio"] {
+  accent-color: #FF2EA6 !important;
+  width: 18px !important;
+  height: 18px !important;
+  cursor: pointer !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper > span {
+  flex: 1 !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper * {
+  color: #1F1218 !important;
+}
+.widget-checkout [data-role="next-step"],
+.widget-checkout [data-role="continue"] {
+  background: #FF2EA6 !important;
+  color: #000000 !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  letter-spacing: 2.5px !important;
+  text-transform: uppercase !important;
+  border-radius: 14px !important;
+  padding: 20px 32px !important;
+  border: none !important;
+  box-shadow: 0 18px 60px -20px rgba(255, 46, 166, 0.6) !important;
+  transition: all 0.3s ease !important;
+  margin-top: 14px !important;
+  display: block !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+.widget-checkout [data-role="next-step"]:hover,
+.widget-checkout [data-role="continue"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 25px 60px -15px rgba(255, 46, 166, 0.7) !important;
+  background: #FF55B8 !important;
+}
+.widget-checkout [data-role="continue"] i {
+  margin-left: 8px !important;
+}
+.widget-checkout [data-role="back"] {
+  color: rgba(0, 0, 0, 0.55) !important;
+  text-decoration: underline !important;
+  font-size: 13px !important;
+  margin-top: 14px !important;
+  display: inline-block !important;
+}
+.widget-checkout [data-role="back"]:hover {
+  color: #C2187A !important;
+}
+.widget-checkout .checkout-summary,
+.widget-checkout .checkout-summary.cart-items-wrapper {
+  background: #FFF9FC !important;
+  border-radius: 14px !important;
+  padding: 28px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(255, 46, 166,0.35) !important;
+  margin-top: 25px !important;
+  color: #1F1218 !important;
+}
+.widget-checkout .checkout-summary h3 {
+  font-family: 'Georgia', serif !important;
+  color: #1F1218 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 0 18px 0 !important;
+  letter-spacing: 0.5px !important;
+}
+.widget-checkout .checkout-summary h3::before {
+  content: none !important;
+}
+.widget-checkout .cart-container .cart-labels {
+  background: #FFF1F8 !important;
+  border: 1px solid rgba(255, 46, 166, 0.25) !important;
+  padding: 10px 14px !important;
+  border-radius: 6px !important;
+  margin-bottom: 12px !important;
+}
+.widget-checkout .cart-container .cart-labels span {
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
+  color: #C2187A !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+}
+.widget-checkout .cart-container .product-info,
+.widget-checkout .cart-container .product-info a {
+  color: #1F1218 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.widget-checkout .cart-container .qty,
+.widget-checkout .cart-container .row-total {
+  color: #1F1218 !important;
+  font-size: 14px !important;
+}
+.widget-checkout .subtotal-wrapper {
+  padding: 6px 0 !important;
+}
+.widget-checkout .subtotal-wrapper .subtotal {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 14px !important;
+}
+.widget-checkout .subtotal-wrapper .subtotal-price {
+  color: #1F1218 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.widget-checkout .grand-total-wrapper {
+  padding: 16px 0 8px 0 !important;
+  border-top: 2px solid rgba(255, 46, 166, 0.5) !important;
+  margin-top: 10px !important;
+}
+.widget-checkout .grand-total-wrapper .subtotal {
+  color: #1F1218 !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+}
+.widget-checkout .grand-total-wrapper .subtotal-price.grand-total {
+  color: #C2187A !important;
+  font-family: 'Georgia', serif !important;
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+.widget-checkout .promo-code-toggle-btn {
+  color: #C2187A !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+}
+.widget-checkout .discount-code-btn {
+  background: rgba(255, 46, 166, 0.12) !important;
+  color: #C2187A !important;
+  padding: 12px 20px !important;
+  border: 1px solid rgba(255, 46, 166, 0.5) !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+.widget-checkout .discount-code-btn:hover {
+  background: #FF2EA6 !important;
+  color: #000000 !important;
+}
+.widget-checkout .secured-checkout-wrapper {
+  margin-top: 22px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(255, 46, 166, 0.35) !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+.widget-checkout .secured-checkout-wrapper > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.widget-checkout .secured-checkout-wrapper svg {
+  fill: #FF2EA6 !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+.widget-checkout .secured-checkout-wrapper span {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+.widget-checkout .store-policies a {
+  color: #C2187A !important;
+  font-size: 12px !important;
+  text-decoration: underline !important;
+  margin-right: 14px !important;
+  display: inline-block !important;
+  margin-bottom: 8px !important;
+}
+.widget-checkout .store-policies a:hover {
+  color: #FF2EA6 !important;
+}
+.widget-checkout .error-message {
+  color: #e25041 !important;
+  font-size: 13px !important;
+  margin-top: 8px !important;
+}
+.widget-checkout .checkout-spinner {
+  border-color: #FF2EA6 !important;
+}
+.widget-checkout .free-shipping-bar {
+  display: none !important;
+}
+/* Само Наложен платеж — скрий всички други методи на плащане */
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper {
+  display: none !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper[data-payment="cod"] {
+  display: flex !important;
+}
+/* Скрий бутона "Следваща стъпка" — да остане само "Завърши поръчката" */
+.widget-checkout [data-role="next-step"] {
+  display: none !important;
+}
+/* Скрий всички полета за парола, login и регистрация */
+.widget-checkout [data-role="member-login"],
+.widget-checkout [data-role="password"],
+.widget-checkout [data-role="password-fields"],
+.widget-checkout [data-role="login-btn"],
+.widget-checkout [data-role="prompt-login"],
+.widget-checkout .password-fields-wrapper,
+.widget-checkout .checkout-info input[type="password"] {
+  display: none !important;
+}
+/* Скрий country selector / флагче към телефонния номер */
+.iti__flag,
+.iti__flag-container,
+.iti__selected-flag,
+.iti__arrow,
+.iti__country-list,
+.iti__dropdown-content,
+.iti--allow-dropdown .iti__flag-container,
+.iti--separate-dial-code .iti__selected-flag,
+.intl-tel-input .flag-container,
+.intl-tel-input .selected-flag,
+.intl-tel-input .country-list,
+.intl-tel-input .flag,
+.intl-tel-input .iti-flag,
+.intl-tel-input .arrow,
+select[name="phoneCountry"],
+select[name="phoneCountryCode"],
+select[name="phone_country"],
+select[name="phoneCountryIso"],
+.phone-country-select,
+.phone-country-wrapper,
+.phone-flag-wrapper,
+.country-flag,
+.country-code-select,
+.flag-dropdown,
+[class*="country-flag"],
+[class*="phoneCountry"],
+[class*="phone-country"],
+[class*="phone-flag"] {
+  display: none !important;
+}
+.widget-checkout input[type="tel"]::before,
+.widget-checkout input[type="tel"] + *::before,
+.widget-checkout .iti::before,
+.widget-checkout .intl-tel-input::before {
+  content: none !important;
+  display: none !important;
+}
+.widget-checkout .iti,
+.widget-checkout .intl-tel-input,
+.widget-checkout .iti--allow-dropdown,
+.widget-checkout .iti--separate-dial-code {
+  width: 100% !important;
+  display: block !important;
+  padding-left: 0 !important;
+}
+.widget-checkout .iti input[type="tel"],
+.widget-checkout .iti input.phone-input,
+.widget-checkout .intl-tel-input input[type="tel"],
+.widget-checkout .iti--allow-dropdown input[type="tel"],
+.widget-checkout .iti--separate-dial-code input[type="tel"],
+.widget-checkout input[type="tel"] {
+  padding-left: 16px !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+  position: static !important;
+  background-image: none !important;
+}
+@media screen and (max-width: 768px) {
+  .widget-checkout .checkout-info[data-step="info"] {
+    padding: 22px 18px !important;
+    border-radius: 12px !important;
+  }
+  .widget-checkout .checkout-summary {
+    padding: 22px 18px !important;
+  }
+  .widget-checkout .checkout-info h3 {
+    font-size: 18px !important;
+  }
+  .widget-checkout .grand-total-wrapper .subtotal-price.grand-total {
+    font-size: 26px !important;
+  }
+  .widget-checkout [data-role="next-step"],
+  .widget-checkout [data-role="continue"] {
+    padding: 18px 24px !important;
+    font-size: 14px !important;
+    letter-spacing: 2px !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .widget-checkout .checkout-info .input-row {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+  .widget-checkout .steps-breadcrumbs-inner {
+    padding: 10px 14px !important;
+    gap: 8px !important;
+  }
+  .widget-checkout .checkout-style-1 .checkout-step {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+  }
+}
+
+/* ===== ДОПЪЛНЕНИЯ ЗА ТОЗИ ЧЕКАУТ (извън тествания шаблон) ===== */
+/* Доставка: Еконт / Pigeon */
+.widget-checkout #mw-shipping .mw-couriers-choose {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(255, 46, 166, 0.35) !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  margin-bottom: 10px !important;
+  color: #1F1218 !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-choose.mw-couriers-selected {
+  border-color: #FF2EA6 !important;
+  box-shadow: 0 0 0 3px rgba(255, 46, 166, 0.18) !important;
+}
+.widget-checkout #mw-shipping .mw-table td,
+.widget-checkout #mw-shipping .mw-couriers-text,
+.widget-checkout #mw-shipping .mw-couriers-text i {
+  color: #1F1218 !important;
+  font-size: 15px !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+}
+.widget-checkout #mw-shipping input[type="radio"] {
+  accent-color: #FF2EA6 !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-menu {
+  border: 1.5px solid rgba(255, 46, 166, 0.45) !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-dd,
+.widget-checkout #mw-shipping .mw-couriers-dd-menu {
+  background: #FFFFFF !important;
+  color: #1F1218 !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-office {
+  color: #1F1218 !important;
+  font-size: 13px !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-office:hover {
+  background: #FFF1F8 !important;
+}
+.widget-checkout #mw-shipping .mw-error {
+  color: #e25041 !important;
+  font-size: 13px !important;
+}
+/* Допълнителни оферти (bump) */
+.widget-checkout .bump-wrapper > .tick-wrapper {
+  background: #FFF1F8 !important;
+  border-color: rgba(255, 46, 166, 0.55) !important;
+  border-radius: 14px !important;
+  color: #1F1218 !important;
+}
+.widget-checkout .bump-wrapper .bump-badge {
+  display: inline-block !important;
+  background: #FF2EA6 !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
+  border-radius: 99px !important;
+  padding: 6px 12px !important;
+}
+.widget-checkout .bump-wrapper .bump-title,
+.widget-checkout .bump-wrapper h4 {
+  color: #1F1218 !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+}
+.widget-checkout .bump-wrapper .bump-description span {
+  color: rgba(0, 0, 0, 0.65) !important;
+  font-size: 13px !important;
+}
+.widget-checkout .bump-wrapper input[type="checkbox"] {
+  accent-color: #FF2EA6 !important;
+}
+.widget-checkout .bump-wrapper .bump-add.inactive-bump {
+  background: #FF2EA6 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+}
+.widget-checkout .bump-wrapper .bump-add.active-bump {
+  background: #1F1218 !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+}
+.widget-checkout .bump-wrapper .remove-bump {
+  color: #C2187A !important;
+  text-decoration: underline !important;
+}
+/* Количка: снимка на продукта */
+.widget-checkout .cart-container .cart-row .image img {
+  border-radius: 8px !important;
+}
 </style>
 
 <div class="dhc">
   <div class="dh-glow"></div>
   <div class="dh-ticker" aria-hidden="true"><div class="dh-ticker-in">
-    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>21.90€ · 100 ml</span>
-    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>21.90€ · 100 ml</span>
+    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Pink + Gold за 21.90€</span>
+    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Pink + Gold за 21.90€</span>
   </div></div>
 
   <div class="dh-top"><div class="dh-wrap">
     <div class="dh-logo dh-neon-text">DIRHAM</div>
 
     <div class="dh-steps" aria-label="Стъпки на поръчката">
-      <div class="dh-st dh-done"><i>✓</i>Аромат</div>
+      <div class="dh-st dh-done"><i>✓</i>Комплект</div>
       <div class="dh-ln"></div>
       <div class="dh-st dh-now"><i>2</i>Данни</div>
       <div class="dh-ln dh-off"></div>
       <div class="dh-st"><i>3</i>Готово</div>
     </div>
 
-    <h1>Почти е <span class="dh-neon-text">твой</span></h1>
-    <p class="dh-sub">Попълни името, телефона и адреса си. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
+    <h1>Почти са <span class="dh-neon-text">твои</span></h1>
+    <p class="dh-sub">Попълни името, телефона и адреса си и избери куриер. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
 
-    <div class="dh-picks">
-      <div class="dh-pk dh-pink dh-neon">
-        <div class="dh-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6420-0966253.jpeg?format=webp" alt="Dirham Pink 100 ml" width="1000" height="1000"></div>
-        <b>DIRHAM PINK</b><small>♀ ЗА НЕЯ · 100 ML</small><div class="dh-pr">21.90€</div>
-      </div>
-      <div class="dh-pk dh-gold dh-neon dh-d1">
-        <div class="dh-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6419-0966253.jpeg?format=webp" alt="Dirham Gold 100 ml" width="1000" height="1000"></div>
-        <b>DIRHAM GOLD</b><small>♂ ЗА НЕГО · 100 ML</small><div class="dh-pr">21.90€</div>
+    <div class="dh-set dh-neon">
+      <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/B45F887B-DEEB-4F81-BCF9-EF2BEDEA0862-0966252.png?format=webp" alt="Комплект Dirham Pink и Dirham Gold, 2 × 100 ml" width="1200" height="1200">
+      <div>
+        <div class="dh-set-name"><span class="dh-p">DIRHAM PINK</span> + <span class="dh-g">DIRHAM GOLD</span></div>
+        <div class="dh-set-sub">2 × 100 ML · EAU DE PARFUM</div>
+        <div class="dh-set-price">21.90€<small>и двата аромата</small></div>
       </div>
     </div>
 
@@ -139,28 +712,54 @@
     <div class="dh-down">Попълни формата<em>↓</em></div>
   </div></div>
 </div>
-<!-- ======================= /БЛОК 1 ======================= -->
 
-
-<!-- ↓↓↓ ТУК В CONVERTBUILDER Е CHECKOUT WIDGET-ЪТ (с checkout-skin-dirham.html) ↓↓↓ -->
-<div style="max-width:760px !important;margin:0 auto !important;padding:40px 16px !important;color:#888 !important;font:14px Arial !important;text-align:center !important;border:2px dashed #333 !important">[ checkout widget ]</div>
-<!-- ↑↑↑ ТОЗИ ПЛЕЙСХОЛДЪР НЕ СЕ КОПИРА ↑↑↑ -->
-
-
-<!-- ========================= БЛОК 2 — ПОД ЧЕКАУТА ========================= -->
-<div class="dhc dh-bottom">
+<div class="dhc dh-bottom" id="dhcBottom" style="display:none">
   <div class="dh-wrap">
     <div class="dh-trust">
       <div class="dh-tr dh-neon"><div class="dh-i">💶</div><b>Плащаш при доставка</b><span>Наложен платеж</span></div>
-      <div class="dh-tr dh-neon dh-d1"><div class="dh-i">💧</div><b>100 ml</b><span>Eau de Parfum</span></div>
-      <div class="dh-tr dh-neon dh-d2"><div class="dh-i">✨</div><b>21.90€</b><span>за шише</span></div>
+      <div class="dh-tr dh-neon dh-d1"><div class="dh-i">💧</div><b>2 × 100 ml</b><span>Eau de Parfum</span></div>
+      <div class="dh-tr dh-neon dh-d2"><div class="dh-i">✨</div><b>21.90€</b><span>за двата</span></div>
     </div>
     <div class="dh-qa">
       <details><summary>Трябва ли да платя сега?</summary><p>Не. Плащаш с наложен платеж на куриера, когато получиш пратката.</p></details>
-      <details><summary>Мога ли да взема и двата аромата?</summary><p>Да. Избери и Dirham Pink, и Dirham Gold във формата по-горе.</p></details>
+      <details><summary>Какво има в комплекта?</summary><p>Dirham Pink 100 ml и Dirham Gold 100 ml, и двата Eau de Parfum.</p></details>
+      <details><summary>Колко струва доставката?</summary><p>Зависи от куриера и дали е до офис или до адрес. Сумата се показва във формата, преди да потвърдиш поръчката.</p></details>
       <details><summary>Какво значи „вдъхновено от“?</summary><p>Dirham Pink и Dirham Gold са самостоятелни аромати на Manasik, изградени около характера и нотките на посочените парфюми. Не са техни оригинали.</p></details>
     </div>
-    <a href="#" class="dh-up" onclick="var w=document.querySelector('.widget-checkout');if(!w){try{w=window.top.document.querySelector('.widget-checkout');}catch(x){}}if(w){event.preventDefault();w.scrollIntoView({behavior:'smooth',block:'start'});}">↑ Обратно към формата</a>
+    <a href="#" class="dh-up" id="dhcUp">↑ Обратно към формата</a>
   </div>
 </div>
-<!-- ======================= /БЛОК 2 ======================= -->
+
+<script>
+(function(){
+  function wc(){ return document.querySelector('.widget-checkout'); }
+  /* 1. Блокът с въпросите отива точно под чекаута */
+  function placeBottom(){
+    var b=document.getElementById('dhcBottom'), w=wc();
+    if(!b||!w) return false;
+    var host=w.querySelector('.main-widget-content')||w;
+    if(b.parentNode!==host||host.lastElementChild!==b) host.appendChild(b);
+    b.style.display='';
+    return true;
+  }
+  /* 2. Телефонът винаги с България (+359), флагчето е скрито */
+  function phoneBG(){
+    var api=window.intlTelInput||window.intlTelInputGlobals; if(!api||!api.getInstance) return;
+    document.querySelectorAll('.widget-checkout input.iti__tel-input').forEach(function(inp){
+      try{ var it=api.getInstance(inp); if(it&&it.getSelectedCountryData&&it.getSelectedCountryData().iso2!=='bg') it.setCountry('bg'); }catch(e){}
+    });
+  }
+  /* 3. Наложен платеж е избран по подразбиране */
+  function codDefault(){
+    var cod=document.querySelector('.widget-checkout [data-payment="cod"] input[type="radio"]');
+    if(cod&&!cod.checked) cod.click();
+  }
+  var up=document.getElementById('dhcUp');
+  if(up) up.addEventListener('click',function(e){ var w=wc(); if(w){ e.preventDefault(); w.scrollIntoView({behavior:'smooth',block:'start'}); } });
+  var tries=0;
+  (function tick(){
+    var ok=placeBottom(); phoneBG(); codDefault();
+    if(++tries<20&&!(ok&&tries>6)) setTimeout(tick,500);
+  })();
+})();
+</script>
