@@ -1,0 +1,440 @@
+<!-- ===================== DIRHAM FUNNEL — копира се като един блок ===================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Montserrat:wght@400;500;600;700&display=swap');
+#dh{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --line:rgba(255,255,255,.08); --text:#f6eef4; --muted:rgba(246,238,244,.68); --acc:var(--pink); --acc-rgb:var(--pink-rgb); font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; overflow:hidden !important; position:relative !important; }
+#dh[data-mode="gold"]{ --acc:var(--gold); --acc-rgb:var(--gold-rgb); }
+#dh *{ box-sizing:border-box !important; }
+#dh img{ max-width:100% !important; display:block !important; }
+#dh a{ color:inherit !important; }
+#dh .wrap{ max-width:1080px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
+
+/* фон: мрежа + петна светлина */
+#dh .bg{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(600px 400px at 10% 5%, rgba(var(--pink-rgb),.22), transparent 70%),
+    radial-gradient(600px 400px at 95% 30%, rgba(var(--gold-rgb),.16), transparent 70%),
+    radial-gradient(700px 500px at 20% 75%, rgba(var(--gold-rgb),.10), transparent 70%),
+    radial-gradient(700px 500px at 90% 95%, rgba(var(--pink-rgb),.18), transparent 70%) !important; }
+#dh .bg::after{ content:"" !important; position:absolute !important; inset:0 !important; background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px) !important; background-size:44px 44px !important; mask-image:linear-gradient(#000 0,transparent 35%,transparent 65%,#000 100%) !important; -webkit-mask-image:linear-gradient(#000 0,transparent 35%,transparent 65%,#000 100%) !important; opacity:.5; }
+
+/* ===== неонов цикъл: розово → злато → бяло-розово ===== */
+@keyframes dhNeon{
+  0%,28%  { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
+  33%,61% { border-color:var(--gold); box-shadow:0 0 6px var(--gold),0 0 22px rgba(var(--gold-rgb),.7),inset 0 0 14px rgba(var(--gold-rgb),.35); }
+  66%,95% { border-color:var(--hot);  box-shadow:0 0 6px var(--hot),0 0 22px rgba(255,143,209,.6),inset 0 0 14px rgba(255,143,209,.3); }
+  100%    { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
+}
+@keyframes dhNeonText{
+  0%,28%  { color:#fff; text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 28px var(--pink),0 0 48px var(--pink); }
+  33%,61% { color:#fff8e6; text-shadow:0 0 4px #fff,0 0 12px var(--gold),0 0 28px var(--gold),0 0 48px var(--gold); }
+  66%,95% { color:#fff; text-shadow:0 0 4px #fff,0 0 12px var(--hot),0 0 28px var(--pink),0 0 48px var(--hot); }
+  100%    { color:#fff; text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 28px var(--pink),0 0 48px var(--pink); }
+}
+@keyframes dhFlicker{
+  0%,18%,22%,25%,53%,57%,100%{ opacity:1; }
+  20%,24%,55%{ opacity:.35; }
+}
+#dh .neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:dhNeon 7.5s linear infinite !important; }
+#dh .neon.d1{ animation-delay:-2.5s !important; }
+#dh .neon.d2{ animation-delay:-5s !important; }
+#dh .neon-text{ animation:dhNeonText 7.5s linear infinite, dhFlicker 6s linear infinite !important; }
+
+/* ===== горна лента ===== */
+#dh .ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
+#dh .ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:dhScroll 26s linear infinite !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
+#dh .ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
+#dh .ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
+@keyframes dhScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ===== hero ===== */
+#dh .hero{ padding:44px 0 30px !important; text-align:center !important; }
+#dh .eyebrow{ display:inline-block !important; font:600 11px/1 'Montserrat',sans-serif !important; letter-spacing:3px !important; text-transform:uppercase !important; padding:9px 16px !important; border-radius:99px !important; color:var(--text) !important; background:rgba(255,255,255,.04) !important; }
+#dh h1{ font-family:'Unbounded',sans-serif !important; font-weight:900 !important; font-size:clamp(52px,14vw,124px) !important; line-height:.95 !important; margin:22px 0 6px !important; letter-spacing:-1px !important; }
+#dh .h1-sub{ font-family:'Unbounded',sans-serif !important; font-weight:700 !important; font-size:clamp(18px,4.6vw,30px) !important; letter-spacing:1px !important; margin:0 0 14px !important; }
+#dh .h1-sub .p{ color:var(--pink) !important; text-shadow:0 0 14px rgba(var(--pink-rgb),.8); }
+#dh .h1-sub .g{ color:var(--gold) !important; text-shadow:0 0 14px rgba(var(--gold-rgb),.8); }
+#dh .lead{ max-width:560px !important; margin:0 auto 26px !important; color:var(--muted) !important; font-size:16px !important; }
+
+
+#dh .hero-img{ position:relative !important; max-width:560px !important; margin:0 auto 16px !important; border-radius:24px !important; padding:8px !important; background:#000 !important; }
+#dh .hero-img img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:17px !important; }
+#dh .hots{ display:flex !important; justify-content:center !important; gap:12px !important; margin-bottom:26px !important; }
+#dh .hot{ font:700 11px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; padding:10px 14px !important; border-radius:99px !important; border:0 !important; cursor:pointer !important; color:#000 !important; animation:dhPulse 2.4s ease-in-out infinite !important; }
+#dh .hot.pink{ background:var(--pink) !important; box-shadow:0 0 16px rgba(var(--pink-rgb),.9); }
+#dh .hot.gold{ background:var(--gold) !important; box-shadow:0 0 16px rgba(var(--gold-rgb),.9); animation-delay:-1.2s !important; }
+@keyframes dhPulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+#dh .pair-img{ border-radius:18px !important; overflow:hidden !important; }
+#dh .pair-img img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; }
+
+/* цена */
+#dh .price-row{ display:flex !important; align-items:center !important; justify-content:center !important; gap:14px !important; flex-wrap:wrap !important; margin-bottom:22px !important; }
+#dh .price{ position:relative !important; font:900 clamp(40px,10vw,60px)/1 'Unbounded',sans-serif !important; padding:14px 24px !important; border-radius:18px !important; background:rgba(0,0,0,.55) !important; }
+#dh .price small{ font-size:.45em !important; vertical-align:super !important; margin-left:2px !important; }
+#dh .price-note{ text-align:left !important; font-size:13px !important; color:var(--muted) !important; line-height:1.45 !important; }
+#dh .price-note b{ color:var(--text) !important; }
+
+/* бутон */
+#dh .cta{ position:relative !important; display:inline-flex !important; align-items:center !important; justify-content:center !important; gap:10px !important; width:100% !important; max-width:440px !important; font:800 15px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; text-decoration:none !important; color:#000 !important; padding:21px 26px !important; border-radius:16px !important; border:none !important; cursor:pointer !important; background:linear-gradient(100deg,var(--pink),var(--hot) 45%,var(--gold)) !important; background-size:220% 100% !important; animation:dhGrad 5s ease-in-out infinite !important; box-shadow:0 0 0 2px rgba(255,255,255,.12),0 0 30px rgba(var(--pink-rgb),.55),0 0 60px rgba(var(--gold-rgb),.25); transition:transform .2s !important; }
+#dh .cta:hover{ transform:translateY(-2px) scale(1.01); }
+#dh .cta:active{ transform:scale(.98); }
+@keyframes dhGrad{ 0%,100%{background-position:0 0} 50%{background-position:100% 0} }
+#dh .trust{ display:flex !important; justify-content:center !important; gap:8px 18px !important; flex-wrap:wrap !important; margin-top:16px !important; font-size:12px !important; color:var(--muted) !important; }
+#dh .trust span::before{ content:"✦ " !important; color:var(--gold) !important; }
+
+/* ===== превключвател за режим ===== */
+#dh .switch{ display:inline-flex !important; padding:5px !important; border-radius:99px !important; background:#000 !important; gap:4px !important; margin:6px auto 0 !important; }
+#dh .switch button{ font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; padding:12px 18px !important; border-radius:99px !important; border:0 !important; cursor:pointer !important; background:transparent !important; color:var(--muted) !important; transition:all .25s !important; }
+#dh .switch button[aria-pressed="true"][data-v="pink"]{ background:var(--pink) !important; color:#000 !important; box-shadow:0 0 18px rgba(var(--pink-rgb),.8); }
+#dh .switch button[aria-pressed="true"][data-v="gold"]{ background:var(--gold) !important; color:#000 !important; box-shadow:0 0 18px rgba(var(--gold-rgb),.8); }
+
+/* ===== секции ===== */
+#dh section{ padding:46px 0 !important; }
+#dh .sec-t{ text-align:center !important; font:900 clamp(26px,6.4vw,42px)/1.1 'Unbounded',sans-serif !important; margin:0 0 10px !important; }
+#dh .sec-s{ text-align:center !important; color:var(--muted) !important; max-width:560px !important; margin:0 auto 30px !important; }
+
+/* продуктова карта */
+#dh .prod{ display:none !important; grid-template-columns:1fr !important; gap:22px !important; border-radius:24px !important; padding:20px !important; background:var(--card) !important; }
+#dh[data-mode="pink"] .prod.pink, #dh[data-mode="gold"] .prod.gold{ display:grid !important; animation:dhIn .45s ease both !important; }
+@keyframes dhIn{ from{opacity:0; transform:translateY(12px) scale(.98)} to{opacity:1; transform:none} }
+#dh .prod .ph{ aspect-ratio:1/1 !important; border-radius:16px !important; overflow:hidden !important; background:#fff !important; display:flex !important; align-items:center !important; justify-content:center !important; }
+#dh .prod .ph img{ width:100% !important; height:100% !important; object-fit:cover !important; }
+#dh .prod h3{ font:900 clamp(28px,7vw,40px)/1 'Unbounded',sans-serif !important; margin:0 0 6px !important; color:var(--acc) !important; text-shadow:0 0 18px rgba(var(--acc-rgb),.7); }
+#dh .prod .spec{ font:600 12px/1 'Montserrat',sans-serif !important; letter-spacing:2.5px !important; color:var(--muted) !important; margin-bottom:12px !important; }
+#dh .sex{ display:inline-block !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; padding:8px 12px !important; border-radius:99px !important; border-width:1px !important; border-style:solid !important; border-color:rgba(var(--acc-rgb),.6); color:var(--acc) !important; margin-bottom:14px !important; }
+#dh .chips{ display:flex !important; flex-wrap:wrap !important; gap:8px !important; margin-bottom:16px !important; }
+#dh .chips span{ font-size:12px !important; font-weight:600 !important; padding:7px 12px !important; border-radius:99px !important; background:rgba(var(--acc-rgb),.12) !important; color:var(--text) !important; }
+#dh .insp{ display:flex !important; gap:12px !important; align-items:center !important; padding:12px 14px !important; border-radius:14px !important; background:rgba(255,255,255,.04) !important; border-width:1px !important; border-style:dashed !important; border-color:rgba(var(--acc-rgb),.5); margin-bottom:16px !important; }
+#dh .insp b{ display:block !important; font:700 10px/1 'Montserrat',sans-serif !important; letter-spacing:2.5px !important; color:var(--acc) !important; margin-bottom:5px !important; }
+#dh .insp .ic{ font-size:22px !important; }
+#dh .prod p.desc{ color:var(--muted) !important; margin:0 0 18px !important; font-size:15px !important; }
+
+/* нотки */
+#dh .notes{ display:grid !important; gap:10px !important; }
+#dh .note{ display:grid !important; grid-template-columns:44px 1fr !important; gap:12px !important; align-items:center !important; padding:12px 14px !important; border-radius:14px !important; background:rgba(0,0,0,.35) !important; }
+#dh .note .n{ width:44px !important; height:44px !important; border-radius:12px !important; display:flex !important; align-items:center !important; justify-content:center !important; font-size:20px !important; background:rgba(0,0,0,.6) !important; }
+#dh .note b{ display:block !important; font:700 10px/1 'Montserrat',sans-serif !important; letter-spacing:2.5px !important; color:var(--acc) !important; margin-bottom:5px !important; }
+#dh .note span{ font-size:14px !important; font-weight:500 !important; }
+
+/* квиз */
+#dh .quiz{ max-width:620px !important; margin:0 auto !important; border-radius:24px !important; padding:24px 18px !important; background:var(--card) !important; text-align:center !important; }
+#dh .q-step{ font:700 11px/1 'Montserrat',sans-serif !important; letter-spacing:3px !important; color:var(--gold) !important; margin-bottom:12px !important; }
+#dh .q-text{ font:700 clamp(18px,4.8vw,24px)/1.3 'Unbounded',sans-serif !important; margin:0 0 18px !important; }
+#dh .q-opts{ display:grid !important; gap:10px !important; }
+#dh .q-opts button{ font:600 15px/1.3 'Montserrat',sans-serif !important; color:var(--text) !important; text-align:left !important; padding:16px 18px !important; border-radius:14px !important; cursor:pointer !important; background:rgba(255,255,255,.04) !important; border-width:1.5px !important; border-style:solid !important; border-color:rgba(255,255,255,.12); transition:all .2s !important; }
+#dh .q-opts button:hover{ border-color:var(--pink); box-shadow:0 0 16px rgba(var(--pink-rgb),.45); transform:translateX(3px); }
+#dh .q-opts button:nth-child(2):hover{ border-color:var(--gold); box-shadow:0 0 16px rgba(var(--gold-rgb),.45); }
+#dh .q-bar{ height:4px !important; border-radius:4px !important; background:rgba(255,255,255,.08) !important; margin-bottom:20px !important; overflow:hidden !important; }
+#dh .q-bar i{ display:block !important; height:100% !important; width:0; background:linear-gradient(90deg,var(--pink),var(--gold)) !important; transition:width .35s !important; }
+#dh .q-res{ display:none !important; }
+#dh .q-res.on{ display:block !important; }
+#dh .q-body.off{ display:none !important; }
+#dh .q-res .big{ font:900 clamp(34px,9vw,54px)/1 'Unbounded',sans-serif !important; margin:6px 0 12px !important; }
+#dh .q-res p{ color:var(--muted) !important; margin:0 0 20px !important; }
+#dh .q-again{ background:none !important; border:0 !important; color:var(--muted) !important; text-decoration:underline !important; cursor:pointer !important; margin-top:14px !important; font:500 13px 'Montserrat',sans-serif !important; }
+
+/* комплект за двама */
+#dh .pair{ display:grid !important; gap:18px !important; align-items:center !important; border-radius:24px !important; padding:22px !important; background:linear-gradient(135deg,rgba(var(--pink-rgb),.14),rgba(0,0,0,.6) 50%,rgba(var(--gold-rgb),.14)) !important; text-align:center !important; }
+#dh .pair .eq{ font:900 clamp(22px,5.6vw,32px)/1.25 'Unbounded',sans-serif !important; }
+#dh .pair .eq .p{ color:var(--pink) !important; text-shadow:0 0 14px rgba(var(--pink-rgb),.8); }
+#dh .pair .eq .g{ color:var(--gold) !important; text-shadow:0 0 14px rgba(var(--gold-rgb),.8); }
+#dh .pair p{ color:var(--muted) !important; margin:0 !important; }
+
+/* предимства */
+#dh .perks{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; }
+#dh .perk{ border-radius:18px !important; padding:18px 14px !important; background:var(--card) !important; text-align:center !important; }
+#dh .perk .i{ font-size:28px !important; margin-bottom:8px !important; }
+#dh .perk b{ display:block !important; font:700 13px/1.3 'Unbounded',sans-serif !important; margin-bottom:4px !important; }
+#dh .perk span{ font-size:13px !important; color:var(--muted) !important; }
+
+/* FAQ */
+#dh .faq{ max-width:720px !important; margin:0 auto !important; display:grid !important; gap:10px !important; }
+#dh details{ border-radius:14px !important; background:var(--card) !important; border-width:1px !important; border-style:solid !important; border-color:rgba(255,255,255,.08); padding:0 18px !important; transition:border-color .2s !important; }
+#dh details[open]{ border-color:rgba(var(--pink-rgb),.6); box-shadow:0 0 18px rgba(var(--pink-rgb),.2); }
+#dh summary{ list-style:none !important; cursor:pointer !important; padding:18px 30px 18px 0 !important; position:relative !important; font:700 14px/1.35 'Unbounded',sans-serif !important; }
+#dh summary::-webkit-details-marker{ display:none !important; }
+#dh summary::after{ content:"+" !important; position:absolute !important; right:0 !important; top:50% !important; transform:translateY(-50%); font-size:22px !important; color:var(--gold) !important; transition:transform .2s !important; }
+#dh details[open] summary::after{ transform:translateY(-50%) rotate(45deg); color:var(--pink) !important; }
+#dh details p{ margin:0 0 18px !important; color:var(--muted) !important; font-size:14px !important; }
+
+/* финал */
+#dh .final{ text-align:center !important; border-radius:28px !important; padding:34px 18px !important; background:rgba(0,0,0,.6) !important; }
+#dh .final h2{ font:900 clamp(30px,8vw,54px)/1.05 'Unbounded',sans-serif !important; margin:0 0 12px !important; }
+#dh .after{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:10px !important; margin-top:28px !important; text-align:center !important; }
+#dh .after-note{ font-size:12px !important; color:var(--muted) !important; letter-spacing:.5px !important; }
+
+/* искри */
+#dh .spark{ position:absolute !important; z-index:1 !important; width:6px !important; height:6px !important; border-radius:50% !important; pointer-events:none !important; animation:dhFloat linear infinite; opacity:0; }
+@keyframes dhFloat{ 0%{ transform:translateY(0) scale(.6); opacity:0 } 15%{opacity:1} 100%{ transform:translateY(-110vh) scale(1.1); opacity:0 } }
+#dh .burst{ position:fixed !important; z-index:9999 !important; pointer-events:none !important; font-size:18px !important; animation:dhBurst .9s ease-out forwards; }
+@keyframes dhBurst{ to{ transform:translate(var(--x),var(--y)) rotate(200deg) scale(.4); opacity:0 } }
+
+/* лепкава лента на мобилен */
+#dh .sticky{ position:fixed !important; left:0 !important; right:0 !important; bottom:0 !important; z-index:50 !important; padding:10px 12px calc(10px + env(safe-area-inset-bottom)) !important; background:rgba(7,5,10,.92) !important; backdrop-filter:blur(8px) !important; -webkit-backdrop-filter:blur(8px) !important; border-top:1px solid rgba(var(--pink-rgb),.5) !important; display:flex !important; align-items:center !important; gap:12px !important; transform:translateY(110%); transition:transform .3s !important; }
+#dh .sticky.on{ transform:none; }
+#dh .sticky .sp{ font:900 20px/1 'Unbounded',sans-serif !important; white-space:nowrap !important; }
+#dh .sticky .sp small{ display:block !important; font:500 10px/1.2 'Montserrat',sans-serif !important; letter-spacing:1px !important; color:var(--muted) !important; margin-top:4px !important; }
+#dh .sticky .cta{ padding:16px 14px !important; font-size:12px !important; letter-spacing:1.5px !important; }
+
+@media (min-width:760px){
+  #dh .hero{ padding:70px 0 40px !important; }
+  #dh .prod{ grid-template-columns:1fr 1.1fr !important; padding:30px !important; gap:34px !important; align-items:center !important; }
+  #dh .perks{ grid-template-columns:repeat(4,1fr) !important; }
+  #dh .pair{ grid-template-columns:1.3fr 1fr !important; text-align:left !important; padding:34px !important; }
+  #dh .quiz{ padding:34px !important; }
+  #dh .sticky{ display:none !important; }
+}
+@media (prefers-reduced-motion:reduce){
+  #dh#dh *, #dh#dh *::before, #dh#dh *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+  #dh .spark{ display:none !important; }
+}
+</style>
+
+<div id="dh" data-mode="pink">
+  <div class="bg"></div>
+
+  <div class="ticker" aria-hidden="true"><div class="ticker-in">
+    <span>Dirham Pink</span><span>Dirham Gold</span><span>100 ml · Eau de Parfum</span><span>Само 21.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
+    <span>Dirham Pink</span><span>Dirham Gold</span><span>100 ml · Eau de Parfum</span><span>Само 21.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
+  </div></div>
+
+  <!-- HERO -->
+  <header class="hero"><div class="wrap">
+    <span class="eyebrow neon">✦ Manasik · 100 ml EDP ✦</span>
+    <h1 class="neon-text">DIRHAM</h1>
+    <p class="h1-sub"><span class="p">PINK</span> за нея · <span class="g">GOLD</span> за него</p>
+    <p class="lead">Два аромата, вдъхновени от емблематични парфюми. Голямо 100 ml шише Eau de Parfum на цена, която не боли.</p>
+
+    <div class="hero-img neon">
+      <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/B45F887B-DEEB-4F81-BCF9-EF2BEDEA0862-0966252.png?format=webp" alt="Dirham Pink и Dirham Gold – комплект за нея и за него, 100 ml Eau de Parfum" width="1200" height="1200" fetchpriority="high">
+    </div>
+    <div class="hots">
+      <button type="button" class="hot pink" data-pick="pink">♀ Виж PINK</button>
+      <button type="button" class="hot gold" data-pick="gold">♂ Виж GOLD</button>
+    </div>
+
+    <div class="price-row">
+      <div class="price neon d2">21.90<small>€</small></div>
+      <div class="price-note"><b>за 100 ml</b><br>Плащаш с наложен платеж,<br>когато получиш пратката</div>
+    </div>
+
+    <a href="#" class="cta" data-go data-burst>Поръчай своя Dirham ➜</a>
+    <div class="trust"><span>Наложен платеж</span><span>100 ml Eau de Parfum</span><span>Pink или Gold</span></div>
+  </div></header>
+
+  <!-- ПРОДУКТИ -->
+  <section id="aromati"><div class="wrap">
+    <h2 class="sec-t">Избери <span class="neon-text">своето</span> ухание</h2>
+    <p class="sec-s">Цъкни, за да смениш аромата. Цялата страница сменя цвета си с теб.</p>
+    <div style="text-align:center !important;margin-bottom:26px !important">
+      <div class="switch neon" role="group" aria-label="Избери аромат">
+        <button type="button" data-v="pink" aria-pressed="true">♀ PINK</button>
+        <button type="button" data-v="gold" aria-pressed="false">♂ GOLD</button>
+      </div>
+    </div>
+
+    <!-- PINK -->
+    <article class="prod pink neon">
+      <div class="ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6420-0966253.jpeg?format=webp" alt="Dirham Pink от Manasik, 100 ml Eau de Parfum" width="1000" height="1000" loading="lazy"></div>
+      <div>
+        <h3>DIRHAM PINK</h3>
+        <div class="spec">100 ML · EAU DE PARFUM</div>
+        <span class="sex">♀ ЗА НЕЯ</span>
+        <div class="chips"><span>Нежност</span><span>Елегантност</span><span>Женственост</span></div>
+        <div class="insp"><span class="ic">🌸</span><div><b>ВДЪХНОВЕНО ОТ</b>Ard Al Zaafaran Dirham Wardi</div></div>
+        <p class="desc">Dirham Pink by Manasik е нежен, романтичен и съблазнителен дамски аромат, вдъхновен от емблематичния Dirham Wardi. Ароматът се отваря с плодова свежест от черна касис, малина, личи и розов пипер, които създават сияйно и игриво начало. В сърцето му разцъфват роза, божур и момина сълза, придавайки женственост и елегантност. Базата е топла и кадифена – с ванилия, бял мускус и пачули, които оставят трайно и незабравимо ухание.</p>
+        <div class="notes">
+          <div class="note"><div class="n neon">🍓</div><div><b>ВРЪХНИ НОТКИ</b><span>Черна касис, малина, личи, розов пипер</span></div></div>
+          <div class="note"><div class="n neon d1">🌹</div><div><b>СРЕДНИ НОТКИ</b><span>Роза, божур, момина сълза</span></div></div>
+          <div class="note"><div class="n neon d2">🍦</div><div><b>БАЗОВИ НОТКИ</b><span>Ванилия, бял мускус, пачули</span></div></div>
+        </div>
+        <div style="margin-top:20px !important"><a href="#" class="cta" data-go data-burst>Искам Pink · 21.90€</a></div>
+      </div>
+    </article>
+
+    <!-- GOLD -->
+    <article class="prod gold neon">
+      <div class="ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6419-0966253.jpeg?format=webp" alt="Dirham Gold от Manasik, 100 ml Eau de Parfum" width="1000" height="1000" loading="lazy"></div>
+      <div>
+        <h3>DIRHAM GOLD</h3>
+        <div class="spec">100 ML · EAU DE PARFUM</div>
+        <span class="sex">♂ ЗА НЕГО</span>
+        <div class="chips"><span>Мъжественост</span><span>Стил</span><span>Увереност</span></div>
+        <div class="insp"><span class="ic">👑</span><div><b>ВДЪХНОВЕНО ОТ</b>Creed Royal Oud</div></div>
+        <p class="desc">Dirham Gold е изискан, елегантен и харизматичен унисекс аромат, вдъхновен от иконичния Creed Royal Oud. Уханието се отваря с искрящи връхни нотки на лимон, розов пипер и бергамот, които внасят свежест и жизненост. В сърцевината се разгръщат кедрово дърво, ангелика и галбанум, придаващи зелена и ароматна дълбочина. Базата е топла и изтънчена – с агарово дърво (oud), сандалово дърво и мускус, които оставят дълготрайно и благородно присъствие.</p>
+        <div class="notes">
+          <div class="note"><div class="n neon">🍋</div><div><b>ВРЪХНИ НОТКИ</b><span>Лимон, розов пипер, бергамот</span></div></div>
+          <div class="note"><div class="n neon d1">🌲</div><div><b>СРЕДНИ НОТКИ</b><span>Кедрово дърво, ангелика, галбанум</span></div></div>
+          <div class="note"><div class="n neon d2">🪵</div><div><b>БАЗОВИ НОТКИ</b><span>Агарово дърво (oud), сандалово дърво, мускус</span></div></div>
+        </div>
+        <div style="margin-top:20px !important"><a href="#" class="cta" data-go data-burst>Искам Gold · 21.90€</a></div>
+      </div>
+    </article>
+  </div></section>
+
+  <!-- КВИЗ -->
+  <section id="kviz"><div class="wrap">
+    <h2 class="sec-t">Кой <span class="neon-text">Dirham</span> си ти?</h2>
+    <p class="sec-s">3 бързи въпроса. 10 секунди. Ще ти кажем кое ухание ти подхожда.</p>
+    <div class="quiz neon d1" id="dhQuiz">
+      <div class="q-bar"><i></i></div>
+      <div class="q-body">
+        <div class="q-step">ВЪПРОС <span class="q-n">1</span> / 3</div>
+        <p class="q-text"></p>
+        <div class="q-opts"></div>
+      </div>
+      <div class="q-res">
+        <div class="q-step">ТВОЯТ АРОМАТ Е</div>
+        <div class="big neon-text"></div>
+        <p></p>
+        <a href="#" class="cta" data-go data-burst>Вземи го за 21.90€ ➜</a><br>
+        <button type="button" class="q-again">Опитай пак</button>
+      </div>
+    </div>
+    <div class="after"><a href="#" class="cta" data-go data-burst>Поръчай своя Dirham ➜</a><div class="after-note">21.90€ · 100 ml · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- ЗА ДВАМА -->
+  <section><div class="wrap">
+    <div class="pair neon d2">
+      <div class="pair-img"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/8F44C94E-890D-42EC-B0D0-25F612C19D35-0966252.png?format=webp" alt="Перфектната ароматна двойка – Dirham Pink и Dirham Gold" width="1200" height="1200" loading="lazy"></div>
+      <div>
+        <div class="eq" style="margin-bottom:14px !important"><span class="p">PINK</span> + <span class="g">GOLD</span><br>= перфектната двойка</div>
+        <p style="margin-bottom:16px !important">Тя ухае на роза и ванилия, той – на oud и сандалово дърво. Вземи по едно шише за двама или изненадай някого с подарък.</p>
+        <a href="#" class="cta" data-go data-burst>Поръчай и двата ➜</a>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- ПРЕДИМСТВА -->
+  <section style="padding-top:10px !important"><div class="wrap">
+    <div class="perks">
+      <div class="perk neon"><div class="i">💧</div><b>100 ml</b><span>Голямо шише</span></div>
+      <div class="perk neon d1"><div class="i">✨</div><b>Eau de Parfum</b><span>Парфюмна концентрация</span></div>
+      <div class="perk neon d2"><div class="i">💶</div><b>21.90€</b><span>За шише</span></div>
+      <div class="perk neon"><div class="i">📦</div><b>Наложен платеж</b><span>Плащаш при получаване</span></div>
+    </div>
+    <div class="after"><a href="#" class="cta" data-go data-burst>Искам моя Dirham ➜</a><div class="after-note">21.90€ · 100 ml · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section><div class="wrap">
+    <h2 class="sec-t">Въпроси</h2>
+    <p class="sec-s">Кратко и ясно.</p>
+    <div class="faq">
+      <details><summary>Какво значи „вдъхновено от“?</summary><p>Dirham Pink и Dirham Gold са самостоятелни аромати на Manasik. Изградени са около същия характер и нотки като посочените парфюми, но не са техни оригинали.</p></details>
+      <details><summary>Колко е голямо шишето?</summary><p>100 ml, концентрация Eau de Parfum.</p></details>
+      <details><summary>Как плащам?</summary><p>С наложен платеж – плащаш на куриера, когато получиш пратката. Не ти трябва карта.</p></details>
+      <details><summary>Dirham Gold само за мъже ли е?</summary><p>Създаден е с мъжки характер, но нотките му на oud, сандалово дърво и мускус го правят подходящ и за жени, които обичат по-дървесни аромати.</p></details>
+      <details><summary>Мога ли да поръчам и двата?</summary><p>Да. Във формата за поръчка избери и Pink, и Gold.</p></details>
+    </div>
+    <div class="after"><a href="#" class="cta" data-go data-burst>Към поръчката ➜</a><div class="after-note">21.90€ · 100 ml · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- ФИНАЛ -->
+  <section id="final"><div class="wrap">
+    <div class="final neon">
+      <h2>Твоят <span class="neon-text">Dirham</span><br>те чака</h2>
+      <p class="sec-s" style="margin-bottom:6px !important">Pink за нея, Gold за него. Плащаш при получаване.</p>
+      <div class="price-row" style="margin:16px 0 22px !important"><div class="price neon d1">21.90<small>€</small></div></div>
+      <a href="#" class="cta" data-go data-burst>Поръчай сега ➜</a>
+    </div>
+  </div></section>
+
+  <div class="sticky" id="dhSticky">
+    <div class="sp">21.90€<small>100 ml · EDP</small></div>
+    <a href="#" class="cta" data-go data-burst>Поръчай ➜</a>
+  </div>
+</div>
+
+<script>
+/* ▼▼▼ СЛОЖИ ТУК АДРЕСА НА СТРАНИЦАТА ЗА ЧЕКАУТ ▼▼▼ */
+var DH_CHECKOUT_URL = '/checkout';
+/* ▲▲▲ всички бутони на страницата водят натам ▲▲▲ */
+(function(){
+  var root=document.getElementById('dh'); if(!root) return;
+  root.querySelectorAll('[data-go]').forEach(function(a){ a.setAttribute('href',DH_CHECKOUT_URL); a.setAttribute('target','_top'); });
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* превключване Pink/Gold — сменя акцента на цялата страница */
+  function setMode(v){
+    root.setAttribute('data-mode',v);
+    root.querySelectorAll('.switch button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.v===v?'true':'false'); });
+  }
+  root.querySelectorAll('.switch button').forEach(function(b){ b.addEventListener('click',function(){ setMode(b.dataset.v); }); });
+  root.querySelectorAll('[data-pick]').forEach(function(el){
+    el.style.cursor='pointer';
+    el.addEventListener('click',function(){ setMode(el.dataset.pick); document.getElementById('aromati').scrollIntoView({behavior:'smooth'}); });
+  });
+
+  /* искри във фона */
+  if(!reduce){
+    for(var i=0;i<22;i++){
+      var s=document.createElement('i'); s.className='spark';
+      var c=i%3===0?'#ffc93c':(i%3===1?'#ff2ea6':'#ff8fd1');
+      s.style.cssText='left:'+(Math.random()*100)+'%;top:'+(60+Math.random()*60)+'%;background:'+c+';box-shadow:0 0 10px '+c+';animation-duration:'+(9+Math.random()*12)+'s;animation-delay:'+(-Math.random()*20)+'s';
+      root.appendChild(s);
+    }
+  }
+
+  /* конфети при клик на бутон */
+  function burst(x,y){
+    if(reduce) return;
+    var em=['✦','✧','💖','✨','💛','💗'];
+    for(var i=0;i<14;i++){
+      var b=document.createElement('span'); b.className='burst'; b.textContent=em[i%em.length];
+      var a=Math.random()*Math.PI*2, d=60+Math.random()*90;
+      b.style.left=x+'px'; b.style.top=y+'px';
+      b.style.setProperty('--x',Math.cos(a)*d+'px'); b.style.setProperty('--y',Math.sin(a)*d+'px');
+      root.appendChild(b); setTimeout(function(n){ n.remove(); },950,b);
+    }
+  }
+  root.addEventListener('click',function(e){
+    var t=e.target.closest('[data-burst]'); if(!t) return;
+    burst(e.clientX,e.clientY);
+    var href=t.getAttribute('href');
+    if(href&&href.charAt(0)==='#'){ var dst=document.querySelector(href); if(dst){ e.preventDefault(); dst.scrollIntoView({behavior:'smooth'}); } }
+  });
+
+  /* квиз */
+  var Q=[
+    {q:'Идеалната вечер е…',a:['Романтична вечеря със свещи 🕯️','Скъп бар и хубав костюм 🥃']},
+    {q:'Кое те описва по-добре?',a:['Нежна, но с характер 🌸','Уверен и харизматичен 👑']},
+    {q:'Избери вкус:',a:['Малини и ванилия 🍓','Лимон и дърво 🍋']}
+  ];
+  var R={
+    pink:{t:'DIRHAM PINK',d:'Романтична и сияйна. Роза, божур и ванилия, които остават след теб.'},
+    gold:{t:'DIRHAM GOLD',d:'Харизматичен и благороден. Oud, сандалово дърво и свеж бергамот.'}
+  };
+  var qz=document.getElementById('dhQuiz'), step=0, score=0;
+  var bar=qz.querySelector('.q-bar i'), body=qz.querySelector('.q-body'), res=qz.querySelector('.q-res');
+  function render(){
+    bar.style.width=(step/Q.length*100)+'%';
+    if(step>=Q.length){
+      var k=score>=2?'pink':'gold';
+      body.classList.add('off'); res.classList.add('on');
+      res.querySelector('.big').textContent=R[k].t; res.querySelector('p').textContent=R[k].d;
+      setMode(k);
+      var r=qz.getBoundingClientRect(); burst(r.left+r.width/2,r.top+80);
+      return;
+    }
+    body.classList.remove('off'); res.classList.remove('on');
+    qz.querySelector('.q-n').textContent=step+1;
+    qz.querySelector('.q-text').textContent=Q[step].q;
+    var o=qz.querySelector('.q-opts'); o.innerHTML='';
+    Q[step].a.forEach(function(txt,i){
+      var b=document.createElement('button'); b.type='button'; b.textContent=txt;
+      b.addEventListener('click',function(){ if(i===0) score++; step++; render(); });
+      o.appendChild(b);
+    });
+  }
+  qz.querySelector('.q-again').addEventListener('click',function(){ step=0; score=0; render(); });
+  render();
+
+  /* лепкава лента — показва се след hero, скрива се при чекаута */
+  var sticky=document.getElementById('dhSticky'), hero=root.querySelector('.hero'), co=document.getElementById('final');
+  function onScroll(){
+    var past=hero.getBoundingClientRect().bottom<0, atCo=co.getBoundingClientRect().top<window.innerHeight*.9;
+    sticky.classList.toggle('on',past&&!atCo);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+<!-- ===================== /DIRHAM FUNNEL ===================== -->
