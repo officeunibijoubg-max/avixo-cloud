@@ -12,8 +12,8 @@
 .dhc{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --text:#f6eef4; --muted:rgba(246,238,244,.68); font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; position:relative !important; overflow:hidden !important; }
 .dhc *{ box-sizing:border-box !important; }
 .dhc img{ max-width:100% !important; display:block !important; }
-.dhc .wrap{ max-width:760px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
-.dhc .glow{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(500px 340px at 0% 0%, rgba(var(--pink-rgb),.22), transparent 70%),
+.dhc .dh-wrap{ max-width:760px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
+.dhc .dh-glow{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(500px 340px at 0% 0%, rgba(var(--pink-rgb),.22), transparent 70%),
              radial-gradient(500px 340px at 100% 20%, rgba(var(--gold-rgb),.16), transparent 70%) !important; }
 
 @keyframes dhcNeon{
@@ -31,59 +31,59 @@
 @keyframes dhcFlicker{ 0%,18%,22%,25%,53%,57%,100%{opacity:1} 20%,24%,55%{opacity:.35} }
 @keyframes dhcBounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
 @keyframes dhcScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-.dhc .neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:dhcNeon 7.5s linear infinite !important; }
-.dhc .neon.d1{ animation-delay:-2.5s !important; } .dhc .neon.d2{ animation-delay:-5s !important; }
-.dhc .neon-text{ color:#fff; animation:dhcNeonText 7.5s linear infinite, dhcFlicker 6s linear infinite !important; }
+.dhc .dh-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:dhcNeon 7.5s linear infinite !important; }
+.dhc .dh-neon.dh-d1{ animation-delay:-2.5s !important; } .dhc .dh-neon.dh-d2{ animation-delay:-5s !important; }
+.dhc .dh-neon-text{ color:#fff; animation:dhcNeonText 7.5s linear infinite, dhcFlicker 6s linear infinite !important; }
 
-.dhc .ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
-.dhc .ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:dhcScroll 26s linear infinite !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
-.dhc .ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
-.dhc .ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
+.dhc .dh-ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
+.dhc .dh-ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:dhcScroll 26s linear infinite !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
+.dhc .dh-ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
+.dhc .dh-ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
 
-.dhc .top{ padding:30px 0 10px !important; text-align:center !important; }
-.dhc .logo{ font:900 30px/1 'Unbounded',sans-serif !important; letter-spacing:1px !important; }
+.dhc .dh-top{ padding:30px 0 10px !important; text-align:center !important; }
+.dhc .dh-logo{ font:900 30px/1 'Unbounded',sans-serif !important; letter-spacing:1px !important; }
 
 /* стъпки */
-.dhc .steps{ display:flex !important; align-items:center !important; justify-content:center !important; gap:8px !important; margin:22px auto 26px !important; max-width:460px !important; }
-.dhc .st{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:6px !important; font:600 10px/1.2 'Montserrat',sans-serif !important; letter-spacing:1.5px !important; text-transform:uppercase !important; color:var(--muted) !important; }
-.dhc .st i{ width:34px !important; height:34px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font:700 13px/1 'Unbounded',sans-serif !important; font-style:normal !important; border-width:2px !important; border-style:solid !important; border-color:rgba(255,255,255,.18); color:var(--muted) !important; }
-.dhc .st.done i{ background:var(--gold) !important; border-color:var(--gold); color:#000 !important; box-shadow:0 0 14px rgba(var(--gold-rgb),.8); }
-.dhc .st.now{ color:var(--text) !important; }
-.dhc .st.now i{ background:var(--pink) !important; border-color:var(--pink); color:#000 !important; box-shadow:0 0 16px rgba(var(--pink-rgb),.9); }
-.dhc .ln{ flex:1 !important; height:2px !important; max-width:70px !important; background:linear-gradient(90deg,var(--gold),var(--pink)) !important; margin-bottom:22px !important; border-radius:2px !important; }
-.dhc .ln.off{ background:rgba(255,255,255,.14) !important; }
+.dhc .dh-steps{ display:flex !important; align-items:center !important; justify-content:center !important; gap:8px !important; margin:22px auto 26px !important; max-width:460px !important; }
+.dhc .dh-st{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:6px !important; font:600 10px/1.2 'Montserrat',sans-serif !important; letter-spacing:1.5px !important; text-transform:uppercase !important; color:var(--muted) !important; }
+.dhc .dh-st i{ width:34px !important; height:34px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font:700 13px/1 'Unbounded',sans-serif !important; font-style:normal !important; border-width:2px !important; border-style:solid !important; border-color:rgba(255,255,255,.18); color:var(--muted) !important; }
+.dhc .dh-st.dh-done i{ background:var(--gold) !important; border-color:var(--gold); color:#000 !important; box-shadow:0 0 14px rgba(var(--gold-rgb),.8); }
+.dhc .dh-st.dh-now{ color:var(--text) !important; }
+.dhc .dh-st.dh-now i{ background:var(--pink) !important; border-color:var(--pink); color:#000 !important; box-shadow:0 0 16px rgba(var(--pink-rgb),.9); }
+.dhc .dh-ln{ flex:1 !important; height:2px !important; max-width:70px !important; background:linear-gradient(90deg,var(--gold),var(--pink)) !important; margin-bottom:22px !important; border-radius:2px !important; }
+.dhc .dh-ln.dh-off{ background:rgba(255,255,255,.14) !important; }
 
 .dhc h1{ font:900 clamp(28px,7.4vw,46px)/1.08 'Unbounded',sans-serif !important; margin:0 0 10px !important; text-wrap:balance !important; }
-.dhc .sub{ color:var(--muted) !important; max-width:480px !important; margin:0 auto 24px !important; }
+.dhc .dh-sub{ color:var(--muted) !important; max-width:480px !important; margin:0 auto 24px !important; }
 
 /* двата аромата */
-.dhc .picks{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; margin-bottom:18px !important; }
-.dhc .pk{ border-radius:18px !important; padding:8px 8px 14px !important; background:var(--card) !important; text-align:center !important; }
-.dhc .pk .ph{ aspect-ratio:1/1 !important; border-radius:12px !important; overflow:hidden !important; background:#fff !important; margin-bottom:10px !important; }
-.dhc .pk .ph img{ width:100% !important; height:100% !important; object-fit:cover !important; }
-.dhc .pk b{ display:block !important; font:700 14px/1.2 'Unbounded',sans-serif !important; }
-.dhc .pk.pink b{ color:var(--pink) !important; text-shadow:0 0 12px rgba(var(--pink-rgb),.7); }
-.dhc .pk.gold b{ color:var(--gold) !important; text-shadow:0 0 12px rgba(var(--gold-rgb),.7); }
-.dhc .pk small{ display:block !important; font-size:11px !important; letter-spacing:1px !important; color:var(--muted) !important; margin:4px 0 8px !important; }
-.dhc .pk .pr{ font:900 20px/1 'Unbounded',sans-serif !important; }
+.dhc .dh-picks{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; margin-bottom:18px !important; }
+.dhc .dh-pk{ border-radius:18px !important; padding:8px 8px 14px !important; background:var(--card) !important; text-align:center !important; }
+.dhc .dh-pk .dh-ph{ aspect-ratio:1/1 !important; border-radius:12px !important; overflow:hidden !important; background:#fff !important; margin-bottom:10px !important; }
+.dhc .dh-pk .dh-ph img{ width:100% !important; height:100% !important; object-fit:cover !important; }
+.dhc .dh-pk b{ display:block !important; font:700 14px/1.2 'Unbounded',sans-serif !important; }
+.dhc .dh-pk.dh-pink b{ color:var(--pink) !important; text-shadow:0 0 12px rgba(var(--pink-rgb),.7); }
+.dhc .dh-pk.dh-gold b{ color:var(--gold) !important; text-shadow:0 0 12px rgba(var(--gold-rgb),.7); }
+.dhc .dh-pk small{ display:block !important; font-size:11px !important; letter-spacing:1px !important; color:var(--muted) !important; margin:4px 0 8px !important; }
+.dhc .dh-pk .dh-pr{ font:900 20px/1 'Unbounded',sans-serif !important; }
 
 /* лента с гаранции */
-.dhc .cod{ display:flex !important; align-items:center !important; gap:14px !important; padding:14px 16px !important; border-radius:16px !important; background:rgba(0,0,0,.5) !important; text-align:left !important; margin-bottom:20px !important; }
-.dhc .cod .ic{ font-size:28px !important; flex:none !important; }
-.dhc .cod b{ display:block !important; font:700 13px/1.3 'Unbounded',sans-serif !important; margin-bottom:2px !important; }
-.dhc .cod span{ font-size:13px !important; color:var(--muted) !important; }
+.dhc .dh-cod{ display:flex !important; align-items:center !important; gap:14px !important; padding:14px 16px !important; border-radius:16px !important; background:rgba(0,0,0,.5) !important; text-align:left !important; margin-bottom:20px !important; }
+.dhc .dh-cod .dh-ic{ font-size:28px !important; flex:none !important; }
+.dhc .dh-cod b{ display:block !important; font:700 13px/1.3 'Unbounded',sans-serif !important; margin-bottom:2px !important; }
+.dhc .dh-cod span{ font-size:13px !important; color:var(--muted) !important; }
 
-.dhc .down{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:4px !important; padding-bottom:18px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.7); }
-.dhc .down em{ font-style:normal !important; font-size:26px !important; color:var(--pink) !important; text-shadow:0 0 12px var(--pink); animation:dhcBounce 1.4s ease-in-out infinite !important; }
+.dhc .dh-down{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:4px !important; padding-bottom:18px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.7); }
+.dhc .dh-down em{ font-style:normal !important; font-size:26px !important; color:var(--pink) !important; text-shadow:0 0 12px var(--pink); animation:dhcBounce 1.4s ease-in-out infinite !important; }
 
 /* блок 2 */
-.dhc.bottom{ padding:30px 0 40px !important; }
-.dhc .trust{ display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:10px !important; margin-bottom:22px !important; }
-.dhc .tr{ border-radius:16px !important; padding:16px 8px !important; background:var(--card) !important; text-align:center !important; }
-.dhc .tr .i{ font-size:24px !important; margin-bottom:6px !important; }
-.dhc .tr b{ display:block !important; font:700 11px/1.3 'Unbounded',sans-serif !important; }
-.dhc .tr span{ display:block !important; font-size:11px !important; color:var(--muted) !important; margin-top:3px !important; }
-.dhc .qa{ display:grid !important; gap:10px !important; }
+.dhc.dh-bottom{ padding:30px 0 40px !important; }
+.dhc .dh-trust{ display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:10px !important; margin-bottom:22px !important; }
+.dhc .dh-tr{ border-radius:16px !important; padding:16px 8px !important; background:var(--card) !important; text-align:center !important; }
+.dhc .dh-tr .dh-i{ font-size:24px !important; margin-bottom:6px !important; }
+.dhc .dh-tr b{ display:block !important; font:700 11px/1.3 'Unbounded',sans-serif !important; }
+.dhc .dh-tr span{ display:block !important; font-size:11px !important; color:var(--muted) !important; margin-top:3px !important; }
+.dhc .dh-qa{ display:grid !important; gap:10px !important; }
 .dhc details{ border-radius:14px !important; background:var(--card) !important; border-width:1px !important; border-style:solid !important; border-color:rgba(255,255,255,.08); padding:0 16px !important; }
 .dhc details[open]{ border-color:rgba(var(--pink-rgb),.6); box-shadow:0 0 18px rgba(var(--pink-rgb),.2); }
 .dhc summary{ list-style:none !important; cursor:pointer !important; padding:16px 28px 16px 0 !important; position:relative !important; font:700 13px/1.35 'Unbounded',sans-serif !important; }
@@ -91,52 +91,52 @@
 .dhc summary::after{ content:"+" !important; position:absolute !important; right:0 !important; top:50% !important; transform:translateY(-50%); font-size:22px !important; color:var(--gold) !important; transition:transform .2s !important; }
 .dhc details[open] summary::after{ transform:translateY(-50%) rotate(45deg); color:var(--pink) !important; }
 .dhc details p{ margin:0 0 16px !important; color:var(--muted) !important; font-size:14px !important; }
-.dhc .up{ display:block !important; text-align:center !important; margin-top:22px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; color:var(--pink) !important; text-decoration:none !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.7); }
+.dhc .dh-up{ display:block !important; text-align:center !important; margin-top:22px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; color:var(--pink) !important; text-decoration:none !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.7); }
 
-@media (min-width:760px){ .dhc .top{ padding-top:44px !important; } }
+@media (min-width:760px){ .dhc .dh-top{ padding-top:44px !important; } }
 @media (prefers-reduced-motion:reduce){
   .dhc.dhc.dhc.dhc *, .dhc.dhc.dhc.dhc *::before, .dhc.dhc.dhc.dhc *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
 }
 </style>
 
 <div class="dhc">
-  <div class="glow"></div>
-  <div class="ticker" aria-hidden="true"><div class="ticker-in">
+  <div class="dh-glow"></div>
+  <div class="dh-ticker" aria-hidden="true"><div class="dh-ticker-in">
     <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>21.90€ · 100 ml</span>
     <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>21.90€ · 100 ml</span>
   </div></div>
 
-  <div class="top"><div class="wrap">
-    <div class="logo neon-text">DIRHAM</div>
+  <div class="dh-top"><div class="dh-wrap">
+    <div class="dh-logo dh-neon-text">DIRHAM</div>
 
-    <div class="steps" aria-label="Стъпки на поръчката">
-      <div class="st done"><i>✓</i>Аромат</div>
-      <div class="ln"></div>
-      <div class="st now"><i>2</i>Данни</div>
-      <div class="ln off"></div>
-      <div class="st"><i>3</i>Готово</div>
+    <div class="dh-steps" aria-label="Стъпки на поръчката">
+      <div class="dh-st dh-done"><i>✓</i>Аромат</div>
+      <div class="dh-ln"></div>
+      <div class="dh-st dh-now"><i>2</i>Данни</div>
+      <div class="dh-ln dh-off"></div>
+      <div class="dh-st"><i>3</i>Готово</div>
     </div>
 
-    <h1>Почти е <span class="neon-text">твой</span></h1>
-    <p class="sub">Попълни името, телефона и адреса си. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
+    <h1>Почти е <span class="dh-neon-text">твой</span></h1>
+    <p class="dh-sub">Попълни името, телефона и адреса си. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
 
-    <div class="picks">
-      <div class="pk pink neon">
-        <div class="ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6420-0966253.jpeg?format=webp" alt="Dirham Pink 100 ml" width="1000" height="1000"></div>
-        <b>DIRHAM PINK</b><small>♀ ЗА НЕЯ · 100 ML</small><div class="pr">21.90€</div>
+    <div class="dh-picks">
+      <div class="dh-pk dh-pink dh-neon">
+        <div class="dh-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6420-0966253.jpeg?format=webp" alt="Dirham Pink 100 ml" width="1000" height="1000"></div>
+        <b>DIRHAM PINK</b><small>♀ ЗА НЕЯ · 100 ML</small><div class="dh-pr">21.90€</div>
       </div>
-      <div class="pk gold neon d1">
-        <div class="ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6419-0966253.jpeg?format=webp" alt="Dirham Gold 100 ml" width="1000" height="1000"></div>
-        <b>DIRHAM GOLD</b><small>♂ ЗА НЕГО · 100 ML</small><div class="pr">21.90€</div>
+      <div class="dh-pk dh-gold dh-neon dh-d1">
+        <div class="dh-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6419-0966253.jpeg?format=webp" alt="Dirham Gold 100 ml" width="1000" height="1000"></div>
+        <b>DIRHAM GOLD</b><small>♂ ЗА НЕГО · 100 ML</small><div class="dh-pr">21.90€</div>
       </div>
     </div>
 
-    <div class="cod neon d2">
-      <div class="ic">📦</div>
+    <div class="dh-cod dh-neon dh-d2">
+      <div class="dh-ic">📦</div>
       <div><b>Наложен платеж</b><span>Без карта и без предплащане. Плащаш едва когато пратката е в ръцете ти.</span></div>
     </div>
 
-    <div class="down">Попълни формата<em>↓</em></div>
+    <div class="dh-down">Попълни формата<em>↓</em></div>
   </div></div>
 </div>
 <!-- ======================= /БЛОК 1 ======================= -->
@@ -148,19 +148,19 @@
 
 
 <!-- ========================= БЛОК 2 — ПОД ЧЕКАУТА ========================= -->
-<div class="dhc bottom">
-  <div class="wrap">
-    <div class="trust">
-      <div class="tr neon"><div class="i">💶</div><b>Плащаш при доставка</b><span>Наложен платеж</span></div>
-      <div class="tr neon d1"><div class="i">💧</div><b>100 ml</b><span>Eau de Parfum</span></div>
-      <div class="tr neon d2"><div class="i">✨</div><b>21.90€</b><span>за шише</span></div>
+<div class="dhc dh-bottom">
+  <div class="dh-wrap">
+    <div class="dh-trust">
+      <div class="dh-tr dh-neon"><div class="dh-i">💶</div><b>Плащаш при доставка</b><span>Наложен платеж</span></div>
+      <div class="dh-tr dh-neon dh-d1"><div class="dh-i">💧</div><b>100 ml</b><span>Eau de Parfum</span></div>
+      <div class="dh-tr dh-neon dh-d2"><div class="dh-i">✨</div><b>21.90€</b><span>за шише</span></div>
     </div>
-    <div class="qa">
+    <div class="dh-qa">
       <details><summary>Трябва ли да платя сега?</summary><p>Не. Плащаш с наложен платеж на куриера, когато получиш пратката.</p></details>
       <details><summary>Мога ли да взема и двата аромата?</summary><p>Да. Избери и Dirham Pink, и Dirham Gold във формата по-горе.</p></details>
       <details><summary>Какво значи „вдъхновено от“?</summary><p>Dirham Pink и Dirham Gold са самостоятелни аромати на Manasik, изградени около характера и нотките на посочените парфюми. Не са техни оригинали.</p></details>
     </div>
-    <a href="#" class="up" onclick="var w=document.querySelector('.widget-checkout');if(!w){try{w=window.top.document.querySelector('.widget-checkout');}catch(x){}}if(w){event.preventDefault();w.scrollIntoView({behavior:'smooth',block:'start'});}">↑ Обратно към формата</a>
+    <a href="#" class="dh-up" onclick="var w=document.querySelector('.widget-checkout');if(!w){try{w=window.top.document.querySelector('.widget-checkout');}catch(x){}}if(w){event.preventDefault();w.scrollIntoView({behavior:'smooth',block:'start'});}">↑ Обратно към формата</a>
   </div>
 </div>
 <!-- ======================= /БЛОК 2 ======================= -->

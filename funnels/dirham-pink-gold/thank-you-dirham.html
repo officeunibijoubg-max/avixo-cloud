@@ -5,8 +5,8 @@
 #dht{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --text:#f6eef4; --muted:rgba(246,238,244,.68); font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; position:relative !important; overflow:hidden !important; min-height:100vh !important; padding:0 0 50px !important; }
 #dht *{ box-sizing:border-box !important; }
 #dht img{ max-width:100% !important; display:block !important; }
-#dht .wrap{ max-width:720px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; text-align:center !important; }
-#dht .glow{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(520px 360px at 50% 0%, rgba(var(--pink-rgb),.28), transparent 70%),
+#dht .dh-wrap{ max-width:720px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; text-align:center !important; }
+#dht .dh-glow{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(520px 360px at 50% 0%, rgba(var(--pink-rgb),.28), transparent 70%),
              radial-gradient(520px 360px at 100% 60%, rgba(var(--gold-rgb),.14), transparent 70%),
              radial-gradient(520px 360px at 0% 90%, rgba(var(--pink-rgb),.16), transparent 70%) !important; }
 
@@ -26,71 +26,71 @@
 @keyframes dhtPop{ 0%{transform:scale(.3);opacity:0} 60%{transform:scale(1.15);opacity:1} 100%{transform:scale(1)} }
 @keyframes dhtFall{ 0%{ transform:translateY(-10vh) rotate(0); opacity:1 } 100%{ transform:translateY(110vh) rotate(540deg); opacity:.9 } }
 @keyframes dhtScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-#dht .neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:dhtNeon 7.5s linear infinite !important; }
-#dht .neon.d1{ animation-delay:-2.5s !important; } #dht .neon.d2{ animation-delay:-5s !important; }
-#dht .neon-text{ color:#fff; animation:dhtNeonText 7.5s linear infinite, dhtFlicker 6s linear infinite !important; }
+#dht .dh-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:dhtNeon 7.5s linear infinite !important; }
+#dht .dh-neon.dh-d1{ animation-delay:-2.5s !important; } #dht .dh-neon.dh-d2{ animation-delay:-5s !important; }
+#dht .dh-neon-text{ color:#fff; animation:dhtNeonText 7.5s linear infinite, dhtFlicker 6s linear infinite !important; }
 
-#dht .ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
-#dht .ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:dhtScroll 24s linear infinite !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
-#dht .ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
-#dht .ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
+#dht .dh-ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
+#dht .dh-ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:dhtScroll 24s linear infinite !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
+#dht .dh-ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
+#dht .dh-ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
 
-#dht .check{ width:92px !important; height:92px !important; margin:40px auto 18px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font-size:44px !important; color:#fff !important; background:#000 !important; animation:dhtPop .7s cubic-bezier(.2,1.4,.4,1) both, dhtNeon 7.5s linear infinite !important; border-width:3px !important; border-style:solid !important; border-color:var(--pink); }
+#dht .dh-check{ width:92px !important; height:92px !important; margin:40px auto 18px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font-size:44px !important; color:#fff !important; background:#000 !important; animation:dhtPop .7s cubic-bezier(.2,1.4,.4,1) both, dhtNeon 7.5s linear infinite !important; border-width:3px !important; border-style:solid !important; border-color:var(--pink); }
 #dht h1{ font:900 clamp(30px,8.6vw,72px)/1 'Unbounded',sans-serif !important; margin:0 0 10px !important; }
-#dht .h-sub{ font:700 clamp(17px,4.4vw,24px)/1.3 'Unbounded',sans-serif !important; margin:0 0 14px !important; }
-#dht .h-sub .p{ color:var(--pink) !important; text-shadow:0 0 12px rgba(var(--pink-rgb),.8); }
-#dht .h-sub .g{ color:var(--gold) !important; text-shadow:0 0 12px rgba(var(--gold-rgb),.8); }
-#dht .lead{ color:var(--muted) !important; max-width:480px !important; margin:0 auto 30px !important; }
+#dht .dh-h-sub{ font:700 clamp(17px,4.4vw,24px)/1.3 'Unbounded',sans-serif !important; margin:0 0 14px !important; }
+#dht .dh-h-sub .dh-p{ color:var(--pink) !important; text-shadow:0 0 12px rgba(var(--pink-rgb),.8); }
+#dht .dh-h-sub .dh-g{ color:var(--gold) !important; text-shadow:0 0 12px rgba(var(--gold-rgb),.8); }
+#dht .dh-lead{ color:var(--muted) !important; max-width:480px !important; margin:0 auto 30px !important; }
 
-#dht .next{ display:grid !important; gap:12px !important; text-align:left !important; margin:0 auto 32px !important; max-width:520px !important; }
-#dht .nx{ display:grid !important; grid-template-columns:48px 1fr !important; gap:14px !important; align-items:center !important; padding:14px 16px !important; border-radius:16px !important; background:var(--card) !important; }
-#dht .nx i{ width:48px !important; height:48px !important; border-radius:14px !important; display:flex !important; align-items:center !important; justify-content:center !important; font-style:normal !important; font-size:22px !important; background:#000 !important; }
-#dht .nx b{ display:block !important; font:700 13px/1.3 'Unbounded',sans-serif !important; margin-bottom:3px !important; }
-#dht .nx span{ font-size:13px !important; color:var(--muted) !important; }
+#dht .dh-next{ display:grid !important; gap:12px !important; text-align:left !important; margin:0 auto 32px !important; max-width:520px !important; }
+#dht .dh-nx{ display:grid !important; grid-template-columns:48px 1fr !important; gap:14px !important; align-items:center !important; padding:14px 16px !important; border-radius:16px !important; background:var(--card) !important; }
+#dht .dh-nx i{ width:48px !important; height:48px !important; border-radius:14px !important; display:flex !important; align-items:center !important; justify-content:center !important; font-style:normal !important; font-size:22px !important; background:#000 !important; }
+#dht .dh-nx b{ display:block !important; font:700 13px/1.3 'Unbounded',sans-serif !important; margin-bottom:3px !important; }
+#dht .dh-nx span{ font-size:13px !important; color:var(--muted) !important; }
 
-#dht .pic{ max-width:520px !important; margin:0 auto 28px !important; border-radius:22px !important; padding:8px !important; background:#000 !important; }
-#dht .pic img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:15px !important; }
+#dht .dh-pic{ max-width:520px !important; margin:0 auto 28px !important; border-radius:22px !important; padding:8px !important; background:#000 !important; }
+#dht .dh-pic img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:15px !important; }
 
-#dht .note{ max-width:520px !important; margin:0 auto !important; padding:16px 18px !important; border-radius:16px !important; background:rgba(0,0,0,.5) !important; font-size:14px !important; color:var(--muted) !important; }
-#dht .note b{ color:var(--text) !important; }
+#dht .dh-note{ max-width:520px !important; margin:0 auto !important; padding:16px 18px !important; border-radius:16px !important; background:rgba(0,0,0,.5) !important; font-size:14px !important; color:var(--muted) !important; }
+#dht .dh-note b{ color:var(--text) !important; }
 
-#dht .again{ margin-top:22px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; padding:14px 20px !important; border-radius:99px !important; border:0 !important; cursor:pointer !important; color:#000 !important; background:linear-gradient(100deg,var(--pink),var(--hot) 45%,var(--gold)) !important; box-shadow:0 0 22px rgba(var(--pink-rgb),.55); }
-#dht .again:active{ transform:scale(.96); }
+#dht .dh-again{ margin-top:22px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; padding:14px 20px !important; border-radius:99px !important; border:0 !important; cursor:pointer !important; color:#000 !important; background:linear-gradient(100deg,var(--pink),var(--hot) 45%,var(--gold)) !important; box-shadow:0 0 22px rgba(var(--pink-rgb),.55); }
+#dht .dh-again:active{ transform:scale(.96); }
 
-#dht .cf{ position:absolute !important; top:0 !important; z-index:5 !important; pointer-events:none !important; width:9px !important; height:14px !important; border-radius:2px !important; animation:dhtFall linear forwards; }
+#dht .dh-cf{ position:absolute !important; top:0 !important; z-index:5 !important; pointer-events:none !important; width:9px !important; height:14px !important; border-radius:2px !important; animation:dhtFall linear forwards; }
 
 @media (prefers-reduced-motion:reduce){
   #dht#dht *, #dht#dht *::before, #dht#dht *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
-  #dht .cf{ display:none !important; }
+  #dht .dh-cf{ display:none !important; }
 }
 </style>
 
 <div id="dht">
-  <div class="glow"></div>
-  <div class="ticker" aria-hidden="true"><div class="ticker-in">
+  <div class="dh-glow"></div>
+  <div class="dh-ticker" aria-hidden="true"><div class="dh-ticker-in">
     <span>Поръчката е приета</span><span>Благодарим ти</span><span>Dirham Pink</span><span>Dirham Gold</span>
     <span>Поръчката е приета</span><span>Благодарим ти</span><span>Dirham Pink</span><span>Dirham Gold</span>
   </div></div>
 
-  <div class="wrap">
-    <div class="check" aria-hidden="true">✓</div>
-    <h1 class="neon-text">Благодарим!</h1>
-    <p class="h-sub">Твоят <span class="p">Dirham</span> е <span class="g">на път</span></p>
-    <p class="lead">Поръчката ти е приета. Няма какво да плащаш сега – плащаш на куриера, когато получиш пратката.</p>
+  <div class="dh-wrap">
+    <div class="dh-check" aria-hidden="true">✓</div>
+    <h1 class="dh-neon-text">Благодарим!</h1>
+    <p class="dh-h-sub">Твоят <span class="dh-p">Dirham</span> е <span class="dh-g">на път</span></p>
+    <p class="dh-lead">Поръчката ти е приета. Няма какво да плащаш сега – плащаш на куриера, когато получиш пратката.</p>
 
-    <div class="next">
-      <div class="nx neon"><i>✅</i><div><b>Поръчката е приета</b><span>Получихме данните ти.</span></div></div>
-      <div class="nx neon d1"><i>📦</i><div><b>Изпращаме пратката</b><span>Ароматът ти тръгва с куриер към посочения адрес.</span></div></div>
-      <div class="nx neon d2"><i>💶</i><div><b>Плащаш при получаване</b><span>Наложен платеж, директно на куриера.</span></div></div>
+    <div class="dh-next">
+      <div class="dh-nx dh-neon"><i>✅</i><div><b>Поръчката е приета</b><span>Получихме данните ти.</span></div></div>
+      <div class="dh-nx dh-neon dh-d1"><i>📦</i><div><b>Изпращаме пратката</b><span>Ароматът ти тръгва с куриер към посочения адрес.</span></div></div>
+      <div class="dh-nx dh-neon dh-d2"><i>💶</i><div><b>Плащаш при получаване</b><span>Наложен платеж, директно на куриера.</span></div></div>
     </div>
 
-    <div class="pic neon d1">
+    <div class="dh-pic dh-neon dh-d1">
       <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/8F44C94E-890D-42EC-B0D0-25F612C19D35-0966252.png?format=webp" alt="Dirham Pink и Dirham Gold" width="1200" height="1200">
     </div>
 
-    <div class="note"><b>Дръж телефона си под ръка.</b> Така куриерът ще може да се свърже с теб при доставката.</div>
+    <div class="dh-note"><b>Дръж телефона си под ръка.</b> Така куриерът ще може да се свърже с теб при доставката.</div>
 
-    <button type="button" class="again" id="dhtAgain">✦ Още конфети ✦</button>
+    <button type="button" class="dh-again" id="dhtAgain">✦ Още конфети ✦</button>
   </div>
 </div>
 
@@ -101,7 +101,7 @@
   var colors=['#ff2ea6','#ffc93c','#ff8fd1','#ffffff'];
   function rain(n){
     for(var i=0;i<n;i++){
-      var c=document.createElement('i'); c.className='cf';
+      var c=document.createElement('i'); c.className='dh-cf';
       var col=colors[i%colors.length];
       c.style.cssText='left:'+(Math.random()*100)+'%;background:'+col+';box-shadow:0 0 8px '+col+';animation-duration:'+(2.6+Math.random()*2.6)+'s;animation-delay:'+(Math.random()*1.2)+'s;transform:rotate('+(Math.random()*180)+'deg)';
       root.appendChild(c); setTimeout(function(el){ el.remove(); },6500,c);
