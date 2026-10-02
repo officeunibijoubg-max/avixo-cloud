@@ -1,6 +1,8 @@
 <!-- ===================== DIRHAM FUNNEL — копира се като един блок ===================== -->
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Montserrat:wght@400;500;600;700&display=swap');
+/* платформата слага float на някои елементи (напр. article) – тук не ни трябва */
+#dh#dh *{ float:none !important; }
 #dh{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --line:rgba(255,255,255,.08); --text:#f6eef4; --muted:rgba(246,238,244,.68); --acc:var(--pink); --acc-rgb:var(--pink-rgb); font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; overflow:hidden !important; position:relative !important; }
 #dh[data-mode="gold"]{ --acc:var(--gold); --acc-rgb:var(--gold-rgb); }
 #dh *{ box-sizing:border-box !important; }
@@ -63,6 +65,19 @@
 @keyframes dhPulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
 #dh .dh-pair-img{ border-radius:18px !important; overflow:hidden !important; }
 #dh .dh-pair-img img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; }
+
+#dh a.dh-cta{ text-align:center !important; letter-spacing:.5px !important; font-size:13px !important; line-height:1.25 !important; padding:20px 14px !important; }
+@media (min-width:760px){ #dh a.dh-cta{ font-size:15px !important; letter-spacing:1.5px !important; padding:21px 26px !important; } }
+#dh .dh-combo{ display:flex !important; flex-wrap:wrap !important; align-items:center !important; justify-content:center !important; gap:6px !important; margin:0 auto 24px !important; font:800 11px/1 'Unbounded',sans-serif !important; letter-spacing:.5px !important; }
+#dh .dh-combo span{ padding:9px 10px !important; white-space:nowrap !important; border-radius:12px !important; }
+#dh .dh-cb-p{ color:#000 !important; background:var(--pink) !important; box-shadow:0 0 14px rgba(var(--pink-rgb),.8) !important; }
+#dh .dh-cb-g{ color:#000 !important; background:var(--gold) !important; box-shadow:0 0 14px rgba(var(--gold-rgb),.8) !important; }
+#dh .dh-combo .dh-cb-eq{ display:inline-flex !important; align-items:center !important; gap:6px !important; padding:0 !important; }
+#dh .dh-cb-op{ padding:0 2px !important; font-size:18px !important; color:var(--text) !important; }
+#dh .dh-cb-t{ color:#fff !important; background:#000 !important; border:2px solid var(--hot) !important; font-size:14px !important; }
+#dh .dh-badge2{ position:absolute !important; top:-30px !important; right:-50px !important; z-index:3 !important; width:66px !important; height:66px !important; border-radius:50% !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; font:900 17px/1 'Unbounded',sans-serif !important; color:#000 !important; background:var(--gold) !important; box-shadow:0 0 0 3px #000,0 0 22px rgba(var(--gold-rgb),.9); transform:rotate(10deg); }
+#dh .dh-badge2 small{ font:700 7.5px/1.1 'Montserrat',sans-serif !important; letter-spacing:.5px !important; margin-top:4px !important; text-transform:uppercase !important; }
+#dh .dh-inset{ border-style:dashed !important; color:var(--text) !important; }
 
 /* цена */
 #dh .dh-price-row{ display:flex !important; align-items:center !important; justify-content:center !important; gap:14px !important; flex-wrap:wrap !important; margin-bottom:22px !important; }
@@ -191,16 +206,17 @@
   <div class="dh-bg"></div>
 
   <div class="dh-ticker" aria-hidden="true"><div class="dh-ticker-in">
-    <span>Dirham Pink</span><span>Dirham Gold</span><span>2 × 100 ml · Eau de Parfum</span><span>И двата за 21.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
-    <span>Dirham Pink</span><span>Dirham Gold</span><span>2 × 100 ml · Eau de Parfum</span><span>И двата за 21.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
+    <span>Комплект от 2 парфюма</span><span>Pink + Gold</span><span>2 × 100 ml · Eau de Parfum</span><span>Целият комплект 21.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
+    <span>Комплект от 2 парфюма</span><span>Pink + Gold</span><span>2 × 100 ml · Eau de Parfum</span><span>Целият комплект 21.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
   </div></div>
 
   <!-- HERO -->
   <header class="dh-hero"><div class="dh-wrap">
-    <span class="dh-eyebrow dh-neon">✦ Manasik · 100 ml EDP ✦</span>
+    <span class="dh-eyebrow dh-neon">✦ Комплект от 2 парфюма ✦</span>
     <h1 class="dh-neon-text">DIRHAM</h1>
-    <p class="dh-h1-sub"><span class="dh-p">PINK</span> за нея · <span class="dh-g">GOLD</span> за него</p>
-    <p class="dh-lead">Комплект от два аромата, вдъхновени от емблематични парфюми. Две шишета по 100 ml Eau de Parfum – и двете за 21.90€.</p>
+    <p class="dh-h1-sub"><span class="dh-p">PINK</span> за нея + <span class="dh-g">GOLD</span> за него</p>
+    <p class="dh-lead">Получаваш <b>2 парфюма по 100 ml</b> в един комплект – Dirham Pink и Dirham Gold, и двата Eau de Parfum. Цената е за целия комплект.</p>
+    <div class="dh-combo"><span class="dh-cb-p">PINK 100 ml</span><span class="dh-cb-op">+</span><span class="dh-cb-g">GOLD 100 ml</span><span class="dh-cb-eq"><span class="dh-cb-op">=</span><span class="dh-cb-t">21.90€</span></span></div>
 
     <div class="dh-hero-img dh-neon">
       <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/B45F887B-DEEB-4F81-BCF9-EF2BEDEA0862-0966252.png?format=webp" alt="Dirham Pink и Dirham Gold – комплект за нея и за него, 100 ml Eau de Parfum" width="1200" height="1200" fetchpriority="high">
@@ -211,18 +227,18 @@
     </div>
 
     <div class="dh-price-row">
-      <div class="dh-price dh-neon dh-d2">21.90<small>€</small></div>
-      <div class="dh-price-note"><b>за двата аромата</b><br>2 × 100 ml · плащаш с наложен<br>платеж при получаване</div>
+      <div class="dh-price dh-neon dh-d2">21.90<small>€</small><span class="dh-badge2">2 бр.<small>в комплекта</small></span></div>
+      <div class="dh-price-note"><b>за комплекта от 2 бр.</b><br>Pink + Gold, 2 × 100 ml<br>плащаш при получаване</div>
     </div>
 
-    <a href="#" class="dh-cta" data-go data-burst>Вземи и двата за 21.90€ ➜</a>
-    <div class="dh-trust"><span>Наложен платеж</span><span>2 × 100 ml Eau de Parfum</span><span>Pink + Gold</span></div>
+    <a href="#" class="dh-cta" data-go data-burst>Искам комплекта · 21.90€ ➜</a>
+    <div class="dh-trust"><span>2 парфюма в комплекта</span><span>2 × 100 ml Eau de Parfum</span><span>Наложен платеж</span></div>
   </div></header>
 
   <!-- ПРОДУКТИ -->
   <section id="aromati"><div class="dh-wrap">
     <h2 class="dh-sec-t">Двата аромата в <span class="dh-neon-text">комплекта</span></h2>
-    <p class="dh-sec-s">Цъкни, за да разгледаш всеки от тях. Цялата страница сменя цвета си с теб.</p>
+    <p class="dh-sec-s">В комплекта получаваш и двата. Цъкни, за да разгледаш всеки от тях – цялата страница сменя цвета си с теб.</p>
     <div style="text-align:center !important;margin-bottom:26px !important">
       <div class="dh-switch dh-neon" role="group" aria-label="Избери аромат">
         <button type="button" data-v="pink" aria-pressed="true">♀ PINK</button>
@@ -236,7 +252,7 @@
       <div>
         <h3>DIRHAM PINK</h3>
         <div class="dh-spec">100 ML · EAU DE PARFUM</div>
-        <span class="dh-sex">♀ ЗА НЕЯ</span>
+        <span class="dh-sex">♀ ЗА НЕЯ</span> <span class="dh-sex dh-inset">1 ОТ 2 В КОМПЛЕКТА</span>
         <div class="dh-chips"><span>Нежност</span><span>Елегантност</span><span>Женственост</span></div>
         <div class="dh-insp"><span class="dh-ic">🌸</span><div><b>ВДЪХНОВЕНО ОТ</b>Ard Al Zaafaran Dirham Wardi</div></div>
         <p class="dh-desc">Dirham Pink by Manasik е нежен, романтичен и съблазнителен дамски аромат, вдъхновен от емблематичния Dirham Wardi. Ароматът се отваря с плодова свежест от черна касис, малина, личи и розов пипер, които създават сияйно и игриво начало. В сърцето му разцъфват роза, божур и момина сълза, придавайки женственост и елегантност. Базата е топла и кадифена – с ванилия, бял мускус и пачули, които оставят трайно и незабравимо ухание.</p>
@@ -245,7 +261,7 @@
           <div class="dh-note"><div class="dh-n dh-neon dh-d1">🌹</div><div><b>СРЕДНИ НОТКИ</b><span>Роза, божур, момина сълза</span></div></div>
           <div class="dh-note"><div class="dh-n dh-neon dh-d2">🍦</div><div><b>БАЗОВИ НОТКИ</b><span>Ванилия, бял мускус, пачули</span></div></div>
         </div>
-        <div style="margin-top:20px !important"><a href="#" class="dh-cta" data-go data-burst>Вземи комплекта · 21.90€</a></div>
+        <div style="margin-top:20px !important"><a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a></div>
       </div>
     </article>
 
@@ -255,7 +271,7 @@
       <div>
         <h3>DIRHAM GOLD</h3>
         <div class="dh-spec">100 ML · EAU DE PARFUM</div>
-        <span class="dh-sex">♂ ЗА НЕГО</span>
+        <span class="dh-sex">♂ ЗА НЕГО</span> <span class="dh-sex dh-inset">2 ОТ 2 В КОМПЛЕКТА</span>
         <div class="dh-chips"><span>Мъжественост</span><span>Стил</span><span>Увереност</span></div>
         <div class="dh-insp"><span class="dh-ic">👑</span><div><b>ВДЪХНОВЕНО ОТ</b>Creed Royal Oud</div></div>
         <p class="dh-desc">Dirham Gold е изискан, елегантен и харизматичен унисекс аромат, вдъхновен от иконичния Creed Royal Oud. Уханието се отваря с искрящи връхни нотки на лимон, розов пипер и бергамот, които внасят свежест и жизненост. В сърцевината се разгръщат кедрово дърво, ангелика и галбанум, придаващи зелена и ароматна дълбочина. Базата е топла и изтънчена – с агарово дърво (oud), сандалово дърво и мускус, които оставят дълготрайно и благородно присъствие.</p>
@@ -264,7 +280,7 @@
           <div class="dh-note"><div class="dh-n dh-neon dh-d1">🌲</div><div><b>СРЕДНИ НОТКИ</b><span>Кедрово дърво, ангелика, галбанум</span></div></div>
           <div class="dh-note"><div class="dh-n dh-neon dh-d2">🪵</div><div><b>БАЗОВИ НОТКИ</b><span>Агарово дърво (oud), сандалово дърво, мускус</span></div></div>
         </div>
-        <div style="margin-top:20px !important"><a href="#" class="dh-cta" data-go data-burst>Вземи комплекта · 21.90€</a></div>
+        <div style="margin-top:20px !important"><a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a></div>
       </div>
     </article>
   </div></section>
@@ -284,11 +300,11 @@
         <div class="dh-q-step">ТВОЯТ АРОМАТ Е</div>
         <div class="dh-big dh-neon-text"></div>
         <p></p>
-        <a href="#" class="dh-cta" data-go data-burst>Вземи комплекта за 21.90€ ➜</a><br>
+        <a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a><br>
         <button type="button" class="dh-q-again">Опитай пак</button>
       </div>
     </div>
-    <div class="dh-after"><a href="#" class="dh-cta" data-go data-burst>Поръчай своя Dirham ➜</a><div class="dh-after-note">21.90€ за двата · плащаш при доставка</div></div>
+    <div class="dh-after"><a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a><div class="dh-after-note">21.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
   </div></section>
 
   <!-- ЗА ДВАМА -->
@@ -298,7 +314,7 @@
       <div>
         <div class="dh-eq" style="margin-bottom:14px !important"><span class="dh-p">PINK</span> + <span class="dh-g">GOLD</span><br>= перфектната двойка</div>
         <p style="margin-bottom:16px !important">Тя ухае на роза и ванилия, той – на oud и сандалово дърво. И двата идват в един комплект за 21.90€ – за вас двамата или като подарък.</p>
-        <a href="#" class="dh-cta" data-go data-burst>Поръчай комплекта ➜</a>
+        <a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a>
       </div>
     </div>
   </div></section>
@@ -306,12 +322,12 @@
   <!-- ПРЕДИМСТВА -->
   <section style="padding-top:10px !important"><div class="dh-wrap">
     <div class="dh-perks">
-      <div class="dh-perk dh-neon"><div class="dh-i">💧</div><b>2 × 100 ml</b><span>Два аромата</span></div>
+      <div class="dh-perk dh-neon"><div class="dh-i">💧</div><b>2 бр. × 100 ml</b><span>В един комплект</span></div>
       <div class="dh-perk dh-neon dh-d1"><div class="dh-i">✨</div><b>Eau de Parfum</b><span>Парфюмна концентрация</span></div>
       <div class="dh-perk dh-neon dh-d2"><div class="dh-i">💶</div><b>21.90€</b><span>За комплекта</span></div>
       <div class="dh-perk dh-neon"><div class="dh-i">📦</div><b>Наложен платеж</b><span>Плащаш при получаване</span></div>
     </div>
-    <div class="dh-after"><a href="#" class="dh-cta" data-go data-burst>Искам моя Dirham ➜</a><div class="dh-after-note">21.90€ за двата · плащаш при доставка</div></div>
+    <div class="dh-after"><a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a><div class="dh-after-note">21.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
   </div></section>
 
   <!-- FAQ -->
@@ -325,22 +341,22 @@
       <details><summary>Dirham Gold само за мъже ли е?</summary><p>Създаден е с мъжки характер, но нотките му на oud, сандалово дърво и мускус го правят подходящ и за жени, които обичат по-дървесни аромати.</p></details>
       <details><summary>Колко струва доставката?</summary><p>Зависи от куриера и дали е до офис или до адрес. Точната сума виждаш във формата за поръчка, преди да я потвърдиш.</p></details>
     </div>
-    <div class="dh-after"><a href="#" class="dh-cta" data-go data-burst>Към поръчката ➜</a><div class="dh-after-note">21.90€ за двата · плащаш при доставка</div></div>
+    <div class="dh-after"><a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a><div class="dh-after-note">21.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
   </div></section>
 
   <!-- ФИНАЛ -->
   <section id="final"><div class="dh-wrap">
     <div class="dh-final dh-neon">
-      <h2>Твоят <span class="dh-neon-text">Dirham</span><br>те чака</h2>
-      <p class="dh-sec-s" style="margin-bottom:6px !important">Pink за нея и Gold за него – и двата за 21.90€. Плащаш при получаване.</p>
+      <h2>Твоят <span class="dh-neon-text">комплект</span><br>те чака</h2>
+      <p class="dh-sec-s" style="margin-bottom:6px !important">2 парфюма – Pink за нея и Gold за него – за 21.90€ общо. Плащаш при получаване.</p>
       <div class="dh-price-row" style="margin:16px 0 22px !important"><div class="dh-price dh-neon dh-d1">21.90<small>€</small></div></div>
-      <a href="#" class="dh-cta" data-go data-burst>Поръчай сега ➜</a>
+      <a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a>
     </div>
   </div></section>
 
   <div class="dh-sticky" id="dhSticky">
-    <div class="dh-sp">21.90€<small>Pink + Gold</small></div>
-    <a href="#" class="dh-cta" data-go data-burst>Поръчай ➜</a>
+    <div class="dh-sp">21.90€<small>комплект 2 бр.</small></div>
+    <a href="#" class="dh-cta" data-go data-burst>Искам комплекта ➜</a>
   </div>
 </div>
 
