@@ -1,140 +1,140 @@
 <!-- =====================================================================
-     DIRHAM PINK + GOLD · ЧЕКАУТ – ВСИЧКО В ЕДИН КОД
+     FREEZE + FREEZE IN FLAMES · ЧЕКАУТ – ВСИЧКО В ЕДИН КОД
      Слага се в ЕДИН HTML (code) блок НАД checkout widget-а.
      Вътре: шапка над формата + дизайн на самия чекаут + блок с въпроси,
      който сам се мести под формата.
      ===================================================================== -->
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Golos+Text:wght@400;500;600;700;800&display=swap');
 /* платформата слага float на някои елементи (напр. article) – тук не ни трябва */
-.dhc.dhc.dhc.dhc *{ float:none !important; }
-.dhc{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --text:#f6eef4; --muted:rgba(246,238,244,.68); font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; position:relative !important; overflow:hidden !important; }
-.dhc *{ box-sizing:border-box !important; }
-.dhc img{ max-width:100% !important; display:block !important; }
-.dhc .dh-wrap{ max-width:760px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
-.dhc .dh-glow{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(500px 340px at 0% 0%, rgba(var(--pink-rgb),.22), transparent 70%),
+.fzc.fzc.fzc.fzc *{ float:none !important; }
+.fzc{ --pink:#2fd8ff; --pink-rgb:47,216,255; --gold:#ff7a1a; --gold-rgb:255,122,26; --hot:#b8f4ff; --ink:#04060c; --card:#0b1120; --text:#f6eef4; --muted:rgba(246,238,244,.68); font-family:'Golos Text',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; position:relative !important; overflow:hidden !important; }
+.fzc *{ box-sizing:border-box !important; }
+.fzc img{ max-width:100% !important; display:block !important; }
+.fzc .fzc-wrap{ max-width:760px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
+.fzc .fzc-glow{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(500px 340px at 0% 0%, rgba(var(--pink-rgb),.22), transparent 70%),
              radial-gradient(500px 340px at 100% 20%, rgba(var(--gold-rgb),.16), transparent 70%) !important; }
 
-@keyframes dhcNeon{
+@keyframes fzcNeon{
   0%,28%  { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
   33%,61% { border-color:var(--gold); box-shadow:0 0 6px var(--gold),0 0 22px rgba(var(--gold-rgb),.7),inset 0 0 14px rgba(var(--gold-rgb),.35); }
-  66%,95% { border-color:var(--hot);  box-shadow:0 0 6px var(--hot),0 0 22px rgba(255,143,209,.6),inset 0 0 14px rgba(255,143,209,.3); }
+  66%,95% { border-color:var(--hot);  box-shadow:0 0 6px var(--hot),0 0 22px rgba(184,244,255,.6),inset 0 0 14px rgba(184,244,255,.3); }
   100%    { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
 }
-@keyframes dhcNeonText{
+@keyframes fzcNeonText{
   0%,28%  { text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 28px var(--pink),0 0 48px var(--pink); }
   33%,61% { text-shadow:0 0 4px #fff,0 0 12px var(--gold),0 0 28px var(--gold),0 0 48px var(--gold); }
   66%,95% { text-shadow:0 0 4px #fff,0 0 12px var(--hot),0 0 28px var(--pink),0 0 48px var(--hot); }
   100%    { text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 28px var(--pink),0 0 48px var(--pink); }
 }
-@keyframes dhcFlicker{ 0%,18%,22%,25%,53%,57%,100%{opacity:1} 20%,24%,55%{opacity:.35} }
-@keyframes dhcBounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
-@keyframes dhcScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
-.dhc .dh-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:dhcNeon 7.5s linear infinite !important; }
-.dhc .dh-neon.dh-d1{ animation-delay:-2.5s !important; } .dhc .dh-neon.dh-d2{ animation-delay:-5s !important; }
-.dhc .dh-neon-text{ color:#fff; animation:dhcNeonText 7.5s linear infinite, dhcFlicker 6s linear infinite !important; }
+@keyframes fzcFlicker{ 0%,18%,22%,25%,53%,57%,100%{opacity:1} 20%,24%,55%{opacity:.35} }
+@keyframes fzcBounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+@keyframes fzcScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.fzc .fzc-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:fzcNeon 7.5s linear infinite !important; }
+.fzc .fzc-neon.fzc-d1{ animation-delay:-2.5s !important; } .fzc .fzc-neon.fzc-d2{ animation-delay:-5s !important; }
+.fzc .fzc-neon-text{ color:#fff; animation:fzcNeonText 7.5s linear infinite, fzcFlicker 6s linear infinite !important; }
 
-.dhc .dh-ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
-.dhc .dh-ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:dhcScroll 26s linear infinite !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
-.dhc .dh-ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
-.dhc .dh-ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
+.fzc .fzc-ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
+.fzc .fzc-ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:fzcScroll 26s linear infinite !important; font:700 12px/1 'Rubik Mono One',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
+.fzc .fzc-ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
+.fzc .fzc-ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
 
-.dhc .dh-top{ padding:30px 0 10px !important; text-align:center !important; }
-.dhc .dh-logo{ font:900 30px/1 'Unbounded',sans-serif !important; letter-spacing:1px !important; }
+.fzc .fzc-top{ padding:30px 0 10px !important; text-align:center !important; }
+.fzc .fzc-logo{ font:400 22px/1 'Rubik Mono One',sans-serif !important; letter-spacing:1px !important; }
 
 /* стъпки */
-.dhc .dh-steps{ display:flex !important; align-items:center !important; justify-content:center !important; gap:8px !important; margin:22px auto 26px !important; max-width:460px !important; }
-.dhc .dh-st{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:6px !important; font:600 10px/1.2 'Montserrat',sans-serif !important; letter-spacing:1.5px !important; text-transform:uppercase !important; color:var(--muted) !important; }
-.dhc .dh-st i{ width:34px !important; height:34px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font:700 13px/1 'Unbounded',sans-serif !important; font-style:normal !important; border-width:2px !important; border-style:solid !important; border-color:rgba(255,255,255,.18); color:var(--muted) !important; }
-.dhc .dh-st.dh-done i{ background:var(--gold) !important; border-color:var(--gold); color:#000 !important; box-shadow:0 0 14px rgba(var(--gold-rgb),.8); }
-.dhc .dh-st.dh-now{ color:var(--text) !important; }
-.dhc .dh-st.dh-now i{ background:var(--pink) !important; border-color:var(--pink); color:#000 !important; box-shadow:0 0 16px rgba(var(--pink-rgb),.9); }
-.dhc .dh-ln{ flex:1 !important; height:2px !important; max-width:70px !important; background:linear-gradient(90deg,var(--gold),var(--pink)) !important; margin-bottom:22px !important; border-radius:2px !important; }
-.dhc .dh-ln.dh-off{ background:rgba(255,255,255,.14) !important; }
+.fzc .fzc-steps{ display:flex !important; align-items:center !important; justify-content:center !important; gap:8px !important; margin:22px auto 26px !important; max-width:460px !important; }
+.fzc .fzc-st{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:6px !important; font:600 10px/1.2 'Golos Text',sans-serif !important; letter-spacing:1.5px !important; text-transform:uppercase !important; color:var(--muted) !important; }
+.fzc .fzc-st i{ width:34px !important; height:34px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font:700 13px/1 'Rubik Mono One',sans-serif !important; font-style:normal !important; border-width:2px !important; border-style:solid !important; border-color:rgba(255,255,255,.18); color:var(--muted) !important; }
+.fzc .fzc-st.fzc-done i{ background:var(--gold) !important; border-color:var(--gold); color:#000 !important; box-shadow:0 0 14px rgba(var(--gold-rgb),.8); }
+.fzc .fzc-st.fzc-now{ color:var(--text) !important; }
+.fzc .fzc-st.fzc-now i{ background:var(--pink) !important; border-color:var(--pink); color:#000 !important; box-shadow:0 0 16px rgba(var(--pink-rgb),.9); }
+.fzc .fzc-ln{ flex:1 !important; height:2px !important; max-width:70px !important; background:linear-gradient(90deg,var(--gold),var(--pink)) !important; margin-bottom:22px !important; border-radius:2px !important; }
+.fzc .fzc-ln.fzc-off{ background:rgba(255,255,255,.14) !important; }
 
-.dhc h1{ font:900 clamp(28px,7.4vw,46px)/1.08 'Unbounded',sans-serif !important; margin:0 0 10px !important; text-wrap:balance !important; }
-.dhc .dh-sub{ color:var(--muted) !important; max-width:480px !important; margin:0 auto 24px !important; }
+.fzc h1{ font:900 clamp(28px,7.6vw,44px)/1.08 'Golos Text',sans-serif !important; margin:0 0 10px !important; text-wrap:balance !important; }
+.fzc .fzc-sub{ color:var(--muted) !important; max-width:480px !important; margin:0 auto 24px !important; }
 
 /* двата аромата */
-.dhc .dh-picks{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; margin-bottom:18px !important; }
-.dhc .dh-pk{ border-radius:18px !important; padding:8px 8px 14px !important; background:var(--card) !important; text-align:center !important; }
-.dhc .dh-pk .dh-ph{ aspect-ratio:1/1 !important; border-radius:12px !important; overflow:hidden !important; background:#fff !important; margin-bottom:10px !important; }
-.dhc .dh-pk .dh-ph img{ width:100% !important; height:100% !important; object-fit:cover !important; }
-.dhc .dh-pk b{ display:block !important; font:700 14px/1.2 'Unbounded',sans-serif !important; }
-.dhc .dh-pk.dh-pink b{ color:var(--pink) !important; text-shadow:0 0 12px rgba(var(--pink-rgb),.7); }
-.dhc .dh-pk.dh-gold b{ color:var(--gold) !important; text-shadow:0 0 12px rgba(var(--gold-rgb),.7); }
-.dhc .dh-pk small{ display:block !important; font-size:11px !important; letter-spacing:1px !important; color:var(--muted) !important; margin:4px 0 8px !important; }
-.dhc .dh-pk .dh-pr{ font:900 20px/1 'Unbounded',sans-serif !important; }
+.fzc .fzc-picks{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; margin-bottom:18px !important; }
+.fzc .fzc-pk{ border-radius:18px !important; padding:8px 8px 14px !important; background:var(--card) !important; text-align:center !important; }
+.fzc .fzc-pk .fzc-ph{ aspect-ratio:1/1 !important; border-radius:12px !important; overflow:hidden !important; background:#fff !important; margin-bottom:10px !important; }
+.fzc .fzc-pk .fzc-ph img{ width:100% !important; height:100% !important; object-fit:cover !important; }
+.fzc .fzc-pk b{ display:block !important; font:700 14px/1.2 'Rubik Mono One',sans-serif !important; }
+.fzc .fzc-pk.fzc-pink b{ color:var(--pink) !important; text-shadow:0 0 12px rgba(var(--pink-rgb),.7); }
+.fzc .fzc-pk.fzc-gold b{ color:var(--gold) !important; text-shadow:0 0 12px rgba(var(--gold-rgb),.7); }
+.fzc .fzc-pk small{ display:block !important; font-size:11px !important; letter-spacing:1px !important; color:var(--muted) !important; margin:4px 0 8px !important; }
+.fzc .fzc-pk .fzc-pr{ font:900 20px/1 'Rubik Mono One',sans-serif !important; }
 
 /* лента с гаранции */
-.dhc .dh-cod{ display:flex !important; align-items:center !important; gap:14px !important; padding:14px 16px !important; border-radius:16px !important; background:rgba(0,0,0,.5) !important; text-align:left !important; margin-bottom:20px !important; }
-.dhc .dh-cod .dh-ic{ font-size:28px !important; flex:none !important; }
-.dhc .dh-cod b{ display:block !important; font:700 13px/1.3 'Unbounded',sans-serif !important; margin-bottom:2px !important; }
-.dhc .dh-cod span{ font-size:13px !important; color:var(--muted) !important; }
+.fzc .fzc-cod{ display:flex !important; align-items:center !important; gap:14px !important; padding:14px 16px !important; border-radius:16px !important; background:rgba(0,0,0,.5) !important; text-align:left !important; margin-bottom:20px !important; }
+.fzc .fzc-cod .fzc-ic{ font-size:28px !important; flex:none !important; }
+.fzc .fzc-cod b{ display:block !important; font:800 14px/1.3 'Golos Text',sans-serif !important; margin-bottom:2px !important; }
+.fzc .fzc-cod span{ font-size:13px !important; color:var(--muted) !important; }
 
-.dhc .dh-down{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:4px !important; padding-bottom:18px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.7); }
-.dhc .dh-down em{ font-style:normal !important; font-size:26px !important; color:var(--pink) !important; text-shadow:0 0 12px var(--pink); animation:dhcBounce 1.4s ease-in-out infinite !important; }
+.fzc .fzc-down{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:4px !important; padding-bottom:18px !important; font:800 13px/1 'Golos Text',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.7); }
+.fzc .fzc-down em{ font-style:normal !important; font-size:26px !important; color:var(--pink) !important; text-shadow:0 0 12px var(--pink); animation:fzcBounce 1.4s ease-in-out infinite !important; }
 
 /* блок 2 */
-.dhc.dh-bottom{ clear:both !important; float:left !important; width:100% !important; margin-top:24px !important; border-radius:18px !important; padding:30px 0 40px !important; }
-.dhc .dh-trust{ display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:10px !important; margin-bottom:22px !important; }
-.dhc .dh-tr{ border-radius:16px !important; padding:16px 8px !important; background:var(--card) !important; text-align:center !important; }
-.dhc .dh-tr .dh-i{ font-size:24px !important; margin-bottom:6px !important; }
-.dhc .dh-tr b{ display:block !important; font:700 11px/1.3 'Unbounded',sans-serif !important; }
-.dhc .dh-tr span{ display:block !important; font-size:11px !important; color:var(--muted) !important; margin-top:3px !important; }
-.dhc .dh-qa{ display:grid !important; gap:10px !important; }
-.dhc details{ border-radius:14px !important; background:var(--card) !important; border-width:1px !important; border-style:solid !important; border-color:rgba(255,255,255,.08); padding:0 16px !important; }
-.dhc details[open]{ border-color:rgba(var(--pink-rgb),.6); box-shadow:0 0 18px rgba(var(--pink-rgb),.2); }
-.dhc summary{ list-style:none !important; cursor:pointer !important; padding:16px 28px 16px 0 !important; position:relative !important; font:700 13px/1.35 'Unbounded',sans-serif !important; }
-.dhc summary::-webkit-details-marker{ display:none !important; }
-.dhc summary::after{ content:"+" !important; position:absolute !important; right:0 !important; top:50% !important; transform:translateY(-50%); font-size:22px !important; color:var(--gold) !important; transition:transform .2s !important; }
-.dhc details[open] summary::after{ transform:translateY(-50%) rotate(45deg); color:var(--pink) !important; }
-.dhc details p{ margin:0 0 16px !important; color:var(--muted) !important; font-size:14px !important; }
-.dhc .dh-up{ display:block !important; text-align:center !important; margin-top:22px !important; font:700 12px/1 'Unbounded',sans-serif !important; letter-spacing:1.5px !important; color:var(--pink) !important; text-decoration:none !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.7); }
+.fzc.fzc-bottom{ clear:both !important; float:left !important; width:100% !important; margin-top:24px !important; border-radius:18px !important; padding:30px 0 40px !important; }
+.fzc .fzc-trust{ display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:10px !important; margin-bottom:22px !important; }
+.fzc .fzc-tr{ border-radius:16px !important; padding:16px 8px !important; background:var(--card) !important; text-align:center !important; }
+.fzc .fzc-tr .fzc-i{ font-size:24px !important; margin-bottom:6px !important; }
+.fzc .fzc-tr b{ display:block !important; font:800 12px/1.3 'Golos Text',sans-serif !important; }
+.fzc .fzc-tr span{ display:block !important; font-size:11px !important; color:var(--muted) !important; margin-top:3px !important; }
+.fzc .fzc-qa{ display:grid !important; gap:10px !important; }
+.fzc details{ border-radius:14px !important; background:var(--card) !important; border-width:1px !important; border-style:solid !important; border-color:rgba(255,255,255,.08); padding:0 16px !important; }
+.fzc details[open]{ border-color:rgba(var(--pink-rgb),.6); box-shadow:0 0 18px rgba(var(--pink-rgb),.2); }
+.fzc summary{ list-style:none !important; cursor:pointer !important; padding:16px 28px 16px 0 !important; position:relative !important; font:800 15px/1.35 'Golos Text',sans-serif !important; }
+.fzc summary::-webkit-details-marker{ display:none !important; }
+.fzc summary::after{ content:"+" !important; position:absolute !important; right:0 !important; top:50% !important; transform:translateY(-50%); font-size:22px !important; color:var(--gold) !important; transition:transform .2s !important; }
+.fzc details[open] summary::after{ transform:translateY(-50%) rotate(45deg); color:var(--pink) !important; }
+.fzc details p{ margin:0 0 16px !important; color:var(--muted) !important; font-size:14px !important; }
+.fzc .fzc-up{ display:block !important; text-align:center !important; margin-top:22px !important; font:800 13px/1 'Golos Text',sans-serif !important; letter-spacing:1.5px !important; color:var(--pink) !important; text-decoration:none !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.7); }
 
-@media (min-width:760px){ .dhc .dh-top{ padding-top:44px !important; } }
+@media (min-width:760px){ .fzc .fzc-top{ padding-top:44px !important; } }
 @media (prefers-reduced-motion:reduce){
-  .dhc.dhc.dhc.dhc *, .dhc.dhc.dhc.dhc *::before, .dhc.dhc.dhc.dhc *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+  .fzc.fzc.fzc.fzc *, .fzc.fzc.fzc.fzc *::before, .fzc.fzc.fzc.fzc *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
 }
 
-.dhc .dh-set{ display:grid !important; grid-template-columns:1fr !important; gap:14px !important; border-radius:20px !important; padding:10px 10px 18px !important; background:var(--card) !important; margin-bottom:18px !important; text-align:center !important; }
-.dhc .dh-set img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:14px !important; }
-.dhc .dh-set-name{ font:900 18px/1.2 'Unbounded',sans-serif !important; }
-.dhc .dh-set-name .dh-p{ color:var(--pink) !important; } .dhc .dh-set-name .dh-g{ color:var(--gold) !important; }
-.dhc .dh-set-sub{ font-size:12px !important; letter-spacing:1.5px !important; color:var(--muted) !important; margin:6px 0 10px !important; }
-.dhc .dh-set-price{ font:900 34px/1 'Unbounded',sans-serif !important; }
-.dhc .dh-set-price small{ display:block !important; font:600 11px/1.4 'Montserrat',sans-serif !important; letter-spacing:2px !important; color:var(--gold) !important; margin-top:6px !important; text-transform:uppercase !important; }
-@media (min-width:760px){ .dhc .dh-set{ grid-template-columns:1fr 1fr !important; align-items:center !important; padding:12px 24px 12px 12px !important; } }
+.fzc .fzc-set{ display:grid !important; grid-template-columns:1fr !important; gap:14px !important; border-radius:20px !important; padding:10px 10px 18px !important; background:var(--card) !important; margin-bottom:18px !important; text-align:center !important; }
+.fzc .fzc-set img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:14px !important; }
+.fzc .fzc-set-name{ font:400 15px/1.35 'Rubik Mono One',sans-serif !important; }
+.fzc .fzc-set-name .fzc-p{ color:var(--pink) !important; } .fzc .fzc-set-name .fzc-g{ color:var(--gold) !important; }
+.fzc .fzc-set-sub{ font-size:12px !important; letter-spacing:1.5px !important; color:var(--muted) !important; margin:6px 0 10px !important; }
+.fzc .fzc-set-price{ font:400 34px/1 'Rubik Mono One',sans-serif !important; }
+.fzc .fzc-set-price small{ display:block !important; font:600 11px/1.4 'Golos Text',sans-serif !important; letter-spacing:2px !important; color:var(--gold) !important; margin-top:6px !important; text-transform:uppercase !important; }
+@media (min-width:760px){ .fzc .fzc-set{ grid-template-columns:1fr 1fr !important; align-items:center !important; padding:12px 24px 12px 12px !important; } }
 
 /* ===================== ДИЗАЙН НА ЧЕКАУТА (.widget-checkout) ===================== */
 .widget-checkout .checkout-info[data-step="info"] {
-  background: #FFF9FC !important;
+  background: #FFFBF8 !important;
   border-radius: 16px !important;
   padding: 32px 28px !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
-  border: 1px solid rgba(255, 46, 166,0.35) !important;
+  border: 1px solid rgba(255, 90, 31,0.35) !important;
   font-family: 'Helvetica Neue', Arial, sans-serif !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
 }
 .widget-checkout .checkout-info-inner {
   font-family: 'Helvetica Neue', Arial, sans-serif !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
 }
 .widget-checkout .checkout-info h2,
 .widget-checkout .checkout-info h3 {
   font-family: 'Georgia', serif !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-size: 20px !important;
   font-weight: 400 !important;
   letter-spacing: 0.5px !important;
   margin: 0 0 18px 0 !important;
   padding: 0 0 12px 0 !important;
-  border-bottom: 1px solid rgba(255, 46, 166,0.35) !important;
+  border-bottom: 1px solid rgba(255, 90, 31,0.35) !important;
   line-height: 1.3 !important;
 }
 .widget-checkout .checkout-info h3::before {
   content: "\25C6  " !important;
-  color: #FF2EA6 !important;
+  color: #FF5A1F !important;
   font-size: 13px !important;
   vertical-align: middle !important;
   margin-right: 6px !important;
@@ -146,12 +146,12 @@
 .widget-checkout .checkout-info input[type="number"],
 .widget-checkout .checkout-info select {
   background: #FFFFFF !important;
-  border: 1.5px solid rgba(255, 46, 166, 0.45) !important;
+  border: 1.5px solid rgba(255, 90, 31, 0.45) !important;
   border-radius: 8px !important;
   padding: 14px 16px !important;
   font-size: 15px !important;
   font-family: 'Helvetica Neue', Arial, sans-serif !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   margin-bottom: 12px !important;
   transition: all 0.2s ease !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
@@ -162,8 +162,8 @@
 }
 .widget-checkout .checkout-info input:focus,
 .widget-checkout .checkout-info select:focus {
-  border-color: #FF2EA6 !important;
-  box-shadow: 0 0 0 3px rgba(255, 46, 166, 0.25) !important;
+  border-color: #FF5A1F !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.25) !important;
   outline: none !important;
   background: #FFFFFF !important;
 }
@@ -176,7 +176,7 @@
   appearance: none !important;
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='%23FF2EA6' d='M6 8L0 0h12z'/%3e%3c/svg%3e") !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='%23FF5A1F' d='M6 8L0 0h12z'/%3e%3c/svg%3e") !important;
   background-repeat: no-repeat !important;
   background-position: right 16px center !important;
   background-size: 12px !important;
@@ -194,8 +194,8 @@
   margin-bottom: 22px !important;
 }
 .widget-checkout .steps-breadcrumbs-inner {
-  background: linear-gradient(90deg, #FFF1F8 0%, #FFE1F0 50%, #FFF1F8 100%) !important;
-  border: 1px solid rgba(255, 46, 166,0.35) !important;
+  background: linear-gradient(90deg, #FFF3EC 0%, #FFE4D3 50%, #FFF3EC 100%) !important;
+  border: 1px solid rgba(255, 90, 31,0.35) !important;
   border-radius: 10px !important;
   padding: 14px 18px !important;
   display: flex !important;
@@ -213,10 +213,10 @@
   padding: 0 !important;
 }
 .widget-checkout .checkout-style-1 .checkout-step.active {
-  color: #C2187A !important;
+  color: #C2410C !important;
 }
 .widget-checkout .checkout-steps svg {
-  fill: rgba(255, 46, 166, 0.6) !important;
+  fill: rgba(255, 90, 31, 0.6) !important;
   width: 18px !important;
   height: 18px !important;
 }
@@ -226,7 +226,7 @@
 }
 .widget-checkout .login-question a,
 .widget-checkout .toggle-fields {
-  color: #C2187A !important;
+  color: #C2410C !important;
   font-weight: 600 !important;
   text-decoration: underline !important;
 }
@@ -240,11 +240,11 @@
 }
 .widget-checkout .tick-wrapper.small input[type="checkbox"] {
   margin-right: 8px !important;
-  accent-color: #FF2EA6 !important;
+  accent-color: #FF5A1F !important;
 }
 .widget-checkout .payment-mehtods-wrapper .tick-wrapper {
   background: #FFFFFF !important;
-  border: 1.5px solid rgba(255, 46, 166, 0.45) !important;
+  border: 1.5px solid rgba(255, 90, 31, 0.45) !important;
   border-radius: 10px !important;
   padding: 16px 20px !important;
   margin-bottom: 12px !important;
@@ -254,17 +254,17 @@
   align-items: center !important;
   gap: 10px !important;
   font-size: 15px !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-weight: 500 !important;
 }
 .widget-checkout .payment-mehtods-wrapper .tick-wrapper:hover {
-  border-color: #FF2EA6 !important;
-  box-shadow: 0 5px 15px rgba(255, 46, 166, 0.25) !important;
+  border-color: #FF5A1F !important;
+  box-shadow: 0 5px 15px rgba(255, 90, 31, 0.25) !important;
   transform: translateY(-1px) !important;
-  background: rgba(255, 46, 166, 0.06) !important;
+  background: rgba(255, 90, 31, 0.06) !important;
 }
 .widget-checkout .payment-mehtods-wrapper .tick-wrapper input[type="radio"] {
-  accent-color: #FF2EA6 !important;
+  accent-color: #FF5A1F !important;
   width: 18px !important;
   height: 18px !important;
   cursor: pointer !important;
@@ -273,11 +273,11 @@
   flex: 1 !important;
 }
 .widget-checkout .payment-mehtods-wrapper .tick-wrapper * {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
 }
 .widget-checkout [data-role="next-step"],
 .widget-checkout [data-role="continue"] {
-  background: #FF2EA6 !important;
+  background: #FF5A1F !important;
   color: #000000 !important;
   font-family: 'Helvetica Neue', Arial, sans-serif !important;
   font-weight: 700 !important;
@@ -287,7 +287,7 @@
   border-radius: 14px !important;
   padding: 20px 32px !important;
   border: none !important;
-  box-shadow: 0 18px 60px -20px rgba(255, 46, 166, 0.6) !important;
+  box-shadow: 0 18px 60px -20px rgba(255, 90, 31, 0.6) !important;
   transition: all 0.3s ease !important;
   margin-top: 14px !important;
   display: block !important;
@@ -298,8 +298,8 @@
 .widget-checkout [data-role="next-step"]:hover,
 .widget-checkout [data-role="continue"]:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 25px 60px -15px rgba(255, 46, 166, 0.7) !important;
-  background: #FF55B8 !important;
+  box-shadow: 0 25px 60px -15px rgba(255, 90, 31, 0.7) !important;
+  background: #FF7A45 !important;
 }
 .widget-checkout [data-role="continue"] i {
   margin-left: 8px !important;
@@ -312,21 +312,21 @@
   display: inline-block !important;
 }
 .widget-checkout [data-role="back"]:hover {
-  color: #C2187A !important;
+  color: #C2410C !important;
 }
 .widget-checkout .checkout-summary,
 .widget-checkout .checkout-summary.cart-items-wrapper {
-  background: #FFF9FC !important;
+  background: #FFFBF8 !important;
   border-radius: 14px !important;
   padding: 28px !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
-  border: 1px solid rgba(255, 46, 166,0.35) !important;
+  border: 1px solid rgba(255, 90, 31,0.35) !important;
   margin-top: 25px !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
 }
 .widget-checkout .checkout-summary h3 {
   font-family: 'Georgia', serif !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-size: 18px !important;
   font-weight: 700 !important;
   border: none !important;
@@ -338,8 +338,8 @@
   content: none !important;
 }
 .widget-checkout .cart-container .cart-labels {
-  background: #FFF1F8 !important;
-  border: 1px solid rgba(255, 46, 166, 0.25) !important;
+  background: #FFF3EC !important;
+  border: 1px solid rgba(255, 90, 31, 0.25) !important;
   padding: 10px 14px !important;
   border-radius: 6px !important;
   margin-bottom: 12px !important;
@@ -347,19 +347,19 @@
 .widget-checkout .cart-container .cart-labels span {
   font-size: 11px !important;
   letter-spacing: 1.5px !important;
-  color: #C2187A !important;
+  color: #C2410C !important;
   text-transform: uppercase !important;
   font-weight: 700 !important;
 }
 .widget-checkout .cart-container .product-info,
 .widget-checkout .cart-container .product-info a {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-weight: 600 !important;
   font-size: 14px !important;
 }
 .widget-checkout .cart-container .qty,
 .widget-checkout .cart-container .row-total {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-size: 14px !important;
 }
 .widget-checkout .subtotal-wrapper {
@@ -370,41 +370,41 @@
   font-size: 14px !important;
 }
 .widget-checkout .subtotal-wrapper .subtotal-price {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-weight: 600 !important;
   font-size: 14px !important;
 }
 .widget-checkout .grand-total-wrapper {
   padding: 16px 0 8px 0 !important;
-  border-top: 2px solid rgba(255, 46, 166, 0.5) !important;
+  border-top: 2px solid rgba(255, 90, 31, 0.5) !important;
   margin-top: 10px !important;
 }
 .widget-checkout .grand-total-wrapper .subtotal {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-size: 16px !important;
   font-weight: 800 !important;
   text-transform: uppercase !important;
   letter-spacing: 1.5px !important;
 }
 .widget-checkout .grand-total-wrapper .subtotal-price.grand-total {
-  color: #C2187A !important;
+  color: #C2410C !important;
   font-family: 'Georgia', serif !important;
   font-size: 30px !important;
   font-weight: 700 !important;
   line-height: 1 !important;
 }
 .widget-checkout .promo-code-toggle-btn {
-  color: #C2187A !important;
+  color: #C2410C !important;
   font-weight: 600 !important;
   text-decoration: underline !important;
   font-size: 13px !important;
   cursor: pointer !important;
 }
 .widget-checkout .discount-code-btn {
-  background: rgba(255, 46, 166, 0.12) !important;
-  color: #C2187A !important;
+  background: rgba(255, 90, 31, 0.12) !important;
+  color: #C2410C !important;
   padding: 12px 20px !important;
-  border: 1px solid rgba(255, 46, 166, 0.5) !important;
+  border: 1px solid rgba(255, 90, 31, 0.5) !important;
   border-radius: 8px !important;
   font-weight: 700 !important;
   font-size: 13px !important;
@@ -415,13 +415,13 @@
   transition: all 0.2s ease !important;
 }
 .widget-checkout .discount-code-btn:hover {
-  background: #FF2EA6 !important;
+  background: #FF5A1F !important;
   color: #000000 !important;
 }
 .widget-checkout .secured-checkout-wrapper {
   margin-top: 22px !important;
   padding-top: 18px !important;
-  border-top: 1px solid rgba(255, 46, 166, 0.35) !important;
+  border-top: 1px solid rgba(255, 90, 31, 0.35) !important;
   display: flex !important;
   flex-wrap: wrap !important;
   gap: 12px !important;
@@ -432,7 +432,7 @@
   gap: 8px !important;
 }
 .widget-checkout .secured-checkout-wrapper svg {
-  fill: #FF2EA6 !important;
+  fill: #FF5A1F !important;
   width: 20px !important;
   height: 20px !important;
 }
@@ -442,7 +442,7 @@
   font-weight: 500 !important;
 }
 .widget-checkout .store-policies a {
-  color: #C2187A !important;
+  color: #C2410C !important;
   font-size: 12px !important;
   text-decoration: underline !important;
   margin-right: 14px !important;
@@ -450,7 +450,7 @@
   margin-bottom: 8px !important;
 }
 .widget-checkout .store-policies a:hover {
-  color: #FF2EA6 !important;
+  color: #FF5A1F !important;
 }
 .widget-checkout .error-message {
   color: #e25041 !important;
@@ -458,7 +458,7 @@
   margin-top: 8px !important;
 }
 .widget-checkout .checkout-spinner {
-  border-color: #FF2EA6 !important;
+  border-color: #FF5A1F !important;
 }
 .widget-checkout .free-shipping-bar {
   display: none !important;
@@ -582,42 +582,42 @@ select[name="phoneCountryIso"],
 /* Доставка: Еконт / Pigeon */
 .widget-checkout #mw-shipping .mw-couriers-choose {
   background: #FFFFFF !important;
-  border: 1.5px solid rgba(255, 46, 166, 0.35) !important;
+  border: 1.5px solid rgba(255, 90, 31, 0.35) !important;
   border-radius: 10px !important;
   padding: 12px 14px !important;
   margin-bottom: 10px !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
 }
 .widget-checkout #mw-shipping .mw-couriers-choose.mw-couriers-selected {
-  border-color: #FF2EA6 !important;
-  box-shadow: 0 0 0 3px rgba(255, 46, 166, 0.18) !important;
+  border-color: #FF5A1F !important;
+  box-shadow: 0 0 0 3px rgba(255, 90, 31, 0.18) !important;
 }
 .widget-checkout #mw-shipping .mw-table td,
 .widget-checkout #mw-shipping .mw-couriers-text,
 .widget-checkout #mw-shipping .mw-couriers-text i {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-size: 15px !important;
   font-family: 'Helvetica Neue', Arial, sans-serif !important;
 }
 .widget-checkout #mw-shipping input[type="radio"] {
-  accent-color: #FF2EA6 !important;
+  accent-color: #FF5A1F !important;
 }
 .widget-checkout #mw-shipping .mw-couriers-menu {
-  border: 1.5px solid rgba(255, 46, 166, 0.45) !important;
+  border: 1.5px solid rgba(255, 90, 31, 0.45) !important;
   border-radius: 8px !important;
   background: #FFFFFF !important;
 }
 .widget-checkout #mw-shipping .mw-couriers-dd,
 .widget-checkout #mw-shipping .mw-couriers-dd-menu {
   background: #FFFFFF !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
 }
 .widget-checkout #mw-shipping .mw-couriers-office {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-size: 13px !important;
 }
 .widget-checkout #mw-shipping .mw-couriers-office:hover {
-  background: #FFF1F8 !important;
+  background: #FFF3EC !important;
 }
 .widget-checkout #mw-shipping .mw-error {
   color: #e25041 !important;
@@ -625,14 +625,14 @@ select[name="phoneCountryIso"],
 }
 /* Допълнителни оферти (bump) */
 .widget-checkout .bump-wrapper > .tick-wrapper {
-  background: #FFF1F8 !important;
-  border-color: rgba(255, 46, 166, 0.55) !important;
+  background: #FFF3EC !important;
+  border-color: rgba(255, 90, 31, 0.55) !important;
   border-radius: 14px !important;
-  color: #1F1218 !important;
+  color: #1A1410 !important;
 }
 .widget-checkout .bump-wrapper .bump-badge {
   display: inline-block !important;
-  background: #FF2EA6 !important;
+  background: #FF5A1F !important;
   color: #000000 !important;
   font-weight: 800 !important;
   font-size: 11px !important;
@@ -642,7 +642,7 @@ select[name="phoneCountryIso"],
 }
 .widget-checkout .bump-wrapper .bump-title,
 .widget-checkout .bump-wrapper h4 {
-  color: #1F1218 !important;
+  color: #1A1410 !important;
   font-family: 'Helvetica Neue', Arial, sans-serif !important;
 }
 .widget-checkout .bump-wrapper .bump-description span {
@@ -650,24 +650,24 @@ select[name="phoneCountryIso"],
   font-size: 13px !important;
 }
 .widget-checkout .bump-wrapper input[type="checkbox"] {
-  accent-color: #FF2EA6 !important;
+  accent-color: #FF5A1F !important;
 }
 .widget-checkout .bump-wrapper .bump-add.inactive-bump {
-  background: #FF2EA6 !important;
+  background: #FF5A1F !important;
   color: #000000 !important;
   font-weight: 700 !important;
   border-radius: 8px !important;
   padding: 10px 16px !important;
 }
 .widget-checkout .bump-wrapper .bump-add.active-bump {
-  background: #1F1218 !important;
+  background: #1A1410 !important;
   color: #FFFFFF !important;
   font-weight: 700 !important;
   border-radius: 8px !important;
   padding: 10px 16px !important;
 }
 .widget-checkout .bump-wrapper .remove-bump {
-  color: #C2187A !important;
+  color: #C2410C !important;
   text-decoration: underline !important;
 }
 
@@ -687,59 +687,59 @@ select[name="phoneCountryIso"],
 }
 </style>
 
-<div class="dhc">
-  <div class="dh-glow"></div>
-  <div class="dh-ticker" aria-hidden="true"><div class="dh-ticker-in">
-    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Комплект Pink + Gold · 21.90€</span>
-    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Комплект Pink + Gold · 21.90€</span>
+<div class="fzc">
+  <div class="fzc-glow"></div>
+  <div class="fzc-ticker" aria-hidden="true"><div class="fzc-ticker-in">
+    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Комплект Лед + Огън · 56.90€</span>
+    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Комплект Лед + Огън · 56.90€</span>
   </div></div>
 
-  <div class="dh-top"><div class="dh-wrap">
-    <div class="dh-logo dh-neon-text">DIRHAM</div>
+  <div class="fzc-top"><div class="fzc-wrap">
+    <div class="fzc-logo fzc-neon-text">❄ FREEZE 🔥</div>
 
-    <div class="dh-steps" aria-label="Стъпки на поръчката">
-      <div class="dh-st dh-done"><i>✓</i>Комплект</div>
-      <div class="dh-ln"></div>
-      <div class="dh-st dh-now"><i>2</i>Данни</div>
-      <div class="dh-ln dh-off"></div>
-      <div class="dh-st"><i>3</i>Готово</div>
+    <div class="fzc-steps" aria-label="Стъпки на поръчката">
+      <div class="fzc-st fzc-done"><i>✓</i>Комплект</div>
+      <div class="fzc-ln"></div>
+      <div class="fzc-st fzc-now"><i>2</i>Данни</div>
+      <div class="fzc-ln fzc-off"></div>
+      <div class="fzc-st"><i>3</i>Готово</div>
     </div>
 
-    <h1>Почти са <span class="dh-neon-text">твои</span></h1>
-    <p class="dh-sub">Попълни името, телефона и адреса си и избери куриер. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
+    <h1>Почти са <span class="fzc-neon-text">твои</span></h1>
+    <p class="fzc-sub">Попълни името, телефона и адреса си и избери куриер. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
 
-    <div class="dh-set dh-neon">
-      <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/B45F887B-DEEB-4F81-BCF9-EF2BEDEA0862-0966252.png?format=webp" alt="Комплект Dirham Pink и Dirham Gold, 2 × 100 ml" width="1200" height="1200">
+    <div class="fzc-set fzc-neon">
+      <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/b2271c2a-0ef3-4889-a9ce-883009822672-1021785.png?format=webp" alt="Комплект RiiFFS Freeze и Freeze in Flames, 2 × 100 ml" width="1200" height="1200">
       <div>
-        <div class="dh-set-name"><span class="dh-p">DIRHAM PINK</span> + <span class="dh-g">DIRHAM GOLD</span></div>
-        <div class="dh-set-sub">2 × 100 ML · EAU DE PARFUM</div>
-        <div class="dh-set-price">21.90€<small>за целия комплект · 2 бр.</small></div>
+        <div class="fzc-set-name"><span class="fzc-p">❄ FREEZE</span> + <span class="fzc-g">🔥 FREEZE IN FLAMES</span></div>
+        <div class="fzc-set-sub">RIIFFS · 2 × 100 ML · EXTRAIT DE PARFUM</div>
+        <div class="fzc-set-price">56.90€<small>за целия комплект · 2 бр.</small></div>
       </div>
     </div>
 
-    <div class="dh-cod dh-neon dh-d2">
-      <div class="dh-ic">📦</div>
+    <div class="fzc-cod fzc-neon fzc-d2">
+      <div class="fzc-ic">📦</div>
       <div><b>Наложен платеж</b><span>Без карта и без предплащане. Плащаш едва когато пратката е в ръцете ти.</span></div>
     </div>
 
-    <div class="dh-down">Попълни формата<em>↓</em></div>
+    <div class="fzc-down">Попълни формата<em>↓</em></div>
   </div></div>
 </div>
 
-<div class="dhc dh-bottom" id="dhcBottom" style="display:none">
-  <div class="dh-wrap">
-    <div class="dh-trust">
-      <div class="dh-tr dh-neon"><div class="dh-i">💶</div><b>Плащаш при доставка</b><span>Наложен платеж</span></div>
-      <div class="dh-tr dh-neon dh-d1"><div class="dh-i">💧</div><b>2 бр. × 100 ml</b><span>в комплекта</span></div>
-      <div class="dh-tr dh-neon dh-d2"><div class="dh-i">✨</div><b>21.90€</b><span>за комплекта</span></div>
+<div class="fzc fzc-bottom" id="fzcBottom" style="display:none">
+  <div class="fzc-wrap">
+    <div class="fzc-trust">
+      <div class="fzc-tr fzc-neon"><div class="fzc-i">💶</div><b>Плащаш при доставка</b><span>Наложен платеж</span></div>
+      <div class="fzc-tr fzc-neon fzc-d1"><div class="fzc-i">💧</div><b>2 бр. × 100 ml</b><span>в комплекта</span></div>
+      <div class="fzc-tr fzc-neon fzc-d2"><div class="fzc-i">✨</div><b>56.90€</b><span>за комплекта</span></div>
     </div>
-    <div class="dh-qa">
+    <div class="fzc-qa">
       <details><summary>Трябва ли да платя сега?</summary><p>Не. Плащаш с наложен платеж на куриера, когато получиш пратката.</p></details>
-      <details><summary>Какво има в комплекта?</summary><p>Dirham Pink 100 ml и Dirham Gold 100 ml, и двата Eau de Parfum. Получаваш ги заедно за 21.90€.</p></details>
+      <details><summary>Какво има в комплекта?</summary><p>RiiFFS Freeze 100 ml и RiiFFS Freeze in Flames 100 ml. Получаваш ги заедно за 56.90€.</p></details>
       <details><summary>Колко струва доставката?</summary><p>Зависи от куриера и дали е до офис или до адрес. Сумата се показва във формата, преди да потвърдиш поръчката.</p></details>
-      <details><summary>Какво значи „вдъхновено от“?</summary><p>Dirham Pink и Dirham Gold са самостоятелни аромати на Manasik, изградени около характера и нотките на посочените парфюми. Не са техни оригинали.</p></details>
+      <details><summary>Какво значи „вдъхновено от“?</summary><p>Freeze е самостоятелен аромат на RiiFFS, изграден около характера на Ice Fragrance. Не е негов оригинал.</p></details>
     </div>
-    <a href="#" class="dh-up" id="dhcUp">↑ Обратно към формата</a>
+    <a href="#" class="fzc-up" id="fzcUp">↑ Обратно към формата</a>
   </div>
 </div>
 
@@ -748,7 +748,7 @@ select[name="phoneCountryIso"],
   function wc(){ return document.querySelector('.widget-checkout'); }
   /* 1. Блокът с въпросите отива точно под чекаута */
   function placeBottom(){
-    var b=document.getElementById('dhcBottom'), w=wc();
+    var b=document.getElementById('fzcBottom'), w=wc();
     if(!b||!w) return false;
     var host=w.querySelector('.main-widget-content')||w;
     if(b.parentNode!==host||host.lastElementChild!==b) host.appendChild(b);
@@ -767,7 +767,7 @@ select[name="phoneCountryIso"],
     var cod=document.querySelector('.widget-checkout [data-payment="cod"] input[type="radio"]');
     if(cod&&!cod.checked) cod.click();
   }
-  var up=document.getElementById('dhcUp');
+  var up=document.getElementById('fzcUp');
   if(up) up.addEventListener('click',function(e){ var w=wc(); if(w){ e.preventDefault(); w.scrollIntoView({behavior:'smooth',block:'start'}); } });
   var tries=0;
   (function tick(){

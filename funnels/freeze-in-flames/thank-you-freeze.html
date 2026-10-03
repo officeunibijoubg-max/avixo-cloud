@@ -1,0 +1,127 @@
+<!-- =========================================================
+     FREEZE + FREEZE IN FLAMES — Thank You (лед и огън)
+     ConvertBuilder фрагмент · Viber авто-пренасочване след 3 сек
+     ========================================================= -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+#fzt#fzt *{ float:none !important; }
+#fzt{ --ice:#2fd8ff; --ice-rgb:47,216,255; --frost:#b8f4ff; --fire:#ff4d1a; --fire-rgb:255,77,26; --ember:#ffb21f; --lava:#ff1744; --ink:#04060c; --card:#0b1120; --text:#eef6ff; --muted:rgba(238,246,255,.72); font-family:'Golos Text',Arial,sans-serif !important; color:var(--text) !important; line-height:1.55 !important; background:linear-gradient(112deg, rgba(var(--ice-rgb),.22) 0%, #04060c 45%, #04060c 55%, rgba(var(--fire-rgb),.26) 100%), #04060c !important; min-height:100vh !important; width:100% !important; position:relative !important; overflow:hidden !important; padding:0 0 50px !important; }
+#fzt *{ box-sizing:border-box !important; }
+#fzt img{ max-width:100% !important; display:block !important; }
+
+@keyframes fztNeon{
+  0%,22%  { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+  25%,47% { border-color:var(--frost); box-shadow:0 0 6px var(--frost),0 0 24px rgba(184,244,255,.6),inset 0 0 14px rgba(184,244,255,.3); }
+  50%,72% { border-color:var(--ember); box-shadow:0 0 6px var(--ember),0 0 24px rgba(255,178,31,.7),inset 0 0 14px rgba(255,178,31,.35); }
+  75%,97% { border-color:var(--fire);  box-shadow:0 0 6px var(--fire),0 0 26px rgba(var(--fire-rgb),.8),inset 0 0 14px rgba(var(--fire-rgb),.4); }
+  100%    { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+}
+@keyframes fztPop{ 0%{transform:scale(.2)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
+@keyframes fztDraw{ from{ stroke-dashoffset:60; } to{ stroke-dashoffset:0; } }
+@keyframes fztScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes fztFall{ 0%{ transform:translateY(-10vh) rotate(0); opacity:1 } 100%{ transform:translateY(115vh) rotate(420deg); opacity:.8 } }
+@keyframes fztBounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+@keyframes fztFill{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+#fzt .fzt-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--ice); animation:fztNeon 8s linear infinite !important; }
+#fzt .fzt-neon.fzt-d1{ animation-delay:-3s !important; }
+#fzt .fzt-ice-t{ color:var(--frost) !important; text-shadow:0 0 6px #fff,0 0 16px var(--ice),0 0 34px var(--ice); }
+#fzt .fzt-fire-t{ color:#ffe2b8 !important; text-shadow:0 0 6px #fff4e0,0 0 16px var(--fire),0 0 34px var(--lava); }
+
+#fzt .fzt-ticker{ background:#000 !important; border-bottom:1px solid rgba(var(--fire-rgb),.6) !important; overflow:hidden !important; white-space:nowrap !important; }
+#fzt .fzt-ticker-in{ display:inline-flex !important; gap:38px !important; padding:10px 0 !important; animation:fztScroll 22s linear infinite !important; font:400 12px/1 'Rubik Mono One',sans-serif !important; letter-spacing:1.5px !important; text-transform:uppercase !important; }
+#fzt .fzt-ticker-in span:nth-child(odd){ color:var(--ice) !important; text-shadow:0 0 10px rgba(var(--ice-rgb),.9); }
+#fzt .fzt-ticker-in span:nth-child(even){ color:var(--ember) !important; text-shadow:0 0 10px rgba(var(--fire-rgb),.9); }
+
+#fzt .fzt-wrap{ max-width:560px !important; margin:0 auto !important; padding:40px 16px 0 !important; text-align:center !important; position:relative !important; z-index:2 !important; }
+#fzt .fzt-check{ width:96px !important; height:96px !important; border-radius:50% !important; margin:0 auto 22px !important; display:flex !important; align-items:center !important; justify-content:center !important; background:#000 !important; border-width:3px !important; border-style:solid !important; border-color:var(--ice); animation:fztPop .6s cubic-bezier(.16,1,.3,1) both, fztNeon 8s linear infinite !important; }
+#fzt .fzt-check svg{ width:46px !important; height:46px !important; fill:none !important; stroke:#fff !important; stroke-width:4 !important; stroke-linecap:round !important; stroke-linejoin:round !important; stroke-dasharray:60 !important; animation:fztDraw .5s ease-out .5s both !important; }
+#fzt h1{ font:400 clamp(26px,8vw,52px)/1.05 'Rubik Mono One',sans-serif !important; margin:0 0 12px !important; }
+#fzt .fzt-sub{ font:800 clamp(16px,4.4vw,22px)/1.3 'Golos Text',sans-serif !important; margin:0 0 10px !important; }
+#fzt .fzt-lead{ color:var(--muted) !important; max-width:460px !important; margin:0 auto 28px !important; }
+
+#fzt .fzt-viber{ display:block !important; text-decoration:none !important; color:var(--text) !important; background:var(--card) !important; border-radius:20px !important; padding:24px 20px 20px !important; max-width:440px !important; margin:0 auto 26px !important; }
+#fzt .fzt-vtag{ font:800 10px/1 'Golos Text',sans-serif !important; letter-spacing:3px !important; text-transform:uppercase !important; color:var(--ember) !important; margin-bottom:14px !important; }
+#fzt .fzt-vic{ width:62px !important; height:62px !important; margin:0 auto 8px !important; display:block !important; border-radius:16px !important; }
+#fzt .fzt-arrow{ margin:0 auto 10px !important; animation:fztBounce 1.4s ease-in-out infinite !important; }
+#fzt .fzt-viber h2{ font:800 17px/1.35 'Golos Text',sans-serif !important; margin:0 0 8px !important; }
+#fzt .fzt-viber h2 b{ color:#a99bff !important; text-shadow:0 0 12px rgba(115,96,242,.9); }
+#fzt .fzt-viber p{ font-size:13px !important; color:var(--muted) !important; margin:0 0 14px !important; }
+#fzt .fzt-count{ font:400 13px/1 'Rubik Mono One',sans-serif !important; color:var(--frost) !important; margin-bottom:10px !important; }
+#fzt .fzt-bar{ height:6px !important; border-radius:6px !important; background:rgba(255,255,255,.1) !important; overflow:hidden !important; }
+#fzt .fzt-bar i{ display:block !important; height:100% !important; width:100% !important; transform-origin:left center !important; background:linear-gradient(90deg,var(--ice),#7360f2,var(--fire)) !important; animation:fztFill 3s linear both !important; }
+#fzt .fzt-vbtn{ display:inline-block !important; margin-top:16px !important; font:800 14px/1 'Golos Text',sans-serif !important; letter-spacing:.5px !important; padding:14px 22px !important; border-radius:99px !important; color:#fff !important; background:#7360f2 !important; box-shadow:0 0 22px rgba(115,96,242,.75); }
+
+#fzt .fzt-steps{ display:grid !important; gap:10px !important; text-align:left !important; max-width:440px !important; margin:0 auto 26px !important; }
+#fzt .fzt-step{ display:grid !important; grid-template-columns:44px 1fr !important; gap:12px !important; align-items:center !important; padding:12px 14px !important; border-radius:14px !important; background:rgba(11,17,32,.85) !important; }
+#fzt .fzt-step i{ width:44px !important; height:44px !important; border-radius:12px !important; display:flex !important; align-items:center !important; justify-content:center !important; font-style:normal !important; font-size:20px !important; background:#000 !important; }
+#fzt .fzt-step b{ display:block !important; font:800 14px/1.3 'Golos Text',sans-serif !important; }
+#fzt .fzt-step span{ font-size:13px !important; color:var(--muted) !important; }
+#fzt .fzt-pic{ max-width:440px !important; margin:0 auto !important; border-radius:22px !important; padding:8px !important; background:#000 !important; }
+#fzt .fzt-pic img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:15px !important; }
+
+#fzt .fzt-cf{ position:absolute !important; top:0 !important; z-index:5 !important; pointer-events:none !important; animation:fztFall linear forwards; }
+@media (prefers-reduced-motion:reduce){
+  #fzt#fzt *, #fzt#fzt *::before, #fzt#fzt *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+  #fzt .fzt-cf{ display:none !important; }
+}
+</style>
+
+<div id="fzt">
+  <div class="fzt-ticker" aria-hidden="true"><div class="fzt-ticker-in">
+    <span>✓ Поръчката е приета</span><span>Лед + Огън</span><span>Благодарим ти</span><span>Комплект Freeze + In Flames</span>
+    <span>✓ Поръчката е приета</span><span>Лед + Огън</span><span>Благодарим ти</span><span>Комплект Freeze + In Flames</span>
+  </div></div>
+
+  <div class="fzt-wrap">
+    <div class="fzt-check" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="4 12 10 18 20 6"></polyline></svg></div>
+    <h1><span class="fzt-ice-t">БЛАГО</span><span class="fzt-fire-t">ДАРИМ!</span></h1>
+    <p class="fzt-sub">Твоят комплект <span class="fzt-ice-t">лед</span> + <span class="fzt-fire-t">огън</span> е на път</p>
+    <p class="fzt-lead">Поръчката ти е приета и вече я обработваме. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
+
+    <a href="#" id="fztViber" class="fzt-viber fzt-neon">
+      <div class="fzt-vtag">❄ Бонус за теб 🔥</div>
+      <img class="fzt-vic" src="https://content.app-sources.com/s/698084040813523351/uploads/Images/%D0%BF%D0%B0%D1%80%D1%84%D1%8E%D0%BC%D0%B8_68-7309953.png?format=webp" alt="Viber">
+      <div class="fzt-arrow"><svg width="22" height="22" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display:block !important;margin:0 auto !important"><circle cx="16" cy="16" r="15" fill="none" stroke="#7360F2" stroke-width="1.8"/><path d="M10 18 L16 12 L22 18" stroke="#7360F2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+      <h2>Влез в затворения <b>Viber</b> канал за ексклузивни оферти</h2>
+      <p>След няколко секунди ще те пренасочим към групата.</p>
+      <div class="fzt-count" id="fztCount">ПРЕНАСОЧВАНЕ СЛЕД 3…</div>
+      <div class="fzt-bar"><i></i></div>
+      <span class="fzt-vbtn">Влез сега ➜</span>
+    </a>
+
+    <div class="fzt-steps">
+      <div class="fzt-step fzt-neon"><i>✅</i><div><b>Поръчката е приета</b><span>Получихме данните ти.</span></div></div>
+      <div class="fzt-step fzt-neon fzt-d1"><i>📦</i><div><b>Изпращаме комплекта</b><span>Freeze + Freeze in Flames тръгват с куриер към избрания офис или адрес.</span></div></div>
+      <div class="fzt-step fzt-neon"><i>💶</i><div><b>Плащаш при получаване</b><span>Наложен платеж, директно на куриера.</span></div></div>
+    </div>
+
+    <div class="fzt-pic fzt-neon fzt-d1"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/b2271c2a-0ef3-4889-a9ce-883009822672-1021785.png?format=webp" alt="Комплект RiiFFS Freeze и Freeze in Flames" width="1200" height="1200"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var VIBER_LINK = "https://invite.viber.com/?g2=AQAvRYvjcv%2FCQ1XLFSQG5T0d%2BOSA2yLvYeugV17e8hlaiHCEHehOeCG9Bl2RMAtV&lang=en";
+  var root = document.getElementById('fzt'); if (!root) return;
+  var link = document.getElementById('fztViber');
+  if (link) link.setAttribute('href', VIBER_LINK);
+
+  /* конфети от лед и огън */
+  if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    var em = ['❄', '🔥', '✦', '❄', '🔥', '💥'];
+    for (var i = 0; i < 60; i++) {
+      var c = document.createElement('span'); c.className = 'fzt-cf'; c.textContent = em[i % em.length];
+      c.style.cssText = 'left:' + (Math.random() * 100) + '%;font-size:' + (12 + Math.random() * 16) + 'px;animation-duration:' + (2.4 + Math.random() * 2.4) + 's;animation-delay:' + (Math.random() * 1.2) + 's';
+      root.appendChild(c); setTimeout(function (el) { el.remove(); }, 6500, c);
+    }
+  }
+
+  /* отброяване 3…2…1 и пренасочване към Viber */
+  var n = 3, cnt = document.getElementById('fztCount');
+  var t = setInterval(function () {
+    n--; if (cnt) cnt.textContent = n > 0 ? 'ПРЕНАСОЧВАНЕ СЛЕД ' + n + '…' : 'ОТВАРЯМЕ VIBER…';
+    if (n <= 0) clearInterval(t);
+  }, 1000);
+  setTimeout(function () { if (VIBER_LINK.indexOf('XXXX') === -1) window.location.href = VIBER_LINK; }, 3000);
+})();
+</script>

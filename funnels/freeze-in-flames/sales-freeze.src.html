@@ -1,0 +1,468 @@
+<!-- ===================== FREEZE + FREEZE IN FLAMES — ЛЕНДИНГ (един блок) ===================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+/* платформата слага float на някои елементи (напр. article) – тук не ни трябва */
+#fz#fz *{ float:none !important; }
+#fz{
+  --ice:#2fd8ff; --ice-rgb:47,216,255; --frost:#b8f4ff;
+  --fire:#ff4d1a; --fire-rgb:255,77,26; --ember:#ffb21f; --ember-rgb:255,178,31; --lava:#ff1744;
+  --ink:#04060c; --card:#0b1120; --text:#eef6ff; --muted:rgba(238,246,255,.7);
+  font-family:'Golos Text',Arial,sans-serif; color:var(--text); background:var(--ink);
+  line-height:1.55; overflow:hidden; position:relative;
+}
+#fz *{ box-sizing:border-box; }
+#fz img{ max-width:100%; display:block; }
+#fz a{ color:inherit; }
+#fz .fz-wrap{ max-width:1080px; margin:0 auto; padding:0 16px; position:relative; z-index:2; }
+
+/* ===== неонов цикъл: лед → скреж → жар → огън ===== */
+@keyframes fzNeon{
+  0%,22%  { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+  25%,47% { border-color:var(--frost); box-shadow:0 0 6px var(--frost),0 0 24px rgba(184,244,255,.6),inset 0 0 14px rgba(184,244,255,.3); }
+  50%,72% { border-color:var(--ember); box-shadow:0 0 6px var(--ember),0 0 24px rgba(var(--ember-rgb),.7),inset 0 0 14px rgba(var(--ember-rgb),.35); }
+  75%,97% { border-color:var(--fire);  box-shadow:0 0 6px var(--fire),0 0 26px rgba(var(--fire-rgb),.8),inset 0 0 14px rgba(var(--fire-rgb),.4); }
+  100%    { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+}
+@keyframes fzFlick{ 0%,17%,21%,24%,52%,56%,100%{opacity:1} 19%,23%,54%{opacity:.4} }
+@keyframes fzScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes fzGrad{ 0%,100%{background-position:0 0} 50%{background-position:100% 0} }
+@keyframes fzGlitchA{ 0%,86%,100%{ transform:translate(0,0); clip-path:inset(0 0 0 0); } 88%{ transform:translate(-4px,1px); clip-path:inset(10% 0 55% 0); } 91%{ transform:translate(4px,-1px); clip-path:inset(60% 0 8% 0); } 94%{ transform:translate(-2px,0); clip-path:inset(35% 0 35% 0); } }
+@keyframes fzGlitchB{ 0%,86%,100%{ transform:translate(0,0); clip-path:inset(0 0 0 0); } 89%{ transform:translate(4px,-1px); clip-path:inset(55% 0 12% 0); } 92%{ transform:translate(-4px,1px); clip-path:inset(5% 0 70% 0); } 95%{ transform:translate(3px,0); clip-path:inset(40% 0 30% 0); } }
+@keyframes fzCrack{ 0%,100%{opacity:.45} 45%{opacity:.25} 50%{opacity:.6} 52%{opacity:.15} 55%{opacity:.55} }
+@keyframes fzFall{ 0%{ transform:translateY(-10vh) rotate(0); opacity:0 } 10%{opacity:1} 100%{ transform:translateY(120vh) rotate(260deg); opacity:.2 } }
+@keyframes fzRise{ 0%{ transform:translateY(0) scale(.6); opacity:0 } 12%{opacity:1} 100%{ transform:translateY(-120vh) scale(1.2); opacity:0 } }
+@keyframes fzBurst{ to{ transform:translate(var(--x),var(--y)) rotate(160deg) scale(.5); opacity:0 } }
+@keyframes fzPulse{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.06)} }
+@keyframes fzShake{ 0%,100%{transform:translate(0,0)} 20%{transform:translate(-4px,2px)} 40%{transform:translate(4px,-2px)} 60%{transform:translate(-3px,-1px)} 80%{transform:translate(3px,1px)} }
+#fz .fz-neon{ border:2px solid var(--ice); animation:fzNeon 8s linear infinite; }
+#fz .fz-neon.fz-d1{ animation-delay:-2s; } #fz .fz-neon.fz-d2{ animation-delay:-4s; } #fz .fz-neon.fz-d3{ animation-delay:-6s; }
+#fz .fz-ice-t{ color:var(--frost); text-shadow:0 0 6px #fff,0 0 16px var(--ice),0 0 36px var(--ice); }
+#fz .fz-fire-t{ color:#ffe2b8; text-shadow:0 0 6px #fff4e0,0 0 16px var(--fire),0 0 36px var(--lava); }
+#fz .fz-flick{ animation:fzFlick 5s linear infinite; }
+
+/* ===== лента ===== */
+#fz .fz-ticker{ position:relative; z-index:3; background:#000; border-bottom:1px solid rgba(var(--fire-rgb),.6); overflow:hidden; white-space:nowrap; }
+#fz .fz-ticker-in{ display:inline-flex; gap:38px; padding:10px 0; animation:fzScroll 24s linear infinite; font:400 12px/1 'Rubik Mono One',sans-serif; letter-spacing:1.5px; text-transform:uppercase; }
+#fz .fz-ticker-in span:nth-child(odd){ color:var(--ice); text-shadow:0 0 10px rgba(var(--ice-rgb),.9); }
+#fz .fz-ticker-in span:nth-child(even){ color:var(--ember); text-shadow:0 0 10px rgba(var(--fire-rgb),.9); }
+
+/* ===== hero: лед | огън ===== */
+#fz .fz-hero{ position:relative; padding:40px 0 34px; text-align:center; overflow:hidden; }
+#fz .fz-hero-bg{ position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:linear-gradient(112deg, rgba(var(--ice-rgb),.30) 0%, rgba(var(--ice-rgb),.06) 47%, rgba(var(--fire-rgb),.07) 53%, rgba(var(--fire-rgb),.34) 100%),
+             radial-gradient(420px 300px at 0% 10%, rgba(var(--ice-rgb),.35), transparent 70%),
+             radial-gradient(420px 300px at 100% 90%, rgba(var(--lava),.0), transparent 70%); }
+#fz .fz-crack{ position:absolute; z-index:1; pointer-events:none; top:-10%; bottom:-10%; left:50%; width:2px; transform:rotate(22deg); background:linear-gradient(180deg,var(--frost),var(--ice) 35%,var(--ember) 65%,var(--fire)); box-shadow:0 0 14px var(--frost),0 0 30px var(--fire); animation:fzCrack 3.2s linear infinite; }
+#fz .fz-eyebrow{ display:inline-block; font:800 11px/1 'Golos Text',sans-serif; letter-spacing:3px; text-transform:uppercase; padding:9px 16px; border-radius:99px; background:rgba(0,0,0,.55); position:relative; z-index:2; }
+#fz .fz-title{ position:relative; z-index:2; margin:20px 0 6px; font:400 clamp(44px,13.5vw,120px)/.92 'Rubik Mono One',sans-serif; letter-spacing:-1px; }
+#fz .fz-gl{ position:relative; display:block; }
+#fz .fz-gl::before, #fz .fz-gl::after{ content:attr(data-t); position:absolute; left:0; right:0; top:0; pointer-events:none; }
+#fz .fz-gl::before{ color:var(--ice); text-shadow:none; animation:fzGlitchA 4.5s steps(1) infinite; mix-blend-mode:screen; opacity:.8; }
+#fz .fz-gl::after{ color:var(--lava); text-shadow:none; animation:fzGlitchB 4.5s steps(1) infinite; mix-blend-mode:screen; opacity:.8; }
+#fz .fz-gl.fz-small{ font-size:.48em; letter-spacing:2px; margin-top:8px; }
+#fz .fz-vs{ position:relative; z-index:2; font:800 clamp(16px,4.6vw,26px)/1.3 'Golos Text',sans-serif; letter-spacing:1px; margin:10px 0 12px; }
+#fz .fz-lead{ position:relative; z-index:2; max-width:560px; margin:0 auto 22px; color:var(--muted); font-size:16px; }
+#fz .fz-lead b{ color:var(--text); }
+
+#fz .fz-combo{ position:relative; z-index:2; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; margin:0 auto 24px; font:400 10.5px/1 'Rubik Mono One',sans-serif; letter-spacing:.3px; }
+#fz .fz-combo > span{ padding:9px 10px; border-radius:10px; white-space:nowrap; }
+#fz .fz-cb-i{ color:#00151c; background:var(--ice); box-shadow:0 0 14px rgba(var(--ice-rgb),.9); }
+#fz .fz-cb-f{ color:#1c0600; background:linear-gradient(90deg,var(--ember),var(--fire)); box-shadow:0 0 14px rgba(var(--fire-rgb),.9); }
+#fz .fz-cb-op{ padding:0 2px; font-size:18px; color:var(--text); }
+#fz .fz-cb-eq{ display:inline-flex; align-items:center; gap:6px; padding:0; }
+#fz .fz-cb-t{ color:#fff; background:#000; border:2px solid var(--frost); font-size:13px; }
+
+#fz .fz-hero-img{ position:relative; z-index:2; max-width:560px; margin:0 auto 16px; border-radius:24px; padding:8px; background:#000; }
+#fz .fz-hero-img img{ width:100%; height:auto; aspect-ratio:1/1; border-radius:17px; }
+#fz .fz-hot{ position:relative; z-index:2; display:inline-flex; align-items:center; gap:8px; font:800 13px/1 'Golos Text',sans-serif; letter-spacing:1px; padding:12px 18px; border-radius:99px; text-decoration:none; color:#000; background:linear-gradient(100deg,var(--ice),var(--frost) 45%,var(--ember),var(--fire)); box-shadow:0 0 18px rgba(var(--fire-rgb),.6); margin-bottom:26px; animation:fzPulse 2.4s ease-in-out infinite; }
+
+#fz .fz-price-row{ position:relative; z-index:2; display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+#fz .fz-price{ position:relative; font:400 clamp(38px,10.5vw,62px)/1 'Rubik Mono One',sans-serif; padding:16px 22px; border-radius:18px; background:rgba(0,0,0,.65); }
+#fz .fz-price small{ font-size:.45em; vertical-align:super; margin-left:2px; }
+#fz .fz-badge2{ position:absolute; top:-30px; right:-50px; z-index:3; width:68px; height:68px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; font:400 12px/1 'Rubik Mono One',sans-serif; white-space:nowrap; color:#000; background:linear-gradient(135deg,var(--frost),var(--ice)); box-shadow:0 0 0 3px #000,0 0 22px rgba(var(--ice-rgb),.95); transform:rotate(10deg); }
+#fz .fz-badge2 small{ font:800 7.5px/1.1 'Golos Text',sans-serif; letter-spacing:.5px; margin-top:4px; text-transform:uppercase; }
+#fz .fz-price-note{ text-align:left; margin-left:34px; font-size:13px; color:var(--muted); line-height:1.45; }
+#fz .fz-price-note b{ color:var(--text); }
+
+/* бутон */
+#fz a.fz-cta{ position:relative; display:inline-flex; align-items:center; justify-content:center; width:100%; max-width:460px; text-align:center;
+  font:400 13px/1.25 'Rubik Mono One',sans-serif; letter-spacing:.5px; text-transform:uppercase; text-decoration:none; color:#0a0200;
+  padding:20px 14px; border-radius:16px; border:none; cursor:pointer;
+  background:linear-gradient(100deg,var(--ice),var(--frost) 30%,var(--ember) 62%,var(--fire)); background-size:220% 100%;
+  animation:fzGrad 5s ease-in-out infinite; box-shadow:0 0 0 2px rgba(255,255,255,.12),0 0 30px rgba(var(--fire-rgb),.55),0 0 50px rgba(var(--ice-rgb),.3); transition:transform .2s; }
+#fz a.fz-cta:hover{ transform:translateY(-2px) scale(1.01); }
+#fz a.fz-cta:active{ transform:scale(.97); }
+#fz .fz-trust{ position:relative; z-index:2; display:flex; justify-content:center; gap:8px 18px; flex-wrap:wrap; margin-top:16px; font-size:12px; color:var(--muted); }
+#fz .fz-trust span::before{ content:"✦ "; color:var(--ember); }
+#fz .fz-after{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:28px; text-align:center; }
+#fz .fz-after-note{ font-size:12px; color:var(--muted); letter-spacing:.3px; }
+
+/* секции */
+#fz section{ padding:48px 0; position:relative; }
+#fz .fz-sec-t{ text-align:center; font:400 clamp(22px,6.4vw,40px)/1.15 'Rubik Mono One',sans-serif; margin:0 0 10px; text-wrap:balance; }
+#fz .fz-sec-s{ text-align:center; color:var(--muted); max-width:580px; margin:0 auto 28px; }
+
+/* ===== термометър ===== */
+#fz .fz-thermo{ max-width:640px; margin:0 auto; border-radius:24px; padding:26px 18px; background:var(--card); text-align:center; transition:background .25s; }
+#fz .fz-deg{ font:400 clamp(44px,13vw,84px)/1 'Rubik Mono One',sans-serif; margin:4px 0 6px; transition:color .2s, text-shadow .2s; }
+#fz .fz-mode{ font:400 clamp(14px,4vw,20px)/1.2 'Rubik Mono One',sans-serif; letter-spacing:1px; margin-bottom:10px; }
+#fz .fz-mode-d{ color:var(--muted); min-height:72px; margin:0 auto 18px; max-width:480px; font-size:15px; }
+#fz .fz-range{ -webkit-appearance:none; appearance:none; width:100%; height:18px; border-radius:99px; outline:none; cursor:pointer; margin:8px 0 6px;
+  background:linear-gradient(90deg,#e8fbff,var(--ice) 25%,#7b5cff 50%,var(--ember) 72%,var(--fire) 88%,var(--lava)); box-shadow:0 0 18px rgba(var(--ice-rgb),.5),0 0 18px rgba(var(--fire-rgb),.5); border:2px solid #000; }
+#fz .fz-range::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:38px; height:38px; border-radius:50%; background:#fff; border:4px solid #000; box-shadow:0 0 0 3px rgba(255,255,255,.4),0 0 22px #fff; cursor:grab; }
+#fz .fz-range::-moz-range-thumb{ width:32px; height:32px; border-radius:50%; background:#fff; border:4px solid #000; box-shadow:0 0 22px #fff; cursor:grab; }
+#fz .fz-range:focus-visible{ outline:2px solid var(--frost); outline-offset:4px; }
+#fz .fz-ends{ display:flex; justify-content:space-between; font:400 11px/1 'Rubik Mono One',sans-serif; margin-bottom:6px; }
+#fz .fz-ends span:first-child{ color:var(--ice); } #fz .fz-ends span:last-child{ color:var(--fire); }
+#fz .fz-hint{ font-size:12px; color:var(--muted); }
+
+/* ===== продуктови карти ===== */
+#fz .fz-prod{ display:grid; grid-template-columns:1fr; gap:22px; border-radius:24px; padding:20px; background:var(--card); margin-bottom:26px; }
+#fz .fz-prod.fz-i{ --acc:var(--ice); --acc-rgb:var(--ice-rgb); }
+#fz .fz-prod.fz-f{ --acc:var(--ember); --acc-rgb:var(--fire-rgb); }
+#fz .fz-ph{ position:relative; aspect-ratio:1/1; border-radius:16px; overflow:hidden; background:#000; cursor:pointer; }
+#fz .fz-ph img{ width:100%; height:100%; object-fit:cover; transition:transform .25s; }
+#fz .fz-ph:active img{ transform:scale(.97); }
+#fz .fz-spray-hint{ position:absolute; left:50%; bottom:12px; transform:translateX(-50%); white-space:nowrap; font:800 12px/1 'Golos Text',sans-serif; letter-spacing:1px; padding:9px 14px; border-radius:99px; color:#000; background:rgba(255,255,255,.92); box-shadow:0 0 18px rgba(var(--acc-rgb),.9); }
+#fz .fz-prod.fz-shake .fz-ph{ animation:fzShake .35s linear; }
+#fz .fz-prod h3{ font:400 clamp(24px,7vw,40px)/1 'Rubik Mono One',sans-serif; margin:0 0 8px; color:var(--acc); text-shadow:0 0 18px rgba(var(--acc-rgb),.75); }
+#fz .fz-spec{ font:700 12px/1 'Golos Text',sans-serif; letter-spacing:2.5px; color:var(--muted); margin-bottom:12px; }
+#fz .fz-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+#fz .fz-tag{ display:inline-block; font:800 11px/1 'Golos Text',sans-serif; letter-spacing:1.5px; padding:8px 12px; border-radius:99px; border:1px solid rgba(var(--acc-rgb),.7); color:var(--acc); }
+#fz .fz-tag.fz-set{ border-style:dashed; color:var(--text); }
+#fz .fz-chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+#fz .fz-chips span{ font-size:12px; font-weight:700; padding:7px 12px; border-radius:99px; background:rgba(var(--acc-rgb),.14); }
+#fz .fz-insp{ display:flex; gap:12px; align-items:center; padding:12px 14px; border-radius:14px; background:rgba(255,255,255,.04); border:1px dashed rgba(var(--acc-rgb),.55); margin-bottom:16px; }
+#fz .fz-insp b{ display:block; font:800 10px/1 'Golos Text',sans-serif; letter-spacing:2.5px; color:var(--acc); margin-bottom:5px; }
+#fz .fz-desc{ color:var(--muted); margin:0 0 12px; font-size:15px; }
+#fz .fz-more{ margin:0 0 16px; }
+#fz .fz-more summary{ list-style:none; cursor:pointer; font:800 13px/1 'Golos Text',sans-serif; letter-spacing:1px; color:var(--acc); padding:6px 0; }
+#fz .fz-more summary::-webkit-details-marker{ display:none; }
+#fz .fz-more p{ color:var(--muted); font-size:14px; margin:10px 0 0; }
+#fz .fz-notes{ display:grid; gap:10px; }
+#fz .fz-note{ display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center; padding:12px 14px; border-radius:14px; background:rgba(0,0,0,.4); }
+#fz .fz-note .fz-n{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; background:#000; }
+#fz .fz-note b{ display:block; font:800 10px/1 'Golos Text',sans-serif; letter-spacing:2.5px; color:var(--acc); margin-bottom:5px; }
+#fz .fz-note span{ font-size:14px; font-weight:500; }
+
+/* ===== лед + огън ===== */
+#fz .fz-duo{ display:grid; grid-template-columns:1fr; gap:14px; }
+#fz .fz-half{ border-radius:20px; padding:22px 18px; text-align:center; }
+#fz .fz-half.fz-i{ background:linear-gradient(160deg,rgba(var(--ice-rgb),.22),rgba(0,0,0,.6)); }
+#fz .fz-half.fz-f{ background:linear-gradient(160deg,rgba(var(--fire-rgb),.26),rgba(0,0,0,.6)); }
+#fz .fz-half .fz-em{ font-size:40px; margin-bottom:6px; }
+#fz .fz-half h4{ font:400 15px/1.3 'Rubik Mono One',sans-serif; margin:0 0 8px; }
+#fz .fz-half p{ color:var(--muted); margin:0; font-size:14px; }
+#fz .fz-plus{ text-align:center; font:400 34px/1 'Rubik Mono One',sans-serif; color:#fff; text-shadow:0 0 14px var(--ice),0 0 26px var(--fire); }
+
+/* предимства / за кого */
+#fz .fz-perks{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#fz .fz-perk{ border-radius:18px; padding:18px 12px; background:var(--card); text-align:center; }
+#fz .fz-perk .fz-pi{ font-size:28px; margin-bottom:8px; }
+#fz .fz-perk b{ display:block; font:400 12px/1.35 'Rubik Mono One',sans-serif; margin-bottom:4px; }
+#fz .fz-perk span{ font-size:13px; color:var(--muted); }
+#fz .fz-who{ display:grid; gap:10px; max-width:680px; margin:0 auto; }
+#fz .fz-who div{ display:flex; gap:12px; align-items:center; padding:14px 16px; border-radius:14px; background:var(--card); font-weight:600; }
+#fz .fz-who div::before{ content:"✔"; flex:none; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; color:#000; background:linear-gradient(135deg,var(--ice),var(--ember)); }
+
+/* FAQ */
+#fz .fz-faq{ max-width:720px; margin:0 auto; display:grid; gap:10px; }
+#fz details.fz-q{ border-radius:14px; background:var(--card); border:1px solid rgba(255,255,255,.08); padding:0 18px; }
+#fz details.fz-q[open]{ border-color:rgba(var(--ice-rgb),.6); box-shadow:0 0 18px rgba(var(--ice-rgb),.22); }
+#fz details.fz-q summary{ list-style:none; cursor:pointer; padding:18px 30px 18px 0; position:relative; font:800 15px/1.35 'Golos Text',sans-serif; }
+#fz details.fz-q summary::-webkit-details-marker{ display:none; }
+#fz details.fz-q summary::after{ content:"+"; position:absolute; right:0; top:50%; transform:translateY(-50%); font-size:24px; color:var(--ember); transition:transform .2s; }
+#fz details.fz-q[open] summary::after{ transform:translateY(-50%) rotate(45deg); color:var(--ice); }
+#fz details.fz-q p{ margin:0 0 18px; color:var(--muted); font-size:14px; }
+
+/* финал */
+#fz .fz-final{ text-align:center; border-radius:28px; padding:34px 18px; background:rgba(0,0,0,.6); position:relative; overflow:hidden; }
+#fz .fz-final h2{ font:400 clamp(26px,7.6vw,52px)/1.08 'Rubik Mono One',sans-serif; margin:0 0 12px; }
+
+/* частици */
+#fz .fz-snow{ position:absolute; z-index:1; pointer-events:none; top:0; color:#e6fbff; text-shadow:0 0 8px var(--ice); animation:fzFall linear infinite; opacity:0; }
+#fz .fz-ember{ position:absolute; z-index:1; pointer-events:none; bottom:0; width:5px; height:5px; border-radius:50%; background:var(--ember); box-shadow:0 0 10px var(--fire),0 0 4px #fff; animation:fzRise linear infinite; opacity:0; }
+#fz .fz-burst{ position:fixed; z-index:9999; pointer-events:none; font-size:18px; animation:fzBurst 1s ease-out forwards; }
+#fz .fz-word{ position:fixed; z-index:9999; pointer-events:none; white-space:nowrap; font:800 12px/1 'Golos Text',sans-serif; padding:7px 11px; border-radius:99px; color:#000; animation:fzBurst 1.6s ease-out forwards; }
+#fz .fz-word.fz-wi{ background:var(--frost); box-shadow:0 0 14px var(--ice); }
+#fz .fz-word.fz-wf{ background:var(--ember); box-shadow:0 0 14px var(--fire); }
+
+/* лента долу */
+#fz .fz-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:rgba(4,6,12,.94); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border-top:1px solid rgba(var(--fire-rgb),.6); display:flex; align-items:center; gap:12px; transform:translateY(110%); transition:transform .3s; }
+#fz .fz-sticky.fz-on{ transform:none; }
+#fz .fz-sp{ font:400 18px/1 'Rubik Mono One',sans-serif; white-space:nowrap; }
+#fz .fz-sp small{ display:block; font:600 10px/1.2 'Golos Text',sans-serif; letter-spacing:1px; color:var(--muted); margin-top:4px; }
+#fz .fz-sticky a.fz-cta{ padding:15px 10px; font-size:11px; }
+
+@media (min-width:760px){
+  #fz .fz-hero{ padding:64px 0 44px; }
+  #fz .fz-prod{ grid-template-columns:1fr 1.1fr; padding:30px; gap:34px; align-items:center; }
+  #fz .fz-perks{ grid-template-columns:repeat(4,1fr); }
+  #fz .fz-duo{ grid-template-columns:1fr auto 1fr; align-items:center; }
+  #fz .fz-thermo{ padding:34px; }
+  #fz a.fz-cta{ font-size:15px; letter-spacing:1px; padding:21px 26px; }
+  #fz .fz-combo{ font-size:13px; }
+  #fz .fz-sticky{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  #fz#fz *, #fz#fz *::before, #fz#fz *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+  #fz .fz-snow, #fz .fz-ember{ display:none !important; }
+}
+</style>
+
+<div id="fz">
+  <div class="fz-ticker" aria-hidden="true"><div class="fz-ticker-in">
+    <span>Лед + Огън</span><span>Комплект от 2 парфюма</span><span>2 × 100 ml</span><span>Целият комплект 56.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
+    <span>Лед + Огън</span><span>Комплект от 2 парфюма</span><span>2 × 100 ml</span><span>Целият комплект 56.90€</span><span>Наложен платеж</span><span>Плащаш при получаване</span>
+  </div></div>
+
+  <!-- HERO -->
+  <header class="fz-hero" id="fzHero">
+    <div class="fz-hero-bg"></div>
+    <div class="fz-crack"></div>
+    <div class="fz-wrap">
+      <span class="fz-eyebrow fz-neon">❄ Комплект от 2 парфюма 🔥</span>
+      <h1 class="fz-title">
+        <span class="fz-gl fz-ice-t" data-t="FREEZE">FREEZE</span>
+        <span class="fz-gl fz-small fz-fire-t" data-t="IN FLAMES">IN FLAMES</span>
+      </h1>
+      <p class="fz-vs"><span class="fz-ice-t">ЛЕД</span> + <span class="fz-fire-t fz-flick">ОГЪН</span> в един комплект</p>
+      <p class="fz-lead">Получаваш <b>2 парфюма по 100 ml</b> от RiiFFS: ледения Freeze и огнения Freeze in Flames. Цената е за целия комплект.</p>
+      <div class="fz-combo"><span class="fz-cb-i">❄ FREEZE 100 ml</span><span class="fz-cb-op">+</span><span class="fz-cb-f">🔥 IN FLAMES 100 ml</span><span class="fz-cb-eq"><span class="fz-cb-op">=</span><span class="fz-cb-t">56.90€</span></span></div>
+
+      <div class="fz-hero-img fz-neon">
+        <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/b2271c2a-0ef3-4889-a9ce-883009822672-1021785.png?format=webp" alt="Комплект RiiFFS Freeze и Freeze in Flames, 2 × 100 ml" width="1200" height="1200" fetchpriority="high">
+      </div>
+      <a href="#fzSet" class="fz-hot" data-burst>⚡ Виж какво има в комплекта ↓</a>
+
+      <div class="fz-price-row">
+        <div class="fz-price fz-neon fz-d2">56.90<small>€</small><span class="fz-badge2">2 бр.<small>в комплекта</small></span></div>
+        <div class="fz-price-note"><b>за комплекта от 2 бр.</b><br>Freeze + Freeze in Flames<br>плащаш при получаване</div>
+      </div>
+
+      <a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a>
+      <div class="fz-trust"><span>2 парфюма в комплекта</span><span>2 × 100 ml</span><span>Наложен платеж</span></div>
+    </div>
+  </header>
+
+  <!-- ТЕРМОМЕТЪР -->
+  <section id="fzThermoSec"><div class="fz-wrap">
+    <h2 class="fz-sec-t"><span class="fz-ice-t">Лед</span> или <span class="fz-fire-t">огън?</span></h2>
+    <p class="fz-sec-s">Плъзни термометъра. В комплекта получаваш и двата края – и леда, и огъня.</p>
+    <div class="fz-thermo fz-neon fz-d1" id="fzThermo">
+      <div class="fz-deg" id="fzDeg">0°</div>
+      <div class="fz-mode" id="fzMode">⚡ ТОЧКАТА НА СБЛЪСЪКА</div>
+      <p class="fz-mode-d" id="fzModeD">Точно тук е магията: лед и огън в един комплект. Два парфюма за всяко настроение.</p>
+      <div class="fz-ends"><span>❄ −40°</span><span>+800° 🔥</span></div>
+      <input type="range" min="0" max="100" value="50" class="fz-range" id="fzTemp" aria-label="Термометър: от лед до огън">
+      <div class="fz-hint">← плъзни →</div>
+    </div>
+    <div class="fz-after"><a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a><div class="fz-after-note">56.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- КАКВО ИМА В КОМПЛЕКТА -->
+  <section id="fzSet"><div class="fz-wrap">
+    <h2 class="fz-sec-t">Какво има в <span class="fz-ice-t">комп</span><span class="fz-fire-t">лекта</span></h2>
+    <p class="fz-sec-s">Два парфюма по 100 ml в един комплект. Цъкни шишето, за да го „пръснеш“ и да видиш нотките му.</p>
+
+    <!-- FREEZE -->
+    <article class="fz-prod fz-i fz-neon">
+      <div class="fz-ph" data-spray="ice" data-notes="Снежинки|Бергамот|Грейпфрут|Лимонова кора|Зелена мента|Джинджифил|Чай|Градински чай|Кедър|Бяла божурка|Амбърмакс">
+        <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/e6ff3b50-4070-4473-a6a8-f064a06cbfd2-1022277.png?format=webp" alt="RiiFFS Freeze 100 ml" width="1200" height="1200" loading="lazy">
+        <span class="fz-spray-hint">💨 Цъкни и пръсни</span>
+      </div>
+      <div>
+        <h3>FREEZE</h3>
+        <div class="fz-spec">RIIFFS · 100 ML · EXTRAIT DE PARFUM</div>
+        <div class="fz-tags"><span class="fz-tag">❄ ЛЕДЕНИЯТ</span><span class="fz-tag fz-set">1 ОТ 2 В КОМПЛЕКТА</span></div>
+        <div class="fz-chips"><span>Сила</span><span>Хладна енергия</span><span>Кристална яснота</span></div>
+        <div class="fz-insp"><span style="font-size:22px !important">🧊</span><div><b>ВДЪХНОВЕНО ОТ</b>Ice Fragrance</div></div>
+        <p class="fz-desc">Freeze by RiiFFS е вдъхновен от свежестта на леда и чистия въздух на планинските върхове. Аромат, който носи усещане за сила, хладна енергия и кристална яснота – за хора, които обичат свободата и естествената елегантност.</p>
+        <details class="fz-more"><summary>+ Прочети още</summary>
+          <p>Още с първото впръскване Freeze се отваря с вълнуваща свежест – снежинки, калабрийски бергамот, грейпфрут, лимонова кора и зелена мента. Експлозия от цитрусово-ментови акорди, като глътка свеж въздух в студено зимно утро.</p>
+          <p>В сърцевината се разгръщат джинджифил, чай и градински чай. Джинджифилът внася пикантен контраст, а чаят и салвията – спокоен, ароматен баланс.</p>
+          <p>Базата е топла, дървесна и леко цветна – кедър, бяла божурка и амбърмакс придават трайност, мекота и фин, елегантен шлейф. Аромат за всеки сезон – и за ежедневието, и за по-официални поводи.</p>
+        </details>
+        <div class="fz-notes">
+          <div class="fz-note"><div class="fz-n fz-neon">❄️</div><div><b>ВРЪХНИ НОТКИ</b><span>Снежинки, калабрийски бергамот, грейпфрут, лимонова кора, зелена мента</span></div></div>
+          <div class="fz-note"><div class="fz-n fz-neon fz-d1">🫚</div><div><b>СРЕДНИ НОТКИ</b><span>Джинджифил, чай, градински чай</span></div></div>
+          <div class="fz-note"><div class="fz-n fz-neon fz-d2">🌲</div><div><b>БАЗОВИ НОТКИ</b><span>Кедър, бяла божурка, амбърмакс</span></div></div>
+        </div>
+      </div>
+    </article>
+
+    <!-- FREEZE IN FLAMES -->
+    <article class="fz-prod fz-f fz-neon fz-d2">
+      <div class="fz-ph" data-spray="fire" data-notes="Малина|Червена ябълка|Маракуя|Мента|Бергамот|Лавандула|Градински чай|Чай|Мускус|Кедрово дърво">
+        <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/056c30d4-bd1c-4d25-951c-53521bb4600b-1022294.png?format=webp" alt="RiiFFS Freeze in Flames 100 ml" width="1200" height="1200" loading="lazy">
+        <span class="fz-spray-hint">💨 Цъкни и пръсни</span>
+      </div>
+      <div>
+        <h3>FREEZE IN FLAMES</h3>
+        <div class="fz-spec">RIIFFS · 100 ML · EXTRAIT DE PARFUM</div>
+        <div class="fz-tags"><span class="fz-tag">🔥 ОГНЕНИЯТ</span><span class="fz-tag fz-set">2 ОТ 2 В КОМПЛЕКТА</span></div>
+        <div class="fz-chips"><span>Сочни плодове</span><span>Хладна мента</span><span>Дълготраен</span></div>
+        <p class="fz-desc">Riiffs Freeze in Flames е свеж аромат с плодов характер. Съчетава сочни плодове с хладна мента и ароматни билки – за мъже, които търсят лекота, свежест и дълготрайност.</p>
+        <details class="fz-more"><summary>+ Прочети още</summary>
+          <p>Този парфюм играе с контраста между свежо и топло. Малина, червена ябълка и маракуя внасят сочна плодовост, а ментата и калабрийският бергамот добавят освежаваща искра.</p>
+          <p>Средните нотки разкриват ароматно сърце – лавандула, градински чай и чай се преплитат с още мента. Така ароматът остава чист и елегантен.</p>
+          <p>Базата от мускус и кедрово дърво придава мекота и топлина и оставя дълготрайна следа върху кожата. Проекцията е отлична през целия ден.</p>
+        </details>
+        <div class="fz-notes">
+          <div class="fz-note"><div class="fz-n fz-neon fz-d2">🍓</div><div><b>ВРЪХНИ НОТКИ</b><span>Малина, червена ябълка, маракуя, мента, калабрийски бергамот</span></div></div>
+          <div class="fz-note"><div class="fz-n fz-neon fz-d3">🌿</div><div><b>СРЕДНИ НОТКИ</b><span>Мента, лавандула, градински чай, чай</span></div></div>
+          <div class="fz-note"><div class="fz-n fz-neon">🪵</div><div><b>БАЗОВИ НОТКИ</b><span>Мускус, кедрово дърво</span></div></div>
+        </div>
+      </div>
+    </article>
+    <div class="fz-after"><a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a><div class="fz-after-note">56.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- ЛЕД + ОГЪН -->
+  <section><div class="fz-wrap">
+    <h2 class="fz-sec-t">Два парфюма. <span class="fz-ice-t">Две</span> <span class="fz-fire-t">лица.</span></h2>
+    <p class="fz-sec-s">С комплекта имаш аромат за всяко настроение – без да избираш.</p>
+    <div class="fz-duo">
+      <div class="fz-half fz-i fz-neon"><div class="fz-em">❄️</div><h4 class="fz-ice-t">КОГАТО ИСКАШ ХЛАД</h4><p>Freeze – снежинки, мента и цитруси върху кедър. Чист, модерен и леко мистериозен.</p></div>
+      <div class="fz-plus">+</div>
+      <div class="fz-half fz-f fz-neon fz-d2"><div class="fz-em">🔥</div><h4 class="fz-fire-t">КОГАТО ИСКАШ ЖАР</h4><p>Freeze in Flames – малина, маракуя и мента върху мускус. Сочен, свеж и дълготраен.</p></div>
+    </div>
+    <div class="fz-after"><a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a><div class="fz-after-note">56.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- ПРЕДИМСТВА + ЗА КОГО -->
+  <section><div class="fz-wrap">
+    <div class="fz-perks">
+      <div class="fz-perk fz-neon"><div class="fz-pi">🧊</div><b>2 бр. × 100 ml</b><span>В един комплект</span></div>
+      <div class="fz-perk fz-neon fz-d1"><div class="fz-pi">💎</div><b>Extrait de Parfum</b><span>RiiFFS</span></div>
+      <div class="fz-perk fz-neon fz-d2"><div class="fz-pi">💶</div><b>56.90€</b><span>За комплекта</span></div>
+      <div class="fz-perk fz-neon fz-d3"><div class="fz-pi">📦</div><b>Наложен платеж</b><span>Плащаш при получаване</span></div>
+    </div>
+    <h2 class="fz-sec-t" style="margin-top:44px !important">За кого е <span class="fz-fire-t">комплектът</span></h2>
+    <p class="fz-sec-s">Създаден за мъже, които искат да се открояват.</p>
+    <div class="fz-who">
+      <div>Любители на свежи и плодови аромати</div>
+      <div>Търсещи лек, но дълготраен парфюм</div>
+      <div>Универсален за всеки сезон и повод – от ежедневието до официални поводи</div>
+      <div>За ценителите на качествени арабски парфюми</div>
+    </div>
+    <div class="fz-after"><a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a><div class="fz-after-note">56.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section><div class="fz-wrap">
+    <h2 class="fz-sec-t">Въпроси</h2>
+    <p class="fz-sec-s">Кратко и ясно.</p>
+    <div class="fz-faq">
+      <details class="fz-q"><summary>Какво има в комплекта?</summary><p>RiiFFS Freeze 100 ml и RiiFFS Freeze in Flames 100 ml. Получаваш ги заедно за 56.90€.</p></details>
+      <details class="fz-q"><summary>Какво значи „вдъхновено от“?</summary><p>Freeze е самостоятелен аромат на RiiFFS, изграден около характера на Ice Fragrance. Не е негов оригинал.</p></details>
+      <details class="fz-q"><summary>За мъже ли са?</summary><p>Да, двата аромата са създадени с мъжки характер – свежи, модерни и дълготрайни.</p></details>
+      <details class="fz-q"><summary>За кой сезон са?</summary><p>За всеки сезон – и за ежедневието, и за по-официални поводи.</p></details>
+      <details class="fz-q"><summary>Как плащам?</summary><p>С наложен платеж – плащаш на куриера, когато получиш пратката. Не ти трябва карта.</p></details>
+      <details class="fz-q"><summary>Колко струва доставката?</summary><p>Зависи от куриера и дали е до офис или до адрес. Точната сума виждаш във формата за поръчка, преди да я потвърдиш.</p></details>
+    </div>
+    <div class="fz-after"><a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a><div class="fz-after-note">56.90€ за комплекта от 2 бр. · плащаш при доставка</div></div>
+  </div></section>
+
+  <!-- ФИНАЛ -->
+  <section id="fzFinal"><div class="fz-wrap">
+    <div class="fz-final fz-neon">
+      <h2><span class="fz-ice-t">Лед</span> и <span class="fz-fire-t">огън.</span><br>Един комплект.</h2>
+      <p class="fz-sec-s" style="margin-bottom:6px !important">2 парфюма – Freeze и Freeze in Flames – за 56.90€ общо. Плащаш при получаване.</p>
+      <div class="fz-price-row" style="margin:30px 0 22px !important"><div class="fz-price fz-neon fz-d1">56.90<small>€</small><span class="fz-badge2">2 бр.<small>в комплекта</small></span></div></div>
+      <a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a>
+    </div>
+  </div></section>
+
+  <div class="fz-sticky" id="fzSticky">
+    <div class="fz-sp">56.90€<small>комплект 2 бр.</small></div>
+    <a href="#" class="fz-cta" data-go data-burst>Искам комплекта ➜</a>
+  </div>
+</div>
+
+<script>
+/* ▼▼▼ АДРЕС НА СТРАНИЦАТА ЗА ЧЕКАУТ ▼▼▼ */
+var FZ_CHECKOUT_URL = 'https://uni-arabian.eu/checkout-freeze';
+(function(){
+  var root=document.getElementById('fz'); if(!root) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  root.querySelectorAll('[data-go]').forEach(function(a){ a.setAttribute('href',FZ_CHECKOUT_URL); a.setAttribute('target','_top'); });
+
+  /* сняг вляво, искри вдясно */
+  if(!reduce){
+    var hero=document.getElementById('fzHero');
+    for(var i=0;i<16;i++){
+      var s=document.createElement('span'); s.className='fz-snow'; s.textContent=i%3?'❄':'·';
+      s.style.cssText='left:'+(Math.random()*48)+'%;font-size:'+(10+Math.random()*16)+'px;animation-duration:'+(7+Math.random()*9)+'s;animation-delay:'+(-Math.random()*14)+'s';
+      hero.appendChild(s);
+      var e=document.createElement('span'); e.className='fz-ember';
+      e.style.cssText='left:'+(52+Math.random()*46)+'%;animation-duration:'+(5+Math.random()*7)+'s;animation-delay:'+(-Math.random()*10)+'s';
+      hero.appendChild(e);
+    }
+  }
+
+  /* конфети от лед и огън */
+  function burst(x,y,set){
+    if(reduce) return;
+    var em=set||['❄','🔥','✦','💥','❄','🔥'];
+    for(var i=0;i<14;i++){
+      var b=document.createElement('span'); b.className='fz-burst'; b.textContent=em[i%em.length];
+      var a=Math.random()*Math.PI*2, d=60+Math.random()*100;
+      b.style.left=x+'px'; b.style.top=y+'px';
+      b.style.setProperty('--x',Math.cos(a)*d+'px'); b.style.setProperty('--y',Math.sin(a)*d+'px');
+      root.appendChild(b); setTimeout(function(n){ n.remove(); },1050,b);
+    }
+  }
+  root.addEventListener('click',function(e){
+    var t=e.target.closest('[data-burst]'); if(!t) return;
+    burst(e.clientX,e.clientY);
+    var href=t.getAttribute('href');
+    if(href&&href.charAt(0)==='#'&&href.length>1){ var dst=document.querySelector(href); if(dst){ e.preventDefault(); dst.scrollIntoView({behavior:'smooth'}); } }
+  });
+
+  /* „пръскане“ на шишето: нотките излитат */
+  root.querySelectorAll('[data-spray]').forEach(function(ph){
+    ph.addEventListener('click',function(e){
+      var ice=ph.getAttribute('data-spray')==='ice', card=ph.closest('.fz-prod');
+      card.classList.remove('fz-shake'); void card.offsetWidth; card.classList.add('fz-shake');
+      var r=ph.getBoundingClientRect(), x=e.clientX||r.left+r.width/2, y=e.clientY||r.top+r.height/2;
+      burst(x,y, ice?['❄','❄','💨','✦']:['🔥','🔥','💥','✦']);
+      if(reduce) return;
+      ph.getAttribute('data-notes').split('|').forEach(function(n,i){
+        var w=document.createElement('span'); w.className='fz-word '+(ice?'fz-wi':'fz-wf'); w.textContent=n;
+        var a=-Math.PI/2+(Math.random()-.5)*2.4, d=90+Math.random()*120;
+        w.style.left=(x-30)+'px'; w.style.top=y+'px'; w.style.animationDelay=(i*0.05)+'s';
+        w.style.setProperty('--x',Math.cos(a)*d+'px'); w.style.setProperty('--y',Math.sin(a)*d+'px');
+        root.appendChild(w); setTimeout(function(n){ n.remove(); },1900+i*50,w);
+      });
+    });
+  });
+
+  /* термометър */
+  var temp=document.getElementById('fzTemp'), deg=document.getElementById('fzDeg'), mode=document.getElementById('fzMode'), md=document.getElementById('fzModeD'), box=document.getElementById('fzThermo');
+  var lastZone='';
+  function thermo(){
+    var t=temp.value/100, d=Math.round(-40+t*840);
+    deg.textContent=(d>0?'+':'')+d+'°';
+    var ice='rgba(47,216,255,', fire='rgba(255,77,26,';
+    box.style.setProperty('background','linear-gradient(160deg,'+ice+(0.32*(1-t)).toFixed(2)+'),#0b1120 55%,'+fire+(0.36*t).toFixed(2)+'))','important');
+    var zone=t<0.36?'ice':(t>0.64?'fire':'mid');
+    deg.className='fz-deg '+(zone==='ice'?'fz-ice-t':zone==='fire'?'fz-fire-t':'');
+    if(zone!==lastZone){
+      lastZone=zone;
+      if(zone==='ice'){ mode.textContent='❄ ЛЕДЕН РЕЖИМ: FREEZE'; md.textContent='Снежинки, зелена мента, бергамот и грейпфрут. Като глътка въздух на планински връх.'; }
+      else if(zone==='fire'){ mode.textContent='🔥 ОГНЕН РЕЖИМ: FREEZE IN FLAMES'; md.textContent='Малина, червена ябълка и маракуя върху мускус и кедър. Сочна жар с хладна искра.'; }
+      else { mode.textContent='⚡ ТОЧКАТА НА СБЛЪСЪКА'; md.textContent='Точно тук е магията: лед и огън в един комплект. Два парфюма за всяко настроение.'; }
+      if(lastZone!=='' && !reduce){ var r=temp.getBoundingClientRect(); burst(r.left+r.width*t, r.top, zone==='ice'?['❄','❄','✦']:zone==='fire'?['🔥','🔥','💥']:['⚡','❄','🔥']); }
+    }
+  }
+  temp.addEventListener('input',thermo); lastZone='init'; thermo();
+
+  /* лента долу */
+  var sticky=document.getElementById('fzSticky'), heroEl=document.getElementById('fzHero'), fin=document.getElementById('fzFinal');
+  function onScroll(){ var past=heroEl.getBoundingClientRect().bottom<0, atEnd=fin.getBoundingClientRect().top<window.innerHeight*.9; sticky.classList.toggle('fz-on',past&&!atEnd); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+<!-- ===================== /FREEZE ЛЕНДИНГ ===================== -->
