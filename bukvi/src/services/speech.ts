@@ -73,8 +73,13 @@ class RecordedAudioEngine implements SpeechEngine {
     return new Promise<boolean>((resolve) => {
       const audio = new Audio(src);
       audio.volume = volume;
+      // Ако записът „заседне“ (бавна мрежа), екранът не бива да остане заключен.
+      const guard = setTimeout(() => resolve(true), 15_000);
       audio.onplaying = () => (this.last = "playing");
-      audio.onended = () => resolve(true);
+      audio.onended = () => {
+        clearTimeout(guard);
+        resolve(true);
+      };
       audio.onerror = () => {
         this.failed.add(id);
         this.last = "missing";
@@ -274,19 +279,46 @@ export function speakPhrase(text: string, spelling: TtsSpelling = state.spelling
   cancelSpeech();
   const token = speakToken;
   const synth = () => (web.canSpeak() ? web.speak(prepareForTts(text, spelling), state.volume) : Promise.resolve());
-  // Гласът на устройството — само ако е избран, има български и няма запис на ръка.
-  if (state.voice === "device" && web.hasVoice() && !recorded.isHuman(text)) return synth();
-  if (!recorded.canSpeak(text)) return synth();
-  return recorded.play(text, state.volume).then((ok) => {
-    if (!ok && token === speakToken) return synth(); // файлът липсва/няма връзка
+  const run = (): Promise<void> => {
+    // Гласът на устройството — само ако е избран, има български и няма запис на ръка.
+    if (state.voice === "device" && web.hasVoice() && !recorded.isHuman(text)) return synth();
+    if (!recorded.canSpeak(text)) return synth();
+    return recorded.play(text, state.volume).then((ok) => {
+      if (!ok && token === speakToken) return synth(); // файлът липсва/няма връзка
+    });
+  };
+  // Докато гласът говори, екранът не приема докосвания (виж components/layout/SpeechLock).
+  setSpeaking(true);
+  return run().finally(() => {
+    if (token === speakToken) setSpeaking(false);
   });
 }
+
+// ───────────── „говори в момента“ — за ключалката на екрана ─────────────
+
+let speaking = false;
+const speakingListeners = new Set<() => void>();
+
+function setSpeaking(v: boolean) {
+  if (speaking === v) return;
+  speaking = v;
+  speakingListeners.forEach((l) => l());
+}
+
+/** Абонамент за „говори ли гласът“ (за useSyncExternalStore). */
+export function subscribeSpeaking(listener: () => void) {
+  speakingListeners.add(listener);
+  return () => void speakingListeners.delete(listener);
+}
+
+export const isSpeaking = () => speaking;
 
 let speakToken = 0;
 
 export function cancelSpeech() {
   if (typeof window === "undefined") return;
   speakToken++;
+  setSpeaking(false);
   const { recorded, web } = getEngines();
   recorded.cancel();
   web.cancel();
