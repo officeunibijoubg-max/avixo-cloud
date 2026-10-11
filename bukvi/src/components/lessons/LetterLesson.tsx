@@ -10,8 +10,8 @@ import { Illustration } from "@/components/illustrations/Illustration";
 export function LetterLesson({ lesson }: { lesson: CharacterLesson }) {
   const word = lesson.exampleWord;
   return (
-    <div className="card-soft flex items-center gap-4 rounded-[2rem] bg-white/80 p-4 shadow-md lg:flex-col lg:p-6">
-      <div className="flex size-28 shrink-0 items-center justify-center rounded-3xl bg-violet-200 text-8xl font-black text-violet-700 sm:size-32 lg:size-44 lg:text-[8rem]">
+    <div className="card-soft flex items-center gap-4 rounded-[2rem] bg-white/80 p-4 shadow-md short:flex-col short:gap-2 short:p-3 lg:flex-col lg:p-6">
+      <div className="flex size-28 shrink-0 items-center justify-center rounded-3xl bg-violet-200 text-8xl font-black text-violet-700 sm:size-32 short:size-20 short:text-6xl lg:size-44 lg:text-[8rem]">
         {lesson.character}
       </div>
       <div className="flex flex-1 flex-col items-center gap-2 text-center">

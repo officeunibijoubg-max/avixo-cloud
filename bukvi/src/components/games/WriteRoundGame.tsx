@@ -121,8 +121,8 @@ function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, show
   }, [prompt]);
 
   return (
-    <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-start">
-      <aside className="flex flex-col gap-4 lg:w-80">
+    <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-start short:flex-row short:items-start">
+      <aside className="flex flex-col gap-4 short:max-h-[calc(100dvh-5rem)] short:w-64 short:shrink-0 short:overflow-y-auto lg:w-80">
         <div className="flex items-center gap-3">
           <Mascot compact message={ex.label ?? caption} mood={ex.mood} className="flex-1" />
           <SoundButton size="lg" onPlay={() => void speakPhrase(prompt)} />
@@ -131,7 +131,7 @@ function Round({ lesson, step, rounds, prompt, caption, visual, difficulty, show
         {visual}
       </aside>
       <section className="flex flex-1 flex-col items-center gap-4">
-        <div className="w-full max-w-[min(100%,62dvh)] lg:max-w-[min(100%,76dvh)]">
+        <div className="canvas-box">
           <WritingCanvas
             ref={ex.canvasRef}
             character={lesson.character}

@@ -21,7 +21,7 @@ export function PageShell({ children, back, onBack, title, showScore = true }: P
     "card-soft flex size-16 shrink-0 items-center justify-center rounded-2xl bg-white text-3xl shadow-[0_5px_0_rgb(0_0_0/0.12)] active:translate-y-1";
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-6xl flex-col px-4 pb-6 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
-      <header className="mb-4 flex items-center gap-3">
+      <header className="mb-4 flex items-center gap-3 short:mb-2">
         {onBack ? (
           <button
             type="button"

@@ -204,9 +204,9 @@ function WriteStep({ lesson, trace, review = false, onNext }: { lesson: Characte
     return () => void (timer.current && clearTimeout(timer.current));
   }, [text]);
   return (
-    <div className="flex flex-1 flex-col items-center gap-4">
-      <Mascot compact message={ex.label ?? shown} mood={ex.mood} className="self-start" />
-      <div className="w-full max-w-[min(100%,60dvh)]">
+    <div className="flex flex-1 flex-col items-center gap-4 short:flex-row short:items-start short:justify-center">
+      <Mascot compact message={ex.label ?? shown} mood={ex.mood} className="self-start short:w-56 short:flex-col" />
+      <div className="canvas-box">
         <WritingCanvas
           ref={ex.canvasRef}
           character={lesson.character}
@@ -223,7 +223,7 @@ function WriteStep({ lesson, trace, review = false, onNext }: { lesson: Characte
         />
       </div>
       {!ex.solved && (
-        <div className="flex gap-3">
+        <div className="flex gap-3 short:flex-col">
           <BigButton icon="🧽" label={ui.clear} onClick={ex.clear} color="bg-amber-100" disabled={ex.locked} />
           <BigButton icon="⭐" ariaLabel={ui.showMe} onClick={() => ex.showHint("star")} color="bg-violet-100" disabled={ex.locked} />
         </div>

@@ -31,21 +31,27 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-5 px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
-      <header className="flex items-center gap-3">
+      <header className="flex items-center gap-2 sm:gap-3">
         {/* Кой играе — натискането води към избора на дете. */}
         <Link
           href="/profiles/"
-          className="card-soft flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-4 text-xl font-black shadow-sm"
+          className="card-soft flex min-w-0 items-center gap-2 rounded-full bg-white py-1 pl-1 pr-3 text-lg font-black shadow-sm sm:pr-4 sm:text-xl"
           aria-label={phrases.whoPlays}
         >
-          <span className="flex size-10 items-center justify-center rounded-full bg-violet-100 text-3xl">{profile?.avatar}</span>
-          <span className="max-w-32 truncate">{profile?.name}</span>
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-violet-100 text-2xl sm:size-10 sm:text-3xl">
+            {profile?.avatar}
+          </span>
+          <span className="max-w-20 truncate sm:max-w-32">{profile?.name}</span>
         </Link>
-        <span className="card-soft rounded-full bg-white px-4 py-2 text-xl font-black shadow-sm" aria-label={`${ui.level} ${level}`}>
-          🏅 {ui.level} {level}
-          <span className="text-base text-slate-400">/{MAX_LEVEL}</span>
+        <span
+          className="card-soft shrink-0 whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-lg font-black shadow-sm sm:px-4 sm:py-2 sm:text-xl"
+          aria-label={`${ui.level} ${level}`}
+        >
+          🏅 <span className="hidden sm:inline">{ui.level} </span>
+          {level}
+          <span className="text-sm text-slate-400 sm:text-base">/{MAX_LEVEL}</span>
         </span>
-        <div className="ml-auto flex gap-2">
+        <div className="ml-auto flex shrink-0 gap-1.5 sm:gap-2">
           <StarCounter />
           <CoinCounter />
         </div>
