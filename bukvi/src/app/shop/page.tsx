@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { SHOP_CATEGORIES, SHOP_ITEMS, WEAR_SLOTS, getShopItem, type ShopCategory, type ShopItem } from "@/data/shop";
+import { useEffect, useState } from "react";
+import { SHOP_CATEGORIES, SHOP_ITEMS, SHOP_UNLOCK_STEPS, WEAR_SLOTS, getShopItem, type ShopCategory, type ShopItem } from "@/data/shop";
+import { isShopOpen, stepsToShop } from "@/services/shopAccess";
 import { MASCOTS } from "@/config/mascot";
 import { phrases } from "@/content/phrases";
 import type { Equipped } from "@/lib/types";
@@ -11,7 +12,7 @@ import { speakPhrase } from "@/services/speech";
 import { cn } from "@/lib/cn";
 import { PageShell } from "@/components/ui/PageShell";
 import { BigButton } from "@/components/ui/BigButton";
-import { useHeroLook, wornItems } from "@/components/game/Mascot";
+import { Mascot, useHeroLook, wornItems } from "@/components/game/Mascot";
 import { HeroSvg, type HeroPose } from "@/components/game/hero/HeroSvg";
 
 /**
@@ -19,6 +20,36 @@ import { HeroSvg, type HeroPose } from "@/components/game/hero/HeroSvg";
  * Купува се с големия бутон, затова случайно докосване не харчи монети.
  */
 export default function ShopPage() {
+  const hydrated = useGameStore((s) => s.hydrated);
+  const open = useGameStore((s) => isShopOpen(s.progress, s.settings.unlockAll));
+  if (!hydrated) return null;
+  return open ? <Shop /> : <ShopLocked />;
+}
+
+/** Затворен магазин: колко стъпки остават и голям бутон към пътя. */
+function ShopLocked() {
+  const left = useGameStore((s) => stepsToShop(s.progress));
+  const text = phrases.shopLocked(left);
+  useEffect(() => {
+    void speakPhrase(text);
+  }, [text]);
+  return (
+    <PageShell back="/" title="🛍️ Магазин">
+      <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
+        <span className="text-9xl">🔒</span>
+        <Mascot message={text} mood="encourage" />
+        <div className="flex w-full max-w-md gap-2" aria-label={`${SHOP_UNLOCK_STEPS - left}/${SHOP_UNLOCK_STEPS}`}>
+          {Array.from({ length: SHOP_UNLOCK_STEPS }, (_, i) => (
+            <span key={i} className={cn("h-5 flex-1 rounded-full", i < SHOP_UNLOCK_STEPS - left ? "bg-leaf" : "bg-white")} />
+          ))}
+        </div>
+        <BigButton href="/step/" icon="➡️" label={phrases.continuePath} color="bg-leaf text-white" size="lg" pulse className="w-full max-w-md" />
+      </div>
+    </PageShell>
+  );
+}
+
+function Shop() {
   const progress = useGameStore((s) => s.progress);
   const buy = useGameStore((s) => s.buy);
   const toggleEquip = useGameStore((s) => s.toggleEquip);

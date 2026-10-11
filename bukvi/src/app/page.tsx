@@ -12,6 +12,7 @@ import { CoinCounter } from "@/components/game/CoinCounter";
 import { PATH } from "@/data/path";
 import { levelOf, MAX_LEVEL } from "@/services/progress";
 import { currentStepIndex } from "@/services/path";
+import { isShopOpen, stepsToShop } from "@/services/shopAccess";
 import { playSound } from "@/services/sounds";
 import { stepInfo } from "@/components/path/stepInfo";
 import { cn } from "@/lib/cn";
@@ -28,6 +29,8 @@ export default function HomePage() {
   const current = hydrated ? currentStepIndex(progress) : 0;
   const step = PATH[current];
   const info = step ? stepInfo(step) : null;
+  const unlockAll = useGameStore((s) => s.settings.unlockAll);
+  const shopOpen = hydrated && isShopOpen(progress, unlockAll);
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-5 px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
@@ -113,7 +116,20 @@ export default function HomePage() {
         <BigButton href="/learn/" icon="🗺️" label={phrases.pathShort} size="lg" color="bg-lime-200" />
         <BigButton href="/games/" icon="🎮" label={ui.menu.play} size="lg" color="bg-sky-200" />
         <BigButton href="/rewards/" icon="🏆" label={ui.menu.rewards} size="lg" color="bg-pink-200" />
-        <BigButton href="/shop/" icon="🛍️" label="Магазин" size="lg" color="bg-amber-200" />
+        {/* Магазинът се отваря за деня на всеки 10 стъпки — бележката казва кога. */}
+        <div className="relative flex">
+          <BigButton href="/shop/" icon={shopOpen ? "🛍️" : "🔒"} label="Магазин" size="lg" color="bg-amber-200" pulse={shopOpen} className="w-full" />
+          {hydrated && (
+            <span
+              className={cn(
+                "pointer-events-none absolute -top-2 right-2 rounded-full px-3 py-1 text-sm font-black shadow-sm",
+                shopOpen ? "bg-leaf text-white" : "bg-white text-slate-600",
+              )}
+            >
+              {shopOpen ? phrases.shopOpenToday : phrases.shopLockedShort(stepsToShop(progress))}
+            </span>
+          )}
+        </div>
       </nav>
 
       <div className="grid grid-cols-2 gap-4">

@@ -99,6 +99,8 @@ export type PlayerProgress = {
   daily: { day: string; challengeId?: string; counts: Partial<Record<ChallengeMetric, number>> };
   /** Дни с изпълнено предизвикателство — от тях се смята поредицата 🔥. */
   challengeDays: string[];
+  /** Магазинът: до коя стъпка е броено и в кой ден е отворен (виж services/shopAccess.ts). */
+  shop?: { openDay?: string; milestone: number };
   /** Отключени игри, за които детето вече е видяло картата „Отключи нова игра!“. */
   seenUnlocks: string[];
 };

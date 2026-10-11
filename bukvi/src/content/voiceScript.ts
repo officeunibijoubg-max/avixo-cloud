@@ -9,7 +9,7 @@ import { FEATURES } from "@/data/unlocks";
 import { PATH } from "@/data/path";
 import { numberName } from "@/data/math";
 import { WEAR_FUN } from "./phrases";
-import { SHOP_ITEMS } from "@/data/shop";
+import { SHOP_ITEMS, SHOP_UNLOCK_STEPS } from "@/data/shop";
 import { LEVELS } from "@/data/lessons";
 import { CHALLENGES } from "@/config/challenges";
 import { MASCOTS } from "@/config/mascot";
@@ -120,6 +120,8 @@ export function voiceLines(): VoiceLine[] {
 
   // Магазин
   add("Магазин", "shop-hello", phrases.shopHello);
+  add("Магазин", "shop-open-today", phrases.shopOpenToday);
+  for (let n = 1; n <= SHOP_UNLOCK_STEPS; n++) add("Магазин", `shop-locked-${n}`, phrases.shopLocked(n));
   add("Магазин", "take-off", phrases.takeOff);
   add("Магазин", "take-off-all", phrases.takeOffAll);
   WEAR_FUN.forEach((t, i) => add("Магазин", `wear-fun-${i + 1}`, t));

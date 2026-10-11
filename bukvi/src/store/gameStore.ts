@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import type { PlayerProgress, Settings } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { DEFAULT_VOICE } from "@/config/voices";
+import { withShopUnlock } from "@/services/shopAccess";
 import { DEFAULT_MASCOT } from "@/config/mascot";
 import { DEFAULT_TTS_SPELLING } from "@/config/speech";
 import {
@@ -99,7 +100,7 @@ export const useGameStore = create<GameState>()(
       hydrated: false,
       recordWriting: (character, score, isCorrect, coins) => {
         const { progress, delta } = recordWriting(get().progress, character, score, isCorrect, coins);
-        set({ progress });
+        set({ progress: withShopUnlock(progress) });
         return delta;
       },
       recordGameAnswer: (isCorrect) => {
@@ -109,11 +110,11 @@ export const useGameStore = create<GameState>()(
       },
       countGame: (id) =>
         set((s) => ({
-          progress: {
+          progress: withShopUnlock({
             ...s.progress,
             gamesPlayed: s.progress.gamesPlayed + 1,
             played: { ...s.progress.played, [id]: (s.progress.played?.[id] ?? 0) + 1 },
-          },
+          }),
         })),
       buy: (id) => {
         const res = buyItem(get().progress, id);

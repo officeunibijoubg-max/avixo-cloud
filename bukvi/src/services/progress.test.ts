@@ -265,3 +265,32 @@ describe("облекло на героя", () => {
     for (const i of SHOP_ITEMS.filter((x) => x.category === "friend")) expect(SPECIES[i.mascot!], i.id).toBeTruthy();
   });
 });
+
+describe("магазинът се отваря за деня на всеки 10 стъпки", () => {
+  it("затворен в началото, отворен след 10 стъпки, затворен на другия ден", async () => {
+    const { isShopOpen, stepsToShop, withShopUnlock } = await import("./shopAccess");
+    const { PATH } = await import("@/data/path");
+    // Минава първите n стъпки от пътя (само чертички и букви — за тях стига writе).
+    const pass = (p: ReturnType<typeof emptyProgress>, n: number, day: string) => {
+      for (const s of PATH.slice(0, n)) {
+        if (s.kind === "shape") p = recordWriting(p, `фигура-${s.id}`, 90, true, 1, day).progress;
+        else if (s.kind === "char") p = recordWriting(p, s.char, 90, true, 1, day).progress;
+        else if (s.kind === "word") p = recordWriting(p, s.text, 90, true, 1, day).progress;
+        else p = { ...p, played: { ...p.played, [s.kind === "story" ? `story-${s.id}` : s.id]: 1 } };
+        p = withShopUnlock(p, day);
+      }
+      return p;
+    };
+    let p = withShopUnlock(emptyProgress(), "2026-10-11");
+    expect(isShopOpen(p, false, "2026-10-11")).toBe(false);
+    expect(stepsToShop(p)).toBe(10);
+    p = pass(p, 9, "2026-10-11");
+    expect(isShopOpen(p, false, "2026-10-11")).toBe(false);
+    expect(stepsToShop(p)).toBe(1);
+    p = pass(p, 10, "2026-10-11");
+    expect(isShopOpen(p, false, "2026-10-11")).toBe(true);
+    expect(isShopOpen(p, false, "2026-10-12")).toBe(false);
+    expect(stepsToShop(p)).toBe(10);
+    expect(isShopOpen(emptyProgress(), true)).toBe(true);
+  });
+});

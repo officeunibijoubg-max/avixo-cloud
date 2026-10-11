@@ -105,6 +105,9 @@ export const SHOP_ITEMS: ShopItem[] = [
   { id: "friend-dino", name: "Дино", icon: "🦖", price: 150, category: "friend", mascot: "dino" },
 ];
 
+/** На колко минати стъпки по пътя магазинът се отваря за деня. */
+export const SHOP_UNLOCK_STEPS = 10;
+
 export const getShopItem = (id: string) => SHOP_ITEMS.find((i) => i.id === id);
 
 // Стикерите се печелят (не се купуват) — по един за всяко завършено Днешно приключение.
