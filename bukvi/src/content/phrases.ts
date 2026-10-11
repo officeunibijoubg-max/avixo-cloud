@@ -109,7 +109,6 @@ export const phrases = {
   ],
   // Пътят на обучение
   continuePath: "Продължи",
-  listenNow: "Слушай…",
   soundWorks: "Браво! Звукът работи.",
   pathHello: "Натисни голямата зелена стрелка и продължаваме по пътя!",
   pathTitle: "Пътят на Лъвчо",
