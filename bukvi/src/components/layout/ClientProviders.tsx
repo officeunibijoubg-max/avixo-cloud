@@ -6,6 +6,7 @@ import { configureSounds, setMusic, unlockSounds } from "@/services/sounds";
 import { configureSpeech, unlockSpeech } from "@/services/speech";
 import { getShopItem } from "@/data/shop";
 import { SpeechLock } from "./SpeechLock";
+import { CertificatePopup } from "@/components/certificate/CertificatePopup";
 
 /** Зарежда прогреса, прилага настройките и регистрира service worker-а. */
 export function ClientProviders({ children }: { children: React.ReactNode }) {
@@ -73,6 +74,7 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   return (
     <>
       {children}
+      <CertificatePopup />
       <SpeechLock />
     </>
   );

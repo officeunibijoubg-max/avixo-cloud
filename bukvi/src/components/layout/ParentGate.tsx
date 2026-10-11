@@ -5,8 +5,13 @@ import { randomInt } from "@/lib/random";
 
 const SESSION_KEY = "bukvi-parent-ok";
 const HOLD_MS = 3000;
+/** Колко време след отключване родителят може да се движи из родителската зона без нова проверка. */
+const UNLOCK_MS = 5 * 60_000;
 
-/** Задържане 3 секунди + проста сметка, за да не влиза детето случайно. */
+/** Умножение 6–9 × 6–9: лесно за възрастен, непосилно за дете 3–7 г. */
+const newQuestion = () => ({ a: 6 + randomInt(4), b: 6 + randomInt(4) });
+
+/** Задържане 3 секунди + умножение, за да не влиза детето случайно; помни се само 5 минути. */
 export function ParentGate({ children }: { children: React.ReactNode }) {
   const [ok, setOk] = useState<boolean | null>(null);
   const [q, setQ] = useState<{ a: number; b: number } | null>(null);
@@ -19,27 +24,30 @@ export function ParentGate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     let unlocked = false;
     try {
-      unlocked = sessionStorage.getItem(SESSION_KEY) === "1";
+      const at = Number(sessionStorage.getItem(SESSION_KEY));
+      unlocked = at > 0 && Date.now() - at < UNLOCK_MS;
+      // Всяко влизане удължава времето — родителят не бива да се заключи насред настройките.
+      if (unlocked) sessionStorage.setItem(SESSION_KEY, String(Date.now()));
     } catch {}
     setOk(unlocked);
-    setQ({ a: 6 + randomInt(4), b: 4 + randomInt(5) });
+    setQ(newQuestion());
   }, []);
 
   const unlock = () => {
     try {
-      sessionStorage.setItem(SESSION_KEY, "1");
+      sessionStorage.setItem(SESSION_KEY, String(Date.now()));
     } catch {}
     setOk(true);
   };
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (q && Number(answer) === q.a + q.b) unlock();
+    if (q && Number(answer) === q.a * q.b) unlock();
     else {
       // Нова задача при грешка — да не може да се налучка с повторения.
       setError(true);
       setAnswer("");
-      setQ({ a: 6 + randomInt(4), b: 4 + randomInt(5) });
+      setQ(newQuestion());
     }
   };
 
@@ -86,7 +94,7 @@ export function ParentGate({ children }: { children: React.ReactNode }) {
           <form onSubmit={submit} className="card-soft flex flex-col items-center gap-4 rounded-3xl bg-white p-6 shadow-md">
             <span className="text-sm font-bold text-slate-500">Стъпка 2 от 2</span>
             <label htmlFor="gate" className="text-3xl font-black">
-              Колко е {q.a} + {q.b}?
+              Колко е {q.a} × {q.b}?
             </label>
             <input
               id="gate"

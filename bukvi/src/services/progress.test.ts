@@ -265,3 +265,88 @@ describe("облекло на героя", () => {
     for (const i of SHOP_ITEMS.filter((x) => x.category === "friend")) expect(SPECIES[i.mascot!], i.id).toBeTruthy();
   });
 });
+
+describe("магазинът се отваря за деня на всеки 10 стъпки", () => {
+  it("затворен в началото, отворен след 10 стъпки, затворен на другия ден", async () => {
+    const { isShopOpen, stepsToShop, withShopUnlock } = await import("./shopAccess");
+    const { PATH } = await import("@/data/path");
+    // Минава първите n стъпки от пътя (само чертички и букви — за тях стига writе).
+    const pass = (p: ReturnType<typeof emptyProgress>, n: number, day: string) => {
+      for (const s of PATH.slice(0, n)) {
+        if (s.kind === "shape") p = recordWriting(p, `фигура-${s.id}`, 90, true, 1, day).progress;
+        else if (s.kind === "char") p = recordWriting(p, s.char, 90, true, 1, day).progress;
+        else if (s.kind === "word") p = recordWriting(p, s.text, 90, true, 1, day).progress;
+        else p = { ...p, played: { ...p.played, [s.kind === "story" ? `story-${s.id}` : s.id]: 1 } };
+        p = withShopUnlock(p, day);
+      }
+      return p;
+    };
+    let p = withShopUnlock(emptyProgress(), "2026-10-11");
+    expect(isShopOpen(p, false, "2026-10-11")).toBe(false);
+    expect(stepsToShop(p)).toBe(10);
+    p = pass(p, 9, "2026-10-11");
+    expect(isShopOpen(p, false, "2026-10-11")).toBe(false);
+    expect(stepsToShop(p)).toBe(1);
+    p = pass(p, 10, "2026-10-11");
+    expect(isShopOpen(p, false, "2026-10-11")).toBe(true);
+    expect(isShopOpen(p, false, "2026-10-12")).toBe(false);
+    expect(stepsToShop(p)).toBe(10);
+    expect(isShopOpen(emptyProgress(), true)).toBe(true);
+  });
+});
+
+describe("сертификати", () => {
+  it("се печелят, когато всички стъпки от главата са минати, с датата на деня", async () => {
+    const { withCertificates, unseenCertificates } = await import("./certificates");
+    const { CERTIFICATES } = await import("@/data/certificates");
+    const ch1 = CERTIFICATES[0];
+    let p = emptyProgress();
+    for (const s of ch1.steps.slice(0, -1)) {
+      if (s.kind === "shape") p = recordWriting(p, `фигура-${s.id}`, 90, true, 1).progress;
+      else if (s.kind === "char") p = recordWriting(p, s.char, 90, true, 1).progress;
+      else if (s.kind === "game" || s.kind === "story") p = { ...p, played: { ...p.played, [s.kind === "story" ? `story-${s.id}` : s.id]: 1 } };
+    }
+    p = withCertificates(p, "2026-10-11");
+    // Всичко е минато освен проверката на главата — сертификат още няма.
+    expect(ch1.steps[ch1.steps.length - 1]).toEqual({ kind: "test", id: "chapter-1" });
+    expect(p.certificates?.[ch1.id]).toBeUndefined();
+    p = { ...p, played: { ...p.played, "test-chapter-1": 1 } };
+    p = withCertificates(p, "2026-10-11");
+    expect(p.certificates?.[ch1.id]).toBe("2026-10-11");
+    expect(unseenCertificates(p).map((c) => c.id)).toEqual([ch1.id]);
+    expect(unseenCertificates({ ...p, seenCertificates: [ch1.id] })).toEqual([]);
+  });
+});
+
+describe("проверка на главата", () => {
+  it("всяка глава завършва с проверка, а пътят не минава нататък без нея", async () => {
+    const { CHAPTERS } = await import("@/data/path");
+    const { currentStep } = await import("./path");
+    for (const [i, c] of CHAPTERS.entries()) expect(c.steps[c.steps.length - 1]).toEqual({ kind: "test", id: `chapter-${i + 1}` });
+    let p = emptyProgress();
+    for (const s of CHAPTERS[0].steps) {
+      if (s.kind === "shape") p = recordWriting(p, `фигура-${s.id}`, 90, true, 1).progress;
+      else if (s.kind === "char") p = recordWriting(p, s.char, 90, true, 1).progress;
+      else if (s.kind === "game") p = { ...p, played: { ...p.played, [s.id]: 1 } };
+    }
+    expect(currentStep(p)).toEqual({ kind: "test", id: "chapter-1" });
+    p = { ...p, played: { ...p.played, "test-chapter-1": 1 } };
+    expect(currentStep(p)).toEqual({ kind: "char", char: "М" });
+  });
+
+  it("избира до 5 символа (първо най-слабите) и до 2 думи от главата", async () => {
+    const { pickTestItems } = await import("./chapterTest");
+    let p = emptyProgress();
+    p = recordWriting(p, "М", 20, false, 0).progress; // слаба
+    p = recordWriting(p, "Л", 95, true, 1).progress;
+    const items = pickTestItems(p, 2, () => 0.5);
+    const chars = items.filter((i) => i.kind === "char").map((i) => (i.kind === "char" ? i.char : ""));
+    const words = items.filter((i) => i.kind === "word");
+    expect(chars).toHaveLength(5);
+    expect(chars).toContain("М");
+    expect(words.length).toBeLessThanOrEqual(2);
+    expect(words.length).toBeGreaterThan(0);
+    // Глава 1 няма думи — само символи.
+    expect(pickTestItems(emptyProgress(), 1).every((i) => i.kind === "char")).toBe(true);
+  });
+});

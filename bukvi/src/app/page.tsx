@@ -12,6 +12,7 @@ import { CoinCounter } from "@/components/game/CoinCounter";
 import { PATH } from "@/data/path";
 import { levelOf, MAX_LEVEL } from "@/services/progress";
 import { currentStepIndex } from "@/services/path";
+import { isShopOpen, stepsToShop } from "@/services/shopAccess";
 import { playSound } from "@/services/sounds";
 import { stepInfo } from "@/components/path/stepInfo";
 import { cn } from "@/lib/cn";
@@ -28,24 +29,32 @@ export default function HomePage() {
   const current = hydrated ? currentStepIndex(progress) : 0;
   const step = PATH[current];
   const info = step ? stepInfo(step) : null;
+  const unlockAll = useGameStore((s) => s.settings.unlockAll);
+  const shopOpen = hydrated && isShopOpen(progress, unlockAll);
 
   return (
     <div className="mx-auto flex min-h-dvh w-full max-w-5xl flex-col gap-5 px-4 pb-8 pt-[max(1rem,env(safe-area-inset-top))] sm:px-6">
-      <header className="flex items-center gap-3">
+      <header className="flex items-center gap-2 sm:gap-3">
         {/* Кой играе — натискането води към избора на дете. */}
         <Link
           href="/profiles/"
-          className="card-soft flex items-center gap-2 rounded-full bg-white py-1 pl-1 pr-4 text-xl font-black shadow-sm"
+          className="card-soft flex min-w-0 items-center gap-2 rounded-full bg-white py-1 pl-1 pr-3 text-lg font-black shadow-sm sm:pr-4 sm:text-xl"
           aria-label={phrases.whoPlays}
         >
-          <span className="flex size-10 items-center justify-center rounded-full bg-violet-100 text-3xl">{profile?.avatar}</span>
-          <span className="max-w-32 truncate">{profile?.name}</span>
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-violet-100 text-2xl sm:size-10 sm:text-3xl">
+            {profile?.avatar}
+          </span>
+          <span className="max-w-20 truncate sm:max-w-32">{profile?.name}</span>
         </Link>
-        <span className="card-soft rounded-full bg-white px-4 py-2 text-xl font-black shadow-sm" aria-label={`${ui.level} ${level}`}>
-          🏅 {ui.level} {level}
-          <span className="text-base text-slate-400">/{MAX_LEVEL}</span>
+        <span
+          className="card-soft shrink-0 whitespace-nowrap rounded-full bg-white px-3 py-1.5 text-lg font-black shadow-sm sm:px-4 sm:py-2 sm:text-xl"
+          aria-label={`${ui.level} ${level}`}
+        >
+          🏅 <span className="hidden sm:inline">{ui.level} </span>
+          {level}
+          <span className="text-sm text-slate-400 sm:text-base">/{MAX_LEVEL}</span>
         </span>
-        <div className="ml-auto flex gap-2">
+        <div className="ml-auto flex shrink-0 gap-1.5 sm:gap-2">
           <StarCounter />
           <CoinCounter />
         </div>
@@ -107,29 +116,32 @@ export default function HomePage() {
         <BigButton href="/learn/" icon="🗺️" label={phrases.pathShort} size="lg" color="bg-lime-200" />
         <BigButton href="/games/" icon="🎮" label={ui.menu.play} size="lg" color="bg-sky-200" />
         <BigButton href="/rewards/" icon="🏆" label={ui.menu.rewards} size="lg" color="bg-pink-200" />
-        <BigButton href="/shop/" icon="🛍️" label="Магазин" size="lg" color="bg-amber-200" />
+        {/* Магазинът се отваря за деня на всеки 10 стъпки — бележката казва кога. */}
+        <div className="relative flex">
+          <BigButton href="/shop/" icon={shopOpen ? "🛍️" : "🔒"} label="Магазин" size="lg" color="bg-amber-200" pulse={shopOpen} className="w-full" />
+          {hydrated && (
+            <span
+              className={cn(
+                "pointer-events-none absolute -top-2 right-2 rounded-full px-3 py-1 text-sm font-black shadow-sm",
+                shopOpen ? "bg-leaf text-white" : "bg-white text-slate-600",
+              )}
+            >
+              {shopOpen ? phrases.shopOpenToday : phrases.shopLockedShort(stepsToShop(progress))}
+            </span>
+          )}
+        </div>
       </nav>
 
-      <div className="grid grid-cols-2 gap-4">
-        <Link
-          href="/parent/"
-          className="card-soft flex min-h-16 items-center justify-center gap-3 rounded-[1.75rem] bg-white/70 text-lg font-extrabold shadow-sm"
-        >
-          <span className="text-3xl" aria-hidden>
-            👨‍👩‍👧
-          </span>
-          {ui.menu.parents}
-        </Link>
-        <Link
-          href="/settings/"
-          className="card-soft flex min-h-16 items-center justify-center gap-3 rounded-[1.75rem] bg-white/70 text-lg font-extrabold shadow-sm"
-        >
-          <span className="text-3xl" aria-hidden>
-            ⚙️
-          </span>
-          {ui.menu.settings}
-        </Link>
-      </div>
+      {/* Таблото и настройките са само за родители — зад задържане и задача. */}
+      <Link
+        href="/parent/"
+        className="card-soft flex min-h-14 items-center justify-center gap-3 self-center rounded-[1.75rem] bg-white/70 px-6 text-lg font-extrabold shadow-sm"
+      >
+        <span className="text-2xl" aria-hidden>
+          🔐
+        </span>
+        {ui.menu.parents}
+      </Link>
     </div>
   );
 }

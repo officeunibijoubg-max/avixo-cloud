@@ -5,6 +5,8 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import type { PlayerProgress, Settings } from "@/lib/types";
 import { APP_CONFIG } from "@/config/app";
 import { DEFAULT_VOICE } from "@/config/voices";
+import { withShopUnlock } from "@/services/shopAccess";
+import { withCertificates } from "@/services/certificates";
 import { DEFAULT_MASCOT } from "@/config/mascot";
 import { DEFAULT_TTS_SPELLING } from "@/config/speech";
 import {
@@ -67,6 +69,7 @@ type GameState = {
   completeAdventure: () => ProgressDelta;
   addPlayTime: (seconds: number) => void;
   markUnlocksSeen: (ids: string[]) => void;
+  markCertificatesSeen: (ids: string[]) => void;
   updateSettings: (patch: Partial<Settings>) => void;
   resetProgress: () => void;
   // Профили (няколко деца на едно устройство).
@@ -99,7 +102,7 @@ export const useGameStore = create<GameState>()(
       hydrated: false,
       recordWriting: (character, score, isCorrect, coins) => {
         const { progress, delta } = recordWriting(get().progress, character, score, isCorrect, coins);
-        set({ progress });
+        set({ progress: withCertificates(withShopUnlock(progress)) });
         return delta;
       },
       recordGameAnswer: (isCorrect) => {
@@ -109,11 +112,11 @@ export const useGameStore = create<GameState>()(
       },
       countGame: (id) =>
         set((s) => ({
-          progress: {
+          progress: withCertificates(withShopUnlock({
             ...s.progress,
             gamesPlayed: s.progress.gamesPlayed + 1,
             played: { ...s.progress.played, [id]: (s.progress.played?.[id] ?? 0) + 1 },
-          },
+          })),
         })),
       buy: (id) => {
         const res = buyItem(get().progress, id);
@@ -131,6 +134,10 @@ export const useGameStore = create<GameState>()(
       markUnlocksSeen: (ids) =>
         set((s) => ({
           progress: { ...s.progress, seenUnlocks: [...new Set([...(s.progress.seenUnlocks ?? []), ...ids])] },
+        })),
+      markCertificatesSeen: (ids) =>
+        set((s) => ({
+          progress: { ...s.progress, seenCertificates: [...new Set([...(s.progress.seenCertificates ?? []), ...ids])] },
         })),
       updateSettings: (patch) => set((s) => ({ settings: { ...s.settings, ...patch } })),
       resetProgress: () => set({ progress: emptyProgress() }),
@@ -179,7 +186,9 @@ export const useGameStore = create<GameState>()(
       },
       // Хидратираме ръчно след монтиране, за да съвпадне с HTML-а от сървъра.
       skipHydration: true,
-      onRehydrateStorage: () => () => useGameStore.setState({ hydrated: true }),
+      // След зареждане: сертификати за вече минати глави (напр. от по-стара версия).
+      onRehydrateStorage: () => () =>
+        useGameStore.setState((s) => ({ hydrated: true, progress: withCertificates(s.progress) })),
     },
   ),
 );

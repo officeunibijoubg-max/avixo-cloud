@@ -9,7 +9,7 @@ import { Illustration } from "@/components/illustrations/Illustration";
 export function NumberLesson({ lesson }: { lesson: CharacterLesson }) {
   const count = lesson.count ?? 0;
   return (
-    <div className="card-soft flex items-center gap-4 rounded-[2rem] bg-white/80 p-4 shadow-md lg:flex-col lg:p-6">
+    <div className="card-soft flex items-center gap-4 rounded-[2rem] bg-white/80 p-4 shadow-md short:flex-col short:gap-2 short:p-3 lg:flex-col lg:p-6">
       <div className="flex size-28 shrink-0 items-center justify-center rounded-3xl bg-amber-200 text-8xl font-black text-amber-700 sm:size-32 lg:size-44 lg:text-[8rem]">
         {lesson.character}
       </div>

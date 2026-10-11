@@ -98,8 +98,8 @@ export function WordScreen({
 
   return (
     <PageShell back={back}>
-      <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-start lg:gap-6">
-        <aside className="flex flex-col gap-4 lg:w-80 lg:shrink-0">
+      <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-start short:flex-row short:items-start lg:gap-6">
+        <aside className="flex flex-col gap-4 short:max-h-[calc(100dvh-5rem)] short:w-64 short:shrink-0 short:overflow-y-auto lg:w-80 lg:shrink-0">
           <div className="card-soft flex items-center gap-4 rounded-[2rem] bg-white/80 p-4 shadow-md lg:flex-col lg:p-6">
             {word.image ? <Illustration name={word.image} size={120} /> : <span className="text-7xl">🗣️</span>}
             {/* Думата с плочки за всяка буква: написаните са зелени, текущата подскача. */}
@@ -161,7 +161,7 @@ function LetterStep({ lesson, task, onSolved }: { lesson: CharacterLesson; task:
   return (
     <>
       <Mascot compact message={ex.label ?? task} mood={mood} className="self-start" />
-      <div className="w-full max-w-[min(100%,58dvh)] lg:max-w-[min(100%,72dvh)]">
+      <div className="canvas-box">
         <WritingCanvas
           ref={ex.canvasRef}
           character={lesson.character}

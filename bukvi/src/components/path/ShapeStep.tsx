@@ -22,14 +22,14 @@ export function ShapeStep({ lesson }: { lesson: CharacterLesson }) {
   }, [text]);
   return (
     <PageShell back="/">
-      <div className="flex flex-1 flex-col items-center gap-4">
-        <div className="flex w-full items-center gap-3">
+      <div className="flex flex-1 flex-col items-center gap-4 short:flex-row short:items-start short:justify-center">
+        <div className="flex w-full items-center gap-3 short:w-56 short:flex-col">
           <Mascot compact message={ex.label ?? text} mood={ex.mood} className="flex-1" />
           <span className="text-7xl" aria-hidden>
             {lesson.exampleImage}
           </span>
         </div>
-        <div className="w-full max-w-[min(100%,60dvh)]">
+        <div className="canvas-box">
           <WritingCanvas
             ref={ex.canvasRef}
             character={lesson.character}
@@ -48,7 +48,7 @@ export function ShapeStep({ lesson }: { lesson: CharacterLesson }) {
         {ex.solved ? (
           <BigButton onClick={cont} icon="➡️" label={phrases.continuePath} color="bg-leaf text-white" size="lg" pulse className="w-full max-w-md" />
         ) : (
-          <div className="flex gap-3">
+          <div className="flex gap-3 short:flex-col">
             <BigButton icon="🧽" label={ui.clear} onClick={ex.clear} color="bg-amber-100" disabled={ex.locked} />
             <BigButton icon="⭐" ariaLabel={ui.showMe} onClick={() => ex.showHint("star")} color="bg-violet-100" disabled={ex.locked} />
           </div>

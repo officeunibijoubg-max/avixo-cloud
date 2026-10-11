@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Легнал телефон (широк, но нисък екран): подреждаме нещата едно до друго. */
+@custom-variant short (@media (orientation: landscape) and (max-height: 600px));
+
 @theme {
   --font-sans: var(--font-nunito), "Nunito", ui-rounded, "SF Pro Rounded", system-ui, sans-serif;
   --color-ink: #2b2f4a;
@@ -70,9 +73,25 @@
 .lion-clap-r { animation: lion-clap-r 0.35s ease-in-out infinite; }
 .lion-zzz { animation: lion-zzz 2.2s ease-in-out infinite; }
 
+/* Полето за писане: колкото позволява и ширината, и височината на екрана —
+   на легнал телефон целият лист трябва да се вижда без скролване. */
+.canvas-box {
+  width: 100%;
+  max-width: min(100%, 62dvh, calc(100dvh - 11rem));
+}
+@media (min-width: 1024px) {
+  .canvas-box { max-width: min(100%, 76dvh, calc(100dvh - 9rem)); }
+}
+@media (orientation: landscape) and (max-height: 600px) {
+  .canvas-box { max-width: min(100%, calc(100dvh - 5.5rem)); }
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   background: #fef6e4;
+  /* Всичко е в rem, затова целият интерфейс се смалява на телефон и расте до 16px на таблет:
+     360px телефон ≈ 14.6px, S25 Ultra ≈ 15.5px, легнал телефон — според височината. */
+  font-size: clamp(13px, calc(8.5px + 1.7vmin), 16px);
 }
 
 body {
@@ -87,6 +106,8 @@ body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   overscroll-behavior: none;
+  /* Нищо не бива да разширява страницата встрани (иначе телефонът я смалява и бутоните „бягат“). */
+  overflow-x: hidden;
 }
 body:not([data-bg]) {
   background:
@@ -111,7 +132,7 @@ button, a { -webkit-touch-callout: none; }
 
 /* ─── Достъпност (включват се от настройките чрез data-атрибути на <html>) ─── */
 
-html[data-large="true"] { font-size: 118%; }
+html[data-large="true"] { font-size: clamp(15px, calc(10px + 2vmin), 19px); }
 
 html[data-contrast="true"] body { background: #fff; color: #000; }
 html[data-contrast="true"] .card-soft { background: #fff !important; border: 3px solid #000 !important; box-shadow: none !important; }

@@ -1,4 +1,4 @@
-import type { PathStep } from "@/data/path";
+import { CHAPTERS, type PathStep } from "@/data/path";
 import { getLessonByChar } from "@/data/lessons";
 import { shapeLessons } from "@/data/shapes";
 import { getFeature } from "@/data/unlocks";
@@ -27,6 +27,11 @@ export function stepInfo(s: PathStep): StepInfo {
       const f = getFeature(s.id);
       const title = f?.title ?? "";
       return { icon: f?.icon ?? "🎮", title, label: phrases.stepGame(title), href: f?.href };
+    }
+    case "test": {
+      const n = Number(s.id.split("-")[1]);
+      const title = CHAPTERS[n - 1]?.title ?? "";
+      return { icon: "📝", title, label: phrases.stepTest(n) };
     }
     case "story": {
       const st = STORIES.find((x) => x.id === s.id);

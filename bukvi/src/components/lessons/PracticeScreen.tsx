@@ -51,15 +51,15 @@ export function PracticeScreen({ lesson }: { lesson: CharacterLesson }) {
 
   return (
     <PageShell back={back}>
-      <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-start lg:gap-6">
-        <aside className="flex flex-col gap-4 lg:w-80 lg:shrink-0">
+      <div className="flex flex-1 flex-col gap-4 lg:flex-row lg:items-start short:flex-row short:items-start lg:gap-6">
+        <aside className="flex flex-col gap-4 short:max-h-[calc(100dvh-5rem)] short:w-64 short:shrink-0 short:overflow-y-auto lg:w-80 lg:shrink-0">
           {lesson.type === "letter" ? <LetterLesson lesson={lesson} /> : <NumberLesson lesson={lesson} />}
-          <Mascot compact message={ex.label ?? task} mood={ex.mood} className="hidden lg:flex" />
+          <Mascot compact message={ex.label ?? task} mood={ex.mood} className="hidden short:flex lg:flex" />
         </aside>
 
         <section className="flex flex-1 flex-col items-center gap-4">
-          <Mascot compact message={ex.label ?? task} mood={ex.mood} className="self-start lg:hidden" />
-          <div className="w-full max-w-[min(100%,62dvh)] lg:max-w-[min(100%,78dvh)]">
+          <Mascot compact message={ex.label ?? task} mood={ex.mood} className="self-start short:hidden lg:hidden" />
+          <div className="canvas-box">
             <WritingCanvas
               ref={ex.canvasRef}
               character={lesson.character}
