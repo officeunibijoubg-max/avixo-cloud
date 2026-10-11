@@ -294,3 +294,25 @@ describe("магазинът се отваря за деня на всеки 10 
     expect(isShopOpen(emptyProgress(), true)).toBe(true);
   });
 });
+
+describe("сертификати", () => {
+  it("се печелят, когато всички стъпки от главата са минати, с датата на деня", async () => {
+    const { withCertificates, unseenCertificates } = await import("./certificates");
+    const { CERTIFICATES } = await import("@/data/certificates");
+    const ch1 = CERTIFICATES[0];
+    let p = emptyProgress();
+    for (const s of ch1.steps.slice(0, -1)) {
+      if (s.kind === "shape") p = recordWriting(p, `фигура-${s.id}`, 90, true, 1).progress;
+      else if (s.kind === "char") p = recordWriting(p, s.char, 90, true, 1).progress;
+      else if (s.kind === "game" || s.kind === "story") p = { ...p, played: { ...p.played, [s.kind === "story" ? `story-${s.id}` : s.id]: 1 } };
+    }
+    p = withCertificates(p, "2026-10-11");
+    expect(p.certificates?.[ch1.id]).toBeUndefined();
+    const last = ch1.steps[ch1.steps.length - 1];
+    if (last.kind === "char") p = recordWriting(p, last.char, 90, true, 1).progress;
+    p = withCertificates(p, "2026-10-11");
+    expect(p.certificates?.[ch1.id]).toBe("2026-10-11");
+    expect(unseenCertificates(p).map((c) => c.id)).toEqual([ch1.id]);
+    expect(unseenCertificates({ ...p, seenCertificates: [ch1.id] })).toEqual([]);
+  });
+});

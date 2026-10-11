@@ -92,6 +92,8 @@ export function voiceLines(): VoiceLine[] {
   // Пътят на обучение
   add("Пътят", "path-hello", phrases.pathHello);
   add("Пътят", "sound-works", phrases.soundWorks);
+  add("Пътят", "certificate-earned", phrases.certificateEarned);
+  add("Пътят", "certificate-locked", phrases.certificateLocked);
   add("Пътят", "path-locked", phrases.pathLocked);
   add("Пътят", "path-done", phrases.pathDone);
   for (const f of FEATURES) add("Пътят", `new-game-${f.id}`, phrases.newGameIntro(f.title));

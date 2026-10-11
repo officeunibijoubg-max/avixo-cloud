@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { SHOP_ITEMS, STICKERS } from "@/data/shop";
 import { MASCOTS } from "@/config/mascot";
-import { ui } from "@/content/phrases";
+import { CERTIFICATES } from "@/data/certificates";
+import { formatDay } from "@/services/certificates";
+import { phrases, ui } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { levelOf, MAX_LEVEL, totalStars } from "@/services/progress";
 import { allLessons } from "@/data/lessons";
@@ -44,6 +46,27 @@ export default function RewardsPage() {
             <span className="text-muted text-sm font-bold text-slate-500">{s.label}</span>
           </div>
         ))}
+      </div>
+
+      <h2 className="mb-3 mt-6 text-2xl font-black">{phrases.certificatesTitle}</h2>
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        {CERTIFICATES.map((c) => {
+          const day = progress.certificates?.[c.id];
+          return (
+            <Link
+              key={c.id}
+              href={`/certificate/?id=${c.id}`}
+              className={cn(
+                "card-soft flex flex-col items-center gap-1 rounded-3xl p-3 text-center shadow-sm",
+                day ? "border-4 border-double border-[#d4a017] bg-[#fffdf5]" : "bg-white/50 opacity-60",
+              )}
+            >
+              <span className={cn("text-5xl", !day && "grayscale")}>{day ? c.icon : "🔒"}</span>
+              <span className="text-sm font-black leading-tight">{c.title}</span>
+              {day && <span className="text-xs font-bold text-slate-500">{formatDay(day)}</span>}
+            </Link>
+          );
+        })}
       </div>
 
       <DailyChallengeCard className="mt-4" />
