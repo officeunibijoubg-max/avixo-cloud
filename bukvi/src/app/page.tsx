@@ -132,26 +132,16 @@ export default function HomePage() {
         </div>
       </nav>
 
-      <div className="grid grid-cols-2 gap-4">
-        <Link
-          href="/parent/"
-          className="card-soft flex min-h-16 items-center justify-center gap-3 rounded-[1.75rem] bg-white/70 text-lg font-extrabold shadow-sm"
-        >
-          <span className="text-3xl" aria-hidden>
-            👨‍👩‍👧
-          </span>
-          {ui.menu.parents}
-        </Link>
-        <Link
-          href="/settings/"
-          className="card-soft flex min-h-16 items-center justify-center gap-3 rounded-[1.75rem] bg-white/70 text-lg font-extrabold shadow-sm"
-        >
-          <span className="text-3xl" aria-hidden>
-            ⚙️
-          </span>
-          {ui.menu.settings}
-        </Link>
-      </div>
+      {/* Таблото и настройките са само за родители — зад задържане и задача. */}
+      <Link
+        href="/parent/"
+        className="card-soft flex min-h-14 items-center justify-center gap-3 self-center rounded-[1.75rem] bg-white/70 px-6 text-lg font-extrabold shadow-sm"
+      >
+        <span className="text-2xl" aria-hidden>
+          🔐
+        </span>
+        {ui.menu.parents}
+      </Link>
     </div>
   );
 }

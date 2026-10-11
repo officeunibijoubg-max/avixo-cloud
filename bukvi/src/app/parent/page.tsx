@@ -78,6 +78,9 @@ function Dashboard() {
         <Link href="/profiles/" className="rounded-2xl bg-white px-4 py-2 font-bold shadow-sm">
           {hasMany ? "Смени детето" : "Добави дете"}
         </Link>
+        <Link href="/settings/" className="ml-auto rounded-2xl bg-grape px-5 py-2 font-black text-white shadow-sm">
+          ⚙️ Настройки
+        </Link>
       </div>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {cards.map((c) => (
