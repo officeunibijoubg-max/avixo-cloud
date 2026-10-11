@@ -1,19 +1,24 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { phrases } from "@/content/phrases";
 import { useGameStore } from "@/store/gameStore";
 import { unseenCertificates } from "@/services/certificates";
 import { playSound } from "@/services/sounds";
-import { speakPhrase } from "@/services/speech";
+import { isSpeaking, speakPhrase, subscribeSpeaking } from "@/services/speech";
 import { BigButton } from "@/components/ui/BigButton";
 import { Certificate } from "./Certificate";
 
-// Не прекъсваме писането и родителската зона — показваме на спокойните екрани.
-const SHOW_ON = ["/", "/learn/", "/rewards/", "/games/"];
+// Родителската зона и самият сертификат — без изскачане.
+const QUIET = ["/parent", "/settings", "/profiles", "/certificate"];
+/** Пауза след последната фраза (напр. „Браво!“), преди да излезе сертификатът. */
+const DELAY_MS = 900;
 
-/** „Получи сертификат!“ — веднъж за всеки новоспечелен сертификат. */
+/**
+ * „Получи сертификат!“ — излиза веднага в играта, щом е спечелен (след като гласът
+ * доизрече похвалата), веднъж за всеки сертификат.
+ */
 export function CertificatePopup() {
   const router = useRouter();
   const path = usePathname() ?? "/";
@@ -21,7 +26,18 @@ export function CertificatePopup() {
   const hydrated = useGameStore((s) => s.hydrated);
   const name = useGameStore((s) => s.profiles.find((p) => p.id === s.activeId)?.name ?? "");
   const markSeen = useGameStore((s) => s.markCertificatesSeen);
-  const next = hydrated && SHOW_ON.includes(path) ? unseenCertificates(progress)[0] : undefined;
+  const speaking = useSyncExternalStore(subscribeSpeaking, isSpeaking, () => false);
+  const candidate = hydrated && !QUIET.some((p) => path.startsWith(p)) ? unseenCertificates(progress)[0] : undefined;
+  // Чакаме гласът да замлъкне и още малко, за да не прекъсваме похвалата.
+  const [ready, setReady] = useState<string | null>(null);
+  useEffect(() => {
+    if (!candidate) return setReady(null);
+    // Веднъж показан, остава до затваряне (и докато сам казва „Получи сертификат!“).
+    if (ready === candidate.id || speaking) return;
+    const t = setTimeout(() => setReady(candidate.id), DELAY_MS);
+    return () => clearTimeout(t);
+  }, [candidate, speaking, ready]);
+  const next = candidate && ready === candidate.id ? candidate : undefined;
   const day = next ? progress.certificates?.[next.id] : undefined;
 
   useEffect(() => {
