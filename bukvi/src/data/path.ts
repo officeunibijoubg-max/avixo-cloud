@@ -10,7 +10,9 @@ export type PathStep =
   | { kind: "char"; char: string }
   | { kind: "word"; text: string }
   | { kind: "game"; id: string }
-  | { kind: "story"; id: string };
+  | { kind: "story"; id: string }
+  /** Проверка в края на главата: букви и думи от нея без шаблон (виж components/path/ChapterTest). */
+  | { kind: "test"; id: string };
 
 export type Chapter = { title: string; icon: string; steps: PathStep[] };
 
@@ -54,7 +56,7 @@ const AFTER: Record<string, PathStep[]> = {
 const lettersWithExtras = (letters: string[]) => letters.flatMap((l) => [ch(l), ...(AFTER[l] ?? [])]);
 const slice = (from: string, to: string) => LETTER_ORDER.slice(LETTER_ORDER.indexOf(from), LETTER_ORDER.indexOf(to) + 1);
 
-export const CHAPTERS: Chapter[] = [
+const CHAPTER_LIST: Chapter[] = [
   { title: "Първи чертички и гласни", icon: "✏️", steps: [shape("rain"), shape("road"), shape("circle"), ...lettersWithExtras(slice("А", "И"))] },
   { title: "Първите срички: МА, ЛА", icon: "🌱", steps: lettersWithExtras(slice("М", "С")) },
   { title: "Първите думи", icon: "🌳", steps: lettersWithExtras(slice("Т", "Д")) },
@@ -62,6 +64,12 @@ export const CHAPTERS: Chapter[] = [
   { title: "Последните главни букви", icon: "🏔️", steps: lettersWithExtras(slice("Ш", "Ь")) },
   { title: "Малките букви", icon: "🌈", steps: LETTER_ORDER.map((l) => ch(l.toLowerCase())) },
 ];
+
+/** В края на всяка глава — проверка; пътят не продължава, докато не е мината. */
+export const CHAPTERS: Chapter[] = CHAPTER_LIST.map((c, i) => ({
+  ...c,
+  steps: [...c.steps, { kind: "test", id: `chapter-${i + 1}` }],
+}));
 
 export const PATH: PathStep[] = CHAPTERS.flatMap((c) => c.steps);
 

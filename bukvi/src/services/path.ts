@@ -5,7 +5,8 @@ import { starsFor } from "./progress";
 // Къде е детето по пътя. „Текущата“ стъпка е първата немината; всичко преди нея
 // е отворено за повтаряне, а всичко след нея е заключено.
 
-export const playedKey = (s: PathStep) => (s.kind === "story" ? `story-${s.id}` : s.kind === "game" ? s.id : "");
+export const playedKey = (s: PathStep) =>
+  s.kind === "story" ? `story-${s.id}` : s.kind === "test" ? `test-${s.id}` : s.kind === "game" ? s.id : "";
 
 export function isStepDone(p: PlayerProgress, s: PathStep): boolean {
   switch (s.kind) {

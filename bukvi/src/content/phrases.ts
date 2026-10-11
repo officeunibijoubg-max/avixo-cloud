@@ -137,6 +137,13 @@ export const phrases = {
   stepGame: (t: string) => `Нова игра: ${t}`,
   stepStory: (t: string) => `Приказка: ${t}`,
   stepShape: (n: string) => `Нарисувай ${n}`,
+  stepTest: (n: number) => `Проверка на глава ${n}`,
+  // Проверка на главата
+  testIntro: "Проверка! Напиши без помощ. Имаш два опита.",
+  testPassed: "Браво! Мина проверката!",
+  testPractice: "Нека упражним тези още малко. После продължаваме!",
+  testPracticeDone: "Супер! Вече ги можеш. Продължаваме по пътя!",
+  testItemFailed: "Нищо! Ще го упражним после.",
   // Повторение в приключението
   reviewWrite: (spoken: string) => `Спомни си! Напиши ${spoken}.`,
   // Мемори

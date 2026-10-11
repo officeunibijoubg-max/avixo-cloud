@@ -15,6 +15,7 @@ import { Mascot } from "@/components/game/Mascot";
 import { LessonFlow } from "@/components/lessons/LessonFlow";
 import { WordScreen } from "@/components/lessons/WordScreen";
 import { ShapeStep } from "@/components/path/ShapeStep";
+import { ChapterTest } from "@/components/path/ChapterTest";
 import { stepInfo } from "@/components/path/stepInfo";
 import { StepNavContext, useContinue } from "@/components/path/StepNav";
 
@@ -76,6 +77,8 @@ function RunStep({ step }: { step: PathStep }) {
       const lesson = shapeLessons.find((l) => l.id === `shape-${step.id}`);
       return lesson ? <ShapeStep lesson={lesson} /> : null;
     }
+    case "test":
+      return <ChapterTest chapter={Number(step.id.split("-")[1])} />;
     case "word": {
       const word = getWordByText(step.text);
       return word ? <WordStep text={step.text} /> : null;

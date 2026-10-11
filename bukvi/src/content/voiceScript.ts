@@ -93,6 +93,11 @@ export function voiceLines(): VoiceLine[] {
   add("Пътят", "path-hello", phrases.pathHello);
   add("Пътят", "sound-works", phrases.soundWorks);
   add("Пътят", "certificate-earned", phrases.certificateEarned);
+  add("Проверка", "test-intro", phrases.testIntro);
+  add("Проверка", "test-passed", phrases.testPassed);
+  add("Проверка", "test-practice", phrases.testPractice);
+  add("Проверка", "test-practice-done", phrases.testPracticeDone);
+  add("Проверка", "test-item-failed", phrases.testItemFailed);
   add("Пътят", "certificate-locked", phrases.certificateLocked);
   add("Пътят", "path-locked", phrases.pathLocked);
   add("Пътят", "path-done", phrases.pathDone);
