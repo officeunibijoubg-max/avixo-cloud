@@ -1,0 +1,134 @@
+<!-- =========================================================
+     5 МЪЖКИ ПАРФЮМА · AROMA BAY — Thank You
+     ConvertBuilder фрагмент · Viber авто-пренасочване след 3 сек
+     ========================================================= -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+#a5t#a5t *{ float:none !important; }
+#a5t{
+  --ice:#33f0d8; --ice-rgb:51,240,216; --frost:#2f8bff;
+  --fire:#ff2d78; --fire-rgb:255,45,120; --ember:#ffc23d; --lava:#7b84ff;
+  --ink:#04060c; --card:#0b1120; --text:#eef6ff; --muted:rgba(238,246,255,.72);
+  font-family:'Golos Text',Arial,sans-serif; color:var(--text); line-height:1.55;
+  background:radial-gradient(420px 320px at 0% 0%, rgba(51,240,216,.2), transparent 70%), radial-gradient(420px 320px at 100% 30%, rgba(255,45,120,.18), transparent 70%), radial-gradient(480px 360px at 20% 90%, rgba(255,194,61,.16), transparent 70%), #05060b;
+  min-height:100vh; width:100%; position:relative; overflow:hidden; padding:0 0 50px;
+}
+#a5t *{ box-sizing:border-box; }
+#a5t img{ max-width:100%; display:block; }
+
+@keyframes a5tNeon{
+  0%,22%  { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+  25%,47% { border-color:var(--frost); box-shadow:0 0 6px var(--frost),0 0 24px rgba(47,139,255,.6),inset 0 0 14px rgba(47,139,255,.3); }
+  50%,72% { border-color:var(--ember); box-shadow:0 0 6px var(--ember),0 0 24px rgba(255,178,31,.7),inset 0 0 14px rgba(255,178,31,.35); }
+  75%,97% { border-color:var(--fire);  box-shadow:0 0 6px var(--fire),0 0 26px rgba(var(--fire-rgb),.8),inset 0 0 14px rgba(var(--fire-rgb),.4); }
+  100%    { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+}
+@keyframes a5tPop{ 0%{transform:scale(.2)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
+@keyframes a5tDraw{ from{ stroke-dashoffset:60; } to{ stroke-dashoffset:0; } }
+@keyframes a5tScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes a5tFall{ 0%{ transform:translateY(-10vh) rotate(0); opacity:1 } 100%{ transform:translateY(115vh) rotate(420deg); opacity:.8 } }
+@keyframes a5tBounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+@keyframes a5tFill{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+#a5t .a5t-neon{ border:2px solid var(--ice); animation:a5tNeon 8s linear infinite; }
+#a5t .a5t-neon.a5t-d1{ animation-delay:-3s; }
+#a5t .a5t-ice-t{ color:var(--frost); text-shadow:0 0 6px #fff,0 0 16px var(--ice),0 0 34px var(--ice); }
+#a5t .a5t-fire-t{ color:#ffe2b8; text-shadow:0 0 6px #fff4e0,0 0 16px var(--fire),0 0 34px var(--lava); }
+
+#a5t .a5t-ticker{ background:#000; border-bottom:1px solid rgba(var(--fire-rgb),.6); overflow:hidden; white-space:nowrap; }
+#a5t .a5t-ticker-in{ display:inline-flex; gap:38px; padding:10px 0; animation:a5tScroll 22s linear infinite; font:400 12px/1 'Russo One',sans-serif; letter-spacing:1.5px; text-transform:uppercase; }
+#a5t .a5t-ticker-in span:nth-child(odd){ color:var(--ice); text-shadow:0 0 10px rgba(var(--ice-rgb),.9); }
+#a5t .a5t-ticker-in span:nth-child(even){ color:var(--ember); text-shadow:0 0 10px rgba(var(--fire-rgb),.9); }
+
+#a5t .a5t-wrap{ max-width:560px; margin:0 auto; padding:40px 16px 0; text-align:center; position:relative; z-index:2; }
+#a5t .a5t-check{ width:96px; height:96px; border-radius:50%; margin:0 auto 22px; display:flex; align-items:center; justify-content:center; background:#000; border:3px solid var(--ice); animation:a5tPop .6s cubic-bezier(.16,1,.3,1) both, a5tNeon 8s linear infinite; }
+#a5t .a5t-check svg{ width:46px; height:46px; fill:none; stroke:#fff; stroke-width:4; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:60; animation:a5tDraw .5s ease-out .5s both; }
+#a5t h1{ font:400 clamp(24px,7.2vw,48px)/1.05 'Russo One',sans-serif; margin:0 0 12px; }
+#a5t .a5t-sub{ font:800 clamp(16px,4.4vw,22px)/1.3 'Golos Text',sans-serif; margin:0 0 10px; }
+#a5t .a5t-lead{ color:var(--muted); max-width:460px; margin:0 auto 28px; }
+
+#a5t .a5t-viber{ display:block; text-decoration:none; color:var(--text); background:var(--card); border-radius:20px; padding:24px 20px 20px; max-width:440px; margin:0 auto 26px; }
+#a5t .a5t-vtag{ font:800 10px/1 'Golos Text',sans-serif; letter-spacing:3px; text-transform:uppercase; color:var(--ember); margin-bottom:14px; }
+#a5t .a5t-vic{ width:62px; height:62px; margin:0 auto 8px; display:block; border-radius:16px; }
+#a5t .a5t-arrow{ margin:0 auto 10px; animation:a5tBounce 1.4s ease-in-out infinite; }
+#a5t .a5t-viber h2{ font:800 17px/1.35 'Golos Text',sans-serif; margin:0 0 8px; }
+#a5t .a5t-viber h2 b{ color:#a99bff; text-shadow:0 0 12px rgba(115,96,242,.9); }
+#a5t .a5t-viber p{ font-size:13px; color:var(--muted); margin:0 0 14px; }
+#a5t .a5t-count{ font:400 13px/1 'Russo One',sans-serif; color:var(--frost); margin-bottom:10px; }
+#a5t .a5t-bar{ height:6px; border-radius:6px; background:rgba(255,255,255,.1); overflow:hidden; }
+#a5t .a5t-bar i{ display:block; height:100%; width:100%; transform-origin:left center; background:linear-gradient(90deg,var(--ice),#7360f2,var(--fire)); animation:a5tFill 3s linear both; }
+#a5t .a5t-vbtn{ display:inline-block; margin-top:16px; font:800 14px/1 'Golos Text',sans-serif; letter-spacing:.5px; padding:14px 22px; border-radius:99px; color:#fff; background:#7360f2; box-shadow:0 0 22px rgba(115,96,242,.75); }
+
+#a5t .a5t-steps{ display:grid; gap:10px; text-align:left; max-width:440px; margin:0 auto 26px; }
+#a5t .a5t-step{ display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center; padding:12px 14px; border-radius:14px; background:rgba(11,17,32,.85); }
+#a5t .a5t-step i{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-style:normal; font-size:20px; background:#000; }
+#a5t .a5t-step b{ display:block; font:800 14px/1.3 'Golos Text',sans-serif; }
+#a5t .a5t-step span{ font-size:13px; color:var(--muted); }
+#a5t .a5t-pic{ max-width:440px; margin:0 auto; border-radius:22px; padding:8px; background:#000; }
+#a5t .a5t-pic img{ width:100%; height:auto; aspect-ratio:1/1; border-radius:15px; }
+
+#a5t .a5t-cf{ position:absolute; top:0; z-index:5; pointer-events:none; animation:a5tFall linear forwards; }
+@media (prefers-reduced-motion:reduce){
+  #a5t#a5t *, #a5t#a5t *::before, #a5t#a5t *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+  #a5t .a5t-cf{ display:none !important; }
+}
+</style>
+
+<div id="a5t">
+  <div class="a5t-ticker" aria-hidden="true"><div class="a5t-ticker-in">
+    <span>✓ Поръчката е приета</span><span>5 мъжки парфюма</span><span>Благодарим ти</span><span>Комплект Aroma Bay</span>
+    <span>✓ Поръчката е приета</span><span>5 мъжки парфюма</span><span>Благодарим ти</span><span>Комплект Aroma Bay</span>
+  </div></div>
+
+  <div class="a5t-wrap">
+    <div class="a5t-check" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="4 12 10 18 20 6"></polyline></svg></div>
+    <h1><span class="a5t-ice-t">БЛАГО</span><span class="a5t-fire-t">ДАРИМ!</span></h1>
+    <p class="a5t-sub">Твоят комплект от <span class="a5t-ice-t">5</span> <span class="a5t-fire-t">парфюма</span> е на път</p>
+    <p class="a5t-lead">Поръчката ти е приета и вече я обработваме. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
+
+    <a href="#" id="a5tViber" class="a5t-viber a5t-neon">
+      <div class="a5t-vtag">✦ Бонус за теб ✦</div>
+      <img class="a5t-vic" src="https://content.app-sources.com/s/698084040813523351/uploads/Images/%D0%BF%D0%B0%D1%80%D1%84%D1%8E%D0%BC%D0%B8_68-7309953.png?format=webp" alt="Viber">
+      <div class="a5t-arrow"><svg width="22" height="22" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto"><circle cx="16" cy="16" r="15" fill="none" stroke="#7360F2" stroke-width="1.8"/><path d="M10 18 L16 12 L22 18" stroke="#7360F2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+      <h2>Влез в затворения <b>Viber</b> канал за ексклузивни оферти</h2>
+      <p>След няколко секунди ще те пренасочим към групата.</p>
+      <div class="a5t-count" id="a5tCount">ПРЕНАСОЧВАНЕ СЛЕД 3…</div>
+      <div class="a5t-bar"><i></i></div>
+      <span class="a5t-vbtn">Влез сега ➜</span>
+    </a>
+
+    <div class="a5t-steps">
+      <div class="a5t-step a5t-neon"><i>✅</i><div><b>Поръчката е приета</b><span>Получихме данните ти.</span></div></div>
+      <div class="a5t-step a5t-neon a5t-d1"><i>📦</i><div><b>Изпращаме комплекта</b><span>Петте парфюма тръгват с Еконт към избрания офис или адрес.</span></div></div>
+      <div class="a5t-step a5t-neon"><i>💶</i><div><b>Плащаш при получаване</b><span>Наложен платеж, директно на куриера.</span></div></div>
+    </div>
+
+    <div class="a5t-pic a5t-neon a5t-d1"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/c6c8a092-ed93-4e11-b2c3-55dafb84b1bf-2131718.png?format=webp" alt="Комплект от 5 мъжки парфюма Aroma Bay" width="1200" height="1200"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var VIBER_LINK = "https://invite.viber.com/?g2=AQAvRYvjcv%2FCQ1XLFSQG5T0d%2BOSA2yLvYeugV17e8hlaiHCEHehOeCG9Bl2RMAtV&lang=en";
+  var root = document.getElementById('a5t'); if (!root) return;
+  var link = document.getElementById('a5tViber');
+  if (link) link.setAttribute('href', VIBER_LINK);
+
+  /* конфети в петте цвята */
+  if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    var em = ['✦', '💎', '🖤', '💙', '🌊', '✨'];
+    for (var i = 0; i < 60; i++) {
+      var c = document.createElement('span'); c.className = 'a5t-cf'; c.textContent = em[i % em.length];
+      c.style.cssText = 'left:' + (Math.random() * 100) + '%;font-size:' + (12 + Math.random() * 16) + 'px;animation-duration:' + (2.4 + Math.random() * 2.4) + 's;animation-delay:' + (Math.random() * 1.2) + 's';
+      root.appendChild(c); setTimeout(function (el) { el.remove(); }, 6500, c);
+    }
+  }
+
+  /* отброяване 3…2…1 и пренасочване към Viber */
+  var n = 3, cnt = document.getElementById('a5tCount');
+  var t = setInterval(function () {
+    n--; if (cnt) cnt.textContent = n > 0 ? 'ПРЕНАСОЧВАНЕ СЛЕД ' + n + '…' : 'ОТВАРЯМЕ VIBER…';
+    if (n <= 0) clearInterval(t);
+  }, 1000);
+  setTimeout(function () { if (VIBER_LINK.indexOf('XXXX') === -1) window.location.href = VIBER_LINK; }, 3000);
+})();
+</script>

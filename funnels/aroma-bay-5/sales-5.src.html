@@ -1,0 +1,511 @@
+<!-- ===================== 5 МЪЖКИ ПАРФЮМА · AROMA BAY — ЛЕНДИНГ (един блок) ===================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Russo+One&family=Golos+Text:wght@400;500;600;700;800;900&display=swap');
+/* платформата слага float на някои елементи (напр. article) – тук не ни трябва */
+#a5#a5 *{ float:none !important; }
+#a5{
+  --c1:#33f0d8; --c1-rgb:51,240,216;
+  --c2:#ff2d78; --c2-rgb:255,45,120;
+  --c3:#2f8bff; --c3-rgb:47,139,255;
+  --c4:#7b84ff; --c4-rgb:123,132,255;
+  --c5:#ffc23d; --c5-rgb:255,194,61;
+  --ink:#05060b; --card:#0d0f1a; --text:#f1f3ff; --muted:rgba(241,243,255,.7);
+  font-family:'Golos Text',Arial,sans-serif; color:var(--text); background:var(--ink);
+  line-height:1.55; overflow:hidden; position:relative;
+}
+#a5 *{ box-sizing:border-box; }
+#a5 img{ max-width:100%; display:block; }
+#a5 a{ color:inherit; }
+#a5 .a5-wrap{ max-width:1080px; margin:0 auto; padding:0 16px; position:relative; z-index:2; }
+#a5 .a5-bg{ position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(420px 320px at 0% 4%, rgba(var(--c1-rgb),.18), transparent 70%),
+             radial-gradient(420px 320px at 100% 14%, rgba(var(--c2-rgb),.16), transparent 70%),
+             radial-gradient(480px 360px at 10% 48%, rgba(var(--c3-rgb),.14), transparent 70%),
+             radial-gradient(480px 360px at 95% 70%, rgba(var(--c4-rgb),.14), transparent 70%),
+             radial-gradient(480px 360px at 30% 96%, rgba(var(--c5-rgb),.14), transparent 70%); }
+
+/* ===== неонов цикъл през петте цвята на шишетата ===== */
+@keyframes a5Neon{
+  0%,16%  { border-color:var(--c1); box-shadow:0 0 6px var(--c1),0 0 24px rgba(var(--c1-rgb),.7),inset 0 0 14px rgba(var(--c1-rgb),.32); }
+  20%,36% { border-color:var(--c2); box-shadow:0 0 6px var(--c2),0 0 24px rgba(var(--c2-rgb),.7),inset 0 0 14px rgba(var(--c2-rgb),.32); }
+  40%,56% { border-color:var(--c3); box-shadow:0 0 6px var(--c3),0 0 24px rgba(var(--c3-rgb),.7),inset 0 0 14px rgba(var(--c3-rgb),.32); }
+  60%,76% { border-color:var(--c4); box-shadow:0 0 6px var(--c4),0 0 24px rgba(var(--c4-rgb),.7),inset 0 0 14px rgba(var(--c4-rgb),.32); }
+  80%,96% { border-color:var(--c5); box-shadow:0 0 6px var(--c5),0 0 24px rgba(var(--c5-rgb),.7),inset 0 0 14px rgba(var(--c5-rgb),.32); }
+  100%    { border-color:var(--c1); box-shadow:0 0 6px var(--c1),0 0 24px rgba(var(--c1-rgb),.7),inset 0 0 14px rgba(var(--c1-rgb),.32); }
+}
+@keyframes a5NeonText{
+  0%,16%  { text-shadow:0 0 4px #fff,0 0 14px var(--c1),0 0 34px var(--c1); }
+  20%,36% { text-shadow:0 0 4px #fff,0 0 14px var(--c2),0 0 34px var(--c2); }
+  40%,56% { text-shadow:0 0 4px #fff,0 0 14px var(--c3),0 0 34px var(--c3); }
+  60%,76% { text-shadow:0 0 4px #fff,0 0 14px var(--c4),0 0 34px var(--c4); }
+  80%,96% { text-shadow:0 0 4px #fff,0 0 14px var(--c5),0 0 34px var(--c5); }
+  100%    { text-shadow:0 0 4px #fff,0 0 14px var(--c1),0 0 34px var(--c1); }
+}
+@keyframes a5Flicker{ 0%,18%,22%,25%,53%,57%,100%{opacity:1} 20%,24%,55%{opacity:.35} }
+@keyframes a5Scroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes a5Grad{ 0%,100%{background-position:0 0} 50%{background-position:100% 0} }
+@keyframes a5Burst{ to{ transform:translate(var(--x),var(--y)) rotate(160deg) scale(.5); opacity:0 } }
+@keyframes a5Float{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) } }
+@keyframes a5Pop{ 0%{ transform:scale(.6) } 60%{ transform:scale(1.08) } 100%{ transform:scale(1) } }
+#a5 .a5-neon{ border:2px solid var(--c1); animation:a5Neon 10s linear infinite; }
+#a5 .a5-neon.a5-d1{ animation-delay:-2s; } #a5 .a5-neon.a5-d2{ animation-delay:-4s; } #a5 .a5-neon.a5-d3{ animation-delay:-6s; } #a5 .a5-neon.a5-d4{ animation-delay:-8s; }
+#a5 .a5-nt{ color:#fff; animation:a5NeonText 10s linear infinite, a5Flicker 6s linear infinite; }
+
+/* лента */
+#a5 .a5-ticker{ position:relative; z-index:3; background:#000; border-bottom:1px solid rgba(var(--c3-rgb),.6); overflow:hidden; white-space:nowrap; }
+#a5 .a5-ticker-in{ display:inline-flex; gap:36px; padding:10px 0; animation:a5Scroll 26s linear infinite; font:400 12px/1 'Russo One',sans-serif; letter-spacing:1.5px; text-transform:uppercase; }
+#a5 .a5-ticker-in span:nth-child(5n+1){ color:var(--c1); text-shadow:0 0 10px rgba(var(--c1-rgb),.9); }
+#a5 .a5-ticker-in span:nth-child(5n+2){ color:var(--c2); text-shadow:0 0 10px rgba(var(--c2-rgb),.9); }
+#a5 .a5-ticker-in span:nth-child(5n+3){ color:var(--c3); text-shadow:0 0 10px rgba(var(--c3-rgb),.9); }
+#a5 .a5-ticker-in span:nth-child(5n+4){ color:var(--c4); text-shadow:0 0 10px rgba(var(--c4-rgb),.9); }
+#a5 .a5-ticker-in span:nth-child(5n+5){ color:var(--c5); text-shadow:0 0 10px rgba(var(--c5-rgb),.9); }
+
+/* hero */
+#a5 .a5-hero{ padding:38px 0 30px; text-align:center; }
+#a5 .a5-eyebrow{ display:inline-block; font:800 11px/1 'Golos Text',sans-serif; letter-spacing:3px; text-transform:uppercase; padding:9px 16px; border-radius:99px; background:rgba(0,0,0,.55); }
+#a5 .a5-big5{ font:400 clamp(110px,34vw,230px)/.9 'Russo One',sans-serif; margin:16px 0 0; }
+#a5 .a5-h1{ font:400 clamp(26px,7.6vw,56px)/1.05 'Russo One',sans-serif; margin:0 0 10px; letter-spacing:.5px; }
+#a5 .a5-moods{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px 10px; margin:0 0 14px; font:800 13px/1.3 'Golos Text',sans-serif; letter-spacing:.5px; }
+#a5 .a5-moods span:nth-child(1){ color:var(--c1); } #a5 .a5-moods span:nth-child(2){ color:var(--c2); } #a5 .a5-moods span:nth-child(3){ color:var(--c3); } #a5 .a5-moods span:nth-child(4){ color:var(--c5); }
+#a5 .a5-lead{ max-width:560px; margin:0 auto 22px; color:var(--muted); font-size:16px; }
+#a5 .a5-lead b{ color:var(--text); }
+#a5 .a5-combo{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:6px; margin:0 auto 24px; font:400 12px/1 'Russo One',sans-serif; letter-spacing:.5px; }
+#a5 .a5-combo > span{ padding:10px 11px; border-radius:10px; white-space:nowrap; }
+#a5 .a5-cb-n{ color:#000; background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3),var(--c4),var(--c5)); }
+#a5 .a5-cb-op{ padding:0 2px; font-size:18px; color:var(--text); }
+#a5 .a5-cb-eq{ display:inline-flex; align-items:center; gap:6px; padding:0; }
+#a5 .a5-cb-t{ color:#fff; background:#000; border:2px solid var(--c5); font-size:15px; padding:9px 12px; border-radius:10px; white-space:nowrap; }
+#a5 .a5-hero-img{ position:relative; max-width:560px; margin:0 auto 22px; border-radius:24px; padding:8px; background:#000; }
+#a5 .a5-hero-img img{ width:100%; height:auto; aspect-ratio:1/1; border-radius:17px; }
+
+#a5 .a5-price-row{ display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+#a5 .a5-price{ position:relative; font:400 clamp(44px,12vw,70px)/1 'Russo One',sans-serif; padding:16px 26px; border-radius:18px; background:rgba(0,0,0,.65); }
+#a5 .a5-price small{ font-size:.45em; vertical-align:super; margin-left:2px; }
+#a5 .a5-badge{ position:absolute; top:-30px; right:-50px; z-index:3; width:68px; height:68px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; font:400 15px/1 'Russo One',sans-serif; white-space:nowrap; color:#000; background:var(--c5); box-shadow:0 0 0 3px #000,0 0 22px rgba(var(--c5-rgb),.95); transform:rotate(10deg); }
+#a5 .a5-badge small{ font:800 7.5px/1.1 'Golos Text',sans-serif; letter-spacing:.5px; margin-top:4px; text-transform:uppercase; }
+#a5 .a5-price-note{ text-align:left; margin-left:34px; font-size:13px; color:var(--muted); line-height:1.45; }
+#a5 .a5-price-note b{ color:var(--text); }
+
+/* бутон */
+#a5 a.a5-cta{ position:relative; display:inline-flex; align-items:center; justify-content:center; width:100%; max-width:460px; text-align:center;
+  font:400 15px/1.25 'Russo One',sans-serif; letter-spacing:1px; text-transform:uppercase; text-decoration:none; color:#000;
+  padding:20px 16px; border-radius:16px; border:none; cursor:pointer;
+  background:linear-gradient(100deg,var(--c1),var(--c3) 25%,var(--c4) 50%,var(--c2) 75%,var(--c5)); background-size:250% 100%;
+  animation:a5Grad 6s ease-in-out infinite; box-shadow:0 0 0 2px rgba(255,255,255,.12),0 0 30px rgba(var(--c3-rgb),.5),0 0 50px rgba(var(--c2-rgb),.3); transition:transform .2s; }
+#a5 a.a5-cta:hover{ transform:translateY(-2px) scale(1.01); }
+#a5 a.a5-cta:active{ transform:scale(.97); }
+#a5 .a5-trust{ display:flex; justify-content:center; gap:8px 18px; flex-wrap:wrap; margin-top:16px; font-size:12px; color:var(--muted); }
+#a5 .a5-trust span::before{ content:"✦ "; color:var(--c5); }
+#a5 .a5-after{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:28px; text-align:center; }
+#a5 .a5-after-note{ font-size:12px; color:var(--muted); letter-spacing:.3px; }
+
+/* секции */
+#a5 section{ padding:48px 0; position:relative; }
+#a5 .a5-sec-t{ text-align:center; font:400 clamp(24px,6.6vw,42px)/1.12 'Russo One',sans-serif; margin:0 0 10px; text-wrap:balance; }
+#a5 .a5-sec-s{ text-align:center; color:var(--muted); max-width:580px; margin:0 auto 28px; }
+
+/* какво получаваш */
+#a5 .a5-list{ max-width:620px; margin:0 auto; border-radius:22px; padding:16px; background:var(--card); display:grid; gap:10px; }
+#a5 .a5-li{ display:grid; grid-template-columns:40px 1fr auto; gap:12px; align-items:center; padding:12px 14px; border-radius:14px; background:rgba(0,0,0,.45); border-left:4px solid var(--c); }
+#a5 .a5-li i{ width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font:400 16px/1 'Russo One',sans-serif; font-style:normal; color:#000; background:var(--c); box-shadow:0 0 14px var(--c); }
+#a5 .a5-li b{ font:800 14px/1.25 'Golos Text',sans-serif; letter-spacing:.5px; }
+#a5 .a5-li span{ font:400 13px/1 'Russo One',sans-serif; color:var(--c); white-space:nowrap; }
+#a5 .a5-total{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; padding:14px 16px 4px; border-top:2px dashed rgba(255,255,255,.18); font:400 15px/1.3 'Russo One',sans-serif; }
+#a5 .a5-total em{ font-style:normal; color:var(--c5); text-shadow:0 0 12px rgba(var(--c5-rgb),.8); font-size:22px; }
+
+/* колело */
+#a5 .a5-wheel-box{ max-width:560px; margin:0 auto; border-radius:24px; padding:24px 16px; background:var(--card); text-align:center; }
+#a5 .a5-wheel-wrap{ position:relative; width:min(300px,78vw); aspect-ratio:1/1; margin:6px auto 18px; }
+#a5 .a5-pointer{ position:absolute; top:-6px; left:50%; z-index:3; width:0; height:0; margin-left:-14px; border-left:14px solid transparent; border-right:14px solid transparent; border-top:26px solid #fff; filter:drop-shadow(0 0 8px #fff); }
+#a5 .a5-wheel{ position:absolute; inset:0; border-radius:50%; border:6px solid #000; box-shadow:0 0 0 3px rgba(255,255,255,.25),0 0 30px rgba(var(--c3-rgb),.5),0 0 60px rgba(var(--c2-rgb),.3);
+  background:conic-gradient(var(--c1) 0 72deg, var(--c2) 72deg 144deg, var(--c3) 144deg 216deg, #2a3aa8 216deg 288deg, #111 288deg 360deg);
+  transition:transform 4.2s cubic-bezier(.12,.75,.08,1); }
+#a5 .a5-seg{ position:absolute; left:50%; top:50%; width:46%; height:0; transform-origin:0 0; }
+#a5 .a5-seg span{ position:absolute; left:22%; top:-9px; font:400 11px/1.1 'Russo One',sans-serif; letter-spacing:.3px; color:#000; white-space:nowrap; }
+#a5 .a5-seg.a5-light span{ color:#fff; }
+#a5 .a5-seg.a5-gold span{ color:var(--c5); }
+#a5 .a5-hub{ position:absolute; left:50%; top:50%; z-index:2; width:64px; height:64px; margin:-32px 0 0 -32px; border-radius:50%; display:flex; align-items:center; justify-content:center; font:400 26px/1 'Russo One',sans-serif; color:#fff; background:#000; border:3px solid #fff; box-shadow:0 0 18px #fff; }
+#a5 .a5-spin{ font:400 15px/1 'Russo One',sans-serif; letter-spacing:1px; padding:16px 26px; border-radius:99px; border:0; cursor:pointer; color:#000; background:#fff; box-shadow:0 0 22px rgba(255,255,255,.7); }
+#a5 .a5-spin:disabled{ opacity:.6; cursor:wait; }
+#a5 .a5-spin:focus-visible{ outline:2px solid var(--c5); outline-offset:3px; }
+#a5 .a5-res{ min-height:96px; margin-top:16px; }
+#a5 .a5-res-k{ font:800 11px/1 'Golos Text',sans-serif; letter-spacing:3px; color:var(--muted); margin-bottom:8px; }
+#a5 .a5-res-n{ font:400 clamp(20px,6vw,30px)/1.1 'Russo One',sans-serif; margin-bottom:6px; animation:a5Pop .4s ease both; }
+#a5 .a5-res-d{ color:var(--muted); font-size:14px; max-width:420px; margin:0 auto; }
+
+/* продуктови карти */
+#a5 .a5-prod{ display:grid; grid-template-columns:1fr; gap:18px; border-radius:24px; padding:20px; background:var(--card); margin-bottom:22px; border-top:4px solid var(--c); }
+#a5 .a5-bottle-zone{ display:flex; align-items:center; justify-content:center; border-radius:18px; padding:22px 0 18px; background:radial-gradient(circle at 50% 60%, rgba(var(--crgb),.35), transparent 65%), #000; }
+#a5 .a5-bottle{ position:relative; width:96px; animation:a5Float 4s ease-in-out infinite; }
+#a5 .a5-bottle .a5-cap{ width:46px; height:44px; margin:0 auto; border-radius:6px 6px 3px 3px; background:var(--cap); box-shadow:inset 0 0 8px rgba(255,255,255,.25); }
+#a5 .a5-bottle .a5-neck{ width:52px; height:8px; margin:0 auto; background:#c9ccd6; border-radius:2px; }
+#a5 .a5-bottle .a5-body{ height:132px; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:8px; text-align:center;
+  background:linear-gradient(160deg,rgba(255,255,255,.28),transparent 40%), var(--c); box-shadow:0 0 26px rgba(var(--crgb),.85), inset 0 0 18px rgba(0,0,0,.25); }
+#a5 .a5-bottle .a5-body b{ font:400 11px/1.05 'Russo One',sans-serif; color:var(--lbl); letter-spacing:.3px; }
+#a5 .a5-bottle .a5-body small{ font:800 7px/1 'Golos Text',sans-serif; letter-spacing:1px; color:var(--lbl); opacity:.85; }
+#a5 .a5-prod h3{ font:400 clamp(22px,6.4vw,34px)/1.05 'Russo One',sans-serif; margin:0 0 6px; color:var(--c); text-shadow:0 0 16px rgba(var(--crgb),.75); }
+#a5 .a5-motto{ font:800 15px/1.3 'Golos Text',sans-serif; margin:0 0 10px; }
+#a5 .a5-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+#a5 .a5-tag{ font:800 11px/1 'Golos Text',sans-serif; letter-spacing:1.2px; padding:8px 11px; border-radius:99px; border:1px solid rgba(var(--crgb),.7); color:var(--c); }
+#a5 .a5-tag.a5-set{ border-style:dashed; color:var(--text); }
+#a5 .a5-desc{ color:var(--muted); font-size:15px; margin:0 0 14px; }
+#a5 .a5-feel{ display:grid; gap:8px; margin:0 0 14px; padding:0; list-style:none; }
+#a5 .a5-feel li{ padding:10px 12px; border-radius:12px; background:rgba(0,0,0,.4); font-size:14px; font-weight:600; }
+#a5 .a5-for{ padding:12px 14px; border-radius:12px; border:1px dashed rgba(var(--crgb),.6); font-size:13px; color:var(--muted); }
+#a5 .a5-for b{ color:var(--c); letter-spacing:1px; }
+
+/* моменти */
+#a5 .a5-moments{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#a5 .a5-mom{ border-radius:18px; padding:18px 14px; background:var(--card); text-align:center; }
+#a5 .a5-mom .a5-mi{ font-size:30px; margin-bottom:6px; }
+#a5 .a5-mom b{ display:block; font:400 14px/1.3 'Russo One',sans-serif; margin-bottom:10px; }
+#a5 .a5-dots{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px; }
+#a5 .a5-dots span{ font:800 10px/1 'Golos Text',sans-serif; letter-spacing:.5px; padding:6px 8px; border-radius:99px; color:#000; }
+
+/* отзиви */
+#a5 .a5-revs{ max-width:680px; margin:0 auto; display:grid; gap:12px; }
+#a5 .a5-rev{ border-radius:16px; padding:6px; background:#fff; }
+#a5 .a5-rev img{ width:100%; height:auto; border-radius:11px; }
+#a5 .a5-rev.a5-hide{ display:none; }
+#a5 .a5-revs.a5-all .a5-rev.a5-hide{ display:block; }
+#a5 .a5-more{ display:block; margin:16px auto 0; font:800 14px/1 'Golos Text',sans-serif; padding:14px 22px; border-radius:99px; border:2px solid rgba(255,255,255,.3); background:transparent; color:var(--text); cursor:pointer; }
+#a5 .a5-more.a5-gone{ display:none; }
+#a5 .a5-real{ text-align:center; font-size:12px; color:var(--muted); margin-top:12px; }
+
+/* подарък / предимства */
+#a5 .a5-gift{ display:grid; gap:18px; align-items:center; border-radius:24px; padding:20px; background:var(--card); text-align:center; }
+#a5 .a5-gift-img{ border-radius:18px; overflow:hidden; }
+#a5 .a5-gift-img img{ width:100%; height:auto; aspect-ratio:1/1; }
+#a5 .a5-gift h3{ font:400 clamp(22px,6vw,32px)/1.15 'Russo One',sans-serif; margin:0 0 10px; }
+#a5 .a5-gift p{ color:var(--muted); margin:0; }
+#a5 .a5-perks{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#a5 .a5-perk{ border-radius:18px; padding:18px 12px; background:var(--card); text-align:center; }
+#a5 .a5-perk .a5-pi{ font-size:28px; margin-bottom:8px; }
+#a5 .a5-perk b{ display:block; font:400 13px/1.35 'Russo One',sans-serif; margin-bottom:4px; }
+#a5 .a5-perk span{ font-size:13px; color:var(--muted); }
+
+/* FAQ */
+#a5 .a5-faq{ max-width:720px; margin:0 auto; display:grid; gap:10px; }
+#a5 details.a5-q{ border-radius:14px; background:var(--card); border:1px solid rgba(255,255,255,.08); padding:0 18px; }
+#a5 details.a5-q[open]{ border-color:rgba(var(--c3-rgb),.65); box-shadow:0 0 18px rgba(var(--c3-rgb),.22); }
+#a5 details.a5-q summary{ list-style:none; cursor:pointer; padding:18px 30px 18px 0; position:relative; font:800 15px/1.35 'Golos Text',sans-serif; }
+#a5 details.a5-q summary::-webkit-details-marker{ display:none; }
+#a5 details.a5-q summary::after{ content:"+"; position:absolute; right:0; top:50%; transform:translateY(-50%); font-size:24px; color:var(--c5); transition:transform .2s; }
+#a5 details.a5-q[open] summary::after{ transform:translateY(-50%) rotate(45deg); color:var(--c1); }
+#a5 details.a5-q p{ margin:0 0 18px; color:var(--muted); font-size:14px; }
+
+/* финал */
+#a5 .a5-final{ text-align:center; border-radius:28px; padding:34px 18px; background:rgba(0,0,0,.6); }
+#a5 .a5-final h2{ font:400 clamp(26px,7.6vw,52px)/1.08 'Russo One',sans-serif; margin:0 0 12px; }
+
+/* конфети */
+#a5 .a5-burst{ position:fixed; z-index:9999; pointer-events:none; width:10px; height:10px; border-radius:50%; animation:a5Burst 1s ease-out forwards; }
+
+/* лента долу */
+#a5 .a5-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:rgba(5,6,11,.94); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border-top:1px solid rgba(var(--c3-rgb),.6); display:flex; align-items:center; gap:12px; transform:translateY(110%); transition:transform .3s; }
+#a5 .a5-sticky.a5-on{ transform:none; }
+#a5 .a5-sp{ font:400 20px/1 'Russo One',sans-serif; white-space:nowrap; }
+#a5 .a5-sp small{ display:block; font:600 10px/1.2 'Golos Text',sans-serif; letter-spacing:1px; color:var(--muted); margin-top:4px; }
+#a5 .a5-sticky a.a5-cta{ padding:15px 10px; font-size:13px; }
+
+@media (min-width:760px){
+  #a5 .a5-hero{ padding:56px 0 40px; }
+  #a5 .a5-prod{ grid-template-columns:260px 1fr; padding:28px; gap:30px; align-items:center; }
+  #a5 .a5-moments{ grid-template-columns:repeat(4,1fr); }
+  #a5 .a5-perks{ grid-template-columns:repeat(5,1fr); }
+  #a5 .a5-gift{ grid-template-columns:1fr 1fr; text-align:left; padding:30px; }
+  #a5 .a5-wheel-box{ padding:32px; }
+  #a5 .a5-sticky{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  #a5#a5 *, #a5#a5 *::before, #a5#a5 *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+}
+</style>
+
+<div id="a5">
+  <div class="a5-bg"></div>
+  <div class="a5-ticker" aria-hidden="true"><div class="a5-ticker-in">
+    <span>5 мъжки парфюма</span><span>Комплект за 14 €</span><span>5 × 22 ml = 110 ml</span><span>Плащане при получаване</span><span>Доставка с Еконт</span>
+    <span>5 мъжки парфюма</span><span>Комплект за 14 €</span><span>5 × 22 ml = 110 ml</span><span>Плащане при получаване</span><span>Доставка с Еконт</span>
+  </div></div>
+
+  <!-- HERO -->
+  <header class="a5-hero" id="a5Hero"><div class="a5-wrap">
+    <span class="a5-eyebrow a5-neon">✦ Комплект от 5 парфюма ✦</span>
+    <div class="a5-big5 a5-nt">5</div>
+    <h1 class="a5-h1">МЪЖКИ ПАРФЮМА.<br>5 НАСТРОЕНИЯ.</h1>
+    <div class="a5-moods"><span>За работа.</span><span>За срещи.</span><span>За вечерни излизания.</span><span>За всеки ден.</span></div>
+    <p class="a5-lead">Защо да се ограничаваш с един аромат, когато можеш да имаш <b>цял комплект от 5</b>? Пет мъжки парфюма от Aroma Bay, подбрани за различни моменти и стилове.</p>
+    <div class="a5-combo"><span class="a5-cb-n">5 АРОМАТА × 22 ml</span><span class="a5-cb-op">=</span><span class="a5-cb-n">110 ml</span><span class="a5-cb-eq"><span class="a5-cb-op">=</span><span class="a5-cb-t">14 €</span></span></div>
+
+    <div class="a5-hero-img a5-neon">
+      <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/c6c8a092-ed93-4e11-b2c3-55dafb84b1bf-2131718.png?format=webp" alt="Комплект от 5 мъжки парфюма Aroma Bay: Invict, Versa Noir, Versencia Oro, Savoir, Mysterious Orchid" width="1200" height="1200" fetchpriority="high">
+    </div>
+
+    <div class="a5-price-row">
+      <div class="a5-price a5-neon a5-d2">14<small>€</small><span class="a5-badge">5 бр.<small>в комплекта</small></span></div>
+      <div class="a5-price-note"><b>за целия комплект от 5</b><br>≈ 2,80 € на аромат<br>плащаш при получаване</div>
+    </div>
+
+    <a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a>
+    <div class="a5-trust"><span>5 парфюма в комплекта</span><span>Общо 110 ml</span><span>Плащане при получаване</span></div>
+  </div></header>
+
+  <!-- КАКВО ПОЛУЧАВАШ -->
+  <section><div class="a5-wrap">
+    <h2 class="a5-sec-t">Какво <span class="a5-nt">получаваш?</span></h2>
+    <p class="a5-sec-s">Един комплект – пет мъжки аромата.</p>
+    <div class="a5-list a5-neon a5-d1">
+      <div class="a5-li" style="--c:var(--c1)"><i>1</i><b>INVICT FOR MEN</b><span>22 ml</span></div>
+      <div class="a5-li" style="--c:var(--c2)"><i>2</i><b>VERSA NOIR FOR MEN</b><span>22 ml</span></div>
+      <div class="a5-li" style="--c:var(--c3)"><i>3</i><b>VERSENCIA ORO FOR MEN</b><span>22 ml</span></div>
+      <div class="a5-li" style="--c:var(--c4)"><i>4</i><b>SAVOIR FOR MEN</b><span>22 ml</span></div>
+      <div class="a5-li" style="--c:var(--c5)"><i>5</i><b>MYSTERIOUS ORCHID FOR MEN</b><span>22 ml</span></div>
+      <div class="a5-total"><span>5 × 22 ml = 110 ml</span><em>14 €</em></div>
+    </div>
+    <div class="a5-after"><a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a><div class="a5-after-note">14 € за комплекта от 5 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- КОЛЕЛО -->
+  <section><div class="a5-wrap">
+    <h2 class="a5-sec-t">Кой от петте <span class="a5-nt">днес?</span></h2>
+    <p class="a5-sec-s">С комплекта имаш и петте. Завърти колелото и виж с кой да излезеш днес.</p>
+    <div class="a5-wheel-box a5-neon a5-d2">
+      <div class="a5-wheel-wrap">
+        <div class="a5-pointer"></div>
+        <div class="a5-wheel" id="a5Wheel">
+          <div class="a5-seg" style="transform:rotate(-54deg)"><span>INVICT</span></div>
+          <div class="a5-seg a5-light" style="transform:rotate(18deg)"><span>VERSA NOIR</span></div>
+          <div class="a5-seg a5-light" style="transform:rotate(90deg)"><span>VERSENCIA</span></div>
+          <div class="a5-seg a5-light" style="transform:rotate(162deg)"><span>SAVOIR</span></div>
+          <div class="a5-seg a5-gold" style="transform:rotate(234deg)"><span>ORCHID</span></div>
+        </div>
+        <div class="a5-hub">5</div>
+      </div>
+      <button type="button" class="a5-spin" id="a5Spin">⟳ ЗАВЪРТИ</button>
+      <div class="a5-res" id="a5Res" aria-live="polite">
+        <div class="a5-res-k">ДНЕС ОТ КОМПЛЕКТА СЛАГАШ</div>
+        <div class="a5-res-n a5-nt">?</div>
+        <p class="a5-res-d">Натисни „Завърти“. Останалите четири те чакат за следващия повод.</p>
+      </div>
+    </div>
+    <div class="a5-after"><a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a><div class="a5-after-note">14 € за комплекта от 5 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ПЕТТЕ АРОМАТА -->
+  <section id="a5Set"><div class="a5-wrap">
+    <h2 class="a5-sec-t">Петте аромата в <span class="a5-nt">комплекта</span></h2>
+    <p class="a5-sec-s">Слагаш аромата според настроението, повода и стила си. В комплекта са всичките пет.</p>
+
+    <article class="a5-prod a5-neon" style="--c:var(--c1);--crgb:var(--c1-rgb)">
+      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#b8bcc6;--lbl:#ffffff"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body"><b>INVICT</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div>
+        <h3>INVICT FOR MEN</h3>
+        <p class="a5-motto">Ароматът на победителя</p>
+        <div class="a5-tags"><span class="a5-tag">Свеж</span><span class="a5-tag">Акватичен</span><span class="a5-tag">Енергичен</span><span class="a5-tag a5-set">1 ОТ 5 В КОМПЛЕКТА</span></div>
+        <p class="a5-desc">INVICT е вдъхновен от идеята за силата, победата и мъжката увереност. Аромат с динамичен, спортно-елегантен характер, подходящ за мъжете, които обичат свежото усещане през целия ден.</p>
+        <ul class="a5-feel"><li>🌊 Свежо, морско усещане</li><li>🍊 Цитрусова свежест</li><li>🌿 Чисти и енергични нюанси</li></ul>
+        <div class="a5-for"><b>ПОДХОДЯЩ ЗА:</b> ежедневие, работа, спортно-елегантна визия и топлите дни.</div>
+      </div>
+    </article>
+
+    <article class="a5-prod a5-neon a5-d1" style="--c:var(--c2);--crgb:var(--c2-rgb)">
+      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#14182a;--lbl:#ffd27a"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body"><b>VERSA<br>NOIR</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div>
+        <h3>VERSA NOIR FOR MEN</h3>
+        <p class="a5-motto">Стил и индивидуалност</p>
+        <div class="a5-tags"><span class="a5-tag">Елегантен</span><span class="a5-tag">Отличителен</span><span class="a5-tag">Мъжествен</span><span class="a5-tag a5-set">2 ОТ 5 В КОМПЛЕКТА</span></div>
+        <p class="a5-desc">VERSA NOIR е за мъжете, които обичат да се отличават. Аромат, с който да завършиш визията си и да подчертаеш своя стил – когато искаш да се чувстваш уверен и добре подготвен за важните моменти.</p>
+        <ul class="a5-feel"><li>🖤 Елегантно мъжко излъчване</li><li>✨ Стилен и отличителен характер</li><li>🌙 Концепция за вечерен аромат</li></ul>
+        <div class="a5-for"><b>ПОДХОДЯЩ ЗА:</b> вечерни излизания, срещи и специални поводи.</div>
+      </div>
+    </article>
+
+    <article class="a5-prod a5-neon a5-d2" style="--c:var(--c3);--crgb:var(--c3-rgb)">
+      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#3d8dff;--lbl:#ffffff"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body"><b>VERSENCIA<br>ORO</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div>
+        <h3>VERSENCIA ORO FOR MEN</h3>
+        <p class="a5-motto">Свежа елегантност</p>
+        <div class="a5-tags"><span class="a5-tag">Свеж</span><span class="a5-tag">Ароматен</span><span class="a5-tag">Балансиран</span><span class="a5-tag a5-set">3 ОТ 5 В КОМПЛЕКТА</span></div>
+        <p class="a5-desc">VERSENCIA ORO съчетава модерна мъжественост и свежо ароматно излъчване. За мъжа, който обича да се чувства добре и в ежедневието, и по време на специални срещи.</p>
+        <ul class="a5-feel"><li>🍋 Свежи цитрусови нюанси</li><li>🌿 Ароматно, зелено усещане</li><li>🪵 Баланс между свежест и топлина</li></ul>
+        <div class="a5-for"><b>ПОДХОДЯЩ ЗА:</b> ежедневие, офис, срещи и спортно-елегантна визия.</div>
+      </div>
+    </article>
+
+    <article class="a5-prod a5-neon a5-d3" style="--c:var(--c4);--crgb:var(--c4-rgb)">
+      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#121a52;--lbl:#ffffff"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body" style="background:linear-gradient(160deg,rgba(255,255,255,.22),transparent 40%), linear-gradient(180deg,#0f1a5e,#3b5bff) !important"><b>SAVOIR</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div>
+        <h3>SAVOIR FOR MEN</h3>
+        <p class="a5-motto">Ежедневна увереност</p>
+        <div class="a5-tags"><span class="a5-tag">Свеж</span><span class="a5-tag">Модерен</span><span class="a5-tag">Елегантен</span><span class="a5-tag a5-set">4 ОТ 5 В КОМПЛЕКТА</span></div>
+        <p class="a5-desc">SAVOIR е за мъже, които предпочитат изчистения и модерен стил. Чудесно допълнение към ежедневната визия – от сутрешното кафе и работния ден до вечерната разходка.</p>
+        <ul class="a5-feel"><li>🌊 Свежо усещане</li><li>👔 Изчистена елегантност</li><li>💙 Модерно мъжко излъчване</li></ul>
+        <div class="a5-for"><b>ПОДХОДЯЩ ЗА:</b> работа, ежедневни ангажименти, свободно време и срещи.</div>
+      </div>
+    </article>
+
+    <article class="a5-prod a5-neon a5-d4" style="--c:var(--c5);--crgb:var(--c5-rgb)">
+      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#0b0b0d;--lbl:#ffc23d"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body" style="background:linear-gradient(160deg,rgba(255,255,255,.14),transparent 40%), #0b0b0d !important"><b style="background:#c99a2e !important;color:#111 !important;padding:4px 5px !important;border-radius:3px !important">MYSTERIOUS<br>ORCHID</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div>
+        <h3>MYSTERIOUS ORCHID FOR MEN</h3>
+        <p class="a5-motto">Мистерия и характер</p>
+        <div class="a5-tags"><span class="a5-tag">Ориенталски</span><span class="a5-tag">Дървесен</span><span class="a5-tag">Елегантен</span><span class="a5-tag a5-set">5 ОТ 5 В КОМПЛЕКТА</span></div>
+        <p class="a5-desc">MYSTERIOUS ORCHID е за мъжете, които предпочитат по-богатите и запомнящи се ароматни композиции. Вдъхновен от мистерията и изтънчения стил – отличен завършек на колекцията от пет.</p>
+        <ul class="a5-feel"><li>🍋 Връхни нотки: лимон, бергамот</li><li>🌺 Сърдечни нотки: орхидея, здравец</li><li>🪵 Базови нотки: кехлибар, пачули, сандалово дърво</li></ul>
+        <div class="a5-for"><b>ПОДХОДЯЩ ЗА:</b> вечерни излизания, срещи и специални поводи.</div>
+      </div>
+    </article>
+    <div class="a5-after"><a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a><div class="a5-after-note">14 € за комплекта от 5 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- МОМЕНТИ -->
+  <section><div class="a5-wrap">
+    <h2 class="a5-sec-t">Един комплект. <span class="a5-nt">Пет възможности.</span></h2>
+    <p class="a5-sec-s">За всеки повод в комплекта има подходящ аромат.</p>
+    <div class="a5-moments">
+      <div class="a5-mom a5-neon"><div class="a5-mi">💼</div><b>ЗА РАБОТА</b><div class="a5-dots"><span style="background:var(--c1)">INVICT</span><span style="background:var(--c3)">VERSENCIA ORO</span><span style="background:var(--c4)">SAVOIR</span></div></div>
+      <div class="a5-mom a5-neon a5-d1"><div class="a5-mi">🥂</div><b>ЗА СРЕЩИ</b><div class="a5-dots"><span style="background:var(--c2)">VERSA NOIR</span><span style="background:var(--c3)">VERSENCIA ORO</span><span style="background:var(--c4)">SAVOIR</span><span style="background:var(--c5)">ORCHID</span></div></div>
+      <div class="a5-mom a5-neon a5-d2"><div class="a5-mi">🌙</div><b>ЗА ВЕЧЕРНИ ИЗЛИЗАНИЯ</b><div class="a5-dots"><span style="background:var(--c2)">VERSA NOIR</span><span style="background:var(--c5)">ORCHID</span></div></div>
+      <div class="a5-mom a5-neon a5-d3"><div class="a5-mi">☀️</div><b>ЗА ВСЕКИ ДЕН</b><div class="a5-dots"><span style="background:var(--c1)">INVICT</span><span style="background:var(--c3)">VERSENCIA ORO</span><span style="background:var(--c4)">SAVOIR</span></div></div>
+    </div>
+    <div class="a5-after"><a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a><div class="a5-after-note">14 € за комплекта от 5 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ОТЗИВИ -->
+  <section id="a5Reviews"><div class="a5-wrap">
+    <h2 class="a5-sec-t">Какво казват <span class="a5-nt">клиентите</span></h2>
+    <p class="a5-sec-s">Реални коментари от хора, които вече получиха своите парфюми.</p>
+    <div class="a5-revs" id="a5Revs">
+      <div class="a5-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-45-079-1542351.jpg?format=webp" alt="Отзив от клиент: Страхотни са. Днес ги получих." width="1320" height="256" loading="lazy"></div>
+      <div class="a5-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-20-08-854-5668174.png?format=webp" alt="Отзив от клиент: Уникални аромати" width="697" height="224" loading="lazy"></div>
+      <div class="a5-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-21-49-673-5668174.png?format=webp" alt="Отзив от клиент: Благодаря Ви! Получих си парфюмите, прекрасни са! Благодаря!" width="734" height="291" loading="lazy"></div>
+      <div class="a5-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-21-50-191-5668175.png?format=webp" alt="Отзив от клиент: Много е приятен" width="700" height="229" loading="lazy"></div>
+      <div class="a5-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-236-1542351.jpg?format=webp" alt="Отзив от клиент: Поръчах си ги, пристигнаха преди два дена – страхотни са! ❤" width="1320" height="320" loading="lazy"></div>
+      <div class="a5-rev a5-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-431-1542351.jpg?format=webp" alt="Отзив от клиент: Страхотни! Поръчах си преди няколко дена – аромата е траен и сладък ❤" width="1320" height="306" loading="lazy"></div>
+      <div class="a5-rev a5-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-125-1542351.jpg?format=webp" alt="Отзив от клиент: Хубави са" width="1320" height="264" loading="lazy"></div>
+      <div class="a5-rev a5-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-681-1542351.jpg?format=webp" alt="Отзив от клиент: Получих ги, супер са" width="1320" height="271" loading="lazy"></div>
+      <div class="a5-rev a5-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-885-1542351.jpg?format=webp" alt="Отзив от клиент: Аз също ги харесвам!!!" width="1320" height="249" loading="lazy"></div>
+      <div class="a5-rev a5-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-500-1542351.jpg?format=webp" alt="Отзив от клиент: Прекрасни са" width="1320" height="333" loading="lazy"></div>
+      <div class="a5-rev a5-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-303-1542351.jpg?format=webp" alt="Отзив от клиент: Получих ги, много са хубави, благодаря ви" width="1320" height="245" loading="lazy"></div>
+      <div class="a5-rev a5-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-45-270-1542352.jpg?format=webp" alt="Отзив от клиент: Страхотни, днес ги получих" width="1186" height="284" loading="lazy"></div>
+    </div>
+    <button type="button" class="a5-more" id="a5More">Виж още отзиви ↓</button>
+    <div class="a5-after"><a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a><div class="a5-after-note">14 € за комплекта от 5 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ПОДАРЪК + ПРЕДИМСТВА -->
+  <section><div class="a5-wrap">
+    <div class="a5-gift a5-neon a5-d2">
+      <div class="a5-gift-img"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/c5219906-f5ec-411c-bb35-d6ac3016d66b-2131716.png?format=webp" alt="Петте парфюма от комплекта Aroma Bay в редица" width="1200" height="1200" loading="lazy"></div>
+      <div>
+        <h3>🎁 Подходящ и за <span class="a5-nt">подарък</span></h3>
+        <p>Пет аромата в един комплект – и за личната ти колекция, и за подарък на мъжа до теб, на баща ти или на приятел.</p>
+      </div>
+    </div>
+    <div class="a5-perks" style="margin-top:22px !important">
+      <div class="a5-perk a5-neon"><div class="a5-pi">🧴</div><b>5 × 22 ml</b><span>Общо 110 ml</span></div>
+      <div class="a5-perk a5-neon a5-d1"><div class="a5-pi">✨</div><b>Eau de Parfum</b><span>Aroma Bay</span></div>
+      <div class="a5-perk a5-neon a5-d2"><div class="a5-pi">💶</div><b>14 €</b><span>За комплекта</span></div>
+      <div class="a5-perk a5-neon a5-d3"><div class="a5-pi">📦</div><b>Еконт</b><span>Доставка</span></div>
+      <div class="a5-perk a5-neon a5-d4"><div class="a5-pi">🤝</div><b>При получаване</b><span>Плащаш на куриера</span></div>
+    </div>
+    <div class="a5-after"><a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a><div class="a5-after-note">14 € за комплекта от 5 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section><div class="a5-wrap">
+    <h2 class="a5-sec-t">Въпроси</h2>
+    <p class="a5-sec-s">Кратко и ясно.</p>
+    <div class="a5-faq">
+      <details class="a5-q"><summary>Какво има в комплекта?</summary><p>Invict, Versa Noir, Versencia Oro, Savoir и Mysterious Orchid for Men – по 22 ml всеки, общо 110 ml. Получаваш и петте за 14 €.</p></details>
+      <details class="a5-q"><summary>Колко е голямо всяко шише?</summary><p>22 ml, Eau de Parfum. Удобно е за всеки ден и за носене в чантата или колата.</p></details>
+      <details class="a5-q"><summary>Подходящ ли е за подарък?</summary><p>Да. Пет различни мъжки аромата в един комплект – подарък, с който няма как да не уцелиш.</p></details>
+      <details class="a5-q"><summary>Как плащам?</summary><p>С наложен платеж – плащаш на куриера, когато получиш пратката. Не ти трябва карта.</p></details>
+      <details class="a5-q"><summary>Колко струва доставката?</summary><p>Доставката е с Еконт. Точната сума виждаш във формата за поръчка, преди да я потвърдиш.</p></details>
+    </div>
+    <div class="a5-after"><a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a><div class="a5-after-note">14 € за комплекта от 5 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ФИНАЛ -->
+  <section id="a5Final"><div class="a5-wrap">
+    <div class="a5-final a5-neon">
+      <h2>Пет аромата.<br>Пет повода.<br><span class="a5-nt">Един комплект.</span></h2>
+      <p class="a5-sec-s" style="margin-bottom:6px !important">Invict, Versa Noir, Versencia Oro, Savoir и Mysterious Orchid – всичките пет за 14 €.</p>
+      <div class="a5-price-row" style="margin:30px 0 22px !important"><div class="a5-price a5-neon a5-d1">14<small>€</small><span class="a5-badge">5 бр.<small>в комплекта</small></span></div></div>
+      <a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a>
+    </div>
+  </div></section>
+
+  <div class="a5-sticky" id="a5Sticky">
+    <div class="a5-sp">14 €<small>комплект 5 бр.</small></div>
+    <a href="#" class="a5-cta" data-go data-burst>Искам комплекта ➜</a>
+  </div>
+</div>
+
+<script>
+/* ▼▼▼ АДРЕС НА СТРАНИЦАТА ЗА ЧЕКАУТ ▼▼▼ */
+var A5_CHECKOUT_URL = '';
+(function(){
+  var root=document.getElementById('a5'); if(!root) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var COLORS=['#33f0d8','#ff2d78','#2f8bff','#7b84ff','#ffc23d'];
+  root.querySelectorAll('[data-go]').forEach(function(a){
+    if(A5_CHECKOUT_URL){ a.setAttribute('href',A5_CHECKOUT_URL); a.setAttribute('target','_top'); }
+    else a.setAttribute('href','#a5Final');
+  });
+
+  function burst(x,y,cols){
+    if(reduce) return; cols=cols||COLORS;
+    for(var i=0;i<16;i++){
+      var b=document.createElement('span'); b.className='a5-burst'; var c=cols[i%cols.length];
+      b.style.background=c; b.style.boxShadow='0 0 10px '+c;
+      var a=Math.random()*Math.PI*2, d=60+Math.random()*100;
+      b.style.left=x+'px'; b.style.top=y+'px';
+      b.style.setProperty('--x',Math.cos(a)*d+'px'); b.style.setProperty('--y',Math.sin(a)*d+'px');
+      root.appendChild(b); setTimeout(function(n){ n.remove(); },1050,b);
+    }
+  }
+  root.addEventListener('click',function(e){
+    var t=e.target.closest('[data-burst]'); if(!t) return;
+    burst(e.clientX,e.clientY);
+    var href=t.getAttribute('href');
+    if(href&&href.charAt(0)==='#'&&href.length>1){ var dst=document.querySelector(href); if(dst){ e.preventDefault(); dst.scrollIntoView({behavior:'smooth'}); } }
+  });
+
+  /* колело: кой от петте днес */
+  var P=[
+    {n:'INVICT',c:0,d:'Свеж, акватичен и енергичен. Идеален за работа, спорт и топлите дни.'},
+    {n:'VERSA NOIR',c:1,d:'Елегантен и отличителен. За вечерно излизане, среща или специален повод.'},
+    {n:'VERSENCIA ORO',c:2,d:'Цитрусова свежест и дървесна елегантност. За офиса и за срещата след него.'},
+    {n:'SAVOIR',c:3,d:'Изчистен и модерен. От сутрешното кафе до вечерната разходка.'},
+    {n:'MYSTERIOUS ORCHID',c:4,d:'Ориенталски и дървесен, с топъл характер. Когато искаш да те запомнят.'}
+  ];
+  var wheel=document.getElementById('a5Wheel'), spin=document.getElementById('a5Spin'), res=document.getElementById('a5Res'), rot=0, last=-1;
+  spin.addEventListener('click',function(){
+    var k; do{ k=Math.floor(Math.random()*5); }while(k===last); last=k;
+    var target=360-(k*72+36);                 /* сегментът k застава под стрелката */
+    var cur=((rot%360)+360)%360;
+    rot+= (reduce?0:5*360) + ((target-cur+360)%360);
+    spin.disabled=true;
+    wheel.style.transform='rotate('+rot+'deg)';
+    setTimeout(function(){
+      var p=P[k];
+      res.innerHTML='<div class="a5-res-k">ДНЕС ОТ КОМПЛЕКТА СЛАГАШ</div><div class="a5-res-n" style="color:'+COLORS[p.c]+' !important;text-shadow:0 0 16px '+COLORS[p.c]+'">'+p.n+'</div><p class="a5-res-d">'+p.d+' Останалите четири те чакат в комплекта.</p>';
+      var r=wheel.getBoundingClientRect(); burst(r.left+r.width/2, r.top+r.height/2, [COLORS[p.c],'#ffffff']);
+      spin.disabled=false; spin.textContent='⟳ ЗАВЪРТИ ПАК';
+    }, reduce?50:4300);
+  });
+
+  /* отзиви: първите 5, после „Виж още“ */
+  var more=document.getElementById('a5More'), revs=document.getElementById('a5Revs');
+  more.addEventListener('click',function(){ revs.classList.add('a5-all'); more.classList.add('a5-gone'); });
+
+  /* лента долу */
+  var sticky=document.getElementById('a5Sticky'), hero=document.getElementById('a5Hero'), fin=document.getElementById('a5Final');
+  function onScroll(){ var past=hero.getBoundingClientRect().bottom<0, atEnd=fin.getBoundingClientRect().top<window.innerHeight*.9; sticky.classList.toggle('a5-on',past&&!atEnd); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+<!-- ===================== /5 МЪЖКИ ПАРФЮМА ЛЕНДИНГ ===================== -->
