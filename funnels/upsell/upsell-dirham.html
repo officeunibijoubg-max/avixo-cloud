@@ -3,23 +3,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Montserrat:wght@400;500;600;700;800&display=swap');
 /* платформата слага float на някои елементи – тук не ни трябва */
 #up#up *{ float:none !important; }
-#up{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --text:#f6eef4; --muted:rgba(246,238,244,.72); --ok:#3ee08f; font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; overflow:hidden !important; position:relative !important; }
+#up{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#fff6fa; --card:#ffffff; --text:#2a1420; --muted:rgba(42,20,32,.66); --ok:#1fa463; --goldd:#b88308; font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; overflow:hidden !important; position:relative !important; }
 #up *{ box-sizing:border-box !important; }
 #up img{ max-width:100% !important; display:block !important; }
 #up .up-wrap{ max-width:760px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
-#up .up-bg{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(520px 380px at 0% 0%, rgba(var(--pink-rgb),.24), transparent 70%), radial-gradient(520px 380px at 100% 35%, rgba(var(--gold-rgb),.16), transparent 70%), radial-gradient(520px 380px at 10% 95%, rgba(var(--pink-rgb),.16), transparent 70%) !important; }
+#up .up-bg{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(520px 380px at 0% 0%, rgba(var(--pink-rgb),.14), transparent 70%), radial-gradient(520px 380px at 100% 35%, rgba(var(--gold-rgb),.20), transparent 70%), radial-gradient(520px 380px at 10% 95%, rgba(var(--pink-rgb),.10), transparent 70%), linear-gradient(180deg,#fff9fc,#fff1f7) !important; }
 
 @keyframes upNeon{
-  0%,28%  { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
-  33%,61% { border-color:var(--gold); box-shadow:0 0 6px var(--gold),0 0 22px rgba(var(--gold-rgb),.7),inset 0 0 14px rgba(var(--gold-rgb),.35); }
-  66%,95% { border-color:var(--hot);  box-shadow:0 0 6px var(--hot),0 0 22px rgba(255,143,209,.6),inset 0 0 14px rgba(255,143,209,.3); }
-  100%    { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
+  0%,28%  { border-color:var(--pink); box-shadow:0 0 0 3px rgba(var(--pink-rgb),.12),0 10px 34px rgba(var(--pink-rgb),.28); }
+  33%,61% { border-color:var(--gold); box-shadow:0 0 0 3px rgba(var(--gold-rgb),.18),0 10px 34px rgba(var(--gold-rgb),.38); }
+  66%,95% { border-color:var(--hot);  box-shadow:0 0 0 3px rgba(255,143,209,.18),0 10px 34px rgba(255,143,209,.35); }
+  100%    { border-color:var(--pink); box-shadow:0 0 0 3px rgba(var(--pink-rgb),.12),0 10px 34px rgba(var(--pink-rgb),.28); }
 }
 @keyframes upNeonText{
-  0%,28%  { text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 30px var(--pink); }
-  33%,61% { text-shadow:0 0 4px #fff,0 0 12px var(--gold),0 0 30px var(--gold); }
-  66%,95% { text-shadow:0 0 4px #fff,0 0 12px var(--hot),0 0 30px var(--pink); }
-  100%    { text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 30px var(--pink); }
+  0%,28%  { text-shadow:0 0 14px rgba(var(--pink-rgb),.35); }
+  33%,61% { text-shadow:0 0 14px rgba(var(--gold-rgb),.55); }
+  66%,95% { text-shadow:0 0 14px rgba(255,143,209,.5); }
+  100%    { text-shadow:0 0 14px rgba(var(--pink-rgb),.35); }
 }
 @keyframes upFlicker{ 0%,18%,22%,25%,53%,57%,100%{opacity:1} 20%,24%,55%{opacity:.35} }
 @keyframes upGrad{ 0%,100%{background-position:0 0} 50%{background-position:100% 0} }
@@ -65,7 +65,7 @@
 #up .up-was{ font:700 20px/1 'Unbounded',sans-serif !important; color:var(--muted) !important; text-decoration:line-through !important; text-decoration-color:var(--pink) !important; text-decoration-thickness:3px !important; }
 #up .up-price{ position:relative !important; font:900 clamp(46px,13vw,72px)/1 'Unbounded',sans-serif !important; padding:14px 22px !important; border-radius:18px !important; background:#000 !important; }
 #up .up-price small{ font-size:.42em !important; vertical-align:super !important; margin-left:2px !important; }
-#up .up-badge{ position:absolute !important; top:-34px !important; right:-14px !important; width:66px !important; height:66px !important; border-radius:50% !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; font:900 16px/1 'Unbounded',sans-serif !important; white-space:nowrap !important; color:#000 !important; background:var(--gold) !important; box-shadow:0 0 0 3px #000,0 0 20px rgba(var(--gold-rgb),.95); transform:rotate(10deg); }
+#up .up-badge{ position:absolute !important; top:-40px !important; right:-34px !important; width:66px !important; height:66px !important; border-radius:50% !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; font:900 16px/1 'Unbounded',sans-serif !important; white-space:nowrap !important; color:#000 !important; background:var(--gold) !important; box-shadow:0 0 0 3px #000,0 0 20px rgba(var(--gold-rgb),.95); transform:rotate(10deg); }
 #up .up-badge small{ font:800 7.5px/1.1 'Montserrat',sans-serif !important; letter-spacing:.5px !important; margin-top:4px !important; text-transform:uppercase !important; }
 #up .up-save{ display:inline-block !important; margin:14px 0 4px !important; font:800 13px/1 'Montserrat',sans-serif !important; letter-spacing:1px !important; padding:10px 16px !important; border-radius:99px !important; color:#000 !important; background:linear-gradient(90deg,var(--pink),var(--gold)) !important; }
 #up .up-only{ font-size:13px !important; color:var(--muted) !important; margin:6px 0 0 !important; }
@@ -103,6 +103,30 @@
 #up .up-rev{ border-radius:14px !important; padding:5px !important; background:#fff !important; }
 #up .up-rev img{ width:100% !important; height:auto !important; border-radius:10px !important; }
 
+
+/* ===== СВЕТЛА ТЕМА ===== */
+#up .up-nt{ color:var(--pink) !important; }
+#up .up-okbar{ background:#e9f9f0 !important; border-bottom:1px solid rgba(31,164,99,.35) !important; color:#14794a !important; }
+#up .up-okbar i{ color:#fff !important; box-shadow:none !important; }
+#up .up-st b{ border-color:rgba(42,20,32,.18) !important; background:#fff !important; }
+#up .up-st.up-done b{ color:#fff !important; }
+#up .up-st.up-now b{ color:#fff !important; box-shadow:0 4px 14px rgba(var(--pink-rgb),.45) !important; }
+#up .up-ln.up-off{ background:rgba(42,20,32,.12) !important; }
+#up .up-wait{ color:var(--goldd) !important; text-shadow:0 2px 0 #fff,0 0 18px rgba(var(--gold-rgb),.55) !important; }
+#up .up-offer, #up .up-mini, #up .up-why div{ background:#ffffff !important; }
+#up .up-offer{ box-shadow:0 18px 50px -20px rgba(var(--pink-rgb),.45) !important; }
+#up .up-why div{ box-shadow:0 6px 20px -10px rgba(42,20,32,.25) !important; border:1px solid rgba(var(--pink-rgb),.15) !important; }
+#up .up-name .up-p{ text-shadow:none !important; }
+#up .up-name .up-g{ color:var(--goldd) !important; text-shadow:none !important; }
+#up .up-mini.up-pk b{ text-shadow:none !important; }
+#up .up-mini.up-gd b{ color:var(--goldd) !important; text-shadow:none !important; }
+#up .up-price{ background:#fff !important; color:var(--text) !important; }
+#up .up-badge{ box-shadow:0 0 0 3px #fff,0 6px 18px rgba(var(--gold-rgb),.6) !important; }
+#up .up-flag{ box-shadow:0 4px 14px rgba(var(--gold-rgb),.6) !important; }
+#up .up-save{ color:#fff !important; background:#e0127a !important; }
+#up a.up-yes{ color:#fff !important; background:linear-gradient(100deg,#ff2ea6,#d4126f 50%,#ff2ea6) !important; background-size:220% 100% !important; box-shadow:0 14px 34px -10px rgba(var(--pink-rgb),.7) !important; }
+#up a.up-no:hover{ color:var(--text) !important; }
+#up .up-rev{ border:1px solid rgba(42,20,32,.1) !important; box-shadow:0 6px 18px -10px rgba(42,20,32,.3) !important; }
 #up .up-burst{ position:fixed !important; z-index:9999 !important; pointer-events:none !important; font-size:18px !important; animation:upBurst 1s ease-out forwards; }
 #up .up-pad{ padding:0 0 46px !important; }
 @media (min-width:760px){
@@ -206,9 +230,35 @@
       b.style.setProperty('--x',Math.cos(a)*d+'px'); b.style.setProperty('--y',Math.sin(a)*d+'px');
       root.appendChild(b); setTimeout(function(n){ n.remove(); },1050,b); }
   }
-  /* ▼▼▼ ВРЪЗКА С БУТОНИТЕ НА ПЛАТФОРМАТА – попълва се, щом видя как работят ▼▼▼ */
-  function accept(){ /* TODO */ }
-  function decline(){ /* TODO */ }
+  /* ▼▼▼ КЪДЕ ОТИВА КЛИЕНТЪТ СЛЕД „ДА“ И СЛЕД „НЕ“ ▼▼▼ */
+  var UP_THANK_YOU = 'https://uni-arabian.eu/ty';
+
+  function go(u){ try{ window.top.location.href=u; }catch(x){ window.location.href=u; } }
+  /* Истинският бутон на платформата (widget „Upsell Button“) – той добавя продукта към поръчката.
+     Скриваме го; нашите бутони го натискат вместо клиента. */
+  function nativeYes(){ return document.querySelector('.upsell-positive-action'); }
+  function hideNative(){
+    var y=nativeYes(); if(!y) return;
+    var w=y.closest('.widget-row')||y.closest('.widget')||y.parentNode;
+    if(w && !w.contains(root)){ ['position:absolute','left:-9999px','top:0','width:1px','height:1px','overflow:hidden','opacity:0'].forEach(function(d){ var kv=d.split(':'); w.style.setProperty(kv[0],kv[1],'important'); }); }
+  }
+  hideNative(); setTimeout(hideNative,800); setTimeout(hideNative,2500);
+  /* след успешно добавяне платформата отива на „следващата стъпка“ – пращаме към нашата thank you */
+  function hookThankYou(){
+    var W=window.WebPlatform; if(!W||!W.Store||W.Store.__upHooked) return;
+    W.Store.goToThankYouPage=function(){ go(UP_THANK_YOU); }; W.Store.__upHooked=true;
+    if(W.Funnels){ W.Funnels.show=function(){ go(UP_THANK_YOU); }; }
+  }
+  var busy=false;
+  function accept(){
+    if(busy) return; busy=true;
+    root.querySelectorAll('[data-up="yes"]').forEach(function(b){ b.style.setProperty('opacity','.6','important'); b.style.setProperty('pointer-events','none','important'); });
+    var y=nativeYes();
+    if(y){ hookThankYou(); y.click(); }
+    else { if(window.console) console.warn('[ъпсел] Липсва widget „Upsell Button“ на страницата – продуктът НЕ е добавен.'); go(UP_THANK_YOU); }
+  }
+  function decline(){ go(UP_THANK_YOU); }
+  root.querySelectorAll('[data-up="no"]').forEach(function(a){ a.setAttribute('href',UP_THANK_YOU); a.setAttribute('target','_top'); });
   root.addEventListener('click',function(e){
     var t=e.target.closest('[data-up]'); if(!t) return; e.preventDefault();
     if(t.getAttribute('data-up')==='yes'){ burst(e.clientX,e.clientY); setTimeout(accept, reduce?0:350); }

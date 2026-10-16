@@ -20,4 +20,5 @@
   телефон +359 (`.iti__country-container` също се скрива).
 - Комплектите се описват САМО като комплект — никъде „за шише“, „избери аромат“ и т.н.
 - Thank you: Viber пренасочване след 3 сек (линкът е в `funnels/freeze-in-flames/thank-you-freeze.src.html`).
+- Ъпсел (общ за всички фунии): `funnels/upsell/upsell-dirham.src.html` – светъл; „Да“ натиска скрития widget „Upsell Button“ (`.upsell-positive-action`) и води към `/ty`, „Не“ → `/ty`.
 - Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`, `funnels/men-5/`.
