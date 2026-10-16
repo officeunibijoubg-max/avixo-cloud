@@ -440,15 +440,18 @@
 </div>
 
 <script>
-/* ▼▼▼ АДРЕС НА СТРАНИЦАТА ЗА ЧЕКАУТ ▼▼▼ */
+/* Бутоните водят надолу до чекаута на същата страница (uni-arabian.eu/5-1m).
+   Ако някой ден чекаутът е на отделна страница, сложи адреса тук: */
 var A5_CHECKOUT_URL = '';
 (function(){
   var root=document.getElementById('a5'); if(!root) return;
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var COLORS=['#33f0d8','#ff2d78','#2f8bff','#7b84ff','#ffc23d'];
+  /* къде е чекаутът: шапката му (.a5c) или самата форма */
+  function orderTarget(){ return document.querySelector('.a5c') || document.querySelector('.widget-checkout'); }
   root.querySelectorAll('[data-go]').forEach(function(a){
     if(A5_CHECKOUT_URL){ a.setAttribute('href',A5_CHECKOUT_URL); a.setAttribute('target','_top'); }
-    else a.setAttribute('href','#a5Final');
+    else a.setAttribute('href','#a5Order');
   });
 
   function burst(x,y,cols){
@@ -465,6 +468,12 @@ var A5_CHECKOUT_URL = '';
   root.addEventListener('click',function(e){
     var t=e.target.closest('[data-burst]'); if(!t) return;
     burst(e.clientX,e.clientY);
+    if(t.hasAttribute('data-go') && !A5_CHECKOUT_URL){
+      e.preventDefault();
+      var o=orderTarget()||document.getElementById('a5Final');
+      o.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+      return;
+    }
     var href=t.getAttribute('href');
     if(href&&href.charAt(0)==='#'&&href.length>1){ var dst=document.querySelector(href); if(dst){ e.preventDefault(); dst.scrollIntoView({behavior:'smooth'}); } }
   });
@@ -499,7 +508,8 @@ var A5_CHECKOUT_URL = '';
 
   /* лента долу */
   var sticky=document.getElementById('a5Sticky'), hero=document.getElementById('a5Hero'), fin=document.getElementById('a5Final');
-  function onScroll(){ var past=hero.getBoundingClientRect().bottom<0, atEnd=fin.getBoundingClientRect().top<window.innerHeight*.9; sticky.classList.toggle('a5-on',past&&!atEnd); }
+  function onScroll(){ var o=orderTarget(), past=hero.getBoundingClientRect().bottom<0,
+      atEnd=(o||fin).getBoundingClientRect().top<window.innerHeight*.9; sticky.classList.toggle('a5-on',past&&!atEnd); }
   window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 })();
 </script>
