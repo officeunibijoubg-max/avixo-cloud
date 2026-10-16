@@ -1,0 +1,219 @@
+<!-- ===================== ЪПСЕЛ · DIRHAM PINK + GOLD · 11.90 € (универсален за всички фунии) ===================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Montserrat:wght@400;500;600;700;800&display=swap');
+/* платформата слага float на някои елементи – тук не ни трябва */
+#up#up *{ float:none !important; }
+#up{ --pink:#ff2ea6; --pink-rgb:255,46,166; --gold:#ffc93c; --gold-rgb:255,201,60; --hot:#ff8fd1; --ink:#07050a; --card:#120c16; --text:#f6eef4; --muted:rgba(246,238,244,.72); --ok:#3ee08f; font-family:'Montserrat',Arial,sans-serif !important; color:var(--text) !important; background:var(--ink) !important; line-height:1.55 !important; overflow:hidden !important; position:relative !important; }
+#up *{ box-sizing:border-box !important; }
+#up img{ max-width:100% !important; display:block !important; }
+#up .up-wrap{ max-width:760px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
+#up .up-bg{ position:absolute !important; inset:0 !important; z-index:0 !important; pointer-events:none !important; background:radial-gradient(520px 380px at 0% 0%, rgba(var(--pink-rgb),.24), transparent 70%), radial-gradient(520px 380px at 100% 35%, rgba(var(--gold-rgb),.16), transparent 70%), radial-gradient(520px 380px at 10% 95%, rgba(var(--pink-rgb),.16), transparent 70%) !important; }
+
+@keyframes upNeon{
+  0%,28%  { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
+  33%,61% { border-color:var(--gold); box-shadow:0 0 6px var(--gold),0 0 22px rgba(var(--gold-rgb),.7),inset 0 0 14px rgba(var(--gold-rgb),.35); }
+  66%,95% { border-color:var(--hot);  box-shadow:0 0 6px var(--hot),0 0 22px rgba(255,143,209,.6),inset 0 0 14px rgba(255,143,209,.3); }
+  100%    { border-color:var(--pink); box-shadow:0 0 6px var(--pink),0 0 22px rgba(var(--pink-rgb),.7),inset 0 0 14px rgba(var(--pink-rgb),.35); }
+}
+@keyframes upNeonText{
+  0%,28%  { text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 30px var(--pink); }
+  33%,61% { text-shadow:0 0 4px #fff,0 0 12px var(--gold),0 0 30px var(--gold); }
+  66%,95% { text-shadow:0 0 4px #fff,0 0 12px var(--hot),0 0 30px var(--pink); }
+  100%    { text-shadow:0 0 4px #fff,0 0 12px var(--pink),0 0 30px var(--pink); }
+}
+@keyframes upFlicker{ 0%,18%,22%,25%,53%,57%,100%{opacity:1} 20%,24%,55%{opacity:.35} }
+@keyframes upGrad{ 0%,100%{background-position:0 0} 50%{background-position:100% 0} }
+@keyframes upPulse{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.03) } }
+@keyframes upShake{ 0%,90%,100%{ transform:rotate(0) } 92%{ transform:rotate(-3deg) } 94%{ transform:rotate(3deg) } 96%{ transform:rotate(-2deg) } 98%{ transform:rotate(2deg) } }
+@keyframes upBurst{ to{ transform:translate(var(--x),var(--y)) rotate(160deg) scale(.5); opacity:0 } }
+#up .up-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--pink); animation:upNeon 7.5s linear infinite !important; }
+#up .up-neon.up-d1{ animation-delay:-2.5s !important; } #up .up-neon.up-d2{ animation-delay:-5s !important; }
+#up .up-nt{ color:#fff !important; animation:upNeonText 7.5s linear infinite, upFlicker 6s linear infinite !important; }
+
+/* горна лента: поръчката е приета */
+#up .up-okbar{ position:relative !important; z-index:3 !important; display:flex !important; align-items:center !important; justify-content:center !important; gap:10px !important; padding:12px 14px !important; background:#06140d !important; border-bottom:1px solid rgba(62,224,143,.5) !important; font:800 13px/1.3 'Montserrat',sans-serif !important; color:var(--ok) !important; text-align:center !important; }
+#up .up-okbar i{ flex:none !important; width:24px !important; height:24px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font-style:normal !important; color:#000 !important; background:var(--ok) !important; box-shadow:0 0 12px rgba(62,224,143,.8); }
+
+/* стъпки */
+#up .up-steps{ display:flex !important; align-items:center !important; justify-content:center !important; gap:8px !important; margin:22px auto 10px !important; max-width:460px !important; }
+#up .up-st{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:6px !important; font:700 10px/1.2 'Montserrat',sans-serif !important; letter-spacing:1.3px !important; text-transform:uppercase !important; color:var(--muted) !important; text-align:center !important; }
+#up .up-st b{ width:32px !important; height:32px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font:700 13px/1 'Unbounded',sans-serif !important; border-width:2px !important; border-style:solid !important; border-color:rgba(255,255,255,.2); color:var(--muted) !important; }
+#up .up-st.up-done b{ background:var(--ok) !important; border-color:var(--ok); color:#000 !important; }
+#up .up-st.up-now{ color:var(--text) !important; }
+#up .up-st.up-now b{ background:var(--pink) !important; border-color:var(--pink); color:#000 !important; box-shadow:0 0 16px rgba(var(--pink-rgb),.9); }
+#up .up-ln{ flex:1 !important; max-width:60px !important; height:2px !important; margin-bottom:22px !important; border-radius:2px !important; background:linear-gradient(90deg,var(--ok),var(--pink)) !important; }
+#up .up-ln.up-off{ background:rgba(255,255,255,.15) !important; }
+
+/* заглавие */
+#up .up-head{ text-align:center !important; padding:6px 0 4px !important; }
+#up .up-wait{ display:inline-block !important; font:900 clamp(30px,9vw,54px)/1 'Unbounded',sans-serif !important; letter-spacing:1px !important; margin:6px 0 10px !important; color:var(--gold) !important; text-shadow:0 0 14px rgba(var(--gold-rgb),.9),0 0 34px rgba(var(--gold-rgb),.6); animation:upShake 4s ease-in-out infinite !important; }
+#up .up-kicker{ font:800 12px/1.4 'Montserrat',sans-serif !important; letter-spacing:2.5px !important; text-transform:uppercase !important; color:var(--muted) !important; margin:0 0 10px !important; }
+#up .up-h1{ font:900 clamp(22px,6.4vw,40px)/1.12 'Unbounded',sans-serif !important; margin:0 0 12px !important; text-wrap:balance !important; }
+#up .up-lead{ max-width:540px !important; margin:0 auto 22px !important; color:var(--muted) !important; font-size:16px !important; }
+#up .up-lead b{ color:var(--text) !important; }
+
+/* оферта */
+#up .up-offer{ border-radius:26px !important; padding:10px 10px 22px !important; background:var(--card) !important; text-align:center !important; }
+#up .up-img{ position:relative !important; border-radius:18px !important; overflow:hidden !important; margin-bottom:18px !important; }
+#up .up-img img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; }
+#up .up-flag{ position:absolute !important; top:12px !important; left:12px !important; font:800 11px/1 'Montserrat',sans-serif !important; letter-spacing:1.5px !important; padding:9px 12px !important; border-radius:99px !important; color:#000 !important; background:var(--gold) !important; box-shadow:0 0 16px rgba(var(--gold-rgb),.9); }
+#up .up-name{ font:900 clamp(18px,5vw,26px)/1.2 'Unbounded',sans-serif !important; margin:0 0 6px !important; }
+#up .up-name .up-p{ color:var(--pink) !important; text-shadow:0 0 14px rgba(var(--pink-rgb),.8); }
+#up .up-name .up-g{ color:var(--gold) !important; text-shadow:0 0 14px rgba(var(--gold-rgb),.8); }
+#up .up-spec{ font:700 12px/1.3 'Montserrat',sans-serif !important; letter-spacing:2px !important; color:var(--muted) !important; margin-bottom:18px !important; }
+#up .up-prices{ display:flex !important; align-items:center !important; justify-content:center !important; gap:14px !important; flex-wrap:wrap !important; margin-bottom:6px !important; }
+#up .up-was{ font:700 20px/1 'Unbounded',sans-serif !important; color:var(--muted) !important; text-decoration:line-through !important; text-decoration-color:var(--pink) !important; text-decoration-thickness:3px !important; }
+#up .up-price{ position:relative !important; font:900 clamp(46px,13vw,72px)/1 'Unbounded',sans-serif !important; padding:14px 22px !important; border-radius:18px !important; background:#000 !important; }
+#up .up-price small{ font-size:.42em !important; vertical-align:super !important; margin-left:2px !important; }
+#up .up-badge{ position:absolute !important; top:-34px !important; right:-14px !important; width:66px !important; height:66px !important; border-radius:50% !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; font:900 16px/1 'Unbounded',sans-serif !important; white-space:nowrap !important; color:#000 !important; background:var(--gold) !important; box-shadow:0 0 0 3px #000,0 0 20px rgba(var(--gold-rgb),.95); transform:rotate(10deg); }
+#up .up-badge small{ font:800 7.5px/1.1 'Montserrat',sans-serif !important; letter-spacing:.5px !important; margin-top:4px !important; text-transform:uppercase !important; }
+#up .up-save{ display:inline-block !important; margin:14px 0 4px !important; font:800 13px/1 'Montserrat',sans-serif !important; letter-spacing:1px !important; padding:10px 16px !important; border-radius:99px !important; color:#000 !important; background:linear-gradient(90deg,var(--pink),var(--gold)) !important; }
+#up .up-only{ font-size:13px !important; color:var(--muted) !important; margin:6px 0 0 !important; }
+
+/* двата аромата */
+#up .up-duo{ display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; margin:22px 0 0 !important; }
+#up .up-mini{ border-radius:18px !important; padding:8px 8px 14px !important; background:var(--card) !important; text-align:center !important; }
+#up .up-mini .up-ph{ aspect-ratio:1/1 !important; border-radius:12px !important; overflow:hidden !important; background:#fff !important; margin-bottom:10px !important; }
+#up .up-mini .up-ph img{ width:100% !important; height:100% !important; object-fit:cover !important; }
+#up .up-mini b{ display:block !important; font:700 13px/1.2 'Unbounded',sans-serif !important; }
+#up .up-mini.up-pk b{ color:var(--pink) !important; text-shadow:0 0 12px rgba(var(--pink-rgb),.7); }
+#up .up-mini.up-gd b{ color:var(--gold) !important; text-shadow:0 0 12px rgba(var(--gold-rgb),.7); }
+#up .up-mini small{ display:block !important; font-size:11px !important; letter-spacing:1px !important; color:var(--muted) !important; margin:4px 0 6px !important; }
+#up .up-mini span{ display:block !important; font-size:12px !important; color:var(--text) !important; line-height:1.4 !important; }
+
+/* предимства */
+#up .up-why{ display:grid !important; gap:10px !important; margin:22px 0 0 !important; text-align:left !important; }
+#up .up-why div{ display:flex !important; gap:12px !important; align-items:center !important; padding:13px 15px !important; border-radius:14px !important; background:var(--card) !important; font-weight:600 !important; font-size:14px !important; }
+#up .up-why div i{ flex:none !important; width:30px !important; height:30px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font-style:normal !important; color:#000 !important; background:linear-gradient(135deg,var(--pink),var(--gold)) !important; }
+
+/* бутони ДА / НЕ */
+#up .up-actions{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:12px !important; margin:26px 0 0 !important; }
+#up a.up-yes{ display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; gap:6px !important; width:100% !important; max-width:480px !important; text-align:center !important; text-decoration:none !important; cursor:pointer !important; padding:20px 16px !important; border-radius:18px !important; color:#000 !important; background:linear-gradient(100deg,var(--pink),var(--hot) 45%,var(--gold)) !important; background-size:220% 100% !important; animation:upGrad 5s ease-in-out infinite, upPulse 2.2s ease-in-out infinite !important; box-shadow:0 0 0 2px rgba(255,255,255,.14),0 0 34px rgba(var(--pink-rgb),.6),0 0 60px rgba(var(--gold-rgb),.3); }
+#up a.up-yes b{ font:900 14px/1.25 'Unbounded',sans-serif !important; letter-spacing:.5px !important; text-transform:uppercase !important; }
+#up a.up-yes small{ font:700 12px/1.2 'Montserrat',sans-serif !important; letter-spacing:.5px !important; }
+#up a.up-yes:active{ transform:scale(.97); }
+#up a.up-no{ font:600 13px/1.4 'Montserrat',sans-serif !important; color:var(--muted) !important; text-decoration:underline !important; cursor:pointer !important; padding:6px 10px !important; text-align:center !important; }
+#up a.up-no:hover{ color:var(--text) !important; }
+#up .up-note{ text-align:center !important; font-size:12px !important; color:var(--muted) !important; margin:10px 0 0 !important; }
+
+/* отзиви */
+#up .up-sec-t{ text-align:center !important; font:900 clamp(20px,5.6vw,30px)/1.2 'Unbounded',sans-serif !important; margin:40px 0 8px !important; }
+#up .up-sec-s{ text-align:center !important; color:var(--muted) !important; margin:0 0 18px !important; font-size:14px !important; }
+#up .up-revs{ display:grid !important; gap:10px !important; }
+#up .up-rev{ border-radius:14px !important; padding:5px !important; background:#fff !important; }
+#up .up-rev img{ width:100% !important; height:auto !important; border-radius:10px !important; }
+
+#up .up-burst{ position:fixed !important; z-index:9999 !important; pointer-events:none !important; font-size:18px !important; animation:upBurst 1s ease-out forwards; }
+#up .up-pad{ padding:0 0 46px !important; }
+@media (min-width:760px){
+  #up a.up-yes b{ font-size:17px !important; letter-spacing:1px !important; }
+  #up .up-offer{ padding:14px 14px 28px !important; }
+  #up .up-why{ grid-template-columns:1fr 1fr !important; }
+}
+@media (prefers-reduced-motion:reduce){
+  #up#up *, #up#up *::before, #up#up *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+}
+</style>
+
+<div id="up">
+  <div class="up-bg"></div>
+  <div class="up-okbar"><i>✓</i><span>Поръчката ти е приета! Не затваряй страницата – имаме нещо специално за теб.</span></div>
+
+  <div class="up-wrap up-pad">
+    <div class="up-steps" aria-label="Стъпки">
+      <div class="up-st up-done"><b>✓</b>Поръчка</div>
+      <div class="up-ln"></div>
+      <div class="up-st up-now"><b>2</b>Специална<br>оферта</div>
+      <div class="up-ln up-off"></div>
+      <div class="up-st"><b>3</b>Готово</div>
+    </div>
+
+    <div class="up-head">
+      <div class="up-wait">ЧАКАЙ!</div>
+      <p class="up-kicker">Само за хора, които вече поръчаха</p>
+      <h1 class="up-h1">Най-продаваните парфюми <span class="up-nt">за него и нея</span></h1>
+      <p class="up-lead">Добави <b>Dirham Pink + Dirham Gold</b> към поръчката си на цена, която няма да видиш никъде другаде. Комплект от 2 парфюма по 100 ml – <b>само 11.90 € за двата</b>.</p>
+    </div>
+
+    <div class="up-offer up-neon">
+      <div class="up-img">
+        <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/8F44C94E-890D-42EC-B0D0-25F612C19D35-0966252.png?format=webp" alt="Комплект Dirham Pink и Dirham Gold, 2 × 100 ml" width="1200" height="1200">
+        <span class="up-flag">★ НАЙ-ПРОДАВАНИ</span>
+      </div>
+      <div class="up-name"><span class="up-p">DIRHAM PINK</span> + <span class="up-g">DIRHAM GOLD</span></div>
+      <div class="up-spec">КОМПЛЕКТ · 2 × 100 ML · EAU DE PARFUM</div>
+      <div class="up-prices">
+        <span class="up-was">21.90 €</span>
+        <div class="up-price up-neon up-d1">11.90<small>€</small><span class="up-badge">2 бр.<small>в комплекта</small></span></div>
+      </div>
+      <div class="up-save">СПЕСТЯВАШ 10 €</div>
+      <p class="up-only">Офертата е само на тази страница и само за вече поръчали.</p>
+
+      <div class="up-actions">
+        <a href="#" class="up-yes" data-up="yes" data-burst><b>Да, добави ги за 11.90 € ➜</b><small>Добавя се към поръчката ти · плащаш при получаване</small></a>
+        <a href="#" class="up-no" data-up="no">Не, благодаря – не искам тази оферта</a>
+      </div>
+    </div>
+
+    <div class="up-duo">
+      <div class="up-mini up-pk up-neon up-d1">
+        <div class="up-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6420-0966253.jpeg?format=webp" alt="Dirham Pink 100 ml" width="1000" height="1000" loading="lazy"></div>
+        <b>DIRHAM PINK</b><small>♀ ЗА НЕЯ · 100 ML</small>
+        <span>Роза, божур и ванилия върху плодова свежест.</span>
+      </div>
+      <div class="up-mini up-gd up-neon up-d2">
+        <div class="up-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6419-0966253.jpeg?format=webp" alt="Dirham Gold 100 ml" width="1000" height="1000" loading="lazy"></div>
+        <b>DIRHAM GOLD</b><small>♂ ЗА НЕГО · 100 ML</small>
+        <span>Oud, сандалово дърво и свеж бергамот.</span>
+      </div>
+    </div>
+
+    <div class="up-why">
+      <div><i>💝</i>Два парфюма – за теб и за човека до теб</div>
+      <div><i>💶</i>11.90 € за двата вместо 21.90 €</div>
+      <div><i>📦</i>Добавя се към същата поръчка</div>
+      <div><i>🤝</i>Плащаш на куриера при получаване</div>
+    </div>
+
+    <div class="up-actions">
+      <a href="#" class="up-yes" data-up="yes" data-burst><b>Да, искам ги за 11.90 € ➜</b><small>Dirham Pink + Dirham Gold · 2 × 100 ml</small></a>
+      <a href="#" class="up-no" data-up="no">Не, благодаря</a>
+    </div>
+
+    <h2 class="up-sec-t">Какво казват <span class="up-nt">клиентите</span></h2>
+    <p class="up-sec-s">Реални коментари от хора, които вече получиха своите парфюми.</p>
+    <div class="up-revs">
+      <div class="up-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-236-1542351.jpg?format=webp" alt="Отзив от клиент: Поръчах си ги, пристигнаха преди два дена – страхотни са! ❤" width="1320" height="320" loading="lazy"></div>
+      <div class="up-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-431-1542351.jpg?format=webp" alt="Отзив от клиент: Страхотни! Поръчах си преди няколко дена – аромата е траен и сладък ❤" width="1320" height="306" loading="lazy"></div>
+      <div class="up-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-21-49-673-5668174.png?format=webp" alt="Отзив от клиент: Благодаря Ви! Получих си парфюмите, прекрасни са! Благодаря!" width="734" height="291" loading="lazy"></div>
+    </div>
+
+    <div class="up-actions">
+      <a href="#" class="up-yes" data-up="yes" data-burst><b>Добави ги за 11.90 € ➜</b><small>Последен шанс за тази цена</small></a>
+      <a href="#" class="up-no" data-up="no">Не, благодаря – продължи без офертата</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('up'); if(!root) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function burst(x,y){
+    if(reduce) return; var em=['💖','✨','💛','✦','💗','💥'];
+    for(var i=0;i<16;i++){ var b=document.createElement('span'); b.className='up-burst'; b.textContent=em[i%em.length];
+      var a=Math.random()*Math.PI*2, d=60+Math.random()*100; b.style.left=x+'px'; b.style.top=y+'px';
+      b.style.setProperty('--x',Math.cos(a)*d+'px'); b.style.setProperty('--y',Math.sin(a)*d+'px');
+      root.appendChild(b); setTimeout(function(n){ n.remove(); },1050,b); }
+  }
+  /* ▼▼▼ ВРЪЗКА С БУТОНИТЕ НА ПЛАТФОРМАТА – попълва се, щом видя как работят ▼▼▼ */
+  function accept(){ /* TODO */ }
+  function decline(){ /* TODO */ }
+  root.addEventListener('click',function(e){
+    var t=e.target.closest('[data-up]'); if(!t) return; e.preventDefault();
+    if(t.getAttribute('data-up')==='yes'){ burst(e.clientX,e.clientY); setTimeout(accept, reduce?0:350); }
+    else decline();
+  });
+})();
+</script>
+<!-- ===================== /ЪПСЕЛ ===================== -->
