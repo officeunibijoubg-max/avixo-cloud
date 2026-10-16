@@ -135,14 +135,9 @@
 
 /* продуктови карти */
 #a5 .a5-prod{ display:grid; grid-template-columns:1fr; gap:18px; border-radius:24px; padding:20px; background:var(--card); margin-bottom:22px; border-top:4px solid var(--c); }
-#a5 .a5-bottle-zone{ display:flex; align-items:center; justify-content:center; border-radius:18px; padding:22px 0 18px; background:radial-gradient(circle at 50% 60%, rgba(var(--crgb),.35), transparent 65%), #000; }
-#a5 .a5-bottle{ position:relative; width:96px; animation:a5Float 4s ease-in-out infinite; }
-#a5 .a5-bottle .a5-cap{ width:46px; height:44px; margin:0 auto; border-radius:6px 6px 3px 3px; background:var(--cap); box-shadow:inset 0 0 8px rgba(255,255,255,.25); }
-#a5 .a5-bottle .a5-neck{ width:52px; height:8px; margin:0 auto; background:#c9ccd6; border-radius:2px; }
-#a5 .a5-bottle .a5-body{ height:132px; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:8px; text-align:center;
-  background:linear-gradient(160deg,rgba(255,255,255,.28),transparent 40%), var(--c); box-shadow:0 0 26px rgba(var(--crgb),.85), inset 0 0 18px rgba(0,0,0,.25); }
-#a5 .a5-bottle .a5-body b{ font:400 11px/1.05 'Russo One',sans-serif; color:var(--lbl); letter-spacing:.3px; }
-#a5 .a5-bottle .a5-body small{ font:800 7px/1 'Golos Text',sans-serif; letter-spacing:1px; color:var(--lbl); opacity:.85; }
+#a5 .a5-ph{ position:relative; aspect-ratio:1/1; border-radius:18px; overflow:hidden; background:#000; box-shadow:0 0 0 2px rgba(var(--crgb),.55),0 0 30px rgba(var(--crgb),.45); }
+#a5 .a5-ph img{ width:100%; height:100%; object-fit:cover; }
+#a5 .a5-ph-tag{ position:absolute; left:12px; top:12px; font:800 10px/1 'Golos Text',sans-serif; letter-spacing:1.5px; padding:7px 10px; border-radius:99px; color:#000; background:var(--c); box-shadow:0 0 14px rgba(var(--crgb),.9); }
 #a5 .a5-prod h3{ font:400 clamp(22px,6.4vw,34px)/1.05 'Russo One',sans-serif; margin:0 0 6px; color:var(--c); text-shadow:0 0 16px rgba(var(--crgb),.75); }
 #a5 .a5-motto{ font:800 15px/1.3 'Golos Text',sans-serif; margin:0 0 10px; }
 #a5 .a5-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
@@ -211,7 +206,7 @@
 
 @media (min-width:760px){
   #a5 .a5-hero{ padding:56px 0 40px; }
-  #a5 .a5-prod{ grid-template-columns:260px 1fr; padding:28px; gap:30px; align-items:center; }
+  #a5 .a5-prod{ grid-template-columns:320px 1fr; padding:28px; gap:30px; align-items:center; }
   #a5 .a5-moments{ grid-template-columns:repeat(4,1fr); }
   #a5 .a5-perks{ grid-template-columns:repeat(5,1fr); }
   #a5 .a5-gift{ grid-template-columns:1fr 1fr; text-align:left; padding:30px; }
@@ -299,7 +294,7 @@
     <p class="a5-sec-s">Слагаш аромата според настроението, повода и стила си. В комплекта са всичките пет.</p>
 
     <article class="a5-prod a5-neon" style="--c:var(--c1);--crgb:var(--c1-rgb)">
-      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#b8bcc6;--lbl:#ffffff"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body"><b>INVICT</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div class="a5-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/7a1ef8e0-bdc3-4b4b-a92a-9f4d4314af7c-2134633.png?format=webp" alt="INVICT FOR MEN – Aroma Bay, 22 ml Eau de Parfum" width="1200" height="1200" loading="lazy"><span class="a5-ph-tag">В КОМПЛЕКТА</span></div>
       <div>
         <h3>INVICT FOR MEN</h3>
         <p class="a5-motto">Ароматът на победителя</p>
@@ -311,7 +306,7 @@
     </article>
 
     <article class="a5-prod a5-neon a5-d1" style="--c:var(--c2);--crgb:var(--c2-rgb)">
-      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#14182a;--lbl:#ffd27a"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body"><b>VERSA<br>NOIR</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div class="a5-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/a36c128f-72eb-48a6-9286-10a97e7aff45-2134598.png?format=webp" alt="VERSA NOIR FOR MEN – Aroma Bay, 22 ml Eau de Parfum" width="1200" height="1200" loading="lazy"><span class="a5-ph-tag">В КОМПЛЕКТА</span></div>
       <div>
         <h3>VERSA NOIR FOR MEN</h3>
         <p class="a5-motto">Стил и индивидуалност</p>
@@ -323,7 +318,7 @@
     </article>
 
     <article class="a5-prod a5-neon a5-d2" style="--c:var(--c3);--crgb:var(--c3-rgb)">
-      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#3d8dff;--lbl:#ffffff"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body"><b>VERSENCIA<br>ORO</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div class="a5-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/bc6bb449-efe1-4c05-870d-ea79986f828a-2134623.png?format=webp" alt="VERSENCIA ORO FOR MEN – Aroma Bay, 22 ml Eau de Parfum" width="1200" height="1200" loading="lazy"><span class="a5-ph-tag">В КОМПЛЕКТА</span></div>
       <div>
         <h3>VERSENCIA ORO FOR MEN</h3>
         <p class="a5-motto">Свежа елегантност</p>
@@ -335,7 +330,7 @@
     </article>
 
     <article class="a5-prod a5-neon a5-d3" style="--c:var(--c4);--crgb:var(--c4-rgb)">
-      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#121a52;--lbl:#ffffff"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body" style="background:linear-gradient(160deg,rgba(255,255,255,.22),transparent 40%), linear-gradient(180deg,#0f1a5e,#3b5bff) !important"><b>SAVOIR</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div class="a5-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/81056299-fe5e-4d77-ada0-c74817eb2708-2134598.png?format=webp" alt="SAVOIR FOR MEN – Aroma Bay, 22 ml Eau de Parfum" width="1200" height="1200" loading="lazy"><span class="a5-ph-tag">В КОМПЛЕКТА</span></div>
       <div>
         <h3>SAVOIR FOR MEN</h3>
         <p class="a5-motto">Ежедневна увереност</p>
@@ -347,7 +342,7 @@
     </article>
 
     <article class="a5-prod a5-neon a5-d4" style="--c:var(--c5);--crgb:var(--c5-rgb)">
-      <div class="a5-bottle-zone"><div class="a5-bottle" style="--cap:#0b0b0d;--lbl:#ffc23d"><div class="a5-cap"></div><div class="a5-neck"></div><div class="a5-body" style="background:linear-gradient(160deg,rgba(255,255,255,.14),transparent 40%), #0b0b0d !important"><b style="background:#c99a2e !important;color:#111 !important;padding:4px 5px !important;border-radius:3px !important">MYSTERIOUS<br>ORCHID</b><small>FOR MEN</small><small>22 ml</small></div></div></div>
+      <div class="a5-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/7050fd24-8389-4414-879a-d70cb4750eb1-2134598.png?format=webp" alt="MYSTERIOUS ORCHID FOR MEN – Aroma Bay, 22 ml Eau de Parfum" width="1200" height="1200" loading="lazy"><span class="a5-ph-tag">В КОМПЛЕКТА</span></div>
       <div>
         <h3>MYSTERIOUS ORCHID FOR MEN</h3>
         <p class="a5-motto">Мистерия и характер</p>
