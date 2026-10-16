@@ -20,4 +20,4 @@
   телефон +359 (`.iti__country-container` също се скрива).
 - Комплектите се описват САМО като комплект — никъде „за шише“, „избери аромат“ и т.н.
 - Thank you: Viber пренасочване след 3 сек (линкът е в `funnels/freeze-in-flames/thank-you-freeze.src.html`).
-- Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`.
+- Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`, `funnels/men-5/`.
