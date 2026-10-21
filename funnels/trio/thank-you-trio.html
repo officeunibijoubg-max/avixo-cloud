@@ -1,0 +1,125 @@
+<!-- =========================================================
+     ЛУКСОЗНА АРАБСКА ТРОЙКА — Thank You
+     ConvertBuilder фрагмент · Viber авто-пренасочване след 3 сек
+     ========================================================= -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+#trt#trt *{ float:none !important; }
+#trt{ --ice:#f2c14e; --ice-rgb:242,193,78; --frost:#ffe39a; --fire:#ff9f1c; --fire-rgb:255,159,28; --ember:#fff1d6; --lava:#c98a1c; --ink:#04060c; --card:#0b1120; --text:#eef6ff; --muted:rgba(238,246,255,.72); font-family:'Golos Text',Arial,sans-serif !important; color:var(--text) !important; line-height:1.55 !important; background:radial-gradient(420px 320px at 0% 0%, rgba(242,193,78,.22), transparent 70%), radial-gradient(420px 320px at 100% 30%, rgba(255,159,28,.16), transparent 70%), radial-gradient(480px 360px at 20% 90%, rgba(255,241,214,.10), transparent 70%), #140b06 !important; min-height:100vh !important; width:100% !important; position:relative !important; overflow:hidden !important; padding:0 0 50px !important; }
+#trt *{ box-sizing:border-box !important; }
+#trt img{ max-width:100% !important; display:block !important; }
+
+@keyframes trtNeon{
+  0%,22%  { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+  25%,47% { border-color:var(--frost); box-shadow:0 0 6px var(--frost),0 0 24px rgba(255,227,154,.6),inset 0 0 14px rgba(255,227,154,.3); }
+  50%,72% { border-color:var(--ember); box-shadow:0 0 6px var(--ember),0 0 24px rgba(255,178,31,.7),inset 0 0 14px rgba(255,178,31,.35); }
+  75%,97% { border-color:var(--fire);  box-shadow:0 0 6px var(--fire),0 0 26px rgba(var(--fire-rgb),.8),inset 0 0 14px rgba(var(--fire-rgb),.4); }
+  100%    { border-color:var(--ice);   box-shadow:0 0 6px var(--ice),0 0 24px rgba(var(--ice-rgb),.7),inset 0 0 14px rgba(var(--ice-rgb),.35); }
+}
+@keyframes trtPop{ 0%{transform:scale(.2)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
+@keyframes trtDraw{ from{ stroke-dashoffset:60; } to{ stroke-dashoffset:0; } }
+@keyframes trtScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes trtFall{ 0%{ transform:translateY(-10vh) rotate(0); opacity:1 } 100%{ transform:translateY(115vh) rotate(420deg); opacity:.8 } }
+@keyframes trtBounce{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-9px)} }
+@keyframes trtFill{ from{ transform:scaleX(0); } to{ transform:scaleX(1); } }
+#trt .trt-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--ice); animation:trtNeon 8s linear infinite !important; }
+#trt .trt-neon.trt-d1{ animation-delay:-3s !important; }
+#trt .trt-ice-t{ color:var(--frost) !important; text-shadow:0 0 6px #fff,0 0 16px var(--ice),0 0 34px var(--ice); }
+#trt .trt-fire-t{ color:#ffe2b8 !important; text-shadow:0 0 6px #fff4e0,0 0 16px var(--fire),0 0 34px var(--lava); }
+
+#trt .trt-ticker{ background:#000 !important; border-bottom:1px solid rgba(var(--fire-rgb),.6) !important; overflow:hidden !important; white-space:nowrap !important; }
+#trt .trt-ticker-in{ display:inline-flex !important; gap:38px !important; padding:10px 0 !important; animation:trtScroll 22s linear infinite !important; font:400 12px/1 'Playfair Display',sans-serif !important; letter-spacing:1.5px !important; text-transform:uppercase !important; }
+#trt .trt-ticker-in span:nth-child(odd){ color:var(--ice) !important; text-shadow:0 0 10px rgba(var(--ice-rgb),.9); }
+#trt .trt-ticker-in span:nth-child(even){ color:var(--ember) !important; text-shadow:0 0 10px rgba(var(--fire-rgb),.9); }
+
+#trt .trt-wrap{ max-width:560px !important; margin:0 auto !important; padding:40px 16px 0 !important; text-align:center !important; position:relative !important; z-index:2 !important; }
+#trt .trt-check{ width:96px !important; height:96px !important; border-radius:50% !important; margin:0 auto 22px !important; display:flex !important; align-items:center !important; justify-content:center !important; background:#000 !important; border-width:3px !important; border-style:solid !important; border-color:var(--ice); animation:trtPop .6s cubic-bezier(.16,1,.3,1) both, trtNeon 8s linear infinite !important; }
+#trt .trt-check svg{ width:46px !important; height:46px !important; fill:none !important; stroke:#fff !important; stroke-width:4 !important; stroke-linecap:round !important; stroke-linejoin:round !important; stroke-dasharray:60 !important; animation:trtDraw .5s ease-out .5s both !important; }
+#trt h1{ font:400 clamp(24px,7.2vw,48px)/1.05 'Playfair Display',sans-serif !important; margin:0 0 12px !important; }
+#trt .trt-sub{ font:800 clamp(16px,4.4vw,22px)/1.3 'Golos Text',sans-serif !important; margin:0 0 10px !important; }
+#trt .trt-lead{ color:var(--muted) !important; max-width:460px !important; margin:0 auto 28px !important; }
+
+#trt .trt-viber{ display:block !important; text-decoration:none !important; color:var(--text) !important; background:var(--card) !important; border-radius:20px !important; padding:24px 20px 20px !important; max-width:440px !important; margin:0 auto 26px !important; }
+#trt .trt-vtag{ font:800 10px/1 'Golos Text',sans-serif !important; letter-spacing:3px !important; text-transform:uppercase !important; color:var(--ember) !important; margin-bottom:14px !important; }
+#trt .trt-vic{ width:62px !important; height:62px !important; margin:0 auto 8px !important; display:block !important; border-radius:16px !important; }
+#trt .trt-arrow{ margin:0 auto 10px !important; animation:trtBounce 1.4s ease-in-out infinite !important; }
+#trt .trt-viber h2{ font:800 17px/1.35 'Golos Text',sans-serif !important; margin:0 0 8px !important; }
+#trt .trt-viber h2 b{ color:#a99bff !important; text-shadow:0 0 12px rgba(115,96,242,.9); }
+#trt .trt-viber p{ font-size:13px !important; color:var(--muted) !important; margin:0 0 14px !important; }
+#trt .trt-count{ font:400 13px/1 'Playfair Display',sans-serif !important; color:var(--frost) !important; margin-bottom:10px !important; }
+#trt .trt-bar{ height:6px !important; border-radius:6px !important; background:rgba(255,255,255,.1) !important; overflow:hidden !important; }
+#trt .trt-bar i{ display:block !important; height:100% !important; width:100% !important; transform-origin:left center !important; background:linear-gradient(90deg,var(--ice),#7360f2,var(--fire)) !important; animation:trtFill 3s linear both !important; }
+#trt .trt-vbtn{ display:inline-block !important; margin-top:16px !important; font:800 14px/1 'Golos Text',sans-serif !important; letter-spacing:.5px !important; padding:14px 22px !important; border-radius:99px !important; color:#fff !important; background:#7360f2 !important; box-shadow:0 0 22px rgba(115,96,242,.75); }
+
+#trt .trt-steps{ display:grid !important; gap:10px !important; text-align:left !important; max-width:440px !important; margin:0 auto 26px !important; }
+#trt .trt-step{ display:grid !important; grid-template-columns:44px 1fr !important; gap:12px !important; align-items:center !important; padding:12px 14px !important; border-radius:14px !important; background:rgba(11,17,32,.85) !important; }
+#trt .trt-step i{ width:44px !important; height:44px !important; border-radius:12px !important; display:flex !important; align-items:center !important; justify-content:center !important; font-style:normal !important; font-size:20px !important; background:#000 !important; }
+#trt .trt-step b{ display:block !important; font:800 14px/1.3 'Golos Text',sans-serif !important; }
+#trt .trt-step span{ font-size:13px !important; color:var(--muted) !important; }
+#trt .trt-pic{ max-width:440px !important; margin:0 auto !important; border-radius:22px !important; padding:8px !important; background:#000 !important; }
+#trt .trt-pic img{ width:100% !important; height:auto !important; aspect-ratio:1/1 !important; border-radius:15px !important; }
+
+#trt .trt-cf{ position:absolute !important; top:0 !important; z-index:5 !important; pointer-events:none !important; animation:trtFall linear forwards; }
+@media (prefers-reduced-motion:reduce){
+  #trt#trt *, #trt#trt *::before, #trt#trt *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+  #trt .trt-cf{ display:none !important; }
+}
+</style>
+
+<div id="trt">
+  <div class="trt-ticker" aria-hidden="true"><div class="trt-ticker-in">
+    <span>✓ Поръчката е приета</span><span>Арабска тройка</span><span>Благодарим ти</span><span>3 × 100 ml</span>
+    <span>✓ Поръчката е приета</span><span>Арабска тройка</span><span>Благодарим ти</span><span>3 × 100 ml</span>
+  </div></div>
+
+  <div class="trt-wrap">
+    <div class="trt-check" aria-hidden="true"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polyline points="4 12 10 18 20 6"></polyline></svg></div>
+    <h1><span class="trt-ice-t">БЛАГО</span><span class="trt-fire-t">ДАРИМ!</span></h1>
+    <p class="trt-sub">Твоята <span class="trt-ice-t">луксозна</span> <span class="trt-fire-t">тройка</span> е на път</p>
+    <p class="trt-lead">Поръчката ти е приета и вече я обработваме. Нищо не плащаш сега – плащаш на куриера, когато получиш пратката.</p>
+
+    <a href="#" id="trtViber" class="trt-viber trt-neon">
+      <div class="trt-vtag">✦ Бонус за теб ✦</div>
+      <img class="trt-vic" src="https://content.app-sources.com/s/698084040813523351/uploads/Images/%D0%BF%D0%B0%D1%80%D1%84%D1%8E%D0%BC%D0%B8_68-7309953.png?format=webp" alt="Viber">
+      <div class="trt-arrow"><svg width="22" height="22" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" style="display:block !important;margin:0 auto !important"><circle cx="16" cy="16" r="15" fill="none" stroke="#7360F2" stroke-width="1.8"/><path d="M10 18 L16 12 L22 18" stroke="#7360F2" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg></div>
+      <h2>Влез в затворения <b>Viber</b> канал за ексклузивни оферти</h2>
+      <p>След няколко секунди ще те пренасочим към групата.</p>
+      <div class="trt-count" id="trtCount">ПРЕНАСОЧВАНЕ СЛЕД 3…</div>
+      <div class="trt-bar"><i></i></div>
+      <span class="trt-vbtn">Влез сега ➜</span>
+    </a>
+
+    <div class="trt-steps">
+      <div class="trt-step trt-neon"><i>✅</i><div><b>Поръчката е приета</b><span>Получихме данните ти.</span></div></div>
+      <div class="trt-step trt-neon trt-d1"><i>📦</i><div><b>Изпращаме комплекта</b><span>Трите парфюма тръгват с куриер към избрания офис или адрес.</span></div></div>
+      <div class="trt-step trt-neon"><i>💶</i><div><b>Плащаш при получаване</b><span>Наложен платеж, директно на куриера.</span></div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var VIBER_LINK = "https://invite.viber.com/?g2=AQAvRYvjcv%2FCQ1XLFSQG5T0d%2BOSA2yLvYeugV17e8hlaiHCEHehOeCG9Bl2RMAtV&lang=en";
+  var root = document.getElementById('trt'); if (!root) return;
+  var link = document.getElementById('trtViber');
+  if (link) link.setAttribute('href', VIBER_LINK);
+
+  /* конфети в петте цвята */
+  if (!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    var em = ['✦', '🍫', '✨', '🤍', '🖤', '💛'];
+    for (var i = 0; i < 60; i++) {
+      var c = document.createElement('span'); c.className = 'trt-cf'; c.textContent = em[i % em.length];
+      c.style.cssText = 'left:' + (Math.random() * 100) + '%;font-size:' + (12 + Math.random() * 16) + 'px;animation-duration:' + (2.4 + Math.random() * 2.4) + 's;animation-delay:' + (Math.random() * 1.2) + 's';
+      root.appendChild(c); setTimeout(function (el) { el.remove(); }, 6500, c);
+    }
+  }
+
+  /* отброяване 3…2…1 и пренасочване към Viber */
+  var n = 3, cnt = document.getElementById('trtCount');
+  var t = setInterval(function () {
+    n--; if (cnt) cnt.textContent = n > 0 ? 'ПРЕНАСОЧВАНЕ СЛЕД ' + n + '…' : 'ОТВАРЯМЕ VIBER…';
+    if (n <= 0) clearInterval(t);
+  }, 1000);
+  setTimeout(function () { if (VIBER_LINK.indexOf('XXXX') === -1) window.location.href = VIBER_LINK; }, 3000);
+})();
+</script>

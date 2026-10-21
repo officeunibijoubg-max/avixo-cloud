@@ -1,0 +1,501 @@
+<!-- ===================== ЛУКСОЗНА АРАБСКА ТРОЙКА — ЛЕНДИНГ (един блок) ===================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+#tr#tr *{ float:none !important; }
+#tr{
+  --gold:#f2c14e; --gold-rgb:242,193,78; --gold2:#ffe39a; --amber:#ff9f1c; --amber-rgb:255,159,28;
+  --pist:#9bd36a; --pist-rgb:155,211,106; --cream:#fff1d6; --cream-rgb:255,241,214; --silver:#d9dde6; --silver-rgb:217,221,230;
+  --ink:#140b06; --card:#21130b; --card2:#2b190e; --text:#fbf1e6; --muted:rgba(251,241,230,.72);
+  font-family:'Golos Text',Arial,sans-serif; color:var(--text); background:var(--ink); line-height:1.55; overflow:hidden; position:relative;
+}
+#tr *{ box-sizing:border-box; }
+#tr img{ max-width:100%; display:block; }
+#tr a{ color:inherit; }
+#tr .tr-wrap{ max-width:1080px; margin:0 auto; padding:0 16px; position:relative; z-index:2; }
+#tr .tr-bg{ position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:radial-gradient(520px 380px at 0% 0%, rgba(var(--gold-rgb),.20), transparent 70%),
+             radial-gradient(520px 380px at 100% 22%, rgba(var(--amber-rgb),.14), transparent 70%),
+             radial-gradient(520px 380px at 0% 60%, rgba(var(--pist-rgb),.10), transparent 70%),
+             radial-gradient(520px 380px at 100% 88%, rgba(var(--gold-rgb),.16), transparent 70%),
+             linear-gradient(180deg,#1a0e07,#120904 50%,#1a0e07); }
+
+/* ===== неон: злато → кехлибар → шамфъстък → крем ===== */
+@keyframes trNeon{
+  0%,22%  { border-color:var(--gold);  box-shadow:0 0 6px var(--gold),0 0 24px rgba(var(--gold-rgb),.7),inset 0 0 14px rgba(var(--gold-rgb),.3); }
+  25%,47% { border-color:var(--amber); box-shadow:0 0 6px var(--amber),0 0 24px rgba(var(--amber-rgb),.7),inset 0 0 14px rgba(var(--amber-rgb),.3); }
+  50%,72% { border-color:var(--pist);  box-shadow:0 0 6px var(--pist),0 0 24px rgba(var(--pist-rgb),.6),inset 0 0 14px rgba(var(--pist-rgb),.28); }
+  75%,97% { border-color:var(--cream); box-shadow:0 0 6px var(--cream),0 0 24px rgba(var(--cream-rgb),.55),inset 0 0 14px rgba(var(--cream-rgb),.25); }
+  100%    { border-color:var(--gold);  box-shadow:0 0 6px var(--gold),0 0 24px rgba(var(--gold-rgb),.7),inset 0 0 14px rgba(var(--gold-rgb),.3); }
+}
+@keyframes trNeonText{
+  0%,22%  { text-shadow:0 0 4px #fff4d6,0 0 14px var(--gold),0 0 34px var(--gold); }
+  25%,47% { text-shadow:0 0 4px #fff4d6,0 0 14px var(--amber),0 0 34px var(--amber); }
+  50%,72% { text-shadow:0 0 4px #fff4d6,0 0 14px var(--gold2),0 0 34px var(--gold); }
+  75%,97% { text-shadow:0 0 4px #fff,0 0 14px var(--cream),0 0 34px var(--gold); }
+  100%    { text-shadow:0 0 4px #fff4d6,0 0 14px var(--gold),0 0 34px var(--gold); }
+}
+@keyframes trFlicker{ 0%,18%,22%,25%,53%,57%,100%{opacity:1} 20%,24%,55%{opacity:.4} }
+@keyframes trScroll{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes trGrad{ 0%,100%{background-position:0 0} 50%{background-position:100% 0} }
+@keyframes trShine{ 0%{ transform:translateX(-120%) skewX(-18deg) } 60%,100%{ transform:translateX(320%) skewX(-18deg) } }
+@keyframes trDrip{ 0%,100%{ transform:scaleY(1) } 50%{ transform:scaleY(1.35) } }
+@keyframes trFloat{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-7px) } }
+@keyframes trBurst{ to{ transform:translate(var(--x),var(--y)) rotate(160deg) scale(.5); opacity:0 } }
+@keyframes trWobble{ 0%,86%,100%{ transform:rotate(0) } 88%{ transform:rotate(-4deg) } 91%{ transform:rotate(4deg) } 94%{ transform:rotate(-3deg) } 97%{ transform:rotate(2deg) } }
+@keyframes trRise{ 0%{ transform:translateY(60px) scale(.4); opacity:0 } 70%{ transform:translateY(-10px) scale(1.06); opacity:1 } 100%{ transform:translateY(0) scale(1); opacity:1 } }
+@keyframes trLid{ to{ transform:translate(var(--lx),-160px) rotate(var(--lr)); opacity:0 } }
+#tr .tr-neon{ border:2px solid var(--gold); animation:trNeon 9s linear infinite; }
+#tr .tr-neon.tr-d1{ animation-delay:-2.25s; } #tr .tr-neon.tr-d2{ animation-delay:-4.5s; } #tr .tr-neon.tr-d3{ animation-delay:-6.75s; }
+#tr .tr-nt{ color:var(--gold2); animation:trNeonText 9s linear infinite, trFlicker 7s linear infinite; }
+#tr .tr-serif{ font-family:'Playfair Display',Georgia,serif; }
+
+/* лента */
+#tr .tr-ticker{ position:relative; z-index:3; background:#0b0603; border-bottom:1px solid rgba(var(--gold-rgb),.55); overflow:hidden; white-space:nowrap; }
+#tr .tr-ticker-in{ display:inline-flex; gap:36px; padding:10px 0; animation:trScroll 26s linear infinite; font:800 12px/1 'Golos Text',sans-serif; letter-spacing:2px; text-transform:uppercase; }
+#tr .tr-ticker-in span:nth-child(odd){ color:var(--gold); text-shadow:0 0 10px rgba(var(--gold-rgb),.9); }
+#tr .tr-ticker-in span:nth-child(even){ color:var(--cream); text-shadow:0 0 10px rgba(var(--cream-rgb),.6); }
+
+/* шоколадова „капка“ под лентата */
+#tr .tr-drips{ position:relative; z-index:2; height:22px; display:flex; justify-content:space-around; pointer-events:none; }
+#tr .tr-drips i{ display:block; width:14px; height:20px; border-radius:0 0 50% 50%; background:linear-gradient(180deg,#5a3018,#3a1d0d); transform-origin:top center; animation:trDrip 3.6s ease-in-out infinite; }
+#tr .tr-drips i:nth-child(2n){ height:12px; width:10px; animation-delay:-1.2s; }
+#tr .tr-drips i:nth-child(3n){ height:26px; animation-delay:-2.4s; }
+
+/* hero */
+#tr .tr-hero{ padding:22px 0 30px; text-align:center; }
+#tr .tr-eyebrow{ display:inline-block; font:800 11px/1 'Golos Text',sans-serif; letter-spacing:3px; text-transform:uppercase; padding:9px 16px; border-radius:99px; background:rgba(0,0,0,.45); }
+#tr .tr-h1{ font:900 clamp(36px,10.5vw,86px)/.98 'Playfair Display',Georgia,serif; margin:18px 0 4px; letter-spacing:.5px; }
+#tr .tr-h1 em{ display:block; font-style:italic; font-size:.62em; color:var(--cream); text-shadow:0 0 18px rgba(var(--gold-rgb),.5); }
+#tr .tr-tri{ display:flex; flex-wrap:wrap; justify-content:center; gap:6px 14px; margin:12px 0 14px; font:800 13px/1.3 'Golos Text',sans-serif; letter-spacing:1px; text-transform:uppercase; }
+#tr .tr-tri span:nth-child(1){ color:var(--pist); } #tr .tr-tri span:nth-child(2){ color:var(--silver); } #tr .tr-tri span:nth-child(3){ color:var(--gold2); }
+#tr .tr-lead{ max-width:560px; margin:0 auto 20px; color:var(--muted); font-size:16px; }
+#tr .tr-lead b{ color:var(--text); }
+
+/* рафт с 3 шишета (докато няма снимки) */
+#tr .tr-shelf{ position:relative; max-width:560px; margin:0 auto 22px; border-radius:24px; padding:26px 12px 0; overflow:hidden;
+  background:radial-gradient(circle at 50% 70%, rgba(var(--gold-rgb),.25), transparent 60%), linear-gradient(180deg,#2a170c,#120904); }
+#tr .tr-shelf::after{ content:""; position:absolute; top:0; left:0; width:30%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,240,200,.18),transparent); animation:trShine 5.5s ease-in-out infinite; }
+#tr .tr-row{ display:flex; align-items:flex-end; justify-content:center; gap:10px; }
+#tr .tr-shelf .tr-bt{ --w:74px; }
+#tr .tr-shelf .tr-bt.tr-conf{ --w:86px; }
+#tr .tr-plank{ height:16px; margin:0 -12px; background:linear-gradient(180deg,#6b3c1e,#3a1f0e); box-shadow:0 -6px 18px rgba(var(--gold-rgb),.25); }
+#tr .tr-hero-img{ position:relative; max-width:560px; margin:0 auto 22px; border-radius:24px; padding:8px; background:#000; }
+#tr .tr-hero-img img{ width:100%; height:auto; aspect-ratio:1/1; border-radius:17px; }
+
+/* нарисувано шише (сменя се със снимка, щом има) */
+#tr .tr-bt{ position:relative; width:var(--w,88px); animation:trFloat 4.5s ease-in-out infinite; }
+#tr .tr-bt:nth-child(2){ animation-delay:-1.5s; } #tr .tr-bt:nth-child(3){ animation-delay:-3s; }
+#tr .tr-bt .tr-cap{ margin:0 auto; width:60%; height:calc(var(--w,88px)*.42); border-radius:7px 7px 3px 3px; background:var(--cap); box-shadow:inset 0 0 10px rgba(255,255,255,.3); }
+#tr .tr-bt .tr-neck{ margin:0 auto; width:66%; height:7px; background:var(--neck,#c8a24a); border-radius:2px; }
+#tr .tr-bt .tr-body{ height:calc(var(--w,88px)*1.32); border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:8px; text-align:center;
+  background:linear-gradient(150deg,rgba(255,255,255,.3),transparent 38%), var(--glass); box-shadow:0 0 26px var(--glow), inset 0 0 18px rgba(0,0,0,.3); }
+#tr .tr-bt b{ font:900 calc(var(--w,88px)*.13)/1.05 'Playfair Display',Georgia,serif; color:var(--lbl); }
+#tr .tr-bt small{ font:800 calc(var(--w,88px)*.075)/1 'Golos Text',sans-serif; letter-spacing:1px; color:var(--lbl); opacity:.85; }
+#tr .tr-bt.tr-choc{ --cap:linear-gradient(180deg,#9bd36a,#5f9a35); --neck:#c8a24a; --glass:linear-gradient(180deg,#7a4321,#3e1e0c); --glow:rgba(155,211,106,.55); --lbl:#ffe9b8; }
+#tr .tr-bt.tr-conf{ --cap:linear-gradient(180deg,#eef0f4,#9aa1ad); --neck:#b9bec8; --glass:linear-gradient(180deg,#1b1b1f,#050507); --glow:rgba(217,221,230,.45); --lbl:#e6e8ee; }
+#tr .tr-bt.tr-ecl{ --cap:linear-gradient(180deg,#ffe39a,#c99a2e); --neck:#e8c46a; --glass:linear-gradient(180deg,#fff3dc,#e9cf9c); --glow:rgba(242,193,78,.6); --lbl:#6b4a10; }
+
+/* цена */
+#tr .tr-price-row{ display:flex; align-items:center; justify-content:center; gap:14px; flex-wrap:wrap; margin-bottom:22px; }
+#tr .tr-was{ font:700 22px/1 'Playfair Display',Georgia,serif; color:var(--muted); text-decoration:line-through; text-decoration-color:var(--amber); text-decoration-thickness:3px; }
+#tr .tr-price{ position:relative; font:900 clamp(46px,13vw,74px)/1 'Playfair Display',Georgia,serif; padding:14px 24px; border-radius:18px; background:rgba(0,0,0,.55); color:var(--gold2); }
+#tr .tr-price small{ font-size:.42em; vertical-align:super; margin-left:2px; }
+#tr .tr-off{ position:absolute; top:-30px; right:-34px; z-index:3; width:70px; height:70px; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; font:900 20px/1 'Golos Text',sans-serif; white-space:nowrap; color:#1a0e07; background:linear-gradient(135deg,var(--gold2),var(--gold)); box-shadow:0 0 0 3px #140b06,0 0 22px rgba(var(--gold-rgb),.95); transform:rotate(10deg); animation:trWobble 5s ease-in-out infinite; }
+#tr .tr-off small{ font:800 8px/1.1 'Golos Text',sans-serif; letter-spacing:.5px; margin-top:3px; text-transform:uppercase; }
+#tr .tr-price-note{ width:100%; font-size:13px; color:var(--muted); line-height:1.45; }
+#tr .tr-price-note b{ color:var(--text); }
+
+/* бутон */
+#tr a.tr-cta{ position:relative; display:inline-flex; align-items:center; justify-content:center; width:100%; max-width:460px; text-align:center; overflow:hidden;
+  font:800 15px/1.25 'Golos Text',sans-serif; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:#1a0e07;
+  padding:20px 16px; border-radius:16px; cursor:pointer;
+  background:linear-gradient(100deg,#c98a1c,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,#c98a1c); background-size:220% 100%;
+  animation:trGrad 5s ease-in-out infinite; box-shadow:0 0 0 2px rgba(255,240,200,.25),0 0 30px rgba(var(--gold-rgb),.55),0 14px 30px -12px rgba(0,0,0,.8); }
+#tr a.tr-cta::after{ content:""; position:absolute; top:0; left:0; width:30%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent); animation:trShine 3.4s ease-in-out infinite; pointer-events:none; }
+#tr a.tr-cta:active{ transform:scale(.97); }
+#tr .tr-trust{ display:flex; justify-content:center; gap:8px 18px; flex-wrap:wrap; margin-top:16px; font-size:12px; color:var(--muted); }
+#tr .tr-trust span::before{ content:"✦ "; color:var(--gold); }
+#tr .tr-after{ display:flex; flex-direction:column; align-items:center; gap:10px; margin-top:28px; text-align:center; }
+#tr .tr-after-note{ font-size:12px; color:var(--muted); letter-spacing:.3px; }
+
+/* секции */
+#tr section{ padding:48px 0; position:relative; }
+#tr .tr-sec-t{ text-align:center; font:900 clamp(26px,7vw,46px)/1.1 'Playfair Display',Georgia,serif; margin:0 0 10px; text-wrap:balance; }
+#tr .tr-sec-s{ text-align:center; color:var(--muted); max-width:580px; margin:0 auto 28px; }
+
+/* отвори кутията */
+#tr .tr-boxzone{ max-width:560px; margin:0 auto; border-radius:26px; padding:26px 16px; background:var(--card); text-align:center; }
+#tr .tr-stage{ position:relative; height:330px; display:flex; align-items:flex-end; justify-content:center; }
+#tr .tr-giftbox{ position:absolute; bottom:0; left:50%; width:200px; margin-left:-100px; cursor:pointer; }
+#tr .tr-gb-lid{ position:relative; height:44px; margin:0 -10px; border-radius:8px; background:linear-gradient(180deg,#f7d27a,#c98a1c); box-shadow:0 6px 0 #8a5a10, 0 0 26px rgba(var(--gold-rgb),.6); }
+#tr .tr-gb-lid::before{ content:""; position:absolute; left:50%; top:-26px; width:56px; height:30px; margin-left:-28px; border:7px solid #7a2e12; border-bottom:0; border-radius:30px 30px 0 0; }
+#tr .tr-gb-body{ height:130px; border-radius:0 0 10px 10px; background:linear-gradient(180deg,#5a3018,#2e170a); box-shadow:inset 0 0 26px rgba(0,0,0,.5); position:relative; }
+#tr .tr-gb-body::before, #tr .tr-gb-lid::after{ content:""; position:absolute; left:50%; width:26px; margin-left:-13px; top:0; bottom:0; background:#7a2e12; }
+#tr .tr-giftbox.tr-shaky{ animation:trWobble 2.4s ease-in-out infinite; }
+#tr .tr-giftbox.tr-open .tr-gb-lid{ animation:trLid .7s ease-in forwards; --lx:40px; --lr:28deg; }
+#tr .tr-giftbox.tr-open{ animation:none; }
+#tr .tr-out{ position:absolute; bottom:186px; left:0; right:0; z-index:3; display:flex; justify-content:center; gap:14px; pointer-events:none; }
+#tr .tr-out .tr-bt{ opacity:0; --w:70px; }
+#tr .tr-out.tr-show .tr-bt{ animation:trRise .8s cubic-bezier(.2,1.3,.4,1) both; }
+#tr .tr-out.tr-show .tr-bt:nth-child(1){ animation-delay:.35s; } #tr .tr-out.tr-show .tr-bt:nth-child(2){ animation-delay:.75s; } #tr .tr-out.tr-show .tr-bt:nth-child(3){ animation-delay:1.15s; }
+#tr .tr-open-btn{ margin-top:18px; font:800 15px/1 'Golos Text',sans-serif; letter-spacing:1px; padding:16px 26px; border-radius:99px; border:0; cursor:pointer; color:#1a0e07; background:linear-gradient(135deg,var(--gold2),var(--gold)); box-shadow:0 0 22px rgba(var(--gold-rgb),.7); }
+#tr .tr-open-btn:focus-visible{ outline:2px solid var(--cream); outline-offset:3px; }
+#tr .tr-reveal{ min-height:88px; margin-top:16px; }
+#tr .tr-reveal p{ margin:0; color:var(--muted); font-size:14px; }
+#tr .tr-reveal b{ display:block; font:900 clamp(20px,5.6vw,28px)/1.2 'Playfair Display',Georgia,serif; color:var(--gold2); margin-bottom:6px; }
+
+/* какво получаваш */
+#tr .tr-list{ max-width:640px; margin:0 auto; border-radius:22px; padding:16px; background:var(--card); display:grid; gap:10px; }
+#tr .tr-li{ display:flex; gap:12px; align-items:center; padding:13px 14px; border-radius:14px; background:rgba(0,0,0,.35); font-weight:600; font-size:15px; }
+#tr .tr-li::before{ content:"✓"; flex:none; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:900; color:#1a0e07; background:linear-gradient(135deg,var(--gold2),var(--gold)); }
+#tr .tr-total{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; padding:14px 6px 2px; border-top:2px dashed rgba(var(--gold-rgb),.35); font:800 15px/1.3 'Golos Text',sans-serif; }
+#tr .tr-total em{ font:900 26px/1 'Playfair Display',Georgia,serif; font-style:normal; color:var(--gold2); text-shadow:0 0 14px rgba(var(--gold-rgb),.7); }
+#tr .tr-total s{ color:var(--muted); font-weight:600; margin-right:8px; }
+
+/* продуктови карти */
+#tr .tr-prod{ display:grid; grid-template-columns:1fr; gap:18px; border-radius:24px; padding:20px; background:linear-gradient(160deg,var(--card2),var(--card)); margin-bottom:22px; }
+#tr .tr-ph{ position:relative; aspect-ratio:1/1; border-radius:18px; overflow:hidden; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 50% 62%, var(--halo), transparent 62%), #0d0704; }
+#tr .tr-ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+#tr .tr-ph .tr-bt{ --w:118px; }
+#tr .tr-ph-tag{ position:absolute; left:12px; top:12px; z-index:2; font:800 10px/1 'Golos Text',sans-serif; letter-spacing:1.5px; padding:7px 10px; border-radius:99px; color:#1a0e07; background:var(--c); }
+#tr .tr-prod.tr-p1{ --c:var(--pist); --crgb:var(--pist-rgb); --halo:rgba(155,211,106,.28); }
+#tr .tr-prod.tr-p2{ --c:var(--silver); --crgb:var(--silver-rgb); --halo:rgba(217,221,230,.2); }
+#tr .tr-prod.tr-p3{ --c:var(--gold2); --crgb:var(--gold-rgb); --halo:rgba(242,193,78,.3); }
+#tr .tr-prod h3{ font:900 clamp(24px,6.6vw,38px)/1.05 'Playfair Display',Georgia,serif; margin:0 0 4px; color:var(--c); text-shadow:0 0 18px rgba(var(--crgb),.55); }
+#tr .tr-sub2{ font:700 12px/1.3 'Golos Text',sans-serif; letter-spacing:2px; color:var(--muted); margin-bottom:10px; text-transform:uppercase; }
+#tr .tr-motto{ font:700 italic 17px/1.35 'Playfair Display',Georgia,serif; margin:0 0 12px; }
+#tr .tr-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+#tr .tr-tag{ font:800 11px/1 'Golos Text',sans-serif; letter-spacing:1.2px; padding:8px 11px; border-radius:99px; border:1px solid rgba(var(--crgb),.7); color:var(--c); }
+#tr .tr-tag.tr-set{ border-style:dashed; color:var(--text); }
+#tr .tr-desc{ color:var(--muted); font-size:15px; margin:0 0 14px; }
+#tr .tr-notes{ display:grid; gap:10px; margin-bottom:14px; }
+#tr .tr-note{ display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:center; padding:11px 13px; border-radius:14px; background:rgba(0,0,0,.35); }
+#tr .tr-note .tr-n{ width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:20px; background:#0d0704; }
+#tr .tr-note b{ display:block; font:800 10px/1 'Golos Text',sans-serif; letter-spacing:2.5px; color:var(--c); margin-bottom:5px; }
+#tr .tr-note span{ font-size:14px; font-weight:500; }
+#tr .tr-when{ padding:12px 14px; border-radius:12px; border:1px dashed rgba(var(--crgb),.55); font-size:13px; color:var(--muted); }
+#tr .tr-when b{ color:var(--c); letter-spacing:1px; }
+
+/* три изживявания */
+#tr .tr-moods{ display:grid; grid-template-columns:1fr; gap:12px; }
+#tr .tr-mood{ display:grid; grid-template-columns:56px 1fr; gap:14px; align-items:center; border-radius:18px; padding:16px; background:var(--card); }
+#tr .tr-mood i{ width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-style:normal; font-size:28px; background:#0d0704; }
+#tr .tr-mood b{ display:block; font:900 18px/1.2 'Playfair Display',Georgia,serif; margin-bottom:3px; }
+#tr .tr-mood span{ font-size:14px; color:var(--muted); }
+
+/* отзиви */
+#tr .tr-revs{ max-width:680px; margin:0 auto; display:grid; gap:12px; }
+#tr .tr-rev{ border-radius:16px; padding:6px; background:#fff; }
+#tr .tr-rev img{ width:100%; height:auto; border-radius:11px; }
+#tr .tr-rev.tr-hide{ display:none; }
+#tr .tr-revs.tr-all .tr-rev.tr-hide{ display:block; }
+#tr .tr-more{ display:block; margin:16px auto 0; font:800 14px/1 'Golos Text',sans-serif; padding:14px 22px; border-radius:99px; border:2px solid rgba(var(--gold-rgb),.5); background:transparent; color:var(--text); cursor:pointer; }
+#tr .tr-more.tr-gone{ display:none; }
+
+/* подарък / предимства */
+#tr .tr-perks{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+#tr .tr-perk{ border-radius:18px; padding:18px 12px; background:var(--card); text-align:center; }
+#tr .tr-perk .tr-pi{ font-size:28px; margin-bottom:8px; }
+#tr .tr-perk b{ display:block; font:800 14px/1.3 'Golos Text',sans-serif; margin-bottom:4px; }
+#tr .tr-perk span{ font-size:13px; color:var(--muted); }
+
+/* FAQ */
+#tr .tr-faq{ max-width:720px; margin:0 auto; display:grid; gap:10px; }
+#tr details.tr-q{ border-radius:14px; background:var(--card); border:1px solid rgba(var(--gold-rgb),.15); padding:0 18px; }
+#tr details.tr-q[open]{ border-color:rgba(var(--gold-rgb),.6); box-shadow:0 0 18px rgba(var(--gold-rgb),.2); }
+#tr details.tr-q summary{ list-style:none; cursor:pointer; padding:18px 30px 18px 0; position:relative; font:800 15px/1.35 'Golos Text',sans-serif; }
+#tr details.tr-q summary::-webkit-details-marker{ display:none; }
+#tr details.tr-q summary::after{ content:"+"; position:absolute; right:0; top:50%; transform:translateY(-50%); font-size:24px; color:var(--gold); transition:transform .2s; }
+#tr details.tr-q[open] summary::after{ transform:translateY(-50%) rotate(45deg); }
+#tr details.tr-q p{ margin:0 0 18px; color:var(--muted); font-size:14px; }
+
+/* финал */
+#tr .tr-final{ text-align:center; border-radius:28px; padding:34px 18px; background:rgba(0,0,0,.45); }
+#tr .tr-final h2{ font:900 clamp(28px,8vw,54px)/1.08 'Playfair Display',Georgia,serif; margin:0 0 12px; }
+
+#tr .tr-burst{ position:fixed; z-index:9999; pointer-events:none; font-size:18px; animation:trBurst 1.05s ease-out forwards; }
+
+/* лента долу */
+#tr .tr-sticky{ position:fixed; left:0; right:0; bottom:0; z-index:50; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:rgba(20,11,6,.95); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);
+  border-top:1px solid rgba(var(--gold-rgb),.6); display:flex; align-items:center; gap:12px; transform:translateY(110%); transition:transform .3s; }
+#tr .tr-sticky.tr-on{ transform:none; }
+#tr .tr-sp{ font:900 20px/1 'Playfair Display',Georgia,serif; white-space:nowrap; color:var(--gold2); }
+#tr .tr-sp small{ display:block; font:600 10px/1.2 'Golos Text',sans-serif; letter-spacing:1px; color:var(--muted); margin-top:4px; }
+#tr .tr-sticky a.tr-cta{ padding:15px 10px; font-size:13px; letter-spacing:1px; }
+
+@media (min-width:760px){
+  #tr .tr-shelf .tr-bt{ --w:96px; }
+  #tr .tr-shelf .tr-bt.tr-conf{ --w:110px; }
+  #tr .tr-hero{ padding:34px 0 40px; }
+  #tr .tr-prod{ grid-template-columns:340px 1fr; padding:28px; gap:30px; align-items:center; }
+  #tr .tr-moods{ grid-template-columns:repeat(3,1fr); }
+  #tr .tr-perks{ grid-template-columns:repeat(4,1fr); }
+  #tr .tr-price-note{ width:auto; text-align:left; margin-left:30px; }
+  #tr .tr-sticky{ display:none; }
+}
+@media (prefers-reduced-motion:reduce){
+  #tr#tr *, #tr#tr *::before, #tr#tr *::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition:none !important; }
+}
+</style>
+
+<div id="tr">
+  <div class="tr-bg"></div>
+  <div class="tr-ticker" aria-hidden="true"><div class="tr-ticker-in">
+    <span>Комплект от 3 парфюма</span><span>−50% само сега</span><span>3 × 100 ml = 300 ml</span><span>32.90 € вместо 65.80 €</span><span>Плащане при получаване</span>
+    <span>Комплект от 3 парфюма</span><span>−50% само сега</span><span>3 × 100 ml = 300 ml</span><span>32.90 € вместо 65.80 €</span><span>Плащане при получаване</span>
+  </div></div>
+  <div class="tr-drips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+  <!-- HERO -->
+  <header class="tr-hero" id="trHero"><div class="tr-wrap">
+    <span class="tr-eyebrow tr-neon">✦ Комплект 3 × 100 ml ✦</span>
+    <h1 class="tr-h1"><span class="tr-nt">Луксозна</span><em>арабска тройка</em></h1>
+    <div class="tr-tri"><span>🍫 Сладост</span><span>🖤 Елегантност</span><span>🤍 Лукс</span></div>
+    <p class="tr-lead">Три различни арабски аромата в <b>един комплект</b> – от изкушаващата сладост на дубайския шоколад до дървесния мъжки чар и топлата ванилова нежност. <b>3 парфюма по 100 ml</b>.</p>
+
+    <!--HERO_IMG-->
+    <div class="tr-shelf tr-neon" id="trShelf">
+      <div class="tr-row">
+        <div class="tr-bt tr-choc"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>DUBAI<br>CHOCOLATE</b><small>PISTACHIO KUNAFA</small><small>100 ml</small></div></div>
+        <div class="tr-bt tr-conf"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>CONFESSION</b><small>EAU DE PARFUM</small><small>100 ml</small></div></div>
+        <div class="tr-bt tr-ecl"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>ECLAT</b><small>VANILLA</small><small>100 ml</small></div></div>
+      </div>
+      <div class="tr-plank"></div>
+    </div>
+
+    <div class="tr-price-row">
+      <span class="tr-was">65.80 €</span>
+      <div class="tr-price tr-neon tr-d2">32.90<small>€</small><span class="tr-off">−50%<small>само сега</small></span></div>
+      <div class="tr-price-note"><b>за целия комплект от 3</b> · 3 × 100 ml · плащаш при получаване</div>
+    </div>
+
+    <a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a>
+    <div class="tr-trust"><span>3 парфюма в комплекта</span><span>Общо 300 ml</span><span>Плащане при получаване</span></div>
+  </div></header>
+
+  <!-- ОТВОРИ КУТИЯТА -->
+  <section><div class="tr-wrap">
+    <h2 class="tr-sec-t">Отвори <span class="tr-nt">кутията</span></h2>
+    <p class="tr-sec-s">Виж какво те чака в комплекта. Цъкни подаръка!</p>
+    <div class="tr-boxzone tr-neon tr-d1">
+      <div class="tr-stage">
+        <div class="tr-out" id="trOut">
+          <div class="tr-bt tr-choc"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>DUBAI<br>CHOC</b><small>100 ml</small></div></div>
+          <div class="tr-bt tr-conf"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>CONFESSION</b><small>100 ml</small></div></div>
+          <div class="tr-bt tr-ecl"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>ECLAT</b><small>100 ml</small></div></div>
+        </div>
+        <div class="tr-giftbox tr-shaky" id="trBox" role="button" tabindex="0" aria-label="Отвори кутията"><div class="tr-gb-lid"></div><div class="tr-gb-body"></div></div>
+      </div>
+      <button type="button" class="tr-open-btn" id="trOpen">🎁 ОТВОРИ</button>
+      <div class="tr-reveal" id="trReveal" aria-live="polite"><p>Три парфюма по 100 ml чакат вътре.</p></div>
+    </div>
+    <div class="tr-after"><a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a><div class="tr-after-note">32.90 € вместо 65.80 € · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- КАКВО ПОЛУЧАВАШ -->
+  <section><div class="tr-wrap">
+    <h2 class="tr-sec-t">Какво <span class="tr-nt">получаваш?</span></h2>
+    <p class="tr-sec-s">Три парфюма. Три различни изживявания. Един комплект.</p>
+    <div class="tr-list tr-neon tr-d2">
+      <div class="tr-li">Dubai Chocolate – Pistachio Kunafa · 100 ml</div>
+      <div class="tr-li">Confession – Eau de Parfum · 100 ml</div>
+      <div class="tr-li">Eclat Vanilla · 100 ml</div>
+      <div class="tr-li">Гурме сладост, дървесен чар и ванилова нежност</div>
+      <div class="tr-li">Луксозни бутилки с отличителен дизайн</div>
+      <div class="tr-li">Чудесен избор за подарък или лично удоволствие</div>
+      <div class="tr-total"><span>3 × 100 ml = 300 ml</span><span><s>65.80 €</s><em>32.90 €</em></span></div>
+    </div>
+    <div class="tr-after"><a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a><div class="tr-after-note">32.90 € за комплекта от 3 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ТРИТЕ ПАРФЮМА -->
+  <section><div class="tr-wrap">
+    <h2 class="tr-sec-t">Трите парфюма в <span class="tr-nt">комплекта</span></h2>
+    <p class="tr-sec-s">В комплекта получаваш и трите – за всяко настроение по един.</p>
+
+    <article class="tr-prod tr-p1 tr-neon">
+      <div class="tr-ph" data-slot="choc"><span class="tr-ph-tag">1 ОТ 3</span>
+        <div class="tr-bt tr-choc"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>DUBAI<br>CHOCOLATE</b><small>PISTACHIO KUNAFA</small><small>100 ml</small></div></div>
+      </div>
+      <div>
+        <h3>DUBAI CHOCOLATE</h3>
+        <div class="tr-sub2">Pistachio Kunafa · 100 ml</div>
+        <p class="tr-motto">Изкушаваща гурме сладост</p>
+        <div class="tr-tags"><span class="tr-tag">Сладък</span><span class="tr-tag">Шоколадов</span><span class="tr-tag">Кремообразен</span><span class="tr-tag tr-set">1 ОТ 3 В КОМПЛЕКТА</span></div>
+        <p class="tr-desc">Изкушаващ гурме аромат, вдъхновен от прочутия дубайски шоколад. Сладките шоколадови нюанси се преплитат с кремообразен шамфъстък, карамел и ванилия, създавайки топло и апетитно ароматно усещане.</p>
+        <div class="tr-notes">
+          <div class="tr-note"><div class="tr-n tr-neon">🥜</div><div><b>АРОМАТНИ АКЦЕНТИ</b><span>Шамфъстък и сладки кремообразни акорди</span></div></div>
+          <div class="tr-note"><div class="tr-n tr-neon tr-d1">🍫</div><div><b>АРОМАТНИ АКЦЕНТИ</b><span>Млечен шоколад, карамел и кунафа</span></div></div>
+          <div class="tr-note"><div class="tr-n tr-neon tr-d2">🍦</div><div><b>АРОМАТНИ АКЦЕНТИ</b><span>Ванилия и топли ориенталски нюанси</span></div></div>
+        </div>
+        <div class="tr-when"><b>КОГАТО:</b> ти се иска нещо сладко и изкушаващо.</div>
+      </div>
+    </article>
+
+    <article class="tr-prod tr-p2 tr-neon tr-d1">
+      <div class="tr-ph" data-slot="conf"><span class="tr-ph-tag">2 ОТ 3</span>
+        <div class="tr-bt tr-conf"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>CONFESSION</b><small>EAU DE PARFUM</small><small>100 ml</small></div></div>
+      </div>
+      <div>
+        <h3>CONFESSION</h3>
+        <div class="tr-sub2">Eau de Parfum · 100 ml · ♂ за него</div>
+        <p class="tr-motto">Изискан дървесен мъжки аромат</p>
+        <div class="tr-tags"><span class="tr-tag">Дървесен</span><span class="tr-tag">Изискан</span><span class="tr-tag">Нощен</span><span class="tr-tag tr-set">2 ОТ 3 В КОМПЛЕКТА</span></div>
+        <p class="tr-desc">Confession е изискан, дървесен аромат, създаден специално за модерния господин, който цени топлината и сложността в своето ухание. Нощен аромат за есента и зимата. Стилната черна бутилка с метална капачка във формата на еленска глава създава усещане за престиж и индивидуалност.</p>
+        <div class="tr-notes">
+          <div class="tr-note"><div class="tr-n tr-neon">🍊</div><div><b>ВРЪХНИ НОТКИ</b><span>Канела, лавандула, мандарина</span></div></div>
+          <div class="tr-note"><div class="tr-n tr-neon tr-d1">🌿</div><div><b>СРЕДНИ НОТКИ</b><span>Ирис, бензоин, кипарис</span></div></div>
+          <div class="tr-note"><div class="tr-n tr-neon tr-d2">🪵</div><div><b>БАЗОВИ НОТКИ</b><span>Ванилия, пачули, кедрово дърво, тамян, кехлибар, тонка</span></div></div>
+        </div>
+        <div class="tr-when"><b>КОГАТО:</b> търсиш отличителна визия и луксозно представяне – вечер, есен и зима.</div>
+      </div>
+    </article>
+
+    <article class="tr-prod tr-p3 tr-neon tr-d2">
+      <div class="tr-ph" data-slot="ecl"><span class="tr-ph-tag">3 ОТ 3</span>
+        <div class="tr-bt tr-ecl"><div class="tr-cap"></div><div class="tr-neck"></div><div class="tr-body"><b>ECLAT</b><small>VANILLA</small><small>100 ml</small></div></div>
+      </div>
+      <div>
+        <h3>ECLAT VANILLA</h3>
+        <div class="tr-sub2">100 ml · ♀ за нея</div>
+        <p class="tr-motto">Топла ванилова нежност</p>
+        <div class="tr-tags"><span class="tr-tag">Сладък</span><span class="tr-tag">Гурме</span><span class="tr-tag">Топъл</span><span class="tr-tag tr-set">3 ОТ 3 В КОМПЛЕКТА</span></div>
+        <p class="tr-desc">За жени, които обичат топлите гурме аромати. Млечни нюанси, карамел и ванилия създават нежно, но запомнящо се присъствие – за всеки сезон. Кремаво-златистата бутилка придава допълнителен лукс.</p>
+        <div class="tr-notes">
+          <div class="tr-note"><div class="tr-n tr-neon">🥛</div><div><b>ВРЪХНИ НОТКИ</b><span>Мляко, карамел</span></div></div>
+          <div class="tr-note"><div class="tr-n tr-neon tr-d1">🍯</div><div><b>СРЕДНИ НОТКИ</b><span>Мед, бели цветя</span></div></div>
+          <div class="tr-note"><div class="tr-n tr-neon tr-d2">🍮</div><div><b>БАЗОВИ НОТКИ</b><span>Ванилия, пралини, мускус</span></div></div>
+        </div>
+        <div class="tr-when"><b>КОГАТО:</b> искаш нежна, топла елегантност – всеки ден и за всеки сезон.</div>
+      </div>
+    </article>
+    <div class="tr-after"><a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a><div class="tr-after-note">32.90 € вместо 65.80 € · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ТРИ ИЗЖИВЯВАНИЯ -->
+  <section><div class="tr-wrap">
+    <h2 class="tr-sec-t">Три парфюма. <span class="tr-nt">Три изживявания.</span></h2>
+    <p class="tr-sec-s">С комплекта имаш аромат за всяко настроение.</p>
+    <div class="tr-moods">
+      <div class="tr-mood tr-neon"><i>🍫</i><div><b>Dubai Chocolate</b><span>Когато ти се иска нещо сладко и изкушаващо.</span></div></div>
+      <div class="tr-mood tr-neon tr-d1"><i>🖤</i><div><b>Confession</b><span>Когато търсиш дървесен мъжки чар за вечерта.</span></div></div>
+      <div class="tr-mood tr-neon tr-d2"><i>🤍</i><div><b>Eclat Vanilla</b><span>Когато предпочиташ топла ванилова нежност.</span></div></div>
+    </div>
+    <div class="tr-after"><a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a><div class="tr-after-note">32.90 € за комплекта от 3 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ОТЗИВИ -->
+  <section><div class="tr-wrap">
+    <h2 class="tr-sec-t">Какво казват <span class="tr-nt">клиентите</span></h2>
+    <p class="tr-sec-s">Реални коментари от хора, които вече получиха своите парфюми.</p>
+    <div class="tr-revs" id="trRevs">
+      <div class="tr-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-45-079-1542351.jpg?format=webp" alt="Отзив от клиент: Страхотни са. Днес ги получих." width="1320" height="256" loading="lazy"></div>
+      <div class="tr-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-20-08-854-5668174.png?format=webp" alt="Отзив от клиент: Уникални аромати" width="697" height="224" loading="lazy"></div>
+      <div class="tr-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-21-49-673-5668174.png?format=webp" alt="Отзив от клиент: Благодаря Ви! Получих си парфюмите, прекрасни са! Благодаря!" width="734" height="291" loading="lazy"></div>
+      <div class="tr-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-21-50-191-5668175.png?format=webp" alt="Отзив от клиент: Много е приятен" width="700" height="229" loading="lazy"></div>
+      <div class="tr-rev"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-236-1542351.jpg?format=webp" alt="Отзив от клиент: Поръчах си ги, пристигнаха преди два дена – страхотни са! ❤" width="1320" height="320" loading="lazy"></div>
+      <div class="tr-rev tr-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-431-1542351.jpg?format=webp" alt="Отзив от клиент: Страхотни! Поръчах си преди няколко дена – аромата е траен и сладък ❤" width="1320" height="306" loading="lazy"></div>
+      <div class="tr-rev tr-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-125-1542351.jpg?format=webp" alt="Отзив от клиент: Хубави са" width="1320" height="264" loading="lazy"></div>
+      <div class="tr-rev tr-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-681-1542351.jpg?format=webp" alt="Отзив от клиент: Получих ги, супер са" width="1320" height="271" loading="lazy"></div>
+      <div class="tr-rev tr-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-885-1542351.jpg?format=webp" alt="Отзив от клиент: Аз също ги харесвам!!!" width="1320" height="249" loading="lazy"></div>
+      <div class="tr-rev tr-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-500-1542351.jpg?format=webp" alt="Отзив от клиент: Прекрасни са" width="1320" height="333" loading="lazy"></div>
+      <div class="tr-rev tr-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-303-1542351.jpg?format=webp" alt="Отзив от клиент: Получих ги, много са хубави, благодаря ви" width="1320" height="245" loading="lazy"></div>
+      <div class="tr-rev tr-hide"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-45-270-1542352.jpg?format=webp" alt="Отзив от клиент: Страхотни, днес ги получих" width="1186" height="284" loading="lazy"></div>
+    </div>
+    <button type="button" class="tr-more" id="trMore">Виж още отзиви ↓</button>
+    <div class="tr-after"><a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a><div class="tr-after-note">32.90 € вместо 65.80 € · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ПРЕДИМСТВА -->
+  <section><div class="tr-wrap">
+    <div class="tr-perks">
+      <div class="tr-perk tr-neon"><div class="tr-pi">🧴</div><b>3 × 100 ml</b><span>Общо 300 ml</span></div>
+      <div class="tr-perk tr-neon tr-d1"><div class="tr-pi">💎</div><b>Луксозни бутилки</b><span>Отличителен дизайн</span></div>
+      <div class="tr-perk tr-neon tr-d2"><div class="tr-pi">🎁</div><b>За подарък</b><span>Или за лично удоволствие</span></div>
+      <div class="tr-perk tr-neon tr-d3"><div class="tr-pi">📦</div><b>При получаване</b><span>Плащаш на куриера</span></div>
+    </div>
+    <div class="tr-after"><a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a><div class="tr-after-note">32.90 € за комплекта от 3 парфюма · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- FAQ -->
+  <section><div class="tr-wrap">
+    <h2 class="tr-sec-t">Въпроси</h2>
+    <p class="tr-sec-s">Кратко и ясно.</p>
+    <div class="tr-faq">
+      <details class="tr-q"><summary>Какво има в комплекта?</summary><p>Dubai Chocolate – Pistachio Kunafa, Confession и Eclat Vanilla – по 100 ml всеки, общо 300 ml. Получаваш и трите за 32.90 €.</p></details>
+      <details class="tr-q"><summary>За кого са парфюмите?</summary><p>Confession е мъжки дървесен аромат, Eclat Vanilla е за жени, които обичат топлите гурме аромати, а Dubai Chocolate е сладък гурме аромат за любителите на сладкото.</p></details>
+      <details class="tr-q"><summary>Подходящ ли е за подарък?</summary><p>Да. Три различни аромата в един комплект – подарък за любителите на арабската парфюмерия или за двойка.</p></details>
+      <details class="tr-q"><summary>Как плащам?</summary><p>С наложен платеж – плащаш на куриера, когато получиш пратката. Не ти трябва карта.</p></details>
+      <details class="tr-q"><summary>Колко струва доставката?</summary><p>Зависи от куриера и дали е до офис или до адрес. Точната сума виждаш във формата за поръчка, преди да я потвърдиш.</p></details>
+    </div>
+    <div class="tr-after"><a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a><div class="tr-after-note">32.90 € вместо 65.80 € · плащаш при получаване</div></div>
+  </div></section>
+
+  <!-- ФИНАЛ -->
+  <section id="trFinal"><div class="tr-wrap">
+    <div class="tr-final tr-neon">
+      <h2>Сладост. Елегантност.<br><span class="tr-nt">Лукс.</span></h2>
+      <p class="tr-sec-s" style="margin-bottom:6px !important">Dubai Chocolate, Confession и Eclat Vanilla – и трите за 32.90 € вместо 65.80 €.</p>
+      <div class="tr-price-row" style="margin:34px 0 22px !important"><span class="tr-was">65.80 €</span><div class="tr-price tr-neon tr-d1">32.90<small>€</small><span class="tr-off">−50%<small>само сега</small></span></div></div>
+      <a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a>
+    </div>
+  </div></section>
+
+  <div class="tr-sticky" id="trSticky">
+    <div class="tr-sp">32.90 €<small>комплект 3 бр. · −50%</small></div>
+    <a href="#" class="tr-cta" data-go data-burst>Искам комплекта ➜</a>
+  </div>
+</div>
+
+<script>
+/* Чекаутът е най-долу на същата страница – бутоните плъзгат до него.
+   Ако някой ден е на отделна страница, сложи адреса тук: */
+var TR_CHECKOUT_URL = '';
+(function(){
+  var root=document.getElementById('tr'); if(!root) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function orderTarget(){ return document.querySelector('.trc') || document.querySelector('.widget-checkout'); }
+  root.querySelectorAll('[data-go]').forEach(function(a){
+    if(TR_CHECKOUT_URL){ a.setAttribute('href',TR_CHECKOUT_URL); a.setAttribute('target','_top'); } else a.setAttribute('href','#trOrder');
+  });
+  function burst(x,y,em){
+    if(reduce) return; em=em||['✦','🍫','✨','🤍','🖤','💛'];
+    for(var i=0;i<16;i++){ var b=document.createElement('span'); b.className='tr-burst'; b.textContent=em[i%em.length];
+      var a=Math.random()*Math.PI*2, d=60+Math.random()*100; b.style.left=x+'px'; b.style.top=y+'px';
+      b.style.setProperty('--x',Math.cos(a)*d+'px'); b.style.setProperty('--y',Math.sin(a)*d+'px');
+      root.appendChild(b); setTimeout(function(n){ n.remove(); },1100,b); }
+  }
+  root.addEventListener('click',function(e){
+    var t=e.target.closest('[data-burst]'); if(!t) return;
+    burst(e.clientX,e.clientY);
+    if(t.hasAttribute('data-go') && !TR_CHECKOUT_URL){
+      e.preventDefault(); var o=orderTarget()||document.getElementById('trFinal');
+      o.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'}); return;
+    }
+  });
+
+  /* отвори кутията */
+  var box=document.getElementById('trBox'), out=document.getElementById('trOut'), btn=document.getElementById('trOpen'), rev=document.getElementById('trReveal'), opened=false;
+  var steps=[['🍫 Dubai Chocolate','Шамфъстък, млечен шоколад и карамел.'],['🖤 Confession','Канела, ирис, тамян и кедър.'],['🤍 Eclat Vanilla','Мляко, мед, ванилия и пралини.']];
+  function openBox(){
+    if(opened) return; opened=true;
+    box.classList.remove('tr-shaky'); box.classList.add('tr-open'); out.classList.add('tr-show');
+    var r=box.getBoundingClientRect(); burst(r.left+r.width/2, r.top, ['✨','✦','💛','🎁']);
+    steps.forEach(function(s,i){ setTimeout(function(){ rev.innerHTML='<b>'+s[0]+'</b><p>'+s[1]+'</p>'; }, reduce?0:(450+i*420)); });
+    setTimeout(function(){ rev.innerHTML='<b>3 парфюма × 100 ml</b><p>И трите са в комплекта – за 32.90 € вместо 65.80 €.</p>'; btn.textContent='✓ ОТВОРЕНО'; btn.disabled=true; }, reduce?0:2300);
+  }
+  box.addEventListener('click',openBox); btn.addEventListener('click',openBox);
+  box.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openBox(); } });
+
+  /* отзиви */
+  var more=document.getElementById('trMore'), revs=document.getElementById('trRevs');
+  more.addEventListener('click',function(){ revs.classList.add('tr-all'); more.classList.add('tr-gone'); });
+
+  /* лента долу */
+  var sticky=document.getElementById('trSticky'), hero=document.getElementById('trHero'), fin=document.getElementById('trFinal');
+  function onScroll(){ var o=orderTarget(), past=hero.getBoundingClientRect().bottom<0, atEnd=(o||fin).getBoundingClientRect().top<window.innerHeight*.9; sticky.classList.toggle('tr-on',past&&!atEnd); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>
+<!-- ===================== /ЛУКСОЗНА АРАБСКА ТРОЙКА ===================== -->
