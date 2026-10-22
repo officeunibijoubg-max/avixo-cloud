@@ -37,6 +37,10 @@
 @keyframes trBurst{ to{ transform:translate(var(--x),var(--y)) rotate(160deg) scale(.5); opacity:0 } }
 @keyframes trWobble{ 0%,86%,100%{ transform:rotate(0) } 88%{ transform:rotate(-4deg) } 91%{ transform:rotate(4deg) } 94%{ transform:rotate(-3deg) } 97%{ transform:rotate(2deg) } }
 @keyframes trRise{ 0%{ transform:translateY(60px) scale(.4); opacity:0 } 70%{ transform:translateY(-10px) scale(1.06); opacity:1 } 100%{ transform:translateY(0) scale(1); opacity:1 } }
+@keyframes trLidHop{ 0%,70%,100%{ transform:translateY(0) rotate(0) } 76%{ transform:translateY(-10px) rotate(-3deg) } 82%{ transform:translateY(0) rotate(0) } 87%{ transform:translateY(-6px) rotate(2deg) } 92%{ transform:translateY(0) } }
+@keyframes trLidOff{ 0%{ transform:translateY(0) rotate(0) } 40%{ transform:translateY(-30px) rotate(-6deg) } 100%{ transform:translate(70px,-170px) rotate(38deg); opacity:0 } }
+@keyframes trGShine{ 0%{ transform:translateX(0) skewX(-18deg) } 55%,100%{ transform:translateX(330px) skewX(-18deg) } }
+@keyframes trTwinkle{ 0%,100%{ opacity:0; transform:scale(.5) } 50%{ opacity:1; transform:scale(1.15) } }
 @keyframes trGone{ to{ transform:scale(.3) translateY(40px); opacity:0 } }
 @keyframes trLid{ to{ transform:translate(var(--lx),-160px) rotate(var(--lr)); opacity:0 } }
 #tr .tr-neon{ border-width:2px !important; border-style:solid !important; border-color:var(--gold); animation:trNeon 9s linear infinite !important; }
@@ -114,15 +118,20 @@
 
 /* отвори кутията */
 #tr .tr-boxzone{ max-width:560px !important; margin:0 auto !important; border-radius:26px !important; padding:26px 16px !important; background:var(--card) !important; text-align:center !important; }
-#tr .tr-stage{ position:relative !important; height:230px !important; display:flex !important; align-items:flex-end !important; justify-content:center !important; }
-#tr .tr-giftbox{ position:absolute !important; bottom:20px !important; left:50% !important; width:190px !important; margin-left:-95px !important; cursor:pointer !important; z-index:2 !important; }
-#tr .tr-gb-lid{ position:relative !important; height:44px !important; margin:0 -10px !important; border-radius:8px !important; background:linear-gradient(180deg,#f7d27a,#c98a1c) !important; box-shadow:0 6px 0 #8a5a10, 0 0 26px rgba(var(--gold-rgb),.6); }
-#tr .tr-gb-lid::before{ content:"" !important; position:absolute !important; left:50% !important; top:-26px !important; width:56px !important; height:30px !important; margin-left:-28px !important; border-width:7px !important; border-style:solid !important; border-color:#b8321a; border-bottom:0 !important; border-radius:30px 30px 0 0 !important; }
-#tr .tr-gb-body{ height:130px !important; border-radius:0 0 10px 10px !important; background:linear-gradient(180deg,#e9b44c,#b37a18) !important; box-shadow:inset 0 0 26px rgba(0,0,0,.25), 0 0 30px rgba(var(--gold-rgb),.45); position:relative !important; }
-#tr .tr-gb-body::before, #tr .tr-gb-lid::after{ content:"" !important; position:absolute !important; left:50% !important; width:26px !important; margin-left:-13px !important; top:0 !important; bottom:0 !important; background:#b8321a !important; }
-#tr .tr-giftbox.tr-shaky{ animation:trWobble 2.4s ease-in-out infinite !important; }
-#tr .tr-giftbox.tr-open .tr-gb-lid{ animation:trLid .7s ease-in forwards !important; --lx:40px; --lr:28deg; }
-#tr .tr-giftbox.tr-open{ animation:trGone .5s ease-in .45s forwards !important; pointer-events:none !important; }
+#tr .tr-stage{ position:relative !important; height:240px !important; display:flex !important; align-items:flex-end !important; justify-content:center !important; }
+#tr .tr-giftbox{ position:absolute !important; bottom:6px !important; left:50% !important; width:230px !important; margin-left:-115px !important; cursor:pointer !important; z-index:2 !important; }
+#tr .tr-gsvg{ display:block !important; width:100% !important; height:auto !important; overflow:visible !important; filter:drop-shadow(0 0 18px rgba(242,193,78,.35)) drop-shadow(0 10px 24px rgba(0,0,0,.6)) !important; }
+#tr .tr-glid, #tr .tr-gbody{ transform-box:fill-box !important; transform-origin:50% 100% !important; }
+#tr .tr-giftbox.tr-shaky .tr-glid{ animation:trLidHop 3.2s ease-in-out infinite !important; }
+#tr .tr-giftbox.tr-shaky .tr-gsvg{ animation:trFloat 4.5s ease-in-out infinite !important; }
+#tr .tr-gshine{ animation:trGShine 3.8s ease-in-out infinite; }
+#tr .tr-spk{ position:absolute !important; z-index:3 !important; color:var(--gold2) !important; text-shadow:0 0 10px var(--gold); font-size:16px !important; pointer-events:none !important; animation:trTwinkle 2.6s ease-in-out infinite; opacity:0; }
+#tr .tr-s1{ left:2px !important; top:40% !important; } #tr .tr-s2{ right:4px !important; top:30% !important; font-size:20px !important; animation-delay:-.8s !important; } #tr .tr-s3{ left:22% !important; top:4% !important; animation-delay:-1.4s !important; } #tr .tr-s4{ right:20% !important; top:0 !important; font-size:12px !important; animation-delay:-2s !important; } #tr .tr-s5{ right:-4px !important; bottom:18% !important; animation-delay:-.4s !important; }
+#tr .tr-giftbox:hover .tr-gsvg{ filter:drop-shadow(0 0 26px rgba(242,193,78,.6)) drop-shadow(0 10px 24px rgba(0,0,0,.6)) !important; }
+#tr .tr-giftbox:focus-visible{ outline:2px solid var(--gold) !important; outline-offset:6px !important; border-radius:12px !important; }
+#tr .tr-giftbox.tr-open .tr-glid{ animation:trLidOff .75s cubic-bezier(.3,.1,.5,1) forwards !important; }
+#tr .tr-giftbox.tr-open .tr-spk{ animation:none; opacity:0; }
+#tr .tr-giftbox.tr-open{ animation:trGone .55s ease-in .5s forwards !important; pointer-events:none !important; }
 #tr .tr-out{ position:absolute !important; inset:0 !important; z-index:3 !important; display:flex !important; align-items:center !important; justify-content:center !important; gap:10px !important; pointer-events:none !important; }
 #tr .tr-pop{ width:32% !important; max-width:170px !important; opacity:0; text-align:center !important; }
 #tr .tr-pop-ph{ position:relative !important; display:block !important; width:100% !important; padding-top:100% !important; border-radius:16px !important; overflow:hidden !important; background:#0d0704 !important; border-width:2px !important; border-style:solid !important; border-color:var(--gold); box-shadow:0 0 22px rgba(var(--gold-rgb),.55); }
@@ -267,7 +276,43 @@
           <div class="tr-pop tr-pop2"><i class="tr-pop-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/a0828692-8860-477c-aa45-33aca10b470e-2601992.png?format=webp" alt="Confession" width="1200" height="1200"></i><b>Confession</b></div>
           <div class="tr-pop tr-pop3"><i class="tr-pop-ph"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/ac8d5db3-07ae-4b97-b11c-b4360791d1c7-2602202.png?format=webp" alt="Eclat Vanilla" width="1200" height="1200"></i><b>Eclat Vanilla</b></div>
         </div>
-        <div class="tr-giftbox tr-shaky" id="trBox" role="button" tabindex="0" aria-label="Отвори кутията"><div class="tr-gb-lid"></div><div class="tr-gb-body"></div></div>
+        <div class="tr-giftbox tr-shaky" id="trBox" role="button" tabindex="0" aria-label="Отвори кутията">
+          <span class="tr-spk tr-s1">✦</span><span class="tr-spk tr-s2">✦</span><span class="tr-spk tr-s3">✧</span><span class="tr-spk tr-s4">✦</span><span class="tr-spk tr-s5">✧</span>
+          <svg class="tr-gsvg" viewBox="0 0 240 230" aria-hidden="true">
+            <defs>
+              <linearGradient id="trLac" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a2416"/><stop offset=".45" stop-color="#1a0f08"/><stop offset="1" stop-color="#0b0604"/></linearGradient>
+              <linearGradient id="trLacLid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a2e1c"/><stop offset="1" stop-color="#160c06"/></linearGradient>
+              <linearGradient id="trGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1c2"/><stop offset=".35" stop-color="#f2c14e"/><stop offset=".7" stop-color="#c98a1c"/><stop offset="1" stop-color="#ffe39a"/></linearGradient>
+              <linearGradient id="trRib" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#b5841f"/><stop offset=".3" stop-color="#ffe9a8"/><stop offset=".55" stop-color="#e0b04a"/><stop offset="1" stop-color="#a8761e"/></linearGradient>
+              <linearGradient id="trShineG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+              <clipPath id="trBodyClip"><rect x="34" y="104" width="172" height="112" rx="6"/></clipPath>
+            </defs>
+            <ellipse cx="120" cy="220" rx="96" ry="8" fill="#000" opacity=".55"/>
+            <g class="tr-gbody">
+              <rect x="34" y="104" width="172" height="112" rx="6" fill="url(#trLac)" stroke="url(#trGold)" stroke-width="2"/>
+              <rect x="42" y="112" width="156" height="96" rx="3" fill="none" stroke="#f2c14e" stroke-opacity=".35" stroke-width="1"/>
+              <rect x="109" y="104" width="22" height="112" fill="url(#trRib)"/>
+              <g clip-path="url(#trBodyClip)"><rect class="tr-gshine" x="-60" y="96" width="40" height="130" fill="url(#trShineG)" transform="skewX(-18)"/></g>
+              <g transform="translate(150 150) rotate(-8)">
+                <path d="M0 0 h40 l8 10 l-8 10 h-40 z" fill="url(#trGold)"/>
+                <circle cx="6" cy="10" r="2.2" fill="#1a0f08"/>
+                <text x="27" y="14" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-weight="900" font-size="9.5" fill="#2a170b">3×100</text>
+              </g>
+            </g>
+            <g class="tr-glid">
+              <rect x="26" y="78" width="188" height="32" rx="5" fill="url(#trLacLid)" stroke="url(#trGold)" stroke-width="2"/>
+              <rect x="26" y="104" width="188" height="6" fill="#000" opacity=".35"/>
+              <rect x="109" y="78" width="22" height="32" fill="url(#trRib)"/>
+              <path d="M120 80 C 96 46, 60 50, 70 72 C 78 88, 104 86, 120 80 Z" fill="url(#trRib)" stroke="#a8761e" stroke-width="1"/>
+              <path d="M120 80 C 144 46, 180 50, 170 72 C 162 88, 136 86, 120 80 Z" fill="url(#trRib)" stroke="#a8761e" stroke-width="1"/>
+              <path d="M84 70 C 92 62, 104 66, 112 76" fill="none" stroke="#fff1c2" stroke-opacity=".6" stroke-width="2"/>
+              <path d="M156 70 C 148 62, 136 66, 128 76" fill="none" stroke="#fff1c2" stroke-opacity=".6" stroke-width="2"/>
+              <path d="M116 84 L100 112 L108 110 L112 118 Z" fill="url(#trRib)"/>
+              <path d="M124 84 L140 112 L132 110 L128 118 Z" fill="url(#trRib)"/>
+              <ellipse cx="120" cy="81" rx="10" ry="8" fill="url(#trGold)" stroke="#a8761e" stroke-width="1"/>
+            </g>
+          </svg>
+        </div>
       </div>
       <button type="button" class="tr-open-btn" id="trOpen">🎁 ОТВОРИ</button>
       <div class="tr-reveal" id="trReveal" aria-live="polite"><p>Три парфюма по 100 ml чакат вътре.</p></div>
