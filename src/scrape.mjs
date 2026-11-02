@@ -54,7 +54,9 @@ export async function readProduct(browser, url) {
 
     const raw = await page.evaluate(() => {
       const el = document.querySelector('script[type="application/ld+json"]');
-      const old = document.querySelector('.old_price');
+      // .old_price се среща и в блока „Свързани продукти“ в същия aside — там
+      // е ЧУЖДА отстъпка. #web_price e самата кутия с цената на този продукт.
+      const old = document.querySelector('#web_price .old_price');
       return { ld: el ? el.textContent : null, oldPrice: old ? old.textContent : null };
     });
     if (!raw.ld) throw new Error(`Няма JSON-LD: ${url}`);
