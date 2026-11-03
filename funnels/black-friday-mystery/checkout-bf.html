@@ -34,7 +34,7 @@
 .bfc .bfc-neon.bfc-d1{ animation-delay:-2.5s !important; } .bfc .bfc-neon.bfc-d2{ animation-delay:-5s !important; }
 .bfc .bfc-neon-text{ color:#fff; animation:bfcNeonText 7.5s linear infinite, bfcFlicker 6s linear infinite !important; }
 
-.bfc .bfc-ticker{ position:relative !important; z-index:3 !important; background:#000 !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
+.bfc .bfc-ticker{ position:relative !important; z-index:3 !important; background:linear-gradient(90deg,#9e0b22,#d4152f,#9e0b22) !important; border-bottom:1px solid rgba(var(--pink-rgb),.5) !important; overflow:hidden !important; white-space:nowrap !important; }
 .bfc .bfc-ticker-in{ display:inline-flex !important; gap:40px !important; padding:10px 0 !important; animation:bfcScroll 26s linear infinite !important; font:700 12px/1 'Cormorant Garamond',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; }
 .bfc .bfc-ticker-in span:nth-child(odd){ color:var(--pink) !important; text-shadow:0 0 10px rgba(var(--pink-rgb),.8); }
 .bfc .bfc-ticker-in span:nth-child(even){ color:var(--gold) !important; text-shadow:0 0 10px rgba(var(--gold-rgb),.8); }
@@ -681,6 +681,16 @@ select[name="phoneCountryIso"],
 .widget-checkout input.phone-input-hidden:has(+ .iti) {
   display: none !important;
 }
+
+/* Черен петък: червен бутон за поръчка */
+.widget-checkout [data-role="continue"] {
+  background: linear-gradient(100deg, #a50b23, #d4152f 50%, #a50b23) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 14px 34px -12px rgba(200, 16, 46, 0.7) !important;
+}
+.widget-checkout [data-role="continue"]:hover {
+  background: #e3263f !important;
+}
 /* Количка: снимка на продукта */
 .widget-checkout .cart-container .cart-row .image img {
   border-radius: 8px !important;
@@ -690,8 +700,8 @@ select[name="phoneCountryIso"],
 <div class="bfc">
   <div class="bfc-glow"></div>
   <div class="bfc-ticker" aria-hidden="true"><div class="bfc-ticker-in">
-    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Черен петък · 3 парфюма · 27,90 €</span>
-    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Черен петък · 3 парфюма · 27,90 €</span>
+    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Трети парфюм подарък · 27,90 €</span>
+    <span>Остава една стъпка</span><span>Наложен платеж</span><span>Плащаш при получаване</span><span>Трети парфюм подарък · 27,90 €</span>
   </div></div>
 
   <div class="bfc-top"><div class="bfc-wrap">
@@ -712,7 +722,7 @@ select[name="phoneCountryIso"],
       <div>
         <div class="bfc-set-name"><span class="bfc-p">HUMRAH</span> · <span class="bfc-p">ECLAT VANILLA</span> · <span class="bfc-g">+ ?</span></div>
         <div class="bfc-set-sub">3 × 100 ML · ТРЕТИЯТ Е ИЗНЕНАДА</div>
-        <div class="bfc-set-price">27,90 €<small>за трите парфюма · само за Черния петък</small></div>
+        <div class="bfc-set-price">27,90 €<small>„Той и Тя“ 18,90 € + само 9 € за третия</small></div>
       </div>
     </div>
 

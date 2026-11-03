@@ -4,7 +4,7 @@
 #bf#bf *{ float:none !important; }
 #bf{
   --gold:#e6c172; --gold-rgb:230,193,114; --gold2:#fff0c4; --goldd:#a87a2a;
-  --wax:#9e1b1b; --wax-rgb:158,27,27; --wax2:#c8342a;
+  --wax:#c8102e; --wax-rgb:200,16,46; --wax2:#e3263f; --kraft:#b98447;
   --ink:#09080a; --card:#141215; --card2:#1b181c; --text:#f4efe6; --muted:rgba(244,239,230,.68);
   font-family:'Golos Text',Arial,sans-serif; color:var(--text); background:var(--ink); line-height:1.55; overflow:hidden; position:relative;
 }
@@ -33,13 +33,9 @@
 @keyframes bfBurst{ to{ transform:translate(var(--x),var(--y)) rotate(160deg) scale(.5); opacity:0 } }
 @keyframes bfTwinkle{ 0%,100%{ opacity:0; transform:scale(.5) } 50%{ opacity:1; transform:scale(1.15) } }
 @keyframes bfFloat{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-6px) } }
-@keyframes bfSealPulse{ 0%,100%{ transform:scale(1) } 50%{ transform:scale(1.06) } }
-@keyframes bfCrackL{ to{ transform:translate(-40px,60px) rotate(-60deg); opacity:0 } }
-@keyframes bfCrackR{ to{ transform:translate(40px,60px) rotate(60deg); opacity:0 } }
-@keyframes bfFlapUp{ to{ transform:scaleY(0) } }
-@keyframes bfFlapBack{ from{ transform:scaleY(0); opacity:1 } to{ transform:scaleY(1); opacity:1 } }
-@keyframes bfSealGone{ to{ opacity:0; transform:scale(.6) } }
-@keyframes bfLetter{ 0%{ transform:translateY(0) } 100%{ transform:translateY(-136px) } }
+@keyframes bfLidHop{ 0%,72%,100%{ transform:translateY(0) rotate(0) } 78%{ transform:translateY(-12px) rotate(-3deg) } 84%{ transform:translateY(0) rotate(0) } 89%{ transform:translateY(-7px) rotate(2deg) } 94%{ transform:translateY(0) } }
+@keyframes bfLidOff{ 0%{ transform:translateY(0) rotate(0) } 35%{ transform:translateY(-34px) rotate(-6deg) } 100%{ transform:translate(90px,-190px) rotate(40deg); opacity:0 } }
+@keyframes bfLetter{ 0%{ transform:translateY(0) } 100%{ transform:translateY(-112px) } }
 @keyframes bfTick{ 0%{ transform:scale(1.18) } 100%{ transform:scale(1) } }
 @keyframes bfDust{ 0%{ transform:translateY(0); opacity:0 } 15%{ opacity:.9 } 100%{ transform:translateY(-110vh); opacity:0 } }
 #bf .bf-neon{ border:1.5px solid var(--gold); animation:bfNeon 9s linear infinite; }
@@ -48,14 +44,15 @@
 #bf .bf-serif{ font-family:'Cormorant Garamond',Georgia,serif; }
 
 /* лента */
-#bf .bf-ticker{ position:relative; z-index:3; background:#000; border-bottom:1px solid rgba(var(--gold-rgb),.45); overflow:hidden; white-space:nowrap; }
+#bf .bf-ticker{ position:relative; z-index:3; background:linear-gradient(90deg,#9e0b22,#d4152f,#9e0b22); border-bottom:1px solid rgba(var(--gold-rgb),.55); overflow:hidden; white-space:nowrap; }
 #bf .bf-ticker-in{ display:inline-flex; gap:40px; padding:10px 0; animation:bfScroll 28s linear infinite; font:800 12px/1 'Golos Text',sans-serif; letter-spacing:2.5px; text-transform:uppercase; }
-#bf .bf-ticker-in span{ color:var(--gold); }
-#bf .bf-ticker-in span:nth-child(3n+2){ color:#ff6b5e; }
+#bf .bf-ticker-in span{ color:#fff; }
+#bf .bf-ticker-in span:nth-child(3n+1){ color:var(--gold2); }
+#bf .bf-ticker-in i{ font-style:normal; color:var(--gold2); }
 
 /* таймер */
 #bf .bf-timer{ display:flex; flex-direction:column; align-items:center; gap:8px; padding:14px 12px; background:linear-gradient(90deg,rgba(var(--wax-rgb),.25),rgba(0,0,0,.6),rgba(var(--wax-rgb),.25)); border-bottom:1px solid rgba(var(--gold-rgb),.25); position:relative; z-index:3; }
-#bf .bf-t-lbl{ font:800 11px/1.3 'Golos Text',sans-serif; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); text-align:center; }
+#bf .bf-t-lbl{ font:800 11px/1.3 'Golos Text',sans-serif; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); text-align:center; }
 #bf .bf-t-row{ display:flex; gap:8px; }
 #bf .bf-t-box{ min-width:58px; padding:8px 6px 6px; border-radius:10px; text-align:center; background:#000; border:1px solid rgba(var(--gold-rgb),.45); }
 #bf .bf-t-box b{ display:block; font:700 26px/1 'Cormorant Garamond',Georgia,serif; color:var(--gold2); font-variant-numeric:tabular-nums; }
@@ -68,24 +65,18 @@
 #bf .bf-eyebrow i{ font-style:normal; color:#ff6b5e; }
 #bf .bf-h1{ font:700 clamp(30px,8.4vw,62px)/1.05 'Cormorant Garamond',Georgia,serif; margin:18px auto 12px; max-width:860px; text-wrap:balance; }
 #bf .bf-h1 em{ font-style:italic; color:var(--gold2); }
+#bf .bf-red{ color:#ff3b4f; text-shadow:0 0 18px rgba(var(--wax-rgb),.6); letter-spacing:1px; }
 #bf .bf-sub{ max-width:620px; margin:0 auto 22px; color:var(--muted); font-size:16px; }
 #bf .bf-sub b{ color:var(--text); }
 
-/* плик с восъчен печат */
+/* крафт кутията */
 #bf .bf-env-zone{ position:relative; max-width:420px; margin:30px auto 18px; height:300px; }
-#bf .bf-env{ position:absolute; left:50%; bottom:10px; width:min(340px,92%); transform:translateX(-50%); cursor:pointer; }
-#bf .bf-env svg{ display:block; width:100%; height:auto; overflow:visible; filter:drop-shadow(0 0 22px rgba(var(--gold-rgb),.3)) drop-shadow(0 14px 26px rgba(0,0,0,.7)); }
+#bf .bf-env{ position:absolute; left:50%; bottom:10px; width:min(330px,92%); transform:translateX(-50%); cursor:pointer; }
+#bf .bf-env svg{ display:block; width:100%; height:auto; overflow:visible; filter:drop-shadow(0 0 22px rgba(var(--gold-rgb),.22)) drop-shadow(0 14px 26px rgba(0,0,0,.75)); }
 #bf .bf-env .bf-letter{ transform-box:fill-box; transform-origin:50% 100%; }
-#bf .bf-env .bf-flap{ transform-box:fill-box; transform-origin:50% 0%; }
-#bf .bf-env .bf-sealL, #bf .bf-env .bf-sealR{ transform-box:fill-box; transform-origin:50% 50%; }
-#bf .bf-env .bf-seal{ transform-box:fill-box; transform-origin:50% 50%; animation:bfSealPulse 2.4s ease-in-out infinite; }
-#bf .bf-env.bf-open .bf-sealL{ animation:bfCrackL .6s ease-in forwards; }
-#bf .bf-env.bf-open .bf-sealR{ animation:bfCrackR .6s ease-in forwards; }
-#bf .bf-env .bf-flapback{ transform-box:fill-box; transform-origin:50% 100%; transform:scaleY(0); opacity:0; }
-#bf .bf-env.bf-open .bf-flap{ animation:bfFlapUp .3s ease-in .4s forwards; }
-#bf .bf-env.bf-open .bf-flapback{ animation:bfFlapBack .35s ease-out .7s forwards; }
-#bf .bf-env.bf-open .bf-seal{ animation:bfSealGone .35s ease-in .45s forwards; }
-#bf .bf-env.bf-open .bf-letter{ animation:bfLetter .9s cubic-bezier(.2,1.1,.4,1) 1s forwards; }
+#bf .bf-env .bf-lid{ transform-box:fill-box; transform-origin:50% 100%; animation:bfLidHop 3.4s ease-in-out infinite; }
+#bf .bf-env.bf-open .bf-lid{ animation:bfLidOff .8s cubic-bezier(.3,.1,.5,1) forwards; }
+#bf .bf-env.bf-open .bf-letter{ animation:bfLetter .9s cubic-bezier(.2,1.1,.4,1) .45s forwards; }
 #bf .bf-env:focus-visible{ outline:2px solid var(--gold); outline-offset:6px; border-radius:12px; }
 #bf .bf-spk{ position:absolute; z-index:3; color:var(--gold2); text-shadow:0 0 10px var(--gold); pointer-events:none; animation:bfTwinkle 2.8s ease-in-out infinite; opacity:0; }
 #bf .bf-sp1{ left:6%; top:30%; } #bf .bf-sp2{ right:6%; top:22%; font-size:20px; animation-delay:-.9s; } #bf .bf-sp3{ left:22%; top:4%; animation-delay:-1.6s; } #bf .bf-sp4{ right:18%; top:2%; font-size:12px; animation-delay:-2.2s; }
@@ -104,10 +95,10 @@
 
 /* бутон */
 #bf a.bf-cta{ position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px; width:100%; max-width:460px; text-align:center; overflow:hidden;
-  font:800 15px/1.25 'Golos Text',sans-serif; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:#140f08;
+  font:800 15px/1.25 'Golos Text',sans-serif; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; color:#fff;
   padding:20px 16px; border-radius:14px; cursor:pointer;
-  background:linear-gradient(100deg,#a87a2a,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,#a87a2a); background-size:220% 100%;
-  animation:bfGrad 5s ease-in-out infinite; box-shadow:0 0 0 1px rgba(255,240,196,.35),0 0 28px rgba(var(--gold-rgb),.45),0 14px 30px -12px rgba(0,0,0,.9); }
+  background:linear-gradient(100deg,#a50b23,#d4152f 35%,#f0364a 50%,#d4152f 65%,#a50b23); background-size:220% 100%;
+  animation:bfGrad 5s ease-in-out infinite; box-shadow:0 0 0 1px rgba(var(--gold-rgb),.55),0 0 28px rgba(var(--wax-rgb),.55),0 14px 30px -12px rgba(0,0,0,.9); text-shadow:0 1px 0 rgba(0,0,0,.25); }
 #bf a.bf-cta::after{ content:""; position:absolute; top:0; left:0; width:30%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent); animation:bfShine 3.4s ease-in-out infinite; pointer-events:none; }
 #bf a.bf-cta:active{ transform:scale(.97); }
 #bf .bf-trust{ display:flex; justify-content:center; gap:8px 18px; flex-wrap:wrap; margin-top:16px; font-size:12px; color:var(--muted); }
@@ -141,6 +132,15 @@
 #bf .bf-item.bf-hidden h3{ color:#ff8a7e; }
 
 /* мистерия / сигурност / двойка */
+#bf .bf-math{ max-width:640px; margin:0 auto; display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; border-radius:22px; padding:20px 14px; background:var(--card); }
+#bf .bf-math > div{ flex:1 1 150px; max-width:190px; border-radius:16px; padding:14px 10px; background:#000; border:1px solid rgba(var(--gold-rgb),.3); text-align:center; }
+#bf .bf-math small{ display:block; font:800 10px/1.2 'Golos Text',sans-serif; letter-spacing:2px; text-transform:uppercase; color:var(--muted); }
+#bf .bf-math b{ display:block; font:700 34px/1.05 'Cormorant Garamond',Georgia,serif; color:var(--gold2); margin:4px 0; }
+#bf .bf-math span{ display:block; font-size:12px; color:var(--muted); }
+#bf .bf-math i{ font-style:normal; font:700 30px/1 'Cormorant Garamond',Georgia,serif; color:var(--gold); }
+#bf .bf-math .bf-m-red{ border-color:rgba(var(--wax-rgb),.8); box-shadow:0 0 18px rgba(var(--wax-rgb),.45); }
+#bf .bf-math .bf-m-red b{ color:#ff5a6b; }
+#bf .bf-math .bf-m-tot{ border-color:var(--gold); box-shadow:0 0 18px rgba(var(--gold-rgb),.4); }
 #bf .bf-quote{ max-width:680px; margin:0 auto; border-radius:24px; padding:30px 22px; background:var(--card); text-align:center; }
 #bf .bf-quote p{ margin:0; font:600 italic clamp(20px,5.2vw,28px)/1.35 'Cormorant Garamond',Georgia,serif; }
 #bf .bf-quote p + p{ margin-top:14px; font:500 16px/1.6 'Golos Text',sans-serif; font-style:normal; color:var(--muted); }
@@ -205,12 +205,12 @@
 <div id="bf">
   <div class="bf-bg"></div>
   <div class="bf-ticker" aria-hidden="true"><div class="bf-ticker-in">
-    <span>Черен петък</span><span>Той и Тя + скрит бестселър</span><span>3 парфюма × 100 ml</span><span>Само 27,90 €</span><span>Плащаш при получаване</span><span>Еконт · Pigeon Express</span>
-    <span>Черен петък</span><span>Той и Тя + скрит бестселър</span><span>3 парфюма × 100 ml</span><span>Само 27,90 €</span><span>Плащаш при получаване</span><span>Еконт · Pigeon Express</span>
+    <span>ЧЕРЕН ПЕТЪК</span><i>•</i><span>Трети парфюм подарък</span><i>•</i><span>Плащаш при получаване</span><i>•</i><span>ЧЕРЕН ПЕТЪК</span><i>•</i><span>Трети парфюм подарък</span><i>•</i><span>Плащаш при получаване</span><i>•</i><span>ЧЕРЕН ПЕТЪК</span><i>•</i><span>Трети парфюм подарък</span><i>•</i><span>Плащаш при получаване</span><i>•</i>
+    <span>ЧЕРЕН ПЕТЪК</span><i>•</i><span>Трети парфюм подарък</span><i>•</i><span>Плащаш при получаване</span><i>•</i><span>ЧЕРЕН ПЕТЪК</span><i>•</i><span>Трети парфюм подарък</span><i>•</i><span>Плащаш при получаване</span><i>•</i><span>ЧЕРЕН ПЕТЪК</span><i>•</i><span>Трети парфюм подарък</span><i>•</i><span>Плащаш при получаване</span><i>•</i>
   </div></div>
 
   <div class="bf-timer" id="bfTimer">
-    <div class="bf-t-lbl">Промоцията изтича след</div>
+    <div class="bf-t-lbl">Кампанията тази седмица изтича след</div>
     <div class="bf-t-row">
       <div class="bf-t-box"><b data-t="d">00</b><small>дни</small></div>
       <div class="bf-t-box"><b data-t="h">00</b><small>часа</small></div>
@@ -222,55 +222,64 @@
   <!-- HERO -->
   <header class="bf-hero" id="bfHero"><div class="bf-wrap">
     <span class="bf-eyebrow bf-neon"><i>●</i> Черен петък · Тайна</span>
-    <h1 class="bf-h1">Черен петък: „Той и Тя“ + един <em>скрит бестселър</em> подарък, който ще разбереш чак когато отвориш пратката</h1>
-    <p class="bf-sub"><b>Humrah</b> за него, <b>Eclat Vanilla</b> за нея и трети аромат – един от петте ни най-продавани парфюма. Кой е? <b>Това е изненадата.</b></p>
+    <h1 class="bf-h1"><span class="bf-red">ЧЕРЕН ПЕТЪК:</span> „Той и Тя“ + 1 <em>скрит бестселър</em> подарък, който ще разбереш чак когато отвориш пратката</h1>
+    <p class="bf-sub">Тази година не режем цената – <b>добавяме парфюм</b>. <b>Humrah</b> за него, <b>Eclat Vanilla</b> за нея и трети аромат от петте ни най-продавани. Кой е? <b>Това е тайната на Черния петък.</b></p>
 
     <div class="bf-env-zone">
       <span class="bf-spk bf-sp1">✦</span><span class="bf-spk bf-sp2">✦</span><span class="bf-spk bf-sp3">✧</span><span class="bf-spk bf-sp4">✦</span>
-      <div class="bf-env" id="bfEnv" role="button" tabindex="0" aria-label="Счупи восъчния печат">
-        <svg viewBox="0 0 320 290" aria-hidden="true">
+      <div class="bf-env" id="bfEnv" role="button" tabindex="0" aria-label="Отвори кутията">
+        <svg viewBox="0 0 320 300" aria-hidden="true">
           <defs>
-            <linearGradient id="bfPaper" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1e1a1f"/><stop offset="1" stop-color="#0c0a0d"/></linearGradient>
-            <linearGradient id="bfFlapG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a242b"/><stop offset="1" stop-color="#151216"/></linearGradient>
+            <linearGradient id="bfKraft" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c9975a"/><stop offset=".5" stop-color="#b07a3e"/><stop offset="1" stop-color="#8f5f2c"/></linearGradient>
+            <linearGradient id="bfKraftLid" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8a86b"/><stop offset="1" stop-color="#b47e42"/></linearGradient>
+            <linearGradient id="bfKraftTop" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e3b57a"/><stop offset=".5" stop-color="#efc58d"/><stop offset="1" stop-color="#d9a96c"/></linearGradient>
             <linearGradient id="bfGoldG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0c4"/><stop offset=".4" stop-color="#e6c172"/><stop offset=".75" stop-color="#a87a2a"/><stop offset="1" stop-color="#f3d892"/></linearGradient>
-            <linearGradient id="bfCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fbf3df"/><stop offset="1" stop-color="#ead9b0"/></linearGradient>
-            <radialGradient id="bfWax" cx=".38" cy=".32" r=".75"><stop offset="0" stop-color="#e0574a"/><stop offset=".55" stop-color="#a51e1e"/><stop offset="1" stop-color="#5e0b0b"/></radialGradient>
-            <clipPath id="bfInside"><rect x="20" y="-60" width="280" height="330"/></clipPath>
+            <linearGradient id="bfCard" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f0d10"/><stop offset="1" stop-color="#1c191d"/></linearGradient>
+            <linearGradient id="bfRedG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0364a"/><stop offset="1" stop-color="#a50b23"/></linearGradient>
           </defs>
-          <ellipse cx="160" cy="282" rx="130" ry="7" fill="#000" opacity=".6"/>
-          <!-- задна стена -->
-          <rect x="20" y="110" width="280" height="160" rx="8" fill="#0d0b0e" stroke="url(#bfGoldG)" stroke-width="1.5"/>
-          <path class="bf-flapback" d="M20 110 L300 110 L160 18 Z" fill="url(#bfFlapG)" stroke="url(#bfGoldG)" stroke-width="1.5"/>
-          <!-- писмото -->
-          <g clip-path="url(#bfInside)"><g class="bf-letter">
-            <rect x="40" y="120" width="240" height="140" rx="6" fill="url(#bfCard)"/>
-            <rect x="48" y="128" width="224" height="124" rx="4" fill="none" stroke="#a87a2a" stroke-width="1"/>
-            <text x="160" y="152" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="15" fill="#5a3b10" letter-spacing="2">ЧЕРЕН ПЕТЪК</text>
-            <text x="160" y="178" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="17" fill="#1a1208">Humrah · Eclat Vanilla</text>
-            <text x="160" y="214" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="34" fill="#9e1b1b">+ ?</text>
-            <text x="160" y="238" text-anchor="middle" font-family="Golos Text, Arial, sans-serif" font-weight="700" font-size="9" fill="#5a3b10" letter-spacing="2">ТАЙНАТА Е В ПРАТКАТА</text>
-          </g></g>
-          <!-- предна част -->
-          <path d="M20 118 L160 205 L300 118 L300 262 Q300 270 292 270 L28 270 Q20 270 20 262 Z" fill="url(#bfPaper)" stroke="url(#bfGoldG)" stroke-width="1.5"/>
-          <path d="M20 270 L135 190 M300 270 L185 190" stroke="url(#bfGoldG)" stroke-width="1" opacity=".55"/>
+          <ellipse cx="160" cy="290" rx="128" ry="8" fill="#000" opacity=".6"/>
+          <!-- вътрешност -->
+          <rect x="50" y="146" width="220" height="14" fill="#3b2410"/>
+          <!-- картичката (излиза при отваряне) -->
+          <g class="bf-letter">
+            <rect x="70" y="150" width="180" height="118" rx="6" fill="url(#bfCard)" stroke="url(#bfGoldG)" stroke-width="1.5"/>
+            <text x="160" y="173" text-anchor="middle" font-family="Golos Text, Arial, sans-serif" font-weight="800" font-size="11" fill="#ff3b4f" letter-spacing="2.5">ЧЕРЕН ПЕТЪК</text>
+            <text x="160" y="198" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="16" fill="#fff0c4">Humrah · Eclat Vanilla</text>
+            <text x="160" y="234" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="32" fill="#e6c172">+ ?</text>
+            <text x="160" y="256" text-anchor="middle" font-family="Golos Text, Arial, sans-serif" font-weight="700" font-size="8" fill="#b6aea3" letter-spacing="2">ТАЙНАТА Е В ПРАТКАТА</text>
+          </g>
+          <!-- тяло на кутията (крафт) -->
+          <rect x="46" y="152" width="228" height="130" rx="4" fill="url(#bfKraft)"/>
+          <rect x="46" y="152" width="228" height="10" fill="#000" opacity=".18"/>
+          <path d="M60 182 h80 M170 200 h90 M58 232 h60 M150 252 h100 M90 266 h70" stroke="#7a4f22" stroke-opacity=".25" stroke-width="1"/>
+          <path d="M46 282 L274 282" stroke="#6e461c" stroke-opacity=".5" stroke-width="2"/>
+          <rect x="110" y="206" width="100" height="40" rx="3" fill="none" stroke="#5a3a17" stroke-opacity=".55" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="160" y="224" text-anchor="middle" font-family="Golos Text, Arial, sans-serif" font-weight="800" font-size="9" fill="#5a3a17" fill-opacity=".8" letter-spacing="2">3 ПАРФЮМА</text>
+          <text x="160" y="239" text-anchor="middle" font-family="Golos Text, Arial, sans-serif" font-weight="800" font-size="9" fill="#5a3a17" fill-opacity=".8" letter-spacing="2">× 100 ML</text>
           <!-- капак -->
-          <path class="bf-flap" d="M20 112 Q20 108 26 108 L294 108 Q300 108 300 112 L160 210 Z" fill="url(#bfFlapG)" stroke="url(#bfGoldG)" stroke-width="1.5"/>
-          <!-- восъчен печат -->
-          <g class="bf-seal">
-            <g class="bf-sealL"><path d="M160 172 C 138 170, 126 182, 128 200 C 130 218, 146 230, 160 228 L 156 214 L 163 204 L 155 192 L 162 182 Z" fill="url(#bfWax)"/></g>
-            <g class="bf-sealR"><path d="M160 172 C 182 170, 194 182, 192 200 C 190 218, 174 230, 160 228 L 156 214 L 163 204 L 155 192 L 162 182 Z" fill="url(#bfWax)"/></g>
-            <circle cx="160" cy="200" r="20" fill="none" stroke="#5e0b0b" stroke-width="2" opacity=".6"/>
-            <text x="160" y="211" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="30" fill="#f3c9a8" opacity=".85">?</text>
+          <g class="bf-lid">
+            <path d="M40 124 L280 124 L268 104 L52 104 Z" fill="url(#bfKraftTop)"/>
+            <rect x="36" y="122" width="248" height="38" rx="4" fill="url(#bfKraftLid)"/>
+            <rect x="36" y="156" width="248" height="4" fill="#000" opacity=".2"/>
+            <path d="M52 134 h70 M190 146 h80" stroke="#7a4f22" stroke-opacity=".25" stroke-width="1"/>
+            <!-- златен въпросителен знак -->
+            <circle cx="96" cy="140" r="21" fill="#140c06" stroke="url(#bfGoldG)" stroke-width="2"/>
+            <text x="96" y="154" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-weight="700" font-size="40" fill="url(#bfGoldG)">?</text>
+            <!-- червен стикер -->
+            <g transform="translate(196 141) rotate(-7)">
+              <rect x="-56" y="-14" width="112" height="28" rx="3" fill="url(#bfRedG)" stroke="#fff" stroke-opacity=".7" stroke-width="1"/>
+              <text x="0" y="5" text-anchor="middle" font-family="Golos Text, Arial, sans-serif" font-weight="800" font-size="11.5" fill="#fff" letter-spacing="1.5">ЧЕРЕН ПЕТЪК</text>
+            </g>
           </g>
         </svg>
       </div>
     </div>
-    <p class="bf-env-hint" id="bfHint">👆 Счупи восъчния печат</p>
+    <p class="bf-env-hint" id="bfHint">👆 Отвори кутията</p>
     <p class="bf-env-note" id="bfNote">Вътре има три парфюма. Два знаеш. Третият е тайна.</p>
 
     <div class="bf-price-row">
       <div class="bf-price bf-neon bf-d1">27,90<small>€</small><span class="bf-badge"><b>3</b>парфюма</span></div>
-      <div class="bf-price-note"><b>за трите парфюма</b> · 3 × 100 ml · само докато трае Черният петък</div>
+      <div class="bf-price-note"><b>за трите парфюма</b> · 3 × 100 ml · само докато трае кампанията</div>
     </div>
 
     <a href="#" class="bf-cta" data-go data-burst>Искам кутията с тайната ➜</a>
@@ -304,10 +313,10 @@
 
   <!-- БЛОК 2 -->
   <section><div class="bf-wrap">
-    <span class="bf-sec-k">Защо е мистерия</span>
-    <h2 class="bf-sec-t">Най-хубавите подаръци <span class="bf-gt">се отварят с усмивка</span></h2>
+    <span class="bf-sec-k">Защо е тайна</span>
+    <h2 class="bf-sec-t">Защото Черният петък <span class="bf-gt">трябва да е вълнуващ</span></h2>
     <div class="bf-quote bf-neon">
-      <p>„Защото най-хубавите подаръци са тези, които отваряш с усмивка.“</p>
+      <p>„Защото Черният петък трябва да е вълнуващ.“</p>
       <p>Избрахме аромат, който харесва на почти всички жени – затова сме спокойни, че ще ти хареса.</p>
     </div>
     <div class="bf-after"><a href="#" class="bf-cta" data-go data-burst>Искам кутията с тайната ➜</a><div class="bf-after-note">27,90 € за трите парфюма · плащаш при получаване</div></div>
@@ -316,13 +325,16 @@
   <!-- БЛОК 3 -->
   <section><div class="bf-wrap">
     <span class="bf-sec-k">Цена</span>
-    <h2 class="bf-sec-t">Трите парфюма за <span class="bf-gt">27,90 €</span></h2>
-    <p class="bf-sec-s">Само докато трае Черният петък.</p>
-    <div class="bf-price-row" style="margin-top:30px !important">
-      <div class="bf-price bf-neon">27,90<small>€</small><span class="bf-badge"><b>3</b>парфюма</span></div>
-      <div class="bf-price-note"><b>Humrah + Eclat Vanilla + скритият бестселър</b> · 3 × 100 ml</div>
+    <h2 class="bf-sec-t">Доплащаш само 9 € <span class="bf-gt">за трети парфюм</span></h2>
+    <p class="bf-sec-s">Комплектът „Той и Тя“ си е 18,90 €. На Черния петък доплащаш само 9 € и взимаш три парфюма за 27,90 €. Само докато трае кампанията.</p>
+    <div class="bf-math bf-neon">
+      <div><small>„Той и Тя“</small><b>18,90 €</b><span>Humrah + Eclat Vanilla</span></div>
+      <i>+</i>
+      <div class="bf-m-red"><small>доплащаш</small><b>9 €</b><span>скритият бестселър</span></div>
+      <i>=</i>
+      <div class="bf-m-tot"><small>3 парфюма</small><b>27,90 €</b><span>3 × 100 ml</span></div>
     </div>
-    <div class="bf-after"><a href="#" class="bf-cta" data-go data-burst>Искам кутията с тайната ➜</a><div class="bf-after-note">Промоцията изтича, когато таймерът стигне нула</div></div>
+    <div class="bf-after"><a href="#" class="bf-cta" data-go data-burst>Искам кутията с тайната ➜</a><div class="bf-after-note">Кампанията изтича, когато таймерът стигне нула</div></div>
   </div></section>
 
   <!-- БЛОК 4 -->
@@ -339,10 +351,10 @@
 
   <!-- БЛОК 5 -->
   <section><div class="bf-wrap">
-    <span class="bf-sec-k">Перфектно за двойка</span>
+    <span class="bf-sec-k">За двама</span>
     <h2 class="bf-sec-t">За него, за нея <span class="bf-gt">и една изненада</span></h2>
     <div class="bf-who">
-      <div class="bf-neon"><i>💑</i><b>За вас двамата</b></div>
+      <div class="bf-neon"><i>💑</i><b>За вас двама</b></div>
       <div class="bf-neon bf-d1"><i>👨‍👩‍👧</i><b>За родителите</b></div>
       <div class="bf-neon bf-d2"><i>🥂</i><b>За приятели</b></div>
     </div>
@@ -379,7 +391,7 @@
     <h2 class="bf-sec-t">Въпроси</h2>
     <div class="bf-faq">
       <details class="bf-q"><summary>Ами ако не ми хареса скритият аромат?</summary><p>Избрахме го точно защото е сред най-обичаните ни аромати.</p></details>
-      <details class="bf-q"><summary>Оригинални ли са?</summary><p>Арабски парфюми с дълготраен аромат, внос, 100 ml всеки.</p></details>
+      <details class="bf-q"><summary>Какви са парфюмите?</summary><p>Арабски парфюми с дълготраен аромат, внос, 100 ml всеки.</p></details>
       <details class="bf-q"><summary>Кога ще пристигне?</summary><p>Обикновено до 1–3 работни дни.</p></details>
       <details class="bf-q"><summary>Как плащам?</summary><p>С наложен платеж – отваряш, проверяваш и чак тогава плащаш на куриера.</p></details>
     </div>
@@ -390,14 +402,14 @@
   <section id="bfFinal"><div class="bf-wrap">
     <div class="bf-final bf-neon">
       <h2>Два аромата знаеш.<br><span class="bf-gt">Третият ще откриеш.</span></h2>
-      <p class="bf-sec-s" style="margin-bottom:6px !important">Humrah, Eclat Vanilla и скритият бестселър – трите за 27,90 €.</p>
+      <p class="bf-sec-s" style="margin-bottom:6px !important">Humrah, Eclat Vanilla и скритият бестселър – трите за 27,90 €. Доплащаш само 9 € за третия.</p>
       <div class="bf-price-row" style="margin:34px 0 22px !important"><div class="bf-price bf-neon bf-d2">27,90<small>€</small><span class="bf-badge"><b>3</b>парфюма</span></div></div>
       <a href="#" class="bf-cta" data-go data-burst>Искам кутията с тайната ➜</a>
     </div>
   </div></section>
 
   <div class="bf-sticky" id="bfSticky">
-    <div class="bf-sp">27,90 €<small>3 парфюма · Черен петък</small></div>
+    <div class="bf-sp">27,90 €<small>3 парфюма · трети подарък</small></div>
     <a href="#" class="bf-cta" data-go data-burst>Искам кутията ➜</a>
   </div>
 </div>
@@ -433,12 +445,12 @@ var BF_END = '';
   if(!reduce){ var h=document.getElementById('bfHero'); for(var i=0;i<18;i++){ var d=document.createElement('span'); d.className='bf-dust';
     d.style.cssText='left:'+(Math.random()*100)+'%;animation-duration:'+(9+Math.random()*10)+'s;animation-delay:'+(-Math.random()*16)+'s'; h.appendChild(d); } }
 
-  /* плик с восъчен печат */
+  /* крафт кутията */
   var env=document.getElementById('bfEnv'), hint=document.getElementById('bfHint'), note=document.getElementById('bfNote'), opened=false;
   function openEnv(){
     if(opened) return; opened=true; env.classList.add('bf-open');
     var r=env.getBoundingClientRect(); burst(r.left+r.width/2, r.top+r.height*.62, ['✦','💥','✧','💛']);
-    setTimeout(function(){ hint.textContent='✦ Печатът е счупен'; hint.classList.add('bf-done');
+    setTimeout(function(){ hint.textContent='✦ Кутията е отворена'; hint.classList.add('bf-done');
       note.innerHTML='Humrah за него, Eclat Vanilla за нея… а третият остава тайна, <b style="color:#fff0c4 !important">докато не отвориш пратката</b>.'; }, reduce?0:1500);
   }
   env.addEventListener('click',openEnv);
