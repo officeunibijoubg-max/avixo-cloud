@@ -1,7 +1,7 @@
 # Правила за фуниите (ConvertBuilder · uni-arabian.eu)
 
 ## Реални отзиви — слагат се във ВСЯКА нова фуния
-- Списъкът е в `funnels/_shared/reviews.json` (12 скрийншота от Facebook/Viber, с текст и размери).
+- Списъкът е в `funnels/_shared/reviews.json` (12 скрийншота от Facebook/Viber, с текст и размери). ВНИМАНИЕ: `.gitignore` игнорира `*.json` – за този файл има изключение.
 - Това са **реални** отзиви от клиенти. Показват се като **снимки (скрийншоти)**, без да се
   преписват, редактират или приписват на конкретен продукт — те са общи за парфюмите.
 - Не се измислят други отзиви, звезди или имена.
@@ -21,4 +21,4 @@
 - Комплектите се описват САМО като комплект — никъде „за шише“, „избери аромат“ и т.н.
 - Thank you: Viber пренасочване след 3 сек (линкът е в `funnels/freeze-in-flames/thank-you-freeze.src.html`).
 - Ъпсел (общ за всички фунии): `funnels/upsell/upsell-dirham.src.html` – светъл; „Да“ натиска скрития widget „Upsell Button“ (`.upsell-positive-action`) и води към `/ty`, „Не“ → `/ty`.
-- Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`, `funnels/men-5/`, `funnels/trio/`.
+- Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`, `funnels/men-5/`, `funnels/trio/`, `funnels/black-friday-mystery/`.
