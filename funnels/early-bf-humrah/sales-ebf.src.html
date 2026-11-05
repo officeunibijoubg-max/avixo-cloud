@@ -25,9 +25,8 @@
 #ebf .ebf-x { position:relative; height:190px; overflow:hidden; margin:0; background:linear-gradient(180deg, transparent 0%, rgba(227,20,43,.30) 50%, transparent 100%); }
 #ebf .ebf-x.ebf-x-hero { height:190px; }
 #ebf .ebf-tape { position:absolute; left:-15%; width:130%; top:50%; height:46px; background:#000; border-top:3px solid #ffd21f; border-bottom:3px solid #ffd21f; display:flex; align-items:center; overflow:hidden; white-space:nowrap; box-shadow:0 10px 28px rgba(0,0,0,.75); }
-#ebf .ebf-t1 { transform:translateY(-50%) rotate(-11deg); z-index:2; }
-#ebf .ebf-t2 { transform:translateY(-50%) rotate(10deg); z-index:1; }
-#ebf .ebf-t2b { transform:translateY(-50%) rotate(10deg); z-index:3; clip-path:inset(0 0 0 50%); }
+#ebf .ebf-t1 { transform:translateY(-50%) rotate(-11deg); z-index:2; box-shadow:0 -6px 18px rgba(0,0,0,.85), 0 14px 26px rgba(0,0,0,.95); }
+#ebf .ebf-t2 { transform:translateY(-50%) rotate(10deg); z-index:1; filter:brightness(.72); }
 #ebf .ebf-run { display:flex; flex:none; align-items:center; gap:18px; padding-left:18px; animation:ebfRun 22s linear infinite; will-change:transform; }
 #ebf .ebf-rev { animation-direction:reverse; animation-duration:26s; }
 #ebf .ebf-run b { font-family:'Oswald',Impact,sans-serif; font-weight:700; font-size:22px; line-height:1; letter-spacing:3px; text-transform:uppercase; color:#ff2d44; }
@@ -64,6 +63,8 @@
 #ebf .ebf-checks div { font-size:15px; color:rgba(245,242,234,.88); padding:4px 0; }
 #ebf .ebf-checks i { color:#ffd21f; font-weight:700; margin-right:10px; }
 #ebf .ebf-heroimg { position:relative; max-width:520px; margin:0 auto 22px; border-radius:20px; overflow:hidden; }
+#ebf .ebf-heroimg img { width:100%; }
+#ebf .ebf-banner { max-width:440px; }
 #ebf .ebf-sticker { position:absolute; top:16px; right:-6px; z-index:3; background:#ffd21f; color:#000; font-family:'Oswald',sans-serif; font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; padding:8px 16px 8px 14px; transform:rotate(6deg); box-shadow:0 8px 20px rgba(0,0,0,.5); }
 #ebf .ebf-sticker2 { position:absolute; bottom:16px; left:-4px; z-index:3; background:#000; border:2px solid #ff2d44; color:#ff2d44; font-family:'Oswald',sans-serif; font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; padding:7px 14px; transform:rotate(-5deg); }
 #ebf .ebf-price { display:flex; justify-content:center; align-items:baseline; gap:12px; flex-wrap:wrap; margin:6px 0 4px; }
@@ -140,7 +141,7 @@
   #ebf .ebf-m.ebf-wide b { font-size:30px; }
   #ebf .ebf-x { height:200px; }
   #ebf .ebf-t1 { transform:translateY(-50%) rotate(-6deg); }
-  #ebf .ebf-t2, #ebf .ebf-t2b { transform:translateY(-50%) rotate(5.5deg); }
+  #ebf .ebf-t2 { transform:translateY(-50%) rotate(5.5deg); }
   #ebf .ebf-tape { height:52px; }
   #ebf .ebf-run b { font-size:26px; }
   #ebf .ebf-run em { font-size:21px; }
@@ -174,11 +175,7 @@
       <div><i>✓</i>Преглед и тест преди плащане</div>
       <div><i>✓</i>Доставка с Еконт до 3 работни дни</div>
     </div>
-    <div class="ebf-heroimg ebf-neon">
-      <div class="ebf-sticker">Black Friday</div>
-      <div class="ebf-sticker2">Ранен старт</div>
-      <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/ac1c93d0-de3d-45d5-97ff-f8cf940f721b-7311927-7788165-8149654.webp?format=webp" alt="Комплект Humrah, Humrah Buni и Humrah Dkhoun">
-    </div>
+    <div class="ebf-heroimg ebf-neon"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/df237be6-1803-416f-875b-f4bfcb31fb29-3874826.png?format=webp" alt="Ранен Черен Петък – Humrah, Humrah Buni и Humrah Dkhoun за 33,90 €" width="1200" height="1200"></div>
     <div class="ebf-price"><b>33,90 €</b><span>за целия комплект</span></div>
     <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта <span>→</span></a>
       <div class="ebf-note">💶 Плащаш при получаване · наложен платеж</div></div>
@@ -206,6 +203,7 @@
   <section class="ebf-sec"><div class="ebf-wrap ebf-c">
     <div class="ebf-eyebrow">Какво получаваш</div>
     <h2>Три парфюма. <span class="ebf-yel">Един комплект.</span></h2>
+    <div class="ebf-heroimg ebf-neon ebf-banner"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/f33632dc-ee7e-40fa-b9c7-bb7585d2f6cf-3874827.png?format=webp" alt="Комплект Humrah + Buni + Dkhoun – Black Friday" width="1200" height="1200" loading="lazy"></div>
     <div class="ebf-chips">
       <span class="ebf-chip">💎 Humrah · тежък и мъжествен</span>
       <span class="ebf-chip">🌿 Buni · дървесен и елегантен</span>
@@ -283,6 +281,7 @@
       <div class="ebf-eyebrow">★ Ранен Черен Петък ★</div>
       <h2>Не чакай <span class="ebf-red">петъка</span></h2>
       <p class="ebf-lead">Humrah · Humrah Buni · Humrah Dkhoun — 3 × 100 ml в един комплект.</p>
+      <div class="ebf-heroimg ebf-neon ebf-banner"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/2e91dc27-5928-4d1a-b9a5-36000ed12a6a-3874826.png?format=webp" alt="Ранен Черен Петък – само 33,90 €" width="1200" height="1200" loading="lazy"></div>
       <div class="ebf-price"><b>33,90 €</b><span>за целия комплект</span></div>
       <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай сега <span>→</span></a>
         <div class="ebf-note">🚚 Еконт · 💶 Наложен платеж · 🔍 Тест преди плащане</div></div>
