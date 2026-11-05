@@ -22,4 +22,5 @@
 - Thank you: Viber пренасочване след 3 сек (линкът е в `funnels/freeze-in-flames/thank-you-freeze.src.html`).
 - Thank you за Черния петък (обща за всички BF оферти): `funnels/early-bf-humrah/thank-you-ebf.src.html`.
 - Ъпсел (общ за всички фунии): `funnels/upsell/upsell-dirham.src.html` – светъл; „Да“ натиска скрития widget „Upsell Button“ (`.upsell-positive-action`) и води към `/ty`, „Не“ → `/ty`.
+- Ъпсел за Черния петък „Продукт изненада 4,50 €“ (общ за BF): `funnels/early-bf-humrah/upsell-surprise.src.html` – същата механика (скрит „Upsell Button“ с продукта изненада).
 - Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`, `funnels/men-5/`, `funnels/trio/`, `funnels/black-friday-mystery/`, `funnels/early-bf-humrah/`.
