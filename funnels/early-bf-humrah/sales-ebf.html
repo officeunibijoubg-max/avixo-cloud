@@ -131,9 +131,6 @@
 
 /* ---------- финал ---------- */
 #ebf .ebf-final { padding:30px 20px !important; text-align:center !important; }
-#ebf .ebf-foot { padding:26px 16px 30px !important; text-align:center !important; border-top:1px solid rgba(255,210,31,.2) !important; }
-#ebf .ebf-foot b { display:block !important; font-family:'Oswald',sans-serif !important; font-size:20px !important; letter-spacing:5px !important; color:#ffd21f !important; }
-#ebf .ebf-foot span { font-size:12px !important; color:rgba(245,242,234,.5) !important; }
 
 /* ---------- залепен бутон (телефон) ---------- */
 #ebf .ebf-sticky { display:none !important; }
@@ -322,8 +319,6 @@
 
   <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div></div>
 
-  <div class="ebf-foot"><b>UNI ARABIAN</b><span>© 2026 · Всички права запазени</span></div>
-
   <div class="ebf-sticky"><a class="ebf-cta" href="https://uni-arabian.eu/checkout-bf-h-b-d" target="_top">Поръчай комплекта · <span>33,90 €</span></a></div>
 </div>
 
@@ -339,6 +334,11 @@
         setTimeout(function(){ if(Math.abs(co.getBoundingClientRect().top)>40) co.scrollIntoView({behavior:'smooth',block:'start'}); },1200); }
     });
   });
+  /* залепеният бутон се скрива, когато чекаутът се вижда на екрана */
+  var st=document.querySelector('#ebf .ebf-sticky');
+  function stick(){ var co=document.querySelector('.widget-checkout'); if(!st||!co) return;
+    var r=co.getBoundingClientRect(); st.style.setProperty('display', (r.top<innerHeight&&r.bottom>0)?'none':'', 'important'); }
+  window.addEventListener('scroll',stick,{passive:true}); setTimeout(stick,1500);
   var r=document.getElementById('ebfRevs'), b=document.getElementById('ebfMore');
   if(r&&b){ b.addEventListener('click',function(){ var o=r.classList.toggle('ebf-open'); b.textContent=o?'Скрий ↑':'Виж още отзиви ↓'; }); }
 })();
