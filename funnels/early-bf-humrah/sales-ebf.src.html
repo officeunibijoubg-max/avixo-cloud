@@ -332,6 +332,16 @@
 
 <script>
 (function(){
+  /* Ако чекаутът е най-долу на същата страница – бутоните плъзгат до него.
+     Ако няма чекаут на страницата – отиват към checkout-bf-h-b-d. */
+  document.querySelectorAll('#ebf a.ebf-cta').forEach(function(a){
+    a.addEventListener('click',function(e){
+      var co=document.querySelector('.ebc')||document.querySelector('.widget-checkout');
+      if(co){ e.preventDefault(); co.scrollIntoView({behavior:'smooth',block:'start'});
+        /* снимките над чекаута се зареждат при скрола и бутат страницата – доизправяме */
+        setTimeout(function(){ if(Math.abs(co.getBoundingClientRect().top)>40) co.scrollIntoView({behavior:'smooth',block:'start'}); },1200); }
+    });
+  });
   var r=document.getElementById('ebfRevs'), b=document.getElementById('ebfMore');
   if(r&&b){ b.addEventListener('click',function(){ var o=r.classList.toggle('ebf-open'); b.textContent=o?'Скрий ↑':'Виж още отзиви ↓'; }); }
 })();
