@@ -1,0 +1,302 @@
+<!-- =====================================================================
+     РАНЕН ЧЕРЕН ПЕТЪК · HUMRAH · BUNI · DKHOUN · ЛЕНДИНГ
+     Слага се в ЕДИН HTML (code) блок. Всички класове са с префикс ebf-.
+     ===================================================================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+#ebf, #ebf *, #ebf *::before, #ebf *::after { box-sizing:border-box !important; }
+#ebf#ebf * { float:none !important; }
+#ebf { --red:#e3142b; --red2:#ff2d44; --red-rgb:227,20,43; --yel:#ffd21f; --yel-rgb:255,210,31; --ink:#0b0b0c; --card:#151517; --text:#f5f2ea; --muted:rgba(245,242,234,.72); display:block !important; width:100% !important; max-width:100% !important; margin:0 !important; padding:0 !important; overflow:hidden !important; position:relative !important; background:radial-gradient(900px 500px at 50% -10%, rgba(227,20,43,.22), transparent 60%), radial-gradient(700px 500px at 110% 40%, rgba(255,210,31,.07), transparent 60%), #0b0b0c !important; color:#f5f2ea !important; font-family:'Golos Text',Arial,sans-serif !important; line-height:1.6 !important; text-align:left !important; -webkit-font-smoothing:antialiased !important; }
+#ebf h1, #ebf h2, #ebf h3, #ebf p, #ebf div, #ebf section, #ebf span, #ebf a, #ebf img, #ebf b, #ebf i, #ebf em, #ebf strong, #ebf details, #ebf summary { margin:0 !important; padding:0 !important; border:0 !important; background:none !important; }
+#ebf i, #ebf em { font-style:normal !important; }
+#ebf img { max-width:100% !important; height:auto !important; display:block !important; }
+#ebf .ebf-wrap { max-width:720px !important; margin:0 auto !important; padding:0 16px !important; position:relative !important; z-index:2 !important; }
+
+/* ---------- горна лента ---------- */
+#ebf .ebf-top { background:linear-gradient(90deg,#9e0b1d,#e3142b,#9e0b1d) !important; border-bottom:2px solid #ffd21f !important; overflow:hidden !important; white-space:nowrap !important; padding:10px 0 !important; position:relative !important; z-index:5 !important; }
+#ebf .ebf-top .ebf-run b { color:#ffd21f !important; }
+#ebf .ebf-top .ebf-run em { color:#fff !important; }
+#ebf .ebf-top .ebf-run i { color:#000 !important; }
+
+/* ---------- кръстосани ленти ---------- */
+#ebf .ebf-x { position:relative !important; height:190px !important; overflow:hidden !important; margin:0 !important; background:linear-gradient(180deg, transparent 0%, rgba(227,20,43,.30) 50%, transparent 100%) !important; }
+#ebf .ebf-x.ebf-x-hero { height:190px !important; }
+#ebf .ebf-tape { position:absolute !important; left:-15% !important; width:130% !important; top:50% !important; height:46px !important; background:#000 !important; border-top:3px solid #ffd21f !important; border-bottom:3px solid #ffd21f !important; display:flex !important; align-items:center !important; overflow:hidden !important; white-space:nowrap !important; box-shadow:0 10px 28px rgba(0,0,0,.75); }
+#ebf .ebf-t1 { transform:translateY(-50%) rotate(-11deg); z-index:2 !important; }
+#ebf .ebf-t2 { transform:translateY(-50%) rotate(10deg); z-index:1 !important; }
+#ebf .ebf-t2b { transform:translateY(-50%) rotate(10deg); z-index:3 !important; clip-path:inset(0 0 0 50%); }
+#ebf .ebf-run { display:flex !important; flex:none !important; align-items:center !important; gap:18px !important; padding-left:18px !important; animation:ebfRun 22s linear infinite !important; will-change:transform !important; }
+#ebf .ebf-rev { animation-direction:reverse !important; animation-duration:26s !important; }
+#ebf .ebf-run b { font-family:'Oswald',Impact,sans-serif !important; font-weight:700 !important; font-size:22px !important; line-height:1 !important; letter-spacing:3px !important; text-transform:uppercase !important; color:#ff2d44 !important; }
+#ebf .ebf-run em { font-family:'Oswald',Impact,sans-serif !important; font-weight:600 !important; font-size:18px !important; line-height:1 !important; letter-spacing:2px !important; text-transform:uppercase !important; color:#ffd21f !important; }
+#ebf .ebf-run i { color:#ffd21f !important; font-size:14px !important; line-height:1 !important; }
+#ebf .ebf-top .ebf-run b, #ebf .ebf-top .ebf-run em { font-size:16px !important; }
+@keyframes ebfRun { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* ---------- общи ---------- */
+#ebf .ebf-sec { padding:26px 0 34px !important; position:relative !important; }
+#ebf .ebf-eyebrow { display:inline-block !important; font-family:'Oswald',sans-serif !important; font-weight:600 !important; font-size:13px !important; letter-spacing:3px !important; text-transform:uppercase !important; color:#000 !important; background:#ffd21f !important; padding:6px 14px !important; border-radius:4px !important; transform:rotate(-2deg); margin-bottom:16px !important; }
+#ebf .ebf-c { text-align:center !important; }
+#ebf h1 { font-family:'Oswald',Impact,sans-serif !important; font-weight:700 !important; font-size:40px !important; line-height:1.08 !important; text-transform:uppercase !important; letter-spacing:.5px !important; color:#fff !important; margin-bottom:16px !important; }
+#ebf h2 { font-family:'Oswald',Impact,sans-serif !important; font-weight:700 !important; font-size:32px !important; line-height:1.12 !important; text-transform:uppercase !important; letter-spacing:.5px !important; color:#fff !important; margin-bottom:12px !important; }
+#ebf .ebf-red { color:#ff2d44 !important; text-shadow:0 0 18px rgba(227,20,43,.55); }
+#ebf .ebf-yel { color:#ffd21f !important; text-shadow:0 0 16px rgba(255,210,31,.4); }
+#ebf .ebf-lead { font-size:16px !important; color:rgba(245,242,234,.8) !important; max-width:560px !important; margin:0 auto 22px !important; }
+#ebf .ebf-lead b { color:#ffd21f !important; font-weight:700 !important; }
+
+/* неонова рамка */
+#ebf .ebf-neon { position:relative !important; background:#151517 !important; border-width:1.5px !important; border-style:solid !important; border-color:rgba(255,210,31,.55); border-radius:18px !important; box-shadow:0 0 18px rgba(255,210,31,.18), 0 0 0 1px rgba(227,20,43,.25) inset; animation:ebfNeon 3.2s ease-in-out infinite !important; }
+@keyframes ebfNeon { 0%,100% { box-shadow:0 0 14px rgba(255,210,31,.16), 0 0 0 1px rgba(227,20,43,.22) inset; border-color:rgba(255,210,31,.5); } 50% { box-shadow:0 0 30px rgba(227,20,43,.45), 0 0 0 1px rgba(255,210,31,.35) inset; border-color:rgba(255,45,68,.85); } }
+
+/* бутон */
+#ebf .ebf-btnw { text-align:center !important; margin-top:26px !important; }
+#ebf a.ebf-cta { display:block !important; width:100% !important; max-width:480px !important; margin:0 auto !important; padding:19px 18px !important; border-radius:14px !important; background:linear-gradient(135deg,#a50b1f,#e3142b 55%,#ff2d44) !important; border-width:2px !important; border-style:solid !important; border-color:#ffd21f; color:#fff !important; text-decoration:none !important; text-align:center !important; font-family:'Oswald',Impact,sans-serif !important; font-weight:700 !important; font-size:20px !important; line-height:1.2 !important; letter-spacing:1.5px !important; text-transform:uppercase !important; white-space:nowrap !important; cursor:pointer !important; animation:ebfPulse 2.2s ease-in-out infinite !important; }
+#ebf a.ebf-cta span { color:#ffd21f !important; }
+@keyframes ebfPulse { 0%,100% { transform:scale(1); box-shadow:0 0 18px rgba(227,20,43,.55), 0 10px 26px rgba(0,0,0,.5); } 50% { transform:scale(1.03); box-shadow:0 0 34px rgba(255,210,31,.55), 0 12px 32px rgba(0,0,0,.55); } }
+#ebf .ebf-note { margin-top:10px !important; font-size:13px !important; color:rgba(245,242,234,.65) !important; text-align:center !important; }
+
+/* ---------- hero ---------- */
+#ebf .ebf-hero { padding:8px 0 34px !important; text-align:center !important; }
+#ebf .ebf-checks { display:inline-block !important; text-align:left !important; margin:0 auto 22px !important; }
+#ebf .ebf-checks div { font-size:15px !important; color:rgba(245,242,234,.88) !important; padding:4px 0 !important; }
+#ebf .ebf-checks i { color:#ffd21f !important; font-weight:700 !important; margin-right:10px !important; }
+#ebf .ebf-heroimg { position:relative !important; max-width:520px !important; margin:0 auto 22px !important; border-radius:20px !important; overflow:hidden !important; }
+#ebf .ebf-sticker { position:absolute !important; top:16px !important; right:-6px !important; z-index:3 !important; background:#ffd21f !important; color:#000 !important; font-family:'Oswald',sans-serif !important; font-weight:700 !important; font-size:14px !important; letter-spacing:2px !important; text-transform:uppercase !important; padding:8px 16px 8px 14px !important; transform:rotate(6deg); box-shadow:0 8px 20px rgba(0,0,0,.5); }
+#ebf .ebf-sticker2 { position:absolute !important; bottom:16px !important; left:-4px !important; z-index:3 !important; background:#000 !important; border-width:2px !important; border-style:solid !important; border-color:#ff2d44; color:#ff2d44 !important; font-family:'Oswald',sans-serif !important; font-weight:700 !important; font-size:14px !important; letter-spacing:2px !important; text-transform:uppercase !important; padding:7px 14px !important; transform:rotate(-5deg); }
+#ebf .ebf-price { display:flex !important; justify-content:center !important; align-items:baseline !important; gap:12px !important; flex-wrap:wrap !important; margin:6px 0 4px !important; }
+#ebf .ebf-price b { font-family:'Oswald',sans-serif !important; font-weight:700 !important; font-size:56px !important; line-height:1 !important; color:#ffd21f !important; text-shadow:0 0 22px rgba(255,210,31,.45); }
+#ebf .ebf-price span { font-family:'Oswald',sans-serif !important; font-size:15px !important; letter-spacing:2px !important; text-transform:uppercase !important; color:#ff2d44 !important; }
+#ebf .ebf-viber { display:inline-flex !important; align-items:center !important; gap:10px !important; margin-top:16px !important; padding:11px 22px !important; border-radius:12px !important; background:linear-gradient(135deg,#7360F2,#6451d8) !important; color:#fff !important; text-decoration:none !important; font-weight:700 !important; font-size:13px !important; letter-spacing:1px !important; text-transform:uppercase !important; }
+#ebf .ebf-viber img { width:18px !important; height:18px !important; }
+
+/* ---------- математика ---------- */
+#ebf .ebf-math { display:grid !important; grid-template-columns:1fr 1fr !important; gap:12px !important; margin-top:18px !important; }
+#ebf .ebf-m { padding:18px 12px !important; text-align:center !important; }
+#ebf .ebf-m small { display:block !important; font-size:12px !important; letter-spacing:2px !important; text-transform:uppercase !important; color:#ff2d44 !important; font-weight:700 !important; margin-bottom:8px !important; }
+#ebf .ebf-m b { display:block !important; font-family:'Oswald',sans-serif !important; font-size:30px !important; line-height:1.05 !important; color:#ffd21f !important; font-weight:700 !important; }
+#ebf .ebf-m.ebf-wide { grid-column:1 / -1 !important; }
+#ebf .ebf-m.ebf-wide b { font-size:50px !important; }
+#ebf .ebf-math-end { margin-top:18px !important; font-size:17px !important; color:#fff !important; text-align:center !important; }
+#ebf .ebf-math-end b { color:#ffd21f !important; }
+
+/* ---------- продукти ---------- */
+#ebf .ebf-chips { display:flex !important; flex-wrap:wrap !important; justify-content:center !important; gap:8px !important; margin-bottom:22px !important; }
+#ebf .ebf-chip { font-size:13px !important; padding:6px 14px !important; border-radius:999px !important; background:#000 !important; border-width:1px !important; border-style:solid !important; border-color:#ffd21f; color:#ffd21f !important; }
+#ebf .ebf-prods { display:grid !important; grid-template-columns:1fr !important; gap:16px !important; }
+#ebf .ebf-prod { padding:22px 20px !important; text-align:center !important; overflow:hidden !important; }
+#ebf .ebf-prod img { width:100% !important; max-width:220px !important; margin:0 auto 14px !important; }
+#ebf .ebf-prod h3 { font-family:'Oswald',sans-serif !important; font-weight:700 !important; font-size:26px !important; text-transform:uppercase !important; color:#ffd21f !important; letter-spacing:1px !important; }
+#ebf .ebf-prod .ebf-tag { display:inline-block !important; margin:4px 0 14px !important; font-size:12px !important; letter-spacing:2px !important; text-transform:uppercase !important; color:#fff !important; background:#e3142b !important; padding:3px 10px !important; border-radius:4px !important; }
+#ebf .ebf-notes { display:inline-block !important; text-align:left !important; font-size:14px !important; color:rgba(245,242,234,.78) !important; line-height:1.8 !important; }
+#ebf .ebf-notes b { color:#fff !important; font-weight:600 !important; }
+#ebf .ebf-notes i { color:#ff2d44 !important; margin-right:6px !important; }
+
+/* ---------- отзиви ---------- */
+#ebf .ebf-revs { display:grid !important; gap:12px !important; margin-top:18px !important; }
+#ebf .ebf-rw { border-radius:12px !important; overflow:hidden !important; border-width:1px !important; border-style:solid !important; border-color:rgba(255,210,31,.35); background:#fff !important; }
+#ebf .ebf-rw img { width:100% !important; height:auto !important; }
+#ebf .ebf-rw.ebf-more { display:none !important; }
+#ebf .ebf-revs.ebf-open .ebf-rw.ebf-more { display:block !important; }
+#ebf .ebf-morebtn { display:block !important; margin:14px auto 0 !important; padding:11px 22px !important; background:#000 !important; color:#ffd21f !important; border-width:1.5px !important; border-style:solid !important; border-color:#ffd21f; border-radius:10px !important; font-family:'Golos Text',sans-serif !important; font-weight:700 !important; font-size:14px !important; cursor:pointer !important; }
+
+/* ---------- сигурност ---------- */
+#ebf .ebf-safe { display:grid !important; grid-template-columns:1fr !important; gap:12px !important; margin-top:18px !important; }
+#ebf .ebf-s { display:flex !important; gap:14px !important; align-items:flex-start !important; padding:16px 18px !important; }
+#ebf .ebf-s .ebf-ic { flex:none !important; width:44px !important; height:44px !important; border-radius:50% !important; background:#e3142b !important; border-width:2px !important; border-style:solid !important; border-color:#ffd21f; display:flex !important; align-items:center !important; justify-content:center !important; font-size:20px !important; }
+#ebf .ebf-s b { display:block !important; color:#fff !important; font-size:16px !important; margin-bottom:2px !important; }
+#ebf .ebf-s span { color:rgba(245,242,234,.72) !important; font-size:14px !important; }
+
+/* ---------- въпроси ---------- */
+#ebf .ebf-faq { display:grid !important; gap:10px !important; margin-top:18px !important; }
+#ebf .ebf-faq details { padding:16px 18px !important; border-radius:14px !important; background:#151517 !important; border-width:1px !important; border-style:solid !important; border-color:rgba(255,210,31,.3); }
+#ebf .ebf-faq summary { cursor:pointer !important; list-style:none !important; font-weight:700 !important; color:#fff !important; font-size:15px !important; display:flex !important; justify-content:space-between !important; gap:10px !important; }
+#ebf .ebf-faq summary::-webkit-details-marker { display:none !important; }
+#ebf .ebf-faq summary::after { content:'+' !important; color:#ffd21f !important; font-size:20px !important; line-height:1 !important; }
+#ebf .ebf-faq details[open] summary::after { content:'–' !important; }
+#ebf .ebf-faq p { margin-top:10px !important; font-size:14px !important; color:rgba(245,242,234,.75) !important; }
+
+/* ---------- финал ---------- */
+#ebf .ebf-final { padding:30px 20px !important; text-align:center !important; }
+#ebf .ebf-foot { padding:26px 16px 30px !important; text-align:center !important; border-top:1px solid rgba(255,210,31,.2) !important; }
+#ebf .ebf-foot b { display:block !important; font-family:'Oswald',sans-serif !important; font-size:20px !important; letter-spacing:5px !important; color:#ffd21f !important; }
+#ebf .ebf-foot span { font-size:12px !important; color:rgba(245,242,234,.5) !important; }
+
+/* ---------- залепен бутон (телефон) ---------- */
+#ebf .ebf-sticky { display:none !important; }
+@media (max-width:768px) {
+  #ebf { padding-bottom:84px !important; }
+  #ebf .ebf-sticky { display:block !important; position:fixed !important; left:0 !important; right:0 !important; bottom:0 !important; z-index:999 !important; padding:10px 12px calc(10px + env(safe-area-inset-bottom)) !important; background:rgba(0,0,0,.94) !important; border-top:2px solid #ffd21f !important; }
+  #ebf .ebf-sticky a.ebf-cta { font-size:17px !important; padding:15px 12px !important; animation:none !important; }
+}
+@media (min-width:720px) {
+  #ebf h1 { font-size:54px !important; }
+  #ebf h2 { font-size:40px !important; }
+  #ebf .ebf-prods { grid-template-columns:1fr 1fr 1fr !important; }
+  #ebf .ebf-math { grid-template-columns:1fr 1fr 1fr !important; }
+  #ebf .ebf-m.ebf-wide { grid-column:auto !important; }
+  #ebf .ebf-m.ebf-wide b { font-size:30px !important; }
+  #ebf .ebf-x { height:200px !important; }
+  #ebf .ebf-t1 { transform:translateY(-50%) rotate(-6deg); }
+  #ebf .ebf-t2, #ebf .ebf-t2b { transform:translateY(-50%) rotate(5.5deg); }
+  #ebf .ebf-tape { height:52px !important; }
+  #ebf .ebf-run b { font-size:26px !important; }
+  #ebf .ebf-run em { font-size:21px !important; }
+}
+@media (max-width:420px) {
+  #ebf h1 { font-size:34px !important; }
+  #ebf h2 { font-size:28px !important; }
+  #ebf a.ebf-cta { font-size:17px !important; letter-spacing:.8px !important; padding:18px 10px !important; }
+  #ebf .ebf-price b { font-size:50px !important; }
+}
+</style>
+
+<div id="ebf">
+
+  <!-- ГОРНА ЛЕНТА -->
+  <div class="ebf-top" aria-label="Ранен Черен Петък"><div class="ebf-run">
+    <b>Ранен Черен Петък</b><i>●</i><em>33,90 € за 3 парфюма</em><i>●</i><b>Плащаш при получаване</b><i>●</i><b>Ранен Черен Петък</b><i>●</i><em>33,90 € за 3 парфюма</em><i>●</i><b>Плащаш при получаване</b><i>●</i><b>Ранен Черен Петък</b><i>●</i><em>33,90 € за 3 парфюма</em><i>●</i><b>Плащаш при получаване</b><i>●</i><b>Ранен Черен Петък</b><i>●</i><em>33,90 € за 3 парфюма</em><i>●</i><b>Плащаш при получаване</b><i>●</i><b>Ранен Черен Петък</b><i>●</i><em>33,90 € за 3 парфюма</em><i>●</i><b>Плащаш при получаване</b><i>●</i><b>Ранен Черен Петък</b><i>●</i><em>33,90 € за 3 парфюма</em><i>●</i><b>Плащаш при получаване</b><i>●</i>
+  </div></div>
+
+  <!-- КРЪСТОСАНИ ЛЕНТИ -->
+  <div class="ebf-x ebf-x-hero" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <!-- HERO -->
+  <section class="ebf-hero"><div class="ebf-wrap">
+    <div class="ebf-eyebrow">★ Ранен Черен Петък ★</div>
+    <h1>Три арабски парфюма.<br><span class="ebf-yel">3 × 100 ml</span> = 300 ml.<br><span class="ebf-red">Под 34 €.</span></h1>
+    <p class="ebf-lead">Черният петък започва по-рано. Humrah, Humrah Buni и Humrah Dkhoun в един комплект — <b>около 900 пръскания</b> по <b>0,04 €</b> и <b>12+ часа</b> издръжливост.</p>
+    <div class="ebf-checks">
+      <div><i>✓</i>12+ часа издръжливост</div>
+      <div><i>✓</i>Три мъжки арабски аромата по 100 ml</div>
+      <div><i>✓</i>Преглед и тест преди плащане</div>
+      <div><i>✓</i>Доставка с Еконт до 3 работни дни</div>
+    </div>
+    <div class="ebf-heroimg ebf-neon">
+      <div class="ebf-sticker">Black Friday</div>
+      <div class="ebf-sticker2">Ранен старт</div>
+      <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/ac1c93d0-de3d-45d5-97ff-f8cf940f721b-7311927-7788165-8149654.webp?format=webp" alt="Комплект Humrah, Humrah Buni и Humrah Dkhoun">
+    </div>
+    <div class="ebf-price"><b>33,90 €</b><span>за целия комплект</span></div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта <span>→</span></a>
+      <div class="ebf-note">💶 Плащаш при получаване · наложен платеж</div></div>
+    <a class="ebf-viber" href="viber://chat?number=+359882667532" target="_top"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/%D0%BF%D0%B0%D1%80%D1%84%D1%8E%D0%BC%D0%B8_68-7309953.png?format=webp" alt="">Поръчай във Viber</a>
+  </div></section>
+
+  <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <!-- МАТЕМАТИКАТА -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Прозрачна сметка</div>
+    <h2>Математиката на <span class="ebf-red">Черния петък</span></h2>
+    <div class="ebf-math">
+      <div class="ebf-m ebf-neon"><small>3 парфюма × 100 ml</small><b>= 300 ml</b></div>
+      <div class="ebf-m ebf-neon"><small>≈ 900 пръскания</small><b>0,04 € всяко</b></div>
+      <div class="ebf-m ebf-neon ebf-wide"><small>Общо за комплекта</small><b>33,90 €</b></div>
+    </div>
+    <p class="ebf-math-end">Това е около <b>11 € за 100 ml</b> аромат.</p>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Взимам комплекта <span>→</span></a></div>
+  </div></section>
+
+  <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <!-- ПРОДУКТИ -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Какво получаваш</div>
+    <h2>Три парфюма. <span class="ebf-yel">Един комплект.</span></h2>
+    <div class="ebf-chips">
+      <span class="ebf-chip">💎 Humrah · тежък и мъжествен</span>
+      <span class="ebf-chip">🌿 Buni · дървесен и елегантен</span>
+      <span class="ebf-chip">🖤 Dkhoun · тъмен и мистериозен</span>
+    </div>
+    <div class="ebf-prods">
+      <div class="ebf-prod ebf-neon">
+        <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/e6e674fd-f9d3-4086-bef2-cf0fa667d47e-8150812.png?format=webp" alt="Humrah" loading="lazy">
+        <h3>Humrah</h3><span class="ebf-tag">100 ml · за деня</span><br>
+        <div class="ebf-notes"><i>◆</i><b>Връх</b> — карамел, ванилия<br><i>◆</i><b>Сърце</b> — кожени нюанси, дървесни акорди<br><i>◆</i><b>База</b> — ориенталска сладост, топли смоли</div>
+      </div>
+      <div class="ebf-prod ebf-neon">
+        <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/6d2f1611-b573-41c1-a920-69c4e0818520-8150811.png?format=webp" alt="Humrah Buni" loading="lazy">
+        <h3>Humrah Buni</h3><span class="ebf-tag">100 ml · за вечерта</span><br>
+        <div class="ebf-notes"><i>◆</i><b>Връх</b> — карамел, ориенталски подправки<br><i>◆</i><b>Сърце</b> — дървесни тонове, кожа<br><i>◆</i><b>База</b> — ванилия, смоли, топла сладост</div>
+      </div>
+      <div class="ebf-prod ebf-neon">
+        <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/59bcbb9c-0764-4a7b-8fc5-1ea4cc3d9034-8150811.png?format=webp" alt="Humrah Dkhoun" loading="lazy">
+        <h3>Humrah Dkhoun</h3><span class="ebf-tag">100 ml · за специални моменти</span><br>
+        <div class="ebf-notes"><i>◆</i><b>Връх</b> — пименто, подправки, мандарина<br><i>◆</i><b>Сърце</b> — лабданум, тамян, пачули, портокалов цвят<br><i>◆</i><b>База</b> — тютюн, пралина, тонка, кехлибар, бензоин</div>
+      </div>
+    </div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Искам трите <span>→</span></a></div>
+  </div></section>
+
+  <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <!-- ОТЗИВИ -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Реални съобщения</div>
+    <h2>Какво казват <span class="ebf-yel">клиентите</span></h2>
+    <p class="ebf-lead">Скрийншоти от съобщения, които сме получили от клиенти във Facebook и Viber.</p>
+    <div class="ebf-revs" id="ebfRevs">
+      <div class="ebf-rw"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-45-079-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="256" loading="lazy"></div><div class="ebf-rw"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-20-08-854-5668174.png?format=webp" alt="Отзив от клиент" width="697" height="224" loading="lazy"></div><div class="ebf-rw"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-21-49-673-5668174.png?format=webp" alt="Отзив от клиент" width="734" height="291" loading="lazy"></div><div class="ebf-rw"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2025-12-14_01-21-50-191-5668175.png?format=webp" alt="Отзив от клиент" width="700" height="229" loading="lazy"></div><div class="ebf-rw"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-236-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="320" loading="lazy"></div><div class="ebf-rw ebf-more"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-27-05-431-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="306" loading="lazy"></div><div class="ebf-rw ebf-more"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-125-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="264" loading="lazy"></div><div class="ebf-rw ebf-more"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-681-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="271" loading="lazy"></div><div class="ebf-rw ebf-more"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-885-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="249" loading="lazy"></div><div class="ebf-rw ebf-more"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-500-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="333" loading="lazy"></div><div class="ebf-rw ebf-more"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-44-303-1542351.jpg?format=webp" alt="Отзив от клиент" width="1320" height="245" loading="lazy"></div><div class="ebf-rw ebf-more"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/viber_%D0%B8%D0%B7%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5_2026-10-09_13-29-45-270-1542352.jpg?format=webp" alt="Отзив от клиент" width="1186" height="284" loading="lazy"></div>
+    </div>
+    <button type="button" class="ebf-morebtn" id="ebfMore">Виж още отзиви ↓</button>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта <span>→</span></a></div>
+  </div></section>
+
+  <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <!-- СИГУРНОСТ -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Без риск</div>
+    <h2>Плащаш <span class="ebf-red">чак накрая</span></h2>
+    <div class="ebf-safe">
+      <div class="ebf-s ebf-neon"><div class="ebf-ic">💶</div><div><b>Наложен платеж</b><span>Без карта и без предплащане. Плащаш на куриера, когато получиш пратката.</span></div></div>
+      <div class="ebf-s ebf-neon"><div class="ebf-ic">🔍</div><div><b>Преглед и тест преди плащане</b><span>Отваряш пратката пред куриера и пробваш ароматите.</span></div></div>
+      <div class="ebf-s ebf-neon"><div class="ebf-ic">🚚</div><div><b>Еконт до офис или адрес</b><span>Доставка до 3 работни дни в цяла България.</span></div></div>
+    </div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай без риск <span>→</span></a></div>
+  </div></section>
+
+  <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <!-- ВЪПРОСИ -->
+  <section class="ebf-sec"><div class="ebf-wrap">
+    <div class="ebf-c"><div class="ebf-eyebrow">Въпроси</div>
+    <h2>Най-важното <span class="ebf-yel">накратко</span></h2></div>
+    <div class="ebf-faq">
+      <details><summary>Колко време отнема доставката?</summary><p>До 3 работни дни в цяла България.</p></details>
+      <details><summary>С кой куриер доставяте?</summary><p>С Еконт Експрес — до офис или до адрес.</p></details>
+      <details><summary>Колко са трайни парфюмите?</summary><p>12+ часа издръжливост (в зависимост от типа кожа и средата).</p></details>
+      <details><summary>Подходящ ли е комплектът за подарък?</summary><p>Да — три мъжки парфюма в една пратка, чудесен подарък за мъж.</p></details>
+      <details><summary>Има ли тест и преглед?</summary><p>Да. Имаш право на преглед и тест пред куриера преди плащане.</p></details>
+    </div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта <span>→</span></a></div>
+  </div></section>
+
+  <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <!-- ФИНАЛ -->
+  <section class="ebf-sec"><div class="ebf-wrap">
+    <div class="ebf-final ebf-neon">
+      <div class="ebf-eyebrow">★ Ранен Черен Петък ★</div>
+      <h2>Не чакай <span class="ebf-red">петъка</span></h2>
+      <p class="ebf-lead">Humrah · Humrah Buni · Humrah Dkhoun — 3 × 100 ml в един комплект.</p>
+      <div class="ebf-price"><b>33,90 €</b><span>за целия комплект</span></div>
+      <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай сега <span>→</span></a>
+        <div class="ebf-note">🚚 Еконт · 💶 Наложен платеж · 🔍 Тест преди плащане</div></div>
+      <a class="ebf-viber" href="viber://chat?number=+359882667532" target="_top"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/%D0%BF%D0%B0%D1%80%D1%84%D1%8E%D0%BC%D0%B8_68-7309953.png?format=webp" alt="">Поръчай във Viber</a>
+    </div>
+  </div></section>
+
+  <div class="ebf-x" aria-hidden="true"><div class="ebf-tape ebf-t2"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div><div class="ebf-tape ebf-t1"><div class="ebf-run"><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i><b>Black Friday</b><i>★</i><em>Ранен Черен Петък</em><i>★</i></div></div><div class="ebf-tape ebf-t2b"><div class="ebf-run ebf-rev"><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i><em>Ранен Черен Петък</em><i>✦</i><b>Black Friday</b><i>✦</i></div></div></div>
+
+  <div class="ebf-foot"><b>UNI ARABIAN</b><span>© 2026 · Всички права запазени</span></div>
+
+  <div class="ebf-sticky"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта · <span>33,90 €</span></a></div>
+</div>
+
+<script>
+(function(){
+  var r=document.getElementById('ebfRevs'), b=document.getElementById('ebfMore');
+  if(r&&b){ b.addEventListener('click',function(){ var o=r.classList.toggle('ebf-open'); b.textContent=o?'Скрий ↑':'Виж още отзиви ↓'; }); }
+})();
+</script>

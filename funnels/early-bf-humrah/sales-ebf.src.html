@@ -1,0 +1,305 @@
+<!-- =====================================================================
+     РАНЕН ЧЕРЕН ПЕТЪК · HUMRAH · BUNI · DKHOUN · ЛЕНДИНГ
+     Слага се в ЕДИН HTML (code) блок. Всички класове са с префикс ebf-.
+     ===================================================================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+#ebf, #ebf *, #ebf *::before, #ebf *::after { box-sizing:border-box; }
+#ebf#ebf * { float:none; }
+#ebf { --red:#e3142b; --red2:#ff2d44; --red-rgb:227,20,43; --yel:#ffd21f; --yel-rgb:255,210,31; --ink:#0b0b0c; --card:#151517; --text:#f5f2ea; --muted:rgba(245,242,234,.72);
+  display:block; width:100%; max-width:100%; margin:0; padding:0; overflow:hidden; position:relative;
+  background:radial-gradient(900px 500px at 50% -10%, rgba(227,20,43,.22), transparent 60%), radial-gradient(700px 500px at 110% 40%, rgba(255,210,31,.07), transparent 60%), #0b0b0c;
+  color:#f5f2ea; font-family:'Golos Text',Arial,sans-serif; line-height:1.6; text-align:left; -webkit-font-smoothing:antialiased; }
+#ebf h1, #ebf h2, #ebf h3, #ebf p, #ebf div, #ebf section, #ebf span, #ebf a, #ebf img, #ebf b, #ebf i, #ebf em, #ebf strong, #ebf details, #ebf summary { margin:0; padding:0; border:0; background:none; }
+#ebf i, #ebf em { font-style:normal; }
+#ebf img { max-width:100%; height:auto; display:block; }
+#ebf .ebf-wrap { max-width:720px; margin:0 auto; padding:0 16px; position:relative; z-index:2; }
+
+/* ---------- горна лента ---------- */
+#ebf .ebf-top { background:linear-gradient(90deg,#9e0b1d,#e3142b,#9e0b1d); border-bottom:2px solid #ffd21f; overflow:hidden; white-space:nowrap; padding:10px 0; position:relative; z-index:5; }
+#ebf .ebf-top .ebf-run b { color:#ffd21f; }
+#ebf .ebf-top .ebf-run em { color:#fff; }
+#ebf .ebf-top .ebf-run i { color:#000; }
+
+/* ---------- кръстосани ленти ---------- */
+#ebf .ebf-x { position:relative; height:190px; overflow:hidden; margin:0; background:linear-gradient(180deg, transparent 0%, rgba(227,20,43,.30) 50%, transparent 100%); }
+#ebf .ebf-x.ebf-x-hero { height:190px; }
+#ebf .ebf-tape { position:absolute; left:-15%; width:130%; top:50%; height:46px; background:#000; border-top:3px solid #ffd21f; border-bottom:3px solid #ffd21f; display:flex; align-items:center; overflow:hidden; white-space:nowrap; box-shadow:0 10px 28px rgba(0,0,0,.75); }
+#ebf .ebf-t1 { transform:translateY(-50%) rotate(-11deg); z-index:2; }
+#ebf .ebf-t2 { transform:translateY(-50%) rotate(10deg); z-index:1; }
+#ebf .ebf-t2b { transform:translateY(-50%) rotate(10deg); z-index:3; clip-path:inset(0 0 0 50%); }
+#ebf .ebf-run { display:flex; flex:none; align-items:center; gap:18px; padding-left:18px; animation:ebfRun 22s linear infinite; will-change:transform; }
+#ebf .ebf-rev { animation-direction:reverse; animation-duration:26s; }
+#ebf .ebf-run b { font-family:'Oswald',Impact,sans-serif; font-weight:700; font-size:22px; line-height:1; letter-spacing:3px; text-transform:uppercase; color:#ff2d44; }
+#ebf .ebf-run em { font-family:'Oswald',Impact,sans-serif; font-weight:600; font-size:18px; line-height:1; letter-spacing:2px; text-transform:uppercase; color:#ffd21f; }
+#ebf .ebf-run i { color:#ffd21f; font-size:14px; line-height:1; }
+#ebf .ebf-top .ebf-run b, #ebf .ebf-top .ebf-run em { font-size:16px; }
+@keyframes ebfRun { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* ---------- общи ---------- */
+#ebf .ebf-sec { padding:26px 0 34px; position:relative; }
+#ebf .ebf-eyebrow { display:inline-block; font-family:'Oswald',sans-serif; font-weight:600; font-size:13px; letter-spacing:3px; text-transform:uppercase; color:#000; background:#ffd21f; padding:6px 14px; border-radius:4px; transform:rotate(-2deg); margin-bottom:16px; }
+#ebf .ebf-c { text-align:center; }
+#ebf h1 { font-family:'Oswald',Impact,sans-serif; font-weight:700; font-size:40px; line-height:1.08; text-transform:uppercase; letter-spacing:.5px; color:#fff; margin-bottom:16px; }
+#ebf h2 { font-family:'Oswald',Impact,sans-serif; font-weight:700; font-size:32px; line-height:1.12; text-transform:uppercase; letter-spacing:.5px; color:#fff; margin-bottom:12px; }
+#ebf .ebf-red { color:#ff2d44; text-shadow:0 0 18px rgba(227,20,43,.55); }
+#ebf .ebf-yel { color:#ffd21f; text-shadow:0 0 16px rgba(255,210,31,.4); }
+#ebf .ebf-lead { font-size:16px; color:rgba(245,242,234,.8); max-width:560px; margin:0 auto 22px; }
+#ebf .ebf-lead b { color:#ffd21f; font-weight:700; }
+
+/* неонова рамка */
+#ebf .ebf-neon { position:relative; background:#151517; border:1.5px solid rgba(255,210,31,.55); border-radius:18px; box-shadow:0 0 18px rgba(255,210,31,.18), 0 0 0 1px rgba(227,20,43,.25) inset; animation:ebfNeon 3.2s ease-in-out infinite; }
+@keyframes ebfNeon { 0%,100% { box-shadow:0 0 14px rgba(255,210,31,.16), 0 0 0 1px rgba(227,20,43,.22) inset; border-color:rgba(255,210,31,.5); } 50% { box-shadow:0 0 30px rgba(227,20,43,.45), 0 0 0 1px rgba(255,210,31,.35) inset; border-color:rgba(255,45,68,.85); } }
+
+/* бутон */
+#ebf .ebf-btnw { text-align:center; margin-top:26px; }
+#ebf a.ebf-cta { display:block; width:100%; max-width:480px; margin:0 auto; padding:19px 18px; border-radius:14px; background:linear-gradient(135deg,#a50b1f,#e3142b 55%,#ff2d44); border:2px solid #ffd21f; color:#fff; text-decoration:none; text-align:center; font-family:'Oswald',Impact,sans-serif; font-weight:700; font-size:20px; line-height:1.2; letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap; cursor:pointer; animation:ebfPulse 2.2s ease-in-out infinite; }
+#ebf a.ebf-cta span { color:#ffd21f; }
+@keyframes ebfPulse { 0%,100% { transform:scale(1); box-shadow:0 0 18px rgba(227,20,43,.55), 0 10px 26px rgba(0,0,0,.5); } 50% { transform:scale(1.03); box-shadow:0 0 34px rgba(255,210,31,.55), 0 12px 32px rgba(0,0,0,.55); } }
+#ebf .ebf-note { margin-top:10px; font-size:13px; color:rgba(245,242,234,.65); text-align:center; }
+
+/* ---------- hero ---------- */
+#ebf .ebf-hero { padding:8px 0 34px; text-align:center; }
+#ebf .ebf-checks { display:inline-block; text-align:left; margin:0 auto 22px; }
+#ebf .ebf-checks div { font-size:15px; color:rgba(245,242,234,.88); padding:4px 0; }
+#ebf .ebf-checks i { color:#ffd21f; font-weight:700; margin-right:10px; }
+#ebf .ebf-heroimg { position:relative; max-width:520px; margin:0 auto 22px; border-radius:20px; overflow:hidden; }
+#ebf .ebf-sticker { position:absolute; top:16px; right:-6px; z-index:3; background:#ffd21f; color:#000; font-family:'Oswald',sans-serif; font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; padding:8px 16px 8px 14px; transform:rotate(6deg); box-shadow:0 8px 20px rgba(0,0,0,.5); }
+#ebf .ebf-sticker2 { position:absolute; bottom:16px; left:-4px; z-index:3; background:#000; border:2px solid #ff2d44; color:#ff2d44; font-family:'Oswald',sans-serif; font-weight:700; font-size:14px; letter-spacing:2px; text-transform:uppercase; padding:7px 14px; transform:rotate(-5deg); }
+#ebf .ebf-price { display:flex; justify-content:center; align-items:baseline; gap:12px; flex-wrap:wrap; margin:6px 0 4px; }
+#ebf .ebf-price b { font-family:'Oswald',sans-serif; font-weight:700; font-size:56px; line-height:1; color:#ffd21f; text-shadow:0 0 22px rgba(255,210,31,.45); }
+#ebf .ebf-price span { font-family:'Oswald',sans-serif; font-size:15px; letter-spacing:2px; text-transform:uppercase; color:#ff2d44; }
+#ebf .ebf-viber { display:inline-flex; align-items:center; gap:10px; margin-top:16px; padding:11px 22px; border-radius:12px; background:linear-gradient(135deg,#7360F2,#6451d8); color:#fff; text-decoration:none; font-weight:700; font-size:13px; letter-spacing:1px; text-transform:uppercase; }
+#ebf .ebf-viber img { width:18px; height:18px; }
+
+/* ---------- математика ---------- */
+#ebf .ebf-math { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:18px; }
+#ebf .ebf-m { padding:18px 12px; text-align:center; }
+#ebf .ebf-m small { display:block; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#ff2d44; font-weight:700; margin-bottom:8px; }
+#ebf .ebf-m b { display:block; font-family:'Oswald',sans-serif; font-size:30px; line-height:1.05; color:#ffd21f; font-weight:700; }
+#ebf .ebf-m.ebf-wide { grid-column:1 / -1; }
+#ebf .ebf-m.ebf-wide b { font-size:50px; }
+#ebf .ebf-math-end { margin-top:18px; font-size:17px; color:#fff; text-align:center; }
+#ebf .ebf-math-end b { color:#ffd21f; }
+
+/* ---------- продукти ---------- */
+#ebf .ebf-chips { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-bottom:22px; }
+#ebf .ebf-chip { font-size:13px; padding:6px 14px; border-radius:999px; background:#000; border:1px solid #ffd21f; color:#ffd21f; }
+#ebf .ebf-prods { display:grid; grid-template-columns:1fr; gap:16px; }
+#ebf .ebf-prod { padding:22px 20px; text-align:center; overflow:hidden; }
+#ebf .ebf-prod img { width:100%; max-width:220px; margin:0 auto 14px; }
+#ebf .ebf-prod h3 { font-family:'Oswald',sans-serif; font-weight:700; font-size:26px; text-transform:uppercase; color:#ffd21f; letter-spacing:1px; }
+#ebf .ebf-prod .ebf-tag { display:inline-block; margin:4px 0 14px; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#fff; background:#e3142b; padding:3px 10px; border-radius:4px; }
+#ebf .ebf-notes { display:inline-block; text-align:left; font-size:14px; color:rgba(245,242,234,.78); line-height:1.8; }
+#ebf .ebf-notes b { color:#fff; font-weight:600; }
+#ebf .ebf-notes i { color:#ff2d44; margin-right:6px; }
+
+/* ---------- отзиви ---------- */
+#ebf .ebf-revs { display:grid; gap:12px; margin-top:18px; }
+#ebf .ebf-rw { border-radius:12px; overflow:hidden; border:1px solid rgba(255,210,31,.35); background:#fff; }
+#ebf .ebf-rw img { width:100%; height:auto; }
+#ebf .ebf-rw.ebf-more { display:none; }
+#ebf .ebf-revs.ebf-open .ebf-rw.ebf-more { display:block; }
+#ebf .ebf-morebtn { display:block; margin:14px auto 0; padding:11px 22px; background:#000; color:#ffd21f; border:1.5px solid #ffd21f; border-radius:10px; font-family:'Golos Text',sans-serif; font-weight:700; font-size:14px; cursor:pointer; }
+
+/* ---------- сигурност ---------- */
+#ebf .ebf-safe { display:grid; grid-template-columns:1fr; gap:12px; margin-top:18px; }
+#ebf .ebf-s { display:flex; gap:14px; align-items:flex-start; padding:16px 18px; }
+#ebf .ebf-s .ebf-ic { flex:none; width:44px; height:44px; border-radius:50%; background:#e3142b; border:2px solid #ffd21f; display:flex; align-items:center; justify-content:center; font-size:20px; }
+#ebf .ebf-s b { display:block; color:#fff; font-size:16px; margin-bottom:2px; }
+#ebf .ebf-s span { color:rgba(245,242,234,.72); font-size:14px; }
+
+/* ---------- въпроси ---------- */
+#ebf .ebf-faq { display:grid; gap:10px; margin-top:18px; }
+#ebf .ebf-faq details { padding:16px 18px; border-radius:14px; background:#151517; border:1px solid rgba(255,210,31,.3); }
+#ebf .ebf-faq summary { cursor:pointer; list-style:none; font-weight:700; color:#fff; font-size:15px; display:flex; justify-content:space-between; gap:10px; }
+#ebf .ebf-faq summary::-webkit-details-marker { display:none; }
+#ebf .ebf-faq summary::after { content:'+'; color:#ffd21f; font-size:20px; line-height:1; }
+#ebf .ebf-faq details[open] summary::after { content:'–'; }
+#ebf .ebf-faq p { margin-top:10px; font-size:14px; color:rgba(245,242,234,.75); }
+
+/* ---------- финал ---------- */
+#ebf .ebf-final { padding:30px 20px; text-align:center; }
+#ebf .ebf-foot { padding:26px 16px 30px; text-align:center; border-top:1px solid rgba(255,210,31,.2); }
+#ebf .ebf-foot b { display:block; font-family:'Oswald',sans-serif; font-size:20px; letter-spacing:5px; color:#ffd21f; }
+#ebf .ebf-foot span { font-size:12px; color:rgba(245,242,234,.5); }
+
+/* ---------- залепен бутон (телефон) ---------- */
+#ebf .ebf-sticky { display:none; }
+@media (max-width:768px) {
+  #ebf { padding-bottom:84px; }
+  #ebf .ebf-sticky { display:block; position:fixed; left:0; right:0; bottom:0; z-index:999; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:rgba(0,0,0,.94); border-top:2px solid #ffd21f; }
+  #ebf .ebf-sticky a.ebf-cta { font-size:17px; padding:15px 12px; animation:none; }
+}
+@media (min-width:720px) {
+  #ebf h1 { font-size:54px; }
+  #ebf h2 { font-size:40px; }
+  #ebf .ebf-prods { grid-template-columns:1fr 1fr 1fr; }
+  #ebf .ebf-math { grid-template-columns:1fr 1fr 1fr; }
+  #ebf .ebf-m.ebf-wide { grid-column:auto; }
+  #ebf .ebf-m.ebf-wide b { font-size:30px; }
+  #ebf .ebf-x { height:200px; }
+  #ebf .ebf-t1 { transform:translateY(-50%) rotate(-6deg); }
+  #ebf .ebf-t2, #ebf .ebf-t2b { transform:translateY(-50%) rotate(5.5deg); }
+  #ebf .ebf-tape { height:52px; }
+  #ebf .ebf-run b { font-size:26px; }
+  #ebf .ebf-run em { font-size:21px; }
+}
+@media (max-width:420px) {
+  #ebf h1 { font-size:34px; }
+  #ebf h2 { font-size:28px; }
+  #ebf a.ebf-cta { font-size:17px; letter-spacing:.8px; padding:18px 10px; }
+  #ebf .ebf-price b { font-size:50px; }
+}
+</style>
+
+<div id="ebf">
+
+  <!-- ГОРНА ЛЕНТА -->
+  <div class="ebf-top" aria-label="Ранен Черен Петък"><div class="ebf-run">
+    <!--TOPRUN-->
+  </div></div>
+
+  <!-- КРЪСТОСАНИ ЛЕНТИ -->
+  <!--TAPES:hero-->
+
+  <!-- HERO -->
+  <section class="ebf-hero"><div class="ebf-wrap">
+    <div class="ebf-eyebrow">★ Ранен Черен Петък ★</div>
+    <h1>Три арабски парфюма.<br><span class="ebf-yel">3 × 100 ml</span> = 300 ml.<br><span class="ebf-red">Под 34 €.</span></h1>
+    <p class="ebf-lead">Черният петък започва по-рано. Humrah, Humrah Buni и Humrah Dkhoun в един комплект — <b>около 900 пръскания</b> по <b>0,04 €</b> и <b>12+ часа</b> издръжливост.</p>
+    <div class="ebf-checks">
+      <div><i>✓</i>12+ часа издръжливост</div>
+      <div><i>✓</i>Три мъжки арабски аромата по 100 ml</div>
+      <div><i>✓</i>Преглед и тест преди плащане</div>
+      <div><i>✓</i>Доставка с Еконт до 3 работни дни</div>
+    </div>
+    <div class="ebf-heroimg ebf-neon">
+      <div class="ebf-sticker">Black Friday</div>
+      <div class="ebf-sticker2">Ранен старт</div>
+      <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/ac1c93d0-de3d-45d5-97ff-f8cf940f721b-7311927-7788165-8149654.webp?format=webp" alt="Комплект Humrah, Humrah Buni и Humrah Dkhoun">
+    </div>
+    <div class="ebf-price"><b>33,90 €</b><span>за целия комплект</span></div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта <span>→</span></a>
+      <div class="ebf-note">💶 Плащаш при получаване · наложен платеж</div></div>
+    <a class="ebf-viber" href="viber://chat?number=+359882667532" target="_top"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/%D0%BF%D0%B0%D1%80%D1%84%D1%8E%D0%BC%D0%B8_68-7309953.png?format=webp" alt="">Поръчай във Viber</a>
+  </div></section>
+
+  <!--TAPES:a-->
+
+  <!-- МАТЕМАТИКАТА -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Прозрачна сметка</div>
+    <h2>Математиката на <span class="ebf-red">Черния петък</span></h2>
+    <div class="ebf-math">
+      <div class="ebf-m ebf-neon"><small>3 парфюма × 100 ml</small><b>= 300 ml</b></div>
+      <div class="ebf-m ebf-neon"><small>≈ 900 пръскания</small><b>0,04 € всяко</b></div>
+      <div class="ebf-m ebf-neon ebf-wide"><small>Общо за комплекта</small><b>33,90 €</b></div>
+    </div>
+    <p class="ebf-math-end">Това е около <b>11 € за 100 ml</b> аромат.</p>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Взимам комплекта <span>→</span></a></div>
+  </div></section>
+
+  <!--TAPES:b-->
+
+  <!-- ПРОДУКТИ -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Какво получаваш</div>
+    <h2>Три парфюма. <span class="ebf-yel">Един комплект.</span></h2>
+    <div class="ebf-chips">
+      <span class="ebf-chip">💎 Humrah · тежък и мъжествен</span>
+      <span class="ebf-chip">🌿 Buni · дървесен и елегантен</span>
+      <span class="ebf-chip">🖤 Dkhoun · тъмен и мистериозен</span>
+    </div>
+    <div class="ebf-prods">
+      <div class="ebf-prod ebf-neon">
+        <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/e6e674fd-f9d3-4086-bef2-cf0fa667d47e-8150812.png?format=webp" alt="Humrah" loading="lazy">
+        <h3>Humrah</h3><span class="ebf-tag">100 ml · за деня</span><br>
+        <div class="ebf-notes"><i>◆</i><b>Връх</b> — карамел, ванилия<br><i>◆</i><b>Сърце</b> — кожени нюанси, дървесни акорди<br><i>◆</i><b>База</b> — ориенталска сладост, топли смоли</div>
+      </div>
+      <div class="ebf-prod ebf-neon">
+        <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/6d2f1611-b573-41c1-a920-69c4e0818520-8150811.png?format=webp" alt="Humrah Buni" loading="lazy">
+        <h3>Humrah Buni</h3><span class="ebf-tag">100 ml · за вечерта</span><br>
+        <div class="ebf-notes"><i>◆</i><b>Връх</b> — карамел, ориенталски подправки<br><i>◆</i><b>Сърце</b> — дървесни тонове, кожа<br><i>◆</i><b>База</b> — ванилия, смоли, топла сладост</div>
+      </div>
+      <div class="ebf-prod ebf-neon">
+        <img src="https://content.app-sources.com/s/492254037602553451/uploads/Изображения/59bcbb9c-0764-4a7b-8fc5-1ea4cc3d9034-8150811.png?format=webp" alt="Humrah Dkhoun" loading="lazy">
+        <h3>Humrah Dkhoun</h3><span class="ebf-tag">100 ml · за специални моменти</span><br>
+        <div class="ebf-notes"><i>◆</i><b>Връх</b> — пименто, подправки, мандарина<br><i>◆</i><b>Сърце</b> — лабданум, тамян, пачули, портокалов цвят<br><i>◆</i><b>База</b> — тютюн, пралина, тонка, кехлибар, бензоин</div>
+      </div>
+    </div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Искам трите <span>→</span></a></div>
+  </div></section>
+
+  <!--TAPES:c-->
+
+  <!-- ОТЗИВИ -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Реални съобщения</div>
+    <h2>Какво казват <span class="ebf-yel">клиентите</span></h2>
+    <p class="ebf-lead">Скрийншоти от съобщения, които сме получили от клиенти във Facebook и Viber.</p>
+    <div class="ebf-revs" id="ebfRevs">
+      <!--REVIEWS-->
+    </div>
+    <button type="button" class="ebf-morebtn" id="ebfMore">Виж още отзиви ↓</button>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта <span>→</span></a></div>
+  </div></section>
+
+  <!--TAPES:d-->
+
+  <!-- СИГУРНОСТ -->
+  <section class="ebf-sec"><div class="ebf-wrap ebf-c">
+    <div class="ebf-eyebrow">Без риск</div>
+    <h2>Плащаш <span class="ebf-red">чак накрая</span></h2>
+    <div class="ebf-safe">
+      <div class="ebf-s ebf-neon"><div class="ebf-ic">💶</div><div><b>Наложен платеж</b><span>Без карта и без предплащане. Плащаш на куриера, когато получиш пратката.</span></div></div>
+      <div class="ebf-s ebf-neon"><div class="ebf-ic">🔍</div><div><b>Преглед и тест преди плащане</b><span>Отваряш пратката пред куриера и пробваш ароматите.</span></div></div>
+      <div class="ebf-s ebf-neon"><div class="ebf-ic">🚚</div><div><b>Еконт до офис или адрес</b><span>Доставка до 3 работни дни в цяла България.</span></div></div>
+    </div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай без риск <span>→</span></a></div>
+  </div></section>
+
+  <!--TAPES:e-->
+
+  <!-- ВЪПРОСИ -->
+  <section class="ebf-sec"><div class="ebf-wrap">
+    <div class="ebf-c"><div class="ebf-eyebrow">Въпроси</div>
+    <h2>Най-важното <span class="ebf-yel">накратко</span></h2></div>
+    <div class="ebf-faq">
+      <details><summary>Колко време отнема доставката?</summary><p>До 3 работни дни в цяла България.</p></details>
+      <details><summary>С кой куриер доставяте?</summary><p>С Еконт Експрес — до офис или до адрес.</p></details>
+      <details><summary>Колко са трайни парфюмите?</summary><p>12+ часа издръжливост (в зависимост от типа кожа и средата).</p></details>
+      <details><summary>Подходящ ли е комплектът за подарък?</summary><p>Да — три мъжки парфюма в една пратка, чудесен подарък за мъж.</p></details>
+      <details><summary>Има ли тест и преглед?</summary><p>Да. Имаш право на преглед и тест пред куриера преди плащане.</p></details>
+    </div>
+    <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта <span>→</span></a></div>
+  </div></section>
+
+  <!--TAPES:f-->
+
+  <!-- ФИНАЛ -->
+  <section class="ebf-sec"><div class="ebf-wrap">
+    <div class="ebf-final ebf-neon">
+      <div class="ebf-eyebrow">★ Ранен Черен Петък ★</div>
+      <h2>Не чакай <span class="ebf-red">петъка</span></h2>
+      <p class="ebf-lead">Humrah · Humrah Buni · Humrah Dkhoun — 3 × 100 ml в един комплект.</p>
+      <div class="ebf-price"><b>33,90 €</b><span>за целия комплект</span></div>
+      <div class="ebf-btnw"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай сега <span>→</span></a>
+        <div class="ebf-note">🚚 Еконт · 💶 Наложен платеж · 🔍 Тест преди плащане</div></div>
+      <a class="ebf-viber" href="viber://chat?number=+359882667532" target="_top"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/%D0%BF%D0%B0%D1%80%D1%84%D1%8E%D0%BC%D0%B8_68-7309953.png?format=webp" alt="">Поръчай във Viber</a>
+    </div>
+  </div></section>
+
+  <!--TAPES:g-->
+
+  <div class="ebf-foot"><b>UNI ARABIAN</b><span>© 2026 · Всички права запазени</span></div>
+
+  <div class="ebf-sticky"><a class="ebf-cta" href="https://uni-arabian.eu/checkout" target="_top">Поръчай комплекта · <span>33,90 €</span></a></div>
+</div>
+
+<script>
+(function(){
+  var r=document.getElementById('ebfRevs'), b=document.getElementById('ebfMore');
+  if(r&&b){ b.addEventListener('click',function(){ var o=r.classList.toggle('ebf-open'); b.textContent=o?'Скрий ↑':'Виж още отзиви ↓'; }); }
+})();
+</script>
