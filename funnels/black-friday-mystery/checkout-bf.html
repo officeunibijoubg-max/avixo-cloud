@@ -623,6 +623,8 @@ select[name="phoneCountryIso"],
   color: #e25041 !important;
   font-size: 13px !important;
 }
+/* БЕЗ bump „продукт изненада“ в тази фуния – JS го намира по текста (номерата на bump-овете са различни по страници) */
+.widget-checkout .bump-wrapper.bfc-nobump { display:none !important; }
 /* Допълнителни оферти (bump) */
 .widget-checkout .bump-wrapper > .tick-wrapper {
   background: #FBF4E6 !important;
@@ -744,9 +746,9 @@ select[name="phoneCountryIso"],
     </div>
     <div class="bfc-qa">
       <details><summary>Трябва ли да платя сега?</summary><p>Не. Плащаш с наложен платеж на куриера, когато получиш пратката.</p></details>
-      <details><summary>Какво има в комплекта?</summary><p>Humrah (за него), Eclat Vanilla (за нея) и скритият бестселър – дамски аромат от петте ни най-купувани. По 100 ml, трите за 27,90 €.</p></details>
-      <details><summary>Колко струва доставката?</summary><p>Зависи от куриера и дали е до офис или до адрес. Сумата се показва във формата, преди да потвърдиш поръчката.</p></details>
-      <details><summary>Подходящ ли е за подарък?</summary><p>Да. Да – за двойка, за родителите или за приятели. Всичко е в една пратка.</p></details>
+      <details><summary>Какво има в комплекта?</summary><p>Humrah (за него), Eclat Vanilla (за нея) и парфюм № 3 – дамски парфюм от нашите топ 5. Три цели бутилки по 100 ml, трите за 27,90 €.</p></details>
+      <details><summary>Кога ще пристигне?</summary><p>Обикновено до 1–3 работни дни, с Еконт или Pigeon Express. Сумата за доставка се показва във формата, преди да потвърдиш.</p></details>
+      <details><summary>Подходящ ли е за подарък?</summary><p>Да – за вас двама, за мама и татко, или взимаш двата за подарък, а тайния си оставяш за себе си.</p></details>
     </div>
     <a href="#" class="bfc-up" id="bfcUp">↑ Обратно към формата</a>
   </div>
@@ -771,6 +773,12 @@ select[name="phoneCountryIso"],
       try{ var it=api.getInstance(inp); if(it&&it.getSelectedCountryData&&it.getSelectedCountryData().iso2!=='bg') it.setCountry('bg'); }catch(e){}
     });
   }
+  /* 2б. Скрива bump „продукт изненада“ (и го маха, ако е отметнат) */
+  function noSurprise(){
+    document.querySelectorAll('.widget-checkout .bump-wrapper').forEach(function(w){
+      if(/изненада/i.test(w.textContent)){ w.classList.add('bfc-nobump'); var cb=w.querySelector('input[type="checkbox"]'); if(cb&&cb.checked) cb.click(); }
+    });
+  }
   /* 3. Наложен платеж е избран по подразбиране */
   function codDefault(){
     var cod=document.querySelector('.widget-checkout [data-payment="cod"] input[type="radio"]');
@@ -780,7 +788,7 @@ select[name="phoneCountryIso"],
   if(up) up.addEventListener('click',function(e){ var w=wc(); if(w){ e.preventDefault(); w.scrollIntoView({behavior:'smooth',block:'start'}); } });
   var tries=0;
   (function tick(){
-    var ok=placeBottom(); phoneBG(); codDefault();
+    var ok=placeBottom(); phoneBG(); codDefault(); noSurprise();
     if(++tries<20&&!(ok&&tries>6)) setTimeout(tick,500);
   })();
 })();
