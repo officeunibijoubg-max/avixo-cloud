@@ -1,0 +1,12 @@
+ФУНИИ uni-arabian.eu – инструкции + 3 примера
+
+INSTRUKCII-FUNII.md  – всички правила за нова фуния (+ CSS шаблон за чекаута в края)
+
+primeri/  – кодовете от живите страници, всеки файл = един HTML (code) блок в ConvertBuilder
+  1-eclat-vanilla-humrah__landing.html        → /vanilla-humrah (над checkout widget-а)
+  2-humrah-dkhoun-saviour__lenta-podarak.html → /humrah-dkhoun-saviour-gift, най-горе
+  2-humrah-dkhoun-saviour__landing.html       → /humrah-dkhoun-saviour-gift, под лентата
+  3a-5plus1-damski__landing.html              → /5-1 (бутоните водят към /checkout5-1)
+  3a-5plus1-damski__checkout.html             → /checkout5-1, над checkout widget-а
+  3b-5plus1-mazhki__landing.html              → /5-1m, първия блок
+  3b-5plus1-mazhki__checkout.html             → /5-1m, точно над checkout widget-а

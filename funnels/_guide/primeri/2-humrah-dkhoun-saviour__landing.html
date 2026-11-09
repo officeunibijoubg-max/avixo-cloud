@@ -1,0 +1,616 @@
+<style>
+/* ========== HUMRAH ORIENTAL TRIO — DARK AMBER NEON — изолирано в .hmr ========== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+.hmr, .hmr *, .hmr *::before, .hmr *::after { box-sizing: border-box !important; }
+
+.hmr {
+  --neon: #FF9E3D;
+  --neon-hot: #FF8412;
+  --neon-soft: #FFC178;
+  --neon-copper: #E07B3A;
+  --glow: rgba(255,158,61,0.55);
+  --glow-soft: rgba(255,158,61,0.28);
+  --text: #F7E9DA;
+  --muted: #BFA184;
+  --card: rgba(255,255,255,0.04);
+  --card-brd: rgba(255,158,61,0.55);
+
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif !important;
+  background:
+    radial-gradient(1100px 560px at 50% -8%, rgba(255,158,61,0.20), transparent 62%),
+    radial-gradient(820px 520px at 108% 12%, rgba(224,123,58,0.14), transparent 60%),
+    radial-gradient(760px 520px at -8% 42%, rgba(255,158,61,0.10), transparent 60%),
+    linear-gradient(180deg, #150D07 0%, #1E130B 48%, #120B06 100%) !important;
+  color: var(--text) !important;
+  line-height: 1.6 !important;
+  scroll-behavior: smooth !important;
+  width: 100% !important; max-width: 100% !important;
+  overflow-x: hidden !important;
+  padding: 0 !important; margin: 0 !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+.hmr h1, .hmr h2, .hmr h3, .hmr p, .hmr div, .hmr section, .hmr span, .hmr a, .hmr img { margin: 0; padding: 0; }
+.hmr .hmr-container { max-width: 760px !important; margin: 0 auto !important; padding: 0 18px !important; }
+
+/* ====== ANIMATIONS ====== */
+@keyframes hmrFadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes hmrFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes hmrPulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 22px var(--glow), 0 8px 26px rgba(255,132,18,0.30); }
+  50% { transform: scale(1.035); box-shadow: 0 0 40px var(--glow), 0 12px 38px rgba(255,132,18,0.5); }
+}
+@keyframes hmrShimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+@keyframes hmrBounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
+@keyframes hmrSlideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes hmrDotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(255,158,61,0.6); }
+  50% { transform: scale(1.25); opacity: 0.7; box-shadow: 0 0 0 7px rgba(255,158,61,0); }
+}
+@keyframes hmrGlowBreath {
+  0%, 100% { box-shadow: 0 0 20px var(--glow-soft), inset 0 0 16px rgba(255,158,61,0.06); }
+  50% { box-shadow: 0 0 36px var(--glow), inset 0 0 22px rgba(255,158,61,0.12); }
+}
+
+.hmr .anim-fade { animation: hmrFadeUp 0.9s ease-out both !important; }
+.hmr .anim-fade-2 { animation: hmrFadeUp 0.9s ease-out 0.2s both !important; }
+.hmr .anim-fade-3 { animation: hmrFadeUp 0.9s ease-out 0.4s both !important; }
+.hmr .anim-left { animation: hmrSlideInLeft 0.8s ease-out both !important; }
+
+/* ====== TOP BANNER ====== */
+.hmr .top-banner {
+  background: linear-gradient(90deg, #C9702A, #FF9E3D, #FFC178, #FF9E3D, #C9702A) !important;
+  background-size: 200% auto !important;
+  animation: hmrShimmer 5s linear infinite !important;
+  color: #241203 !important;
+  text-align: center !important;
+  padding: 11px 14px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px !important;
+  box-shadow: 0 0 28px rgba(255,158,61,0.55) !important;
+}
+.hmr .top-banner b { font-weight: 800 !important; }
+
+/* ====== COUNTDOWN ====== */
+.hmr .countdown-wrap {
+  background: rgba(255,158,61,0.05) !important;
+  border-top: 1px solid rgba(255,158,61,0.28) !important;
+  border-bottom: 1px solid rgba(255,158,61,0.28) !important;
+  text-align: center !important;
+  padding: 18px 14px !important;
+}
+.hmr .countdown-label { font-size: 12px !important; font-weight: 700 !important; letter-spacing: 2px !important; text-transform: uppercase !important; margin-bottom: 12px !important; color: var(--neon-soft) !important; }
+.hmr .countdown-timer { display: flex !important; justify-content: center !important; gap: 10px !important; }
+.hmr .cd-box {
+  display: flex !important; flex-direction: column !important; align-items: center !important;
+  background: rgba(255,158,61,0.07) !important;
+  border: 1.5px solid var(--card-brd) !important;
+  border-radius: 12px !important;
+  padding: 10px 12px !important;
+  min-width: 64px !important;
+  box-shadow: 0 0 20px rgba(255,158,61,0.30), inset 0 0 12px rgba(255,158,61,0.08) !important;
+}
+.hmr .cd-num { font-size: 28px !important; font-weight: 800 !important; line-height: 1 !important; color: #fff !important; text-shadow: 0 0 14px var(--glow) !important; }
+.hmr .cd-unit { font-size: 10px !important; text-transform: uppercase !important; letter-spacing: 1px !important; color: var(--muted) !important; margin-top: 6px !important; }
+
+/* ====== HERO ====== */
+.hmr .hero { text-align: center !important; padding: 44px 0 30px !important; position: relative !important; }
+.hmr .hero-badge {
+  display: inline-block !important;
+  background: rgba(255,158,61,0.09) !important;
+  color: var(--neon-soft) !important;
+  padding: 7px 18px !important;
+  border-radius: 50px !important;
+  font-size: 12px !important; font-weight: 700 !important; letter-spacing: 1.5px !important; text-transform: uppercase !important;
+  border: 1.5px solid var(--card-brd) !important;
+  box-shadow: 0 0 22px rgba(255,158,61,0.4) !important;
+  margin-bottom: 20px !important;
+}
+.hmr .hero h1 { font-size: 34px !important; line-height: 1.2 !important; font-weight: 800 !important; color: #fff !important; margin-bottom: 14px !important; letter-spacing: -0.5px !important; text-shadow: 0 0 26px rgba(255,158,61,0.28) !important; }
+.hmr .hero h1 span {
+  background: linear-gradient(120deg, #FFC178, #FF8412, #E07B3A) !important;
+  -webkit-background-clip: text !important; -webkit-text-fill-color: transparent !important; background-clip: text !important;
+  filter: drop-shadow(0 0 16px rgba(255,158,61,0.5)) !important;
+}
+.hmr .hero p { font-size: 17px !important; color: var(--muted) !important; margin-bottom: 24px !important; max-width: 580px !important; margin-left: auto !important; margin-right: auto !important; }
+
+.hmr .hero-image-wrap { position: relative !important; margin: 20px auto !important; max-width: 480px !important; padding: 20px !important; }
+.hmr .hero-image-wrap::before {
+  content: '' !important; position: absolute !important;
+  top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important;
+  width: 88% !important; height: 88% !important;
+  background: radial-gradient(circle, rgba(255,158,61,0.45), transparent 68%) !important;
+  border-radius: 50% !important; z-index: 0 !important; filter: blur(6px) !important;
+}
+.hmr .hero-image { width: 100% !important; height: auto !important; position: relative !important; z-index: 1 !important; border-radius: 22px !important; animation: hmrFloat 4s ease-in-out infinite !important; filter: drop-shadow(0 16px 30px rgba(224,123,58,0.4)) !important; }
+
+/* ====== IMAGE PLACEHOLDER (докато няма снимка) ====== */
+.hmr .img-placeholder {
+  position: relative !important; z-index: 1 !important;
+  border: 1.5px dashed rgba(255,158,61,0.55) !important;
+  border-radius: 18px !important;
+  background: rgba(255,255,255,0.03) !important;
+  padding: 52px 24px !important;
+  text-align: center !important;
+  box-shadow: 0 0 26px rgba(255,158,61,0.20), inset 0 0 22px rgba(255,158,61,0.07) !important;
+}
+.hmr .ph-emoji { font-size: 54px !important; margin-bottom: 12px !important; filter: drop-shadow(0 0 14px rgba(255,158,61,0.6)) !important; }
+.hmr .ph-text { color: var(--neon-soft) !important; font-size: 15px !important; font-weight: 600 !important; line-height: 1.55 !important; }
+.hmr .ph-text small { display: block !important; margin-top: 6px !important; color: var(--muted) !important; font-weight: 400 !important; font-size: 13px !important; }
+
+.hmr .price-row { display: flex !important; justify-content: center !important; align-items: center !important; gap: 14px !important; margin: 20px 0 10px !important; }
+.hmr .old-price { font-size: 20px !important; color: #8f775f !important; text-decoration: line-through !important; }
+.hmr .new-price { font-size: 40px !important; font-weight: 800 !important; color: #fff !important; text-shadow: 0 0 18px var(--glow), 0 0 34px rgba(255,158,61,0.4) !important; }
+.hmr .savings-badge { background: rgba(255,158,61,0.14) !important; color: var(--neon-soft) !important; padding: 5px 12px !important; border-radius: 50px !important; font-size: 13px !important; font-weight: 700 !important; border: 1.5px solid var(--card-brd) !important; box-shadow: 0 0 16px rgba(255,158,61,0.3) !important; }
+.hmr .gift-line { font-size: 15px !important; color: var(--text) !important; margin: 4px 0 18px !important; }
+.hmr .gift-line b { color: var(--neon-soft) !important; }
+
+/* ====== BUTTONS ====== */
+.hmr .cta-btn {
+  display: inline-block !important;
+  background: linear-gradient(135deg, #FF8412, #FFB04D) !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  padding: 18px 40px !important;
+  border-radius: 50px !important;
+  font-size: 17px !important; font-weight: 700 !important; letter-spacing: 0.5px !important;
+  border: 1.5px solid rgba(255,200,130,0.7) !important;
+  cursor: pointer !important;
+  animation: hmrPulse 2.2s ease-in-out infinite !important;
+  transition: transform 0.2s ease !important;
+  text-transform: uppercase !important;
+  margin: 12px 0 !important;
+  text-shadow: 0 1px 3px rgba(90,45,0,0.4) !important;
+}
+.hmr .cta-btn:hover { transform: translateY(-2px) scale(1.03) !important; }
+.hmr .scroll-hint { display: inline-block !important; margin-left: 8px !important; animation: hmrBounceDown 1.2s ease-in-out infinite !important; }
+
+/* ====== URGENCY BAR ====== */
+.hmr .urgency-bar {
+  background: rgba(255,158,61,0.06) !important;
+  border: 1.5px dashed var(--neon) !important;
+  border-radius: 14px !important;
+  padding: 14px 18px !important; text-align: center !important; margin: 22px auto !important; max-width: 520px !important;
+  color: var(--neon-soft) !important; font-weight: 600 !important; font-size: 15px !important;
+  box-shadow: 0 0 24px rgba(255,158,61,0.22), inset 0 0 16px rgba(255,158,61,0.08) !important;
+}
+.hmr .urgency-bar .dot { display: inline-block !important; width: 10px !important; height: 10px !important; background: #FF9E3D !important; border-radius: 50% !important; margin-right: 8px !important; animation: hmrDotPulse 1.2s infinite !important; vertical-align: middle !important; }
+
+/* ====== SECTION ====== */
+.hmr .section { padding: 52px 0 !important; }
+.hmr .section-title { font-size: 28px !important; font-weight: 800 !important; text-align: center !important; margin-bottom: 14px !important; color: #fff !important; line-height: 1.25 !important; }
+.hmr .section-title span { color: var(--neon-soft) !important; text-shadow: 0 0 18px var(--glow) !important; }
+.hmr .section-sub { text-align: center !important; color: var(--muted) !important; font-size: 16px !important; max-width: 600px !important; margin: 0 auto 32px !important; }
+
+/* ====== PROBLEM CARDS ====== */
+.hmr .problem-card {
+  background: var(--card) !important;
+  padding: 18px 20px !important; border-radius: 14px !important; margin-bottom: 12px !important;
+  border: 1.5px solid rgba(255,158,61,0.35) !important;
+  border-left: 4px solid var(--neon) !important;
+  box-shadow: 0 0 16px rgba(255,158,61,0.15), 0 0 32px rgba(255,158,61,0.08) !important;
+  backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important;
+  display: flex !important; align-items: center !important; gap: 14px !important;
+  font-size: 15px !important; color: #EEDDCB !important;
+}
+.hmr .problem-card .icon { font-size: 24px !important; flex-shrink: 0 !important; filter: drop-shadow(0 0 8px rgba(255,158,61,0.6)) !important; }
+
+/* ====== SOLUTION ====== */
+.hmr .solution-box {
+  background: var(--card) !important; border-radius: 22px !important; padding: 32px 22px !important; text-align: center !important;
+  border: 1.5px solid rgba(255,158,61,0.6) !important;
+  box-shadow: 0 0 30px rgba(255,158,61,0.25), 0 0 56px rgba(255,158,61,0.12), inset 0 0 24px rgba(255,158,61,0.05) !important;
+  backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important;
+}
+.hmr .solution-box img { max-width: 100% !important; height: auto !important; border-radius: 20px !important; margin: 16px 0 !important; box-shadow: 0 0 26px rgba(255,158,61,0.28) !important; }
+.hmr .solution-box p { font-size: 16px !important; color: #EEDDCB !important; margin-bottom: 12px !important; }
+.hmr .solution-box p b { color: var(--neon-soft) !important; }
+
+/* ====== PERFUME CARDS ====== */
+.hmr .perfume-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 16px !important; margin-top: 24px !important; }
+.hmr .perfume-card {
+  position: relative !important;
+  background: var(--card) !important; border-radius: 18px !important; padding: 24px 22px !important;
+  border: 1.5px solid rgba(255,158,61,0.5) !important;
+  border-top: 4px solid !important;
+  box-shadow: 0 0 18px rgba(255,158,61,0.2), 0 0 38px rgba(255,158,61,0.1) !important;
+  backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+}
+.hmr .perfume-card:hover { transform: translateY(-4px) !important; box-shadow: 0 0 44px rgba(255,158,61,0.5) !important; }
+.hmr .perfume-card.p1 { border-top-color: #FF8412 !important; }
+.hmr .perfume-card.p2 { border-top-color: #FF9E3D !important; }
+.hmr .perfume-card.gift { border-top-color: #FFC178 !important; border-color: rgba(255,158,61,0.8) !important; box-shadow: 0 0 30px rgba(255,158,61,0.45), 0 0 60px rgba(255,158,61,0.2) !important; }
+
+.hmr .gift-tag {
+  position: absolute !important; top: -11px !important; right: 16px !important;
+  background: linear-gradient(135deg, #FF9E3D, #E07B3A) !important;
+  color: #241203 !important; font-size: 11px !important; font-weight: 800 !important; letter-spacing: 1px !important;
+  padding: 5px 13px !important; border-radius: 50px !important; text-transform: uppercase !important;
+  box-shadow: 0 0 18px rgba(255,158,61,0.7) !important;
+}
+
+.hmr .perfume-card h3 { font-size: 20px !important; font-weight: 800 !important; margin-bottom: 6px !important; color: #fff !important; }
+.hmr .perfume-card .tag { font-size: 13px !important; color: var(--neon-soft) !important; font-weight: 600 !important; margin-bottom: 12px !important; display: block !important; }
+.hmr .perfume-card .desc { font-size: 14px !important; color: var(--muted) !important; margin-bottom: 14px !important; line-height: 1.55 !important; }
+.hmr .notes { background: rgba(255,158,61,0.08) !important; border: 1px solid rgba(255,158,61,0.4) !important; border-radius: 10px !important; padding: 12px 14px !important; font-size: 13px !important; color: #EEDDCB !important; box-shadow: inset 0 0 12px rgba(255,158,61,0.08), 0 0 12px rgba(255,158,61,0.1) !important; }
+.hmr .notes div { margin-bottom: 4px !important; }
+.hmr .notes b { color: var(--neon-soft) !important; }
+
+/* ====== ADVANTAGES ====== */
+.hmr .advantages-grid { display: grid !important; grid-template-columns: 1fr !important; gap: 16px !important; }
+.hmr .advantage-card {
+  background: var(--card) !important; border-radius: 16px !important; padding: 24px 22px !important; text-align: center !important;
+  border: 1.5px solid rgba(255,158,61,0.5) !important;
+  box-shadow: 0 0 18px rgba(255,158,61,0.2), 0 0 38px rgba(255,158,61,0.1) !important;
+  backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important;
+}
+.hmr .advantage-icon {
+  width: 66px !important; height: 66px !important; margin: 0 auto 16px !important;
+  background: linear-gradient(135deg, #FF8412, #FFB04D) !important;
+  border-radius: 50% !important; display: flex !important; align-items: center !important; justify-content: center !important;
+  font-size: 30px !important; color: #fff !important;
+  box-shadow: 0 0 26px var(--glow), inset 0 0 12px rgba(255,255,255,0.2) !important;
+}
+.hmr .advantage-card h3 { font-size: 18px !important; font-weight: 700 !important; margin-bottom: 8px !important; color: #fff !important; }
+.hmr .advantage-card p { font-size: 14px !important; color: var(--muted) !important; }
+
+/* ====== TESTIMONIALS ====== */
+.hmr .testimonial {
+  background: var(--card) !important; border-radius: 16px !important; padding: 24px 22px !important; margin-bottom: 16px !important;
+  border: 1.5px solid rgba(255,158,61,0.45) !important;
+  box-shadow: 0 0 16px rgba(255,158,61,0.18), 0 0 34px rgba(255,158,61,0.09) !important;
+  backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important;
+  position: relative !important;
+}
+.hmr .testimonial::before { content: '"' !important; position: absolute !important; top: -6px !important; left: 20px !important; font-size: 70px !important; color: var(--neon) !important; opacity: 0.4 !important; font-family: Georgia, serif !important; line-height: 1 !important; text-shadow: 0 0 18px var(--glow) !important; }
+.hmr .stars { color: #FFB627 !important; font-size: 18px !important; margin-bottom: 8px !important; letter-spacing: 2px !important; text-shadow: 0 0 12px rgba(255,182,39,0.55) !important; }
+.hmr .testimonial-text { font-size: 15px !important; color: #EEDDCB !important; font-style: italic !important; margin-bottom: 12px !important; line-height: 1.6 !important; }
+.hmr .testimonial-author { display: flex !important; align-items: center !important; gap: 12px !important; }
+.hmr .author-avatar { width: 42px !important; height: 42px !important; border-radius: 50% !important; background: linear-gradient(135deg, #FFB04D, #E07B3A) !important; color: #241203 !important; display: flex !important; align-items: center !important; justify-content: center !important; font-weight: 800 !important; font-size: 16px !important; box-shadow: 0 0 16px var(--glow) !important; }
+.hmr .author-info b { display: block !important; font-size: 14px !important; color: #fff !important; }
+.hmr .author-info span { font-size: 12px !important; color: var(--muted) !important; }
+
+/* ====== GUARANTEE ====== */
+.hmr .guarantee {
+  background: var(--card) !important; border: 1.5px solid rgba(255,158,61,0.6) !important; border-radius: 20px !important; padding: 30px 22px !important; text-align: center !important;
+  display: flex !important; flex-direction: column !important; align-items: center !important; gap: 14px !important;
+  box-shadow: 0 0 28px rgba(255,158,61,0.24), 0 0 52px rgba(255,158,61,0.12) !important;
+  backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important;
+}
+.hmr .guarantee-badge {
+  width: 92px !important; height: 92px !important; background: linear-gradient(135deg, #FF8412, #FFB04D) !important; border-radius: 50% !important;
+  display: flex !important; align-items: center !important; justify-content: center !important;
+  color: #241203 !important; font-weight: 800 !important; font-size: 13px !important; text-align: center !important; line-height: 1.2 !important;
+  box-shadow: 0 0 30px var(--glow), inset 0 0 14px rgba(255,255,255,0.2) !important;
+  animation: hmrGlowBreath 3s ease-in-out infinite !important;
+}
+.hmr .guarantee h3 { font-size: 22px !important; font-weight: 800 !important; color: #fff !important; }
+.hmr .guarantee p { font-size: 15px !important; color: var(--muted) !important; max-width: 500px !important; }
+
+/* ====== FAQ ====== */
+.hmr .faq-item {
+  background: var(--card) !important; border: 1.5px solid rgba(255,158,61,0.4) !important; border-radius: 14px !important; margin-bottom: 12px !important;
+  box-shadow: 0 0 14px rgba(255,158,61,0.16), 0 0 28px rgba(255,158,61,0.08) !important;
+  backdrop-filter: blur(6px) !important; -webkit-backdrop-filter: blur(6px) !important;
+  overflow: hidden !important; transition: box-shadow 0.3s ease !important;
+}
+.hmr .faq-item.open { box-shadow: 0 0 28px rgba(255,158,61,0.4), 0 0 56px rgba(255,158,61,0.18) !important; border-color: rgba(255,158,61,0.85) !important; }
+.hmr .faq-q { padding: 18px 20px !important; font-weight: 600 !important; font-size: 16px !important; color: #fff !important; cursor: pointer !important; display: flex !important; justify-content: space-between !important; align-items: center !important; gap: 12px !important; transition: background 0.2s ease !important; }
+.hmr .faq-q:hover { background: rgba(255,158,61,0.06) !important; }
+.hmr .faq-q .arrow { color: var(--neon-soft) !important; font-size: 20px !important; transition: transform 0.3s ease !important; flex-shrink: 0 !important; text-shadow: 0 0 10px var(--glow) !important; }
+.hmr .faq-item.open .faq-q .arrow { transform: rotate(180deg) !important; }
+.hmr .faq-a { max-height: 0 !important; overflow: hidden !important; transition: max-height 0.4s ease, padding 0.3s ease !important; padding: 0 20px !important; color: var(--muted) !important; font-size: 15px !important; line-height: 1.6 !important; }
+.hmr .faq-item.open .faq-a { max-height: 340px !important; padding: 0 20px 18px !important; }
+
+/* ====== FINAL CTA ====== */
+.hmr .final-cta {
+  background: radial-gradient(600px 300px at 50% 0%, rgba(255,158,61,0.24), transparent 60%), rgba(255,255,255,0.04) !important;
+  border: 1.5px solid var(--neon) !important; border-radius: 24px !important; padding: 42px 24px !important; text-align: center !important; color: #fff !important; margin: 20px 0 !important;
+  box-shadow: 0 0 42px rgba(255,158,61,0.3), inset 0 0 30px rgba(255,158,61,0.07) !important;
+  animation: hmrGlowBreath 3.4s ease-in-out infinite !important;
+  backdrop-filter: blur(8px) !important; -webkit-backdrop-filter: blur(8px) !important;
+}
+.hmr .final-cta h2 { font-size: 26px !important; font-weight: 800 !important; margin-bottom: 14px !important; color: #fff !important; line-height: 1.25 !important; text-shadow: 0 0 24px rgba(255,158,61,0.4) !important; }
+.hmr .final-cta p { font-size: 16px !important; margin-bottom: 22px !important; color: #EEDDCB !important; }
+.hmr .final-cta .price-row { margin: 18px 0 6px !important; }
+
+/* ====== CHECKOUT ANCHOR (невидима котва за скрол) ====== */
+.hmr #hmr-checkout { display: block !important; height: 1px !important; margin: 10px 0 20px !important; scroll-margin-top: 16px !important; }
+
+/* ====== DESKTOP ====== */
+@media (min-width: 720px) {
+  .hmr .hero h1 { font-size: 44px !important; }
+  .hmr .section-title { font-size: 34px !important; }
+  .hmr .perfume-grid { grid-template-columns: 1fr 1fr 1fr !important; }
+  .hmr .advantages-grid { grid-template-columns: 1fr 1fr 1fr !important; }
+  .hmr .hero p { font-size: 19px !important; }
+  .hmr .final-cta h2 { font-size: 32px !important; }
+  .hmr .new-price { font-size: 46px !important; }
+}
+</style>
+
+<div class="hmr">
+
+  <!-- TOP URGENCY BANNER -->
+  <div class="top-banner">
+    🔥 <b>САМО ДНЕС:</b> 3 парфюма за 23.90€ + Saviour 100мл 🎁 ПОДАРЪК!
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown-wrap">
+    <div class="countdown-label">⏳ Офертата изтича след</div>
+    <div class="countdown-timer" id="hmrCountdown">
+      <div class="cd-box"><span class="cd-num" data-h>00</span><span class="cd-unit">часа</span></div>
+      <div class="cd-box"><span class="cd-num" data-m>00</span><span class="cd-unit">минути</span></div>
+      <div class="cd-box"><span class="cd-num" data-s>00</span><span class="cd-unit">секунди</span></div>
+    </div>
+  </div>
+
+  <div class="hmr-container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge anim-fade">🔥 Ориенталски мъжки парфюми</div>
+      <h1 class="anim-fade">Ориенталско Трио <span>Humrah</span><br>3 магнетични аромата + подарък</h1>
+      <p class="anim-fade-2">Humrah, Humrah Dkhoun и <b>Saviour (подарък)</b> — топли, пикантни и дълбоки ухания с тютюн, амбра, канела и подправки. За мъжа, който се откроява и оставя впечатление.</p>
+
+      <div class="hero-image-wrap anim-fade-2">
+        <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/df60a4b1-558e-4fad-8deb-1cb4a5ce7d7a-4124512.png?format=webp" alt="Ориенталско Трио Humrah — Humrah, Humrah Dkhoun, Saviour" class="hero-image">
+      </div>
+
+      <div class="price-row anim-fade-3">
+        <span class="old-price">49.90€</span>
+        <span class="new-price">23.90€</span>
+        <span class="savings-badge">🎁 +Подарък</span>
+      </div>
+      <p class="gift-line anim-fade-3">Плащаш 2 парфюма, а <b>Saviour 100мл е ПОДАРЪК</b> 🎁</p>
+
+      <a href="#hmr-checkout" class="cta-btn">Поръчай комплекта за 23.90€ <span class="scroll-hint">↓</span></a>
+
+      <div class="urgency-bar anim-fade-3">
+        <span class="dot"></span>Подаръкът Saviour важи само за поръчки днес!
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="section">
+      <h2 class="section-title">Познато ли ти е <span>това усещане?</span></h2>
+      <p class="section-sub">Искаш аромат с характер — топъл, плътен и дълготраен, който кара хората да те помнят.</p>
+
+      <div class="problem-card anim-left">
+        <span class="icon">⏰</span>
+        <div>Евтините парфюми изчезват след час-два и до обед вече не се усещат.</div>
+      </div>
+      <div class="problem-card anim-left">
+        <span class="icon">💸</span>
+        <div>Истинските нишеви ориенталски аромати струват между 150 и 300€ за флакон.</div>
+      </div>
+      <div class="problem-card anim-left">
+        <span class="icon">🎯</span>
+        <div>Искаш ухание, което излъчва увереност и оставя впечатление — не поредния „обикновен" парфюм.</div>
+      </div>
+      <div class="problem-card anim-left">
+        <span class="icon">🌙</span>
+        <div>Търсиш плътен, топъл шлейф за вечер, специални поводи и по-хладните сезони.</div>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="section">
+      <h2 class="section-title">Решението: <span>Ориенталско Трио Humrah</span></h2>
+      <p class="section-sub">Два интензивни ориенталски аромата + Saviour подарък — три парфюма по 100 ml за всеки твой момент.</p>
+
+      <div class="solution-box anim-fade">
+        <img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/4fa19473-7dea-4abb-833d-f7d6aa318a84-4124510.png?format=webp" alt="Humrah Trio детайл — флакони">
+        <p><b>Humrah</b> – топъл гурме: канела, карамел и ванилия</p>
+        <p><b>Humrah Dkhoun</b> – пикантен ориенталски: подправки, тютюн, амбра</p>
+        <p><b>Saviour</b> 🎁 – свеж и магнетичен, вдъхновен от Sauvage <b>(ПОДАРЪК)</b></p>
+        <a href="#hmr-checkout" class="cta-btn" style="margin-top: 18px !important;">Поръчай комплекта за 23.90€ <span class="scroll-hint">↓</span></a>
+      </div>
+
+      <div class="perfume-grid">
+        <div class="perfume-card p1 anim-fade">
+          <h3>Humrah</h3>
+          <span class="tag">Топъл • Гурме • Ориенталски</span>
+          <p class="desc">Интензивен и съблазнителен — сладост, подправъчна пикантност и дървесна елегантност. За есен и зима.</p>
+          <div class="notes">
+            <div><b>Връх:</b> канела, деликатни подправки</div>
+            <div><b>Среда:</b> карамел, тонка боб, дъбови нюанси</div>
+            <div><b>База:</b> ванилия, сандалово дърво, амбра</div>
+          </div>
+        </div>
+
+        <div class="perfume-card p2 anim-fade-2">
+          <h3>Humrah Dkhoun</h3>
+          <span class="tag">Пикантен • Ориенталски • Унисекс</span>
+          <p class="desc">Богата комбинация от подправки, цветя и дълбока сладост — енергия, мистерия и траен шлейф за специални поводи.</p>
+          <div class="notes">
+            <div><b>Връх:</b> пименто, подправки, мандарина</div>
+            <div><b>Среда:</b> лабданум, тамян, пачули, портокалов цвят</div>
+            <div><b>База:</b> тютюн, пралина, тонка, кехлибар, бензоин</div>
+          </div>
+        </div>
+
+        <div class="perfume-card gift anim-fade-3">
+          <span class="gift-tag">🎁 Подарък</span>
+          <h3>Saviour</h3>
+          <span class="tag">Свеж • Силен • Магнетичен</span>
+          <p class="desc">Вдъхновен от Dior Sauvage — символ на свобода и самоувереност. Неподправен и запомнящ се.</p>
+          <div class="notes">
+            <div><b>Връх:</b> калабрийски бергамот, пипер</div>
+            <div><b>Среда:</b> здравец, лавандула, сечуански пипер</div>
+            <div><b>База:</b> кедрово дърво, амброксан, ветивер</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADVANTAGES -->
+    <section class="section">
+      <h2 class="section-title">Защо ще <span>обожаваш</span> тази колекция?</h2>
+
+      <div class="advantages-grid">
+        <div class="advantage-card anim-fade">
+          <div class="advantage-icon">⏳</div>
+          <h3>Наситен и дълготраен</h3>
+          <p>Ориенталски есенции с плътен шлейф, който се усеща с часове — без постоянно освежаване.</p>
+        </div>
+        <div class="advantage-card anim-fade-2">
+          <div class="advantage-icon">🎁</div>
+          <h3>3-ти парфюм ПОДАРЪК</h3>
+          <p>Плащаш два аромата, а Saviour 100 ml (вдъхн. Sauvage) получаваш напълно безплатно.</p>
+        </div>
+        <div class="advantage-card anim-fade-3">
+          <div class="advantage-icon">💎</div>
+          <h3>Ориенталски лукс на достъпна цена</h3>
+          <p>3×100 ml характер и увереност на цената на един обикновен парфюм. Идеален подарък за него.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA MID -->
+    <div style="text-align: center !important; padding: 10px 0 !important;">
+      <a href="#hmr-checkout" class="cta-btn">Поръчай комплекта за 23.90€ <span class="scroll-hint">↓</span></a>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <section class="section">
+      <h2 class="section-title">Какво казват <span>клиентите</span></h2>
+      <p class="section-sub">Ориенталските аромати са хит — ето какво споделят.</p>
+
+      <div class="testimonial anim-fade">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Humrah Dkhoun е бомба — тютюн и подправки, усеща се цяла вечер. Получавам комплименти навсякъде. А Saviour подарък беше страхотен бонус.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">Г</div>
+          <div class="author-info"><b>Георги Д.</b><span>Верифициран клиент</span></div>
+        </div>
+      </div>
+
+      <div class="testimonial anim-fade-2">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Взех комплекта за зимата — топли, плътни аромати с характер. Трайността е сериозна, а три парфюма на тази цена, единият подарък... няма грешка.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">Н</div>
+          <div class="author-info"><b>Николай П.</b><span>Верифициран клиент</span></div>
+        </div>
+      </div>
+
+      <div class="testimonial anim-fade-3">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text">Купих го за подарък на брат ми, но задържах Saviour за мен. Ароматите са луксозни и мъжествени, опаковката изглежда скъпо. Ще поръчам пак.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">М</div>
+          <div class="author-info"><b>Мартин К.</b><span>Верифициран клиент</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUARANTEE -->
+    <section class="section">
+      <div class="guarantee anim-fade">
+        <div class="guarantee-badge">100%<br>ГАРАНЦИЯ</div>
+        <h3>Поръчваш без риск</h3>
+        <p>Плащаш при доставка с Еконт. Преглеждаш и тестваш ароматите преди да платиш. Ако нещо не отговаря на описанието – не плащаш и връщаш пратката безплатно.</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <h2 class="section-title">Често задавани <span>въпроси</span></h2>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Наистина ли получавам Saviour безплатно?</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="faq-a">Да! Плащаш 23.90€ за комплекта и получаваш и трите парфюма по 100 ml — Humrah, Humrah Dkhoun, а Saviour (вдъхн. Dior Sauvage) е подарък към поръчката. Офертата важи за поръчки днес.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Колко трайни са ароматите?</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="faq-a">Ориенталските аромати са с висока концентрация на есенции и обикновено се усещат между 8 и 12 часа върху кожата. Трайността зависи от типа кожа и условията.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>За кой сезон и повод са подходящи?</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="faq-a">Humrah и Humrah Dkhoun са топли, ориенталски и гурме — идеални за есен, зима и вечерни поводи. Saviour е по-свеж и универсален — носи се целогодишно, ден и вечер.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Как се извършва доставката и плащането?</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="faq-a">Доставяме с Еконт до офис или адрес в цяла България. Плащаш при получаване (наложен платеж), след като прегледаш пратката. Срок на доставка: 1–3 работни дни.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          <span>Може ли да върна продукта, ако не ми хареса?</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="faq-a">Да – имаш право да прегледаш стоката преди да платиш. Ако ароматите не отговарят на описанието или има дефект, връщаш пратката безплатно и не плащаш нищо.</div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="section">
+      <div class="final-cta anim-fade">
+        <h2>Готов ли си да се откроиш с ориенталски чар?</h2>
+        <p>Поръчай сега — 3 парфюма по 100 ml, а Saviour е подарък към поръчката.</p>
+        <div class="price-row">
+          <span class="old-price">49.90€</span>
+          <span class="new-price">23.90€</span>
+        </div>
+        <p class="gift-line">+ Saviour 100мл <b>ПОДАРЪК</b> 🎁</p>
+        <a href="#hmr-checkout" class="cta-btn">Поръчай комплекта за 23.90€ <span class="scroll-hint">↓</span></a>
+        <p style="margin-top: 18px !important; font-size: 14px !important;">🚚 Бърза доставка • 💳 Плащане при доставка • ✓ Без риск</p>
+      </div>
+    </section>
+
+    <!-- CHECKOUT ANCHOR (скрит — системният checkout се поставя отдолу в ConvertBuilder) -->
+    <div id="hmr-checkout"></div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  document.querySelectorAll('.hmr a[href="#hmr-checkout"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var t = document.getElementById('hmr-checkout');
+      if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+
+/* Countdown до края на деня (полунощ) — всеки ден брои наново */
+(function(){
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  var root = document.getElementById('hmrCountdown');
+  if (!root) return;
+  var eh = root.querySelector('[data-h]'), em = root.querySelector('[data-m]'), es = root.querySelector('[data-s]');
+  function tick(){
+    var now = new Date();
+    var end = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
+    var diff = Math.max(0, Math.floor((end - now) / 1000));
+    var h = Math.floor(diff / 3600), m = Math.floor((diff % 3600) / 60), s = diff % 60;
+    if (eh) eh.textContent = pad(h);
+    if (em) em.textContent = pad(m);
+    if (es) es.textContent = pad(s);
+  }
+  tick();
+  setInterval(tick, 1000);
+})();
+</script>
