@@ -62,6 +62,10 @@
 #uh .uh-img{ position:relative; border-radius:18px; overflow:hidden; margin-bottom:18px; }
 #uh .uh-img-go{ cursor:pointer; }
 #uh .uh-mini .uh-ph img{ object-fit:contain; }
+#uh .uh-never{ display:inline-block; margin:2px auto 14px; padding:10px 16px; border-radius:12px; background:#fff3e3; border:1.5px dashed #c0661b; color:#7a3c0a; font:700 14px/1.35 'Montserrat',sans-serif; text-align:center; animation:uhNeverPulse 2.4s ease-in-out infinite; }
+#uh .uh-never b{ color:#b3261e; font-weight:900; text-transform:uppercase; }
+#uh .uh-never2{ display:block; margin:12px auto 0; max-width:420px; font-size:13px; }
+@keyframes uhNeverPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.03); } }
 #uh .uh-offer .uh-prices{ margin-top:34px; }
 #uh .uh-img img{ width:100%; height:auto; aspect-ratio:1/1; }
 #uh .uh-flag{ position:absolute; top:12px; left:12px; font:800 11px/1 'Montserrat',sans-serif; letter-spacing:1.5px; padding:9px 12px; border-radius:99px; color:#000; background:var(--gold); box-shadow:0 0 16px rgba(var(--gold-rgb),.9); }
@@ -165,6 +169,7 @@
     <div class="uh-head">
       <div class="uh-wait">ЧАКАЙ!</div>
       <p class="uh-kicker">Само за хора, които вече поръчаха</p>
+      <div class="uh-never">⚠️ Тази оферта няма да видиш <b>никога повече</b></div>
       <h1 class="uh-h1">Humrah + Buni <span class="uh-nt">само за 11.90 €</span></h1>
       <p class="uh-lead">Добави <b>Humrah 50 ml + Humrah Buni 50 ml</b> към поръчката си – два топли ориенталски аромата в един комплект, <b>11.90 € за двата</b>. Удобни за чантата, колата или път.</p>
     </div>
@@ -178,7 +183,8 @@
       <div class="uh-prices">
         <div class="uh-price uh-neon uh-d1">11.90<small>€</small><span class="uh-badge">2 бр.<small>в комплекта</small></span></div>
       </div>
-      <p class="uh-only">Цената е за целия комплект. Офертата е само на тази страница и само за вече поръчали.</p>
+      <p class="uh-only">Цената е за целия комплект.</p>
+      <div class="uh-never uh-never2">Само сега, само на тази страница. Ако я затвориш, <b>офертата изчезва завинаги</b>.</div>
 
       <div class="uh-actions">
         <a href="#" class="uh-yes" data-up="yes" data-burst><b>Да, добави ги за 11.90 € ➜</b><small>Добавя се към поръчката ти · плащаш при получаване</small></a>
@@ -216,7 +222,7 @@
     <div class="uh-otz" style="max-width:720px;margin:0 auto;border-radius:16px;overflow:hidden;background:#fff"><iframe src="https://potvardi.com/otzivi.php?k=97bc78218d48de8b&embed=1" title="Отзиви от клиенти" style="display:block;width:100%;height:520px;border:0" loading="lazy"></iframe></div>
 
     <div class="uh-actions">
-      <a href="#" class="uh-yes" data-up="yes" data-burst><b>Добави ги за 11.90 € ➜</b><small>Последен шанс за тази оферта</small></a>
+      <a href="#" class="uh-yes" data-up="yes" data-burst><b>Добави ги за 11.90 € ➜</b><small>Последен шанс – няма да я видиш повече</small></a>
       <a href="#" class="uh-no" data-up="no">Не, благодаря – продължи без офертата</a>
     </div>
   </div>
