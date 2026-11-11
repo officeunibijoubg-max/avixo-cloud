@@ -228,7 +228,10 @@
       root.appendChild(b); setTimeout(function(n){ n.remove(); },1050,b); }
   }
   /* ▼▼▼ КЪДЕ ОТИВА КЛИЕНТЪТ СЛЕД „ДА“ И СЛЕД „НЕ“ ▼▼▼ */
-  var UP_THANK_YOU = 'https://uni-arabian.eu/ty';
+  /* Празно = след „Да“ и „Не“ платформата сама води към следващата стъпка на фунията (thank you).
+     Ако тук сложиш адрес, и двата бутона водят натам. */
+  var UP_THANK_YOU = '';
+  var UP_FALLBACK = 'https://uni-arabian.eu/ty';
 
   function go(u){ try{ window.top.location.href=u; }catch(x){ window.location.href=u; } }
   /* Истинският бутон на платформата (widget „Upsell Button“) – той добавя продукта към поръчката.
@@ -251,11 +254,11 @@
     if(busy) return; busy=true;
     root.querySelectorAll('[data-up="yes"]').forEach(function(b){ b.style.setProperty('opacity','.6','important'); b.style.setProperty('pointer-events','none','important'); });
     var y=nativeYes();
-    if(y){ hookThankYou(); y.click(); }
-    else { if(window.console) console.warn('[ъпсел] Липсва widget „Upsell Button“ на страницата – продуктът НЕ е добавен.'); go(UP_THANK_YOU); }
+    if(y){ if(UP_THANK_YOU) hookThankYou(); y.click(); }
+    else { if(window.console) console.warn('[ъпсел] Липсва widget „Upsell Button“ на страницата – продуктът НЕ е добавен.'); go(UP_THANK_YOU||UP_FALLBACK); }
   }
-  function decline(){ go(UP_THANK_YOU); }
-  root.querySelectorAll('[data-up="no"]').forEach(function(a){ a.setAttribute('href',UP_THANK_YOU); a.setAttribute('target','_top'); });
+  /* „Не“ натиска „Не, благодаря“ на платформата – тя води към следващата стъпка */
+  function decline(){ var n=document.querySelector('.upsell-negative-action'); if(!UP_THANK_YOU&&n){ n.click(); } else go(UP_THANK_YOU||UP_FALLBACK); }
   root.addEventListener('click',function(e){
     var t=e.target.closest('[data-up]'); if(!t) return; e.preventDefault();
     if(t.getAttribute('data-up')==='yes'){ burst(e.clientX,e.clientY); setTimeout(accept, reduce?0:350); }
