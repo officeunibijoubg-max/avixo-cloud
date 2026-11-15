@@ -1,0 +1,315 @@
+<!-- =====================================================================
+     ЧЕРЕН ПЕТЪК · 8 ПАРФЮМА + 4 ПОДАРЪК · 28,90 € — ЛЕНДИНГ (един HTML блок)
+     Префикс bx-. Светъл дизайн, червено/жълто/черно, ленти „ЧЕРЕН ПЕТЪК“.
+     Чекаутът е най-долу на същата страница – бутоните плъзгат до него.
+     ===================================================================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+#bx, #bx *, #bx *::before, #bx *::after { box-sizing:border-box; }
+#bx#bx * { float:none; }
+#bx { --red:#d90f1f; --red2:#ff2b3a; --red-rgb:217,15,31; --yel:#ffd21a; --yel-rgb:255,210,26; --gold:#c9a24a; --ink:#111; --cream:#fffaf1; --text:#1b1712; --muted:rgba(27,23,18,.66);
+  display:block; width:100%; max-width:100%; margin:0; padding:0 0 10px; overflow:hidden; position:relative;
+  background:radial-gradient(700px 420px at 50% -6%, rgba(255,210,26,.30), transparent 62%), radial-gradient(600px 420px at 110% 40%, rgba(217,15,31,.07), transparent 60%), linear-gradient(180deg,#fffdf8,#fff7ea);
+  color:#1b1712; font-family:'Golos Text',Arial,sans-serif; line-height:1.55; text-align:center; -webkit-font-smoothing:antialiased; }
+#bx h1, #bx h2, #bx h3, #bx p, #bx div, #bx section, #bx span, #bx a, #bx img, #bx b, #bx i, #bx em, #bx small, #bx strong, #bx details, #bx summary { margin:0; padding:0; border:0; background:none; }
+#bx i, #bx em { font-style:normal; }
+#bx img { max-width:100%; height:auto; display:block; }
+#bx .bx-wrap { max-width:760px; margin:0 auto; padding:0 16px; position:relative; z-index:2; }
+
+/* ---------- горна лента ---------- */
+#bx .bx-top { background:var(--red); border-bottom:3px solid var(--yel); overflow:hidden; white-space:nowrap; padding:9px 0; position:relative; z-index:5; }
+#bx .bx-top .bx-run b { color:#fff; font-size:15px; }
+#bx .bx-top .bx-run em { color:var(--yel); font-size:15px; }
+#bx .bx-top .bx-run i { color:#fff; }
+
+/* ---------- кръстосани ленти ---------- */
+#bx .bx-x { position:relative; height:150px; overflow:hidden; margin:4px 0; }
+#bx .bx-tape { position:absolute; left:-15%; width:130%; top:50%; height:44px; display:flex; align-items:center; overflow:hidden; white-space:nowrap; }
+#bx .bx-ty { background:var(--yel); border-top:2px solid #111; border-bottom:2px solid #111; transform:translateY(-50%) rotate(-7deg); z-index:2; box-shadow:0 -4px 14px rgba(0,0,0,.18), 0 12px 22px rgba(0,0,0,.25); }
+#bx .bx-tr { background:var(--red); transform:translateY(-50%) rotate(6deg); z-index:1; filter:brightness(.92); }
+#bx .bx-run { display:flex; flex:none; align-items:center; gap:16px; padding-left:16px; animation:bxRun 24s linear infinite; will-change:transform; }
+#bx .bx-rev { animation-direction:reverse; animation-duration:28s; }
+#bx .bx-run b, #bx .bx-run em { font-family:'Oswald',Impact,sans-serif; font-weight:700; font-size:21px; line-height:1; letter-spacing:2.5px; text-transform:uppercase; }
+#bx .bx-ty .bx-run b { color:#111; } #bx .bx-ty .bx-run em { color:var(--red); } #bx .bx-ty .bx-run i { color:#111; }
+#bx .bx-tr .bx-run b { color:#fff; } #bx .bx-tr .bx-run em { color:var(--yel); } #bx .bx-tr .bx-run i { color:var(--yel); }
+#bx .bx-run i { font-size:13px; line-height:1; }
+@keyframes bxRun { from { transform:translateX(0); } to { transform:translateX(-50%); } }
+
+/* ---------- общи ---------- */
+#bx .bx-sec { padding:22px 0 30px; }
+#bx .bx-tag { display:inline-block; font:700 13px/1 'Oswald',sans-serif; letter-spacing:2.5px; text-transform:uppercase; color:#fff; background:var(--red); padding:7px 14px; border-radius:4px; transform:rotate(-2deg); margin-bottom:12px; }
+#bx h1, #bx h2 { font-family:'Oswald',Impact,sans-serif; font-weight:700; text-transform:uppercase; color:#111; letter-spacing:.3px; }
+#bx h1 { font-size:34px; line-height:1.06; margin-bottom:8px; }
+#bx h2 { font-size:30px; line-height:1.1; margin-bottom:10px; }
+#bx .bx-red { color:var(--red); }
+#bx .bx-hl { background:var(--yel); padding:0 6px; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+#bx .bx-lead { font-size:15.5px; color:var(--muted); max-width:560px; margin:0 auto 16px; }
+#bx .bx-lead b { color:#111; }
+#bx .bx-note { margin:12px auto 0; max-width:560px; font-size:12.5px; line-height:1.45; color:rgba(27,23,18,.62); }
+#bx .bx-card { position:relative; background:#fff; border-radius:20px; box-shadow:0 1px 0 rgba(0,0,0,.04), 0 18px 40px -20px rgba(80,40,0,.35); border:1.5px solid rgba(201,162,74,.35); }
+
+/* бутон */
+#bx .bx-btnw { margin-top:20px; }
+#bx a.bx-cta { position:relative; display:block; width:100%; max-width:480px; margin:0 auto; padding:19px 16px; border-radius:16px; overflow:hidden;
+  background:linear-gradient(180deg,#ff2b3a,#d90f1f 55%,#b60c19); color:#fff; text-decoration:none; text-align:center;
+  font:700 21px/1.15 'Oswald',Impact,sans-serif; letter-spacing:1.5px; text-transform:uppercase; white-space:nowrap; cursor:pointer;
+  border-bottom:4px solid #8f0913; animation:bxPulse 2.2s ease-in-out infinite; }
+#bx a.bx-cta::after { content:''; position:absolute; top:0; left:0; width:30%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent); animation:bxShine 3.2s ease-in-out infinite; pointer-events:none; }
+#bx a.bx-cta small { display:block; margin-top:3px; font:600 12px/1.2 'Golos Text',sans-serif; letter-spacing:.5px; text-transform:none; color:#ffe9a8; }
+@keyframes bxPulse { 0%,100% { transform:scale(1); box-shadow:0 12px 26px -12px rgba(217,15,31,.75); } 50% { transform:scale(1.025); box-shadow:0 16px 34px -10px rgba(217,15,31,.9); } }
+@keyframes bxShine { 0% { transform:translateX(-120%) skewX(-18deg); } 60%,100% { transform:translateX(380%) skewX(-18deg); } }
+
+/* ---------- hero ---------- */
+#bx .bx-hero { padding:14px 0 18px; }
+#bx .bx-fire { font:700 15px/1 'Oswald',sans-serif; letter-spacing:3px; color:var(--red); text-transform:uppercase; margin-bottom:8px; }
+#bx .bx-sub { font:700 17px/1.3 'Oswald',sans-serif; letter-spacing:1px; text-transform:uppercase; color:#111; margin-bottom:6px; }
+#bx .bx-vis { position:relative; height:270px; max-width:400px; margin:4px auto 6px; }
+#bx .bx-ph { position:absolute; width:124px; height:124px; border-radius:16px; overflow:hidden; background:#fff; border:4px solid #fff; box-shadow:0 14px 26px -12px rgba(0,0,0,.45); }
+#bx .bx-ph img { width:100%; height:100%; object-fit:cover; }
+#bx .bx-p1 { left:10px; top:34px; transform:rotate(-11deg); }
+#bx .bx-p2 { left:50%; top:4px; margin-left:-62px; z-index:2; }
+#bx .bx-p3 { right:10px; top:34px; transform:rotate(11deg); }
+#bx .bx-box { position:absolute; left:50%; bottom:0; width:290px; margin-left:-145px; z-index:3; filter:drop-shadow(0 16px 20px rgba(80,45,10,.35)); }
+#bx .bx-box svg { display:block; width:100%; height:auto; }
+#bx .bx-badge { position:absolute; z-index:4; right:-2px; top:-4px; width:96px; height:96px; border-radius:50%; background:var(--red); color:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; border:3px solid var(--yel); transform:rotate(10deg); box-shadow:0 10px 20px -8px rgba(217,15,31,.8); animation:bxWob 4s ease-in-out infinite; }
+#bx .bx-badge small { font:700 11px/1 'Oswald',sans-serif; letter-spacing:1.5px; }
+#bx .bx-badge b { font:700 24px/1 'Oswald',sans-serif; margin-top:3px; color:var(--yel); }
+@keyframes bxWob { 0%,100% { transform:rotate(10deg) scale(1); } 50% { transform:rotate(4deg) scale(1.06); } }
+#bx .bx-q { position:absolute; z-index:4; left:2px; bottom:22px; width:54px; height:54px; border-radius:14px; background:#111; color:var(--yel); font:700 32px/54px 'Oswald',sans-serif; transform:rotate(-12deg); box-shadow:0 8px 16px -6px rgba(0,0,0,.6); }
+#bx .bx-price { display:flex; align-items:center; justify-content:center; gap:10px; margin:6px 0 2px; }
+#bx .bx-price span { font:700 14px/1.15 'Oswald',sans-serif; letter-spacing:1px; text-transform:uppercase; text-align:right; color:#111; }
+#bx .bx-price b { font:700 52px/1 'Oswald',sans-serif; color:#111; background:var(--yel); padding:4px 12px 2px; border-radius:10px; transform:rotate(-2deg); box-shadow:4px 4px 0 #111; }
+#bx .bx-icons { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:480px; margin:12px auto 0; }
+#bx .bx-icons div { display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 4px; border-radius:12px; background:#fff; border:1px solid rgba(201,162,74,.4); font:600 11.5px/1.25 'Golos Text',sans-serif; color:#111; }
+#bx .bx-icons i { font-size:18px; line-height:1; }
+
+/* ---------- какво получаваш ---------- */
+#bx .bx-blk { padding:16px 14px 18px; margin-top:14px; text-align:center; }
+#bx .bx-blk h3 { font:700 24px/1.1 'Oswald',sans-serif; text-transform:uppercase; color:#111; }
+#bx .bx-blk .bx-mf { display:inline-flex; gap:8px; margin:8px 0 12px; }
+#bx .bx-mf span { font:700 13px/1 'Oswald',sans-serif; letter-spacing:1px; text-transform:uppercase; padding:7px 12px; border-radius:99px; background:#111; color:#fff; }
+#bx .bx-mf span.bx-f { background:var(--red); }
+#bx .bx-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+#bx .bx-grid div { aspect-ratio:1/1; border-radius:12px; overflow:hidden; background:#f4efe6; box-shadow:0 6px 14px -8px rgba(0,0,0,.35); }
+#bx .bx-grid img { width:100%; height:100%; object-fit:cover; }
+#bx .bx-gift { border:2.5px dashed var(--red); background:linear-gradient(180deg,#fff,#fff4f4); }
+#bx .bx-ribbon { position:absolute; top:-14px; left:50%; transform:translateX(-50%) rotate(-2deg); background:var(--red); color:#fff; font:700 14px/1 'Oswald',sans-serif; letter-spacing:2px; padding:7px 16px; border-radius:6px; white-space:nowrap; box-shadow:0 6px 14px -6px rgba(217,15,31,.8); }
+#bx .bx-gift .bx-grid div { position:relative; outline:2px solid var(--yel); outline-offset:-2px; }
+#bx .bx-gift .bx-grid div::after { content:'🎁'; position:absolute; right:4px; top:4px; font-size:16px; }
+#bx .bx-plus { font:700 34px/1 'Oswald',sans-serif; color:var(--red); margin:10px 0 0; }
+#bx .bx-duo { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+#bx .bx-mini { padding:14px 10px; display:flex; flex-direction:column; align-items:center; gap:6px; }
+#bx .bx-mini svg { width:96px; height:auto; }
+#bx .bx-mini b { font:700 17px/1.1 'Oswald',sans-serif; text-transform:uppercase; color:#111; }
+#bx .bx-mini span { font-size:12.5px; color:var(--muted); line-height:1.35; }
+#bx .bx-qbig { width:84px; height:84px; border-radius:20px; background:#111; color:var(--yel); font:700 56px/84px 'Oswald',sans-serif; transform:rotate(-6deg); box-shadow:0 10px 18px -8px rgba(0,0,0,.55); }
+
+/* ---------- офертата ---------- */
+#bx .bx-eq { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; margin:6px 0 4px; }
+#bx .bx-eq span { font:700 18px/1 'Oswald',sans-serif; text-transform:uppercase; padding:10px 12px; border-radius:12px; background:#fff; border:2px solid #111; color:#111; }
+#bx .bx-eq span.bx-y { background:var(--yel); }
+#bx .bx-eq span.bx-r { background:var(--red); color:#fff; border-color:var(--red); }
+#bx .bx-eq i { font:700 22px/1 'Oswald',sans-serif; color:var(--red); }
+#bx .bx-big { display:inline-block; margin-top:14px; font:700 64px/1 'Oswald',sans-serif; color:#111; background:var(--yel); padding:6px 18px 2px; border-radius:14px; box-shadow:6px 6px 0 #111; transform:rotate(-2deg); }
+#bx .bx-pts { display:grid; gap:8px; max-width:440px; margin:18px auto 0; text-align:left; }
+#bx .bx-pts div { display:flex; gap:10px; align-items:center; font-weight:600; font-size:15px; color:#111; }
+#bx .bx-pts i { flex:none; width:26px; height:26px; border-radius:50%; background:var(--red); color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; }
+
+/* ---------- изненада ---------- */
+#bx .bx-sur { display:flex; align-items:center; gap:14px; padding:18px 16px; text-align:left; }
+#bx .bx-sur .bx-qbig { flex:none; }
+#bx .bx-sur h2 { font-size:24px; margin-bottom:4px; }
+#bx .bx-sur p { font-size:14.5px; color:var(--muted); }
+
+/* ---------- отзиви / въпроси ---------- */
+#bx .bx-faq { display:grid; gap:8px; margin-top:12px; text-align:left; }
+#bx .bx-faq details { padding:14px 16px; border-radius:14px; background:#fff; border:1px solid rgba(201,162,74,.4); }
+#bx .bx-faq summary { cursor:pointer; list-style:none; font-weight:700; font-size:15px; color:#111; display:flex; justify-content:space-between; gap:10px; }
+#bx .bx-faq summary::-webkit-details-marker { display:none; }
+#bx .bx-faq summary::after { content:'+'; color:var(--red); font-size:20px; line-height:1; }
+#bx .bx-faq details[open] summary::after { content:'–'; }
+#bx .bx-faq p { margin-top:8px; font-size:14px; color:var(--muted); }
+
+/* ---------- финал ---------- */
+#bx .bx-final { padding:24px 14px 22px; border:3px solid #111; background:#fff; }
+#bx .bx-final .bx-sum { font:700 22px/1.25 'Oswald',sans-serif; text-transform:uppercase; color:#111; margin-top:6px; }
+#bx .bx-final .bx-sum em { color:var(--red); }
+
+/* ---------- залепен бутон (телефон) ---------- */
+#bx .bx-sticky { display:none; }
+@media (max-width:768px) {
+  #bx { padding-bottom:84px; }
+  #bx .bx-sticky { display:block; position:fixed; left:0; right:0; bottom:0; z-index:999; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); background:rgba(255,255,255,.96); border-top:3px solid var(--yel); box-shadow:0 -8px 20px -10px rgba(0,0,0,.35); transform:translateY(120%); transition:transform .3s; }
+  #bx .bx-sticky.bx-on { transform:none; }
+  #bx .bx-sticky a.bx-cta { font-size:19px; padding:14px 10px; animation:none; }
+}
+@media (min-width:720px) {
+  #bx h1 { font-size:50px; } #bx h2 { font-size:40px; }
+  #bx .bx-vis { height:330px; max-width:520px; }
+  #bx .bx-ph { width:160px; height:160px; } #bx .bx-p2 { margin-left:-80px; }
+  #bx .bx-box { width:360px; margin-left:-180px; }
+  #bx .bx-x { height:170px; }
+  #bx .bx-tape { height:52px; }
+  #bx .bx-run b, #bx .bx-run em { font-size:25px; }
+}
+@media (max-width:380px) {
+  #bx h1 { font-size:30px; } #bx a.bx-cta { font-size:19px; letter-spacing:1px; }
+  #bx .bx-ph { width:108px; height:108px; } #bx .bx-p2 { margin-left:-54px; }
+  #bx .bx-box { width:260px; margin-left:-130px; }
+}
+@media (prefers-reduced-motion:reduce) { #bx#bx *, #bx#bx *::before, #bx#bx *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; } }
+</style>
+
+<div id="bx">
+  <div class="bx-top" aria-hidden="true"><div class="bx-run"><!--TOPRUN--></div></div>
+
+  <!-- 1. ПЪРВИ ЕКРАН -->
+  <header class="bx-hero" id="bxHero"><div class="bx-wrap">
+    <div class="bx-fire">🔥 Черен петък 🔥</div>
+    <h1>Вземи 8 парфюма и получи <span class="bx-red">още 4 подарък!</span></h1>
+    <div class="bx-sub">12 парфюма + кутия + <span class="bx-hl">изненада</span></div>
+
+    <div class="bx-vis" aria-label="Комплект от 12 парфюма в кутия">
+      <div class="bx-ph bx-p1"><img src="IMG_M1" alt="" width="1200" height="1200"></div>
+      <div class="bx-ph bx-p2"><img src="IMG_W1" alt="" width="1200" height="1200"></div>
+      <div class="bx-ph bx-p3"><img src="IMG_W2" alt="" width="1200" height="1200"></div>
+      <div class="bx-box"><!--BOX--></div>
+      <div class="bx-badge"><small>САМО</small><b>28,90 €</b></div>
+      <div class="bx-q" aria-hidden="true">?</div>
+    </div>
+
+    <div class="bx-price"><span>Целият<br>комплект</span><b>28,90 €</b></div>
+    <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Плащаш при получаване · наложен платеж</small></a></div>
+    <div class="bx-icons">
+      <div><i>📦</i>8 + 4 парфюма подарък</div>
+      <div><i>🚚</i>Еконт до офис или адрес</div>
+      <div><i>💶</i>Плащаш при получаване</div>
+    </div>
+  </div></header>
+
+  <!--TAPES-->
+
+  <!-- 2. КАКВО ПОЛУЧАВАШ -->
+  <section class="bx-sec"><div class="bx-wrap">
+    <div class="bx-tag">Какво получаваш</div>
+    <h2>Една кутия. 12 аромата. <span class="bx-red">Още повече подаръци!</span></h2>
+
+    <div class="bx-card bx-blk">
+      <h3>8 парфюма в комплекта</h3>
+      <div class="bx-mf"><span>4 мъжки</span><span class="bx-f">4 дамски</span></div>
+      <div class="bx-grid"><!--GRID8--></div>
+    </div>
+    <div class="bx-plus">+</div>
+    <div class="bx-card bx-blk bx-gift">
+      <div class="bx-ribbon">🎁 Подарък</div>
+      <h3>4 парфюма подарък</h3>
+      <div class="bx-mf"><span>2 мъжки</span><span class="bx-f">2 дамски</span></div>
+      <div class="bx-grid"><!--GRID4--></div>
+    </div>
+    <div class="bx-plus">+</div>
+    <div class="bx-duo">
+      <div class="bx-card bx-mini"><!--BOXMINI--><b>Кутия подарък</b><span>Всичко пристига в една кутия</span></div>
+      <div class="bx-card bx-mini"><div class="bx-qbig" aria-hidden="true">?</div><b>Подарък изненада</b><span>Още един подарък в пратката</span></div>
+    </div>
+    <p class="bx-note"><!--DISCLAIMER--></p>
+    <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Целият комплект – 28,90 €</small></a></div>
+  </div></section>
+
+  <!--TAPES-->
+
+  <!-- 3. СИЛНА ОФЕРТА -->
+  <section class="bx-sec"><div class="bx-wrap">
+    <div class="bx-tag">Офертата на Черния петък</div>
+    <h2>Не 8, а цели <span class="bx-red">12 парфюма!</span></h2>
+    <p class="bx-lead">Вземи комплекта си за <b>28,90 €</b>.</p>
+    <div class="bx-eq">
+      <span>8 парфюма</span><i>+</i><span class="bx-r">4 подарък</span><i>+</i><span>кутия</span><i>+</i><span class="bx-y">изненада</span>
+    </div>
+    <div class="bx-big">28,90 €</div>
+    <div class="bx-pts">
+      <div><i>✓</i>4 мъжки + 4 дамски парфюма</div>
+      <div><i>✓</i>+ 2 мъжки + 2 дамски парфюма подарък</div>
+      <div><i>✓</i>+ кутия и подарък изненада</div>
+      <div><i>✓</i>Плащаш едва когато получиш пратката</div>
+    </div>
+    <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>12 парфюма · 28,90 €</small></a></div>
+  </div></section>
+
+  <!--TAPES-->
+
+  <!-- 4. ИЗНЕНАДА -->
+  <section class="bx-sec" style="padding-top:8px"><div class="bx-wrap">
+    <div class="bx-card bx-sur">
+      <div class="bx-qbig" aria-hidden="true">?</div>
+      <div><h2>Има и още една изненада! 🎁</h2><p>Освен 12-те парфюма и кутията, към комплекта получаваш и допълнителен подарък изненада!</p></div>
+    </div>
+    <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Искам изненадата<small>Идва с комплекта · 28,90 €</small></a></div>
+  </div></section>
+
+  <!-- ОТЗИВИ -->
+  <section class="bx-sec"><div class="bx-wrap">
+    <div class="bx-tag">Отзиви</div>
+    <h2>Какво казват <span class="bx-red">клиентите</span></h2>
+    <p class="bx-lead">Отзиви от клиенти, които вече получиха поръчката си.</p>
+    <div class="bx-otz" style="max-width:720px;margin:0 auto;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 18px 40px -20px rgba(80,40,0,.35)"><iframe src="https://potvardi.com/otzivi.php?k=97bc78218d48de8b&embed=1" title="Отзиви от клиенти" style="display:block;width:100%;height:520px;border:0" loading="lazy"></iframe></div>
+    <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Плащаш при получаване</small></a></div>
+  </div></section>
+
+  <!-- ВЪПРОСИ -->
+  <section class="bx-sec" style="padding-top:6px"><div class="bx-wrap">
+    <h2>Въпроси</h2>
+    <div class="bx-faq">
+      <details><summary>Мога ли да избера ароматите?</summary><p>Не. Парфюмите в комплекта се подбират на случаен принцип според наличността. Гарантирано получаваш 4 мъжки + 4 дамски парфюма и още 2 мъжки + 2 дамски подарък.</p></details>
+      <details><summary>Как плащам?</summary><p>С наложен платеж – плащаш на куриера, когато получиш пратката.</p></details>
+      <details><summary>Как се доставя и колко струва доставката?</summary><p>С Еконт – до офис или до адрес. Цената на доставката виждаш във формата, преди да потвърдиш поръчката.</p></details>
+      <details><summary>Мога ли да поръчам повече от един комплект?</summary><p>Да. Избираш броя комплекти във формата и цената се преизчислява: 1 комплект – 28,90 €, 2 комплекта – 57,80 €, 3 комплекта – 86,70 €.</p></details>
+    </div>
+    <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>28,90 € за комплекта</small></a></div>
+  </div></section>
+
+  <!--TAPES-->
+
+  <!-- 5. ФИНАЛ -->
+  <section class="bx-sec" id="bxFinal"><div class="bx-wrap">
+    <div class="bx-card bx-final">
+      <h2>Вземи своя <span class="bx-red">Black Friday</span> комплект!</h2>
+      <div class="bx-sum">8 парфюма + <em>4 подарък</em><br>+ кутия + изненада</div>
+      <div class="bx-big">28,90 €</div>
+      <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Попълваш формата отдолу за 30 секунди</small></a></div>
+      <p class="bx-note"><!--DISCLAIMER--></p>
+    </div>
+  </div></section>
+
+  <div class="bx-sticky" id="bxSticky"><a href="#" class="bx-cta" data-go>Поръчай сега · 28,90 €</a></div>
+</div>
+
+<script>
+/* ▼▼▼ НАСТРОЙКИ ▼▼▼
+   BX_CHECKOUT_URL – празно = бутоните плъзгат до чекаута най-долу на същата страница;
+                     иначе пълен адрес на отделна чекаут страница.
+   BX_PIXEL       – true = праща ViewContent и InitiateCheckout към Facebook Pixel (ако е зареден на страницата).
+                     Purchase НЕ се праща оттук – него го праща платформата след истинска поръчка.        */
+var BX_CHECKOUT_URL = '';
+var BX_PIXEL = true;
+(function(){
+  var root=document.getElementById('bx'); if(!root) return;
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function co(){ return document.querySelector('.bxc')||document.querySelector('.widget-checkout'); }
+  function px(ev,once){ try{ if(!BX_PIXEL||!window.fbq) return; if(once){ var k='bx_'+ev; if(window[k]) return; window[k]=1; } fbq('track',ev,{content_name:'Черен петък – 12 парфюма',value:28.90,currency:'EUR'}); }catch(e){} }
+  px('ViewContent',true);
+  root.querySelectorAll('a[data-go]').forEach(function(a){
+    if(BX_CHECKOUT_URL){ a.setAttribute('href',BX_CHECKOUT_URL); a.setAttribute('target','_top'); }
+    a.addEventListener('click',function(e){
+      px('InitiateCheckout',true);
+      if(BX_CHECKOUT_URL) return;
+      var c=co(); if(!c) return; e.preventDefault();
+      c.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+      setTimeout(function(){ if(Math.abs(c.getBoundingClientRect().top)>40) c.scrollIntoView({behavior:'smooth',block:'start'}); },1200);
+    });
+  });
+  /* залепеният бутон: показва се след първия екран, скрива се при чекаута */
+  var st=document.getElementById('bxSticky'), hero=document.getElementById('bxHero');
+  function onScroll(){ var c=co(), past=hero.getBoundingClientRect().bottom<0, atCo=c&&c.getBoundingClientRect().top<innerHeight*.9&&c.getBoundingClientRect().bottom>0; if(st) st.classList.toggle('bx-on',past&&!atCo); }
+  window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+})();
+</script>

@@ -23,4 +23,4 @@
 - Ъпсел (общ за всички фунии): `funnels/upsell/upsell-dirham.src.html` – светъл; „Да“ натиска скрития widget „Upsell Button“ (`.upsell-positive-action`) и води към `/ty`, „Не“ → `/ty`.
 - Ъпсел Humrah + Buni 50 ml за 11.90 €: `funnels/upsell-humrah-buni/upsell-humrah-buni.src.html` – като общия ъпсел, в кехлибарени цветове.
 - Ъпсел за Черния петък „Продукт изненада 4,50 €“ (общ за BF): `funnels/early-bf-humrah/upsell-surprise.src.html` – същата механика (скрит „Upsell Button“ с продукта изненада).
-- Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`, `funnels/men-5/`, `funnels/trio/`, `funnels/black-friday-mystery/`, `funnels/early-bf-humrah/`.
+- Готовите фунии: `funnels/dirham-pink-gold/`, `funnels/freeze-in-flames/`, `funnels/men-5/`, `funnels/trio/`, `funnels/black-friday-mystery/`, `funnels/early-bf-humrah/`, `funnels/bf-12/` (8 + 4 парфюма за 28,90 €, случаен подбор – никога не се изброяват модели).

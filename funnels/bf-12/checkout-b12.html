@@ -1,0 +1,745 @@
+<!-- =====================================================================
+     ЧЕРЕН ПЕТЪК · 8 + 4 ПАРФЮМА · ЧЕКАУТ – ВСИЧКО В ЕДИН КОД
+     Слага се в ЕДИН HTML (code) блок точно НАД checkout widget-а (най-долу на лендинга).
+     ===================================================================== -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Golos+Text:wght@400;500;600;700;800&display=swap');
+.bxc.bxc.bxc.bxc *{ float:none !important; }
+.bxc{ font-family:'Golos Text',Arial,sans-serif !important; color:#1b1712 !important; background:linear-gradient(180deg,#fff7ea,#fffdf8) !important; line-height:1.5 !important; position:relative !important; overflow:hidden !important; text-align:center !important; }
+.bxc *{ box-sizing:border-box !important; }
+.bxc .bxc-wrap{ max-width:640px !important; margin:0 auto !important; padding:0 16px !important; }
+.bxc .bxc-ticker{ background:#d90f1f !important; border-bottom:3px solid #ffd21a !important; overflow:hidden !important; white-space:nowrap !important; }
+.bxc .bxc-ticker-in{ display:inline-flex !important; gap:34px !important; padding:9px 0 !important; animation:bxcRun 26s linear infinite; font:700 14px/1 'Oswald',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; color:#fff !important; }
+.bxc .bxc-ticker-in span:nth-child(even){ color:#ffd21a !important; }
+@keyframes bxcRun{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
+.bxc .bxc-top{ padding:22px 0 18px !important; }
+.bxc .bxc-steps{ display:flex !important; align-items:center !important; justify-content:center !important; gap:8px !important; max-width:340px !important; margin:0 auto 14px !important; }
+.bxc .bxc-st{ display:flex !important; flex-direction:column !important; align-items:center !important; gap:5px !important; font:700 11px/1.2 'Golos Text',sans-serif !important; letter-spacing:1px !important; text-transform:uppercase !important; color:rgba(27,23,18,.5) !important; }
+.bxc .bxc-st i{ width:30px !important; height:30px !important; border-radius:50% !important; display:flex !important; align-items:center !important; justify-content:center !important; font-style:normal !important; font-size:13px !important; border:2px solid rgba(27,23,18,.2) !important; background:#fff !important; color:#1b1712 !important; }
+.bxc .bxc-st.bxc-done i{ background:#1fa463 !important; border-color:#1fa463 !important; color:#fff !important; }
+.bxc .bxc-st.bxc-now{ color:#d90f1f !important; }
+.bxc .bxc-st.bxc-now i{ background:#d90f1f !important; border-color:#d90f1f !important; color:#fff !important; }
+.bxc .bxc-ln{ flex:1 !important; height:2px !important; background:#d90f1f !important; margin-bottom:20px !important; }
+.bxc .bxc-ln.bxc-off{ background:rgba(27,23,18,.15) !important; }
+.bxc h2.bxc-h{ font:700 30px/1.1 'Oswald',sans-serif !important; text-transform:uppercase !important; color:#111 !important; margin:0 0 8px !important; }
+.bxc h2.bxc-h span{ color:#d90f1f !important; }
+.bxc .bxc-sub{ font-size:15px !important; color:rgba(27,23,18,.7) !important; margin:0 auto 14px !important; max-width:480px !important; }
+.bxc .bxc-set{ background:#fff !important; border:3px solid #111 !important; border-radius:18px !important; padding:16px 14px !important; margin:0 auto 12px !important; max-width:480px !important; }
+.bxc .bxc-set-name{ font:700 19px/1.25 'Oswald',sans-serif !important; text-transform:uppercase !important; color:#111 !important; }
+.bxc .bxc-set-name em{ font-style:normal !important; color:#d90f1f !important; }
+.bxc .bxc-set-price{ display:inline-block !important; margin-top:10px !important; font:700 40px/1 'Oswald',sans-serif !important; color:#111 !important; background:#ffd21a !important; padding:4px 14px 2px !important; border-radius:10px !important; box-shadow:4px 4px 0 #111 !important; }
+.bxc .bxc-qty{ margin-top:12px !important; font-size:13px !important; color:rgba(27,23,18,.72) !important; }
+.bxc .bxc-qty b{ color:#111 !important; }
+.bxc .bxc-cod{ display:flex !important; align-items:center !important; gap:12px !important; text-align:left !important; background:#fff !important; border:1.5px solid rgba(201,162,74,.5) !important; border-radius:14px !important; padding:12px 14px !important; max-width:480px !important; margin:0 auto 10px !important; }
+.bxc .bxc-cod i{ flex:none !important; font-style:normal !important; font-size:24px !important; }
+.bxc .bxc-cod b{ display:block !important; font-size:15px !important; color:#111 !important; }
+.bxc .bxc-cod span{ font-size:13px !important; color:rgba(27,23,18,.7) !important; }
+.bxc .bxc-dis{ max-width:480px !important; margin:10px auto 0 !important; font-size:12.5px !important; line-height:1.45 !important; color:rgba(27,23,18,.66) !important; background:#fff8db !important; border:1px dashed #c9a24a !important; border-radius:10px !important; padding:9px 12px !important; }
+.bxc .bxc-down{ margin-top:12px !important; font:700 14px/1 'Oswald',sans-serif !important; letter-spacing:2px !important; text-transform:uppercase !important; color:#d90f1f !important; }
+.bxc .bxc-down em{ display:block !important; font-style:normal !important; font-size:22px !important; margin-top:4px !important; animation:bxcBob 1.4s ease-in-out infinite; }
+@keyframes bxcBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(6px); } }
+.bxc.bxc-bottom{ background:transparent !important; padding:20px 0 6px !important; }
+.bxc .bxc-qa{ display:grid !important; gap:8px !important; text-align:left !important; margin-top:12px !important; }
+.bxc .bxc-qa details{ background:#fff !important; border:1px solid rgba(201,162,74,.45) !important; border-radius:12px !important; padding:12px 14px !important; }
+.bxc .bxc-qa summary{ cursor:pointer !important; font-weight:700 !important; font-size:14.5px !important; color:#111 !important; }
+.bxc .bxc-qa p{ margin:8px 0 0 !important; font-size:13.5px !important; color:rgba(27,23,18,.72) !important; }
+.bxc .bxc-up{ display:block !important; margin:14px auto 0 !important; font:700 13px/1 'Golos Text',sans-serif !important; color:#d90f1f !important; text-decoration:none !important; }
+.bxc .bxc-foot{ margin-top:18px !important; padding-top:14px !important; border-top:1px solid rgba(27,23,18,.12) !important; }
+.bxc .bxc-foot b{ display:block !important; font:700 18px/1 'Oswald',sans-serif !important; letter-spacing:4px !important; color:#111 !important; }
+.bxc .bxc-foot span{ font-size:12px !important; color:rgba(27,23,18,.5) !important; }
+/* отметка за общите условия (вмъква се от JS над бутона за поръчка) */
+.widget-checkout .bxc-agree{ display:flex !important; gap:10px !important; align-items:flex-start !important; text-align:left !important; margin:6px 0 12px !important; padding:10px 12px !important; border-radius:10px !important; background:#fffaf0 !important; border:1.5px solid rgba(201,162,74,.6) !important; font:500 13.5px/1.4 'Golos Text',Arial,sans-serif !important; color:#1b1712 !important; cursor:pointer !important; }
+.widget-checkout .bxc-agree input{ flex:none !important; width:20px !important; height:20px !important; margin:1px 0 0 !important; accent-color:#d90f1f !important; }
+.widget-checkout .bxc-agree.bxc-err{ border-color:#e25041 !important; background:#fff1ef !important; }
+.widget-checkout .bxc-agree-msg{ display:none !important; color:#e25041 !important; font:600 13px/1.3 'Golos Text',sans-serif !important; margin:-6px 0 10px !important; text-align:left !important; }
+.widget-checkout .bxc-agree.bxc-err + .bxc-agree-msg{ display:block !important; }
+.widget-checkout .bxc-dis2{ font:500 12.5px/1.45 'Golos Text',Arial,sans-serif !important; color:rgba(27,23,18,.7) !important; background:#fff8db !important; border:1px dashed #c9a24a !important; border-radius:10px !important; padding:9px 12px !important; margin:0 0 12px !important; text-align:left !important; }
+/* без bump „продукт изненада“ – JS го намира по текста */
+.widget-checkout .bump-wrapper.bxc-nobump{ display:none !important; }
+
+/* ===================== ДИЗАЙН НА ЧЕКАУТА (.widget-checkout) ===================== */
+.widget-checkout .checkout-info[data-step="info"] {
+  background: #FFFDF8 !important;
+  border-radius: 16px !important;
+  padding: 32px 28px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(200, 16, 46,0.35) !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  color: #1A1612 !important;
+}
+.widget-checkout .checkout-info-inner {
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  color: #1A1612 !important;
+}
+.widget-checkout .checkout-info h2,
+.widget-checkout .checkout-info h3 {
+  font-family: 'Georgia', serif !important;
+  color: #1A1612 !important;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  letter-spacing: 0.5px !important;
+  margin: 0 0 18px 0 !important;
+  padding: 0 0 12px 0 !important;
+  border-bottom: 1px solid rgba(200, 16, 46,0.35) !important;
+  line-height: 1.3 !important;
+}
+.widget-checkout .checkout-info h3::before {
+  content: "\25C6  " !important;
+  color: #C8102E !important;
+  font-size: 13px !important;
+  vertical-align: middle !important;
+  margin-right: 6px !important;
+}
+.widget-checkout .checkout-info input[type="text"],
+.widget-checkout .checkout-info input[type="email"],
+.widget-checkout .checkout-info input[type="password"],
+.widget-checkout .checkout-info input[type="tel"],
+.widget-checkout .checkout-info input[type="number"],
+.widget-checkout .checkout-info select {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(200, 16, 46, 0.45) !important;
+  border-radius: 8px !important;
+  padding: 14px 16px !important;
+  font-size: 15px !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  color: #1A1612 !important;
+  margin-bottom: 12px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+}
+.widget-checkout .checkout-info input:focus,
+.widget-checkout .checkout-info select:focus {
+  border-color: #C8102E !important;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.25) !important;
+  outline: none !important;
+  background: #FFFFFF !important;
+}
+.widget-checkout .checkout-info input::placeholder {
+  color: rgba(0, 0, 0, 0.4) !important;
+  font-weight: 400 !important;
+  opacity: 1 !important;
+}
+.widget-checkout .checkout-info select {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3e%3cpath fill='%23A87A2A' d='M6 8L0 0h12z'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 16px center !important;
+  background-size: 12px !important;
+  padding-right: 40px !important;
+}
+.widget-checkout .checkout-info .input-row {
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 0 !important;
+}
+.widget-checkout .checkout-info .input-row > * {
+  flex: 1 !important;
+}
+.widget-checkout .checkout-steps {
+  margin-bottom: 22px !important;
+}
+.widget-checkout .steps-breadcrumbs-inner {
+  background: linear-gradient(90deg, #FFF6E0 0%, #F1E2C3 50%, #FFF6E0 100%) !important;
+  border: 1px solid rgba(200, 16, 46,0.35) !important;
+  border-radius: 10px !important;
+  padding: 14px 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-wrap: wrap !important;
+}
+.widget-checkout .checkout-style-1 .checkout-step {
+  color: rgba(0, 0, 0, 0.35) !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  border: none !important;
+  padding: 0 !important;
+}
+.widget-checkout .checkout-style-1 .checkout-step.active {
+  color: #9E0B22 !important;
+}
+.widget-checkout .checkout-steps svg {
+  fill: rgba(200, 16, 46, 0.6) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+.widget-checkout .login-question {
+  font-size: 13px !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+.widget-checkout .login-question a,
+.widget-checkout .toggle-fields {
+  color: #9E0B22 !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+}
+.widget-checkout .tick-wrapper.small {
+  background: transparent !important;
+  border: none !important;
+  padding: 8px 0 !important;
+  margin-bottom: 0 !important;
+  font-size: 13px !important;
+  color: rgba(0, 0, 0, 0.65) !important;
+}
+.widget-checkout .tick-wrapper.small input[type="checkbox"] {
+  margin-right: 8px !important;
+  accent-color: #C8102E !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(200, 16, 46, 0.45) !important;
+  border-radius: 10px !important;
+  padding: 16px 20px !important;
+  margin-bottom: 12px !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 15px !important;
+  color: #1A1612 !important;
+  font-weight: 500 !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper:hover {
+  border-color: #C8102E !important;
+  box-shadow: 0 5px 15px rgba(200, 16, 46, 0.25) !important;
+  transform: translateY(-1px) !important;
+  background: rgba(200, 16, 46, 0.06) !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper input[type="radio"] {
+  accent-color: #C8102E !important;
+  width: 18px !important;
+  height: 18px !important;
+  cursor: pointer !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper > span {
+  flex: 1 !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper * {
+  color: #1A1612 !important;
+}
+.widget-checkout [data-role="next-step"],
+.widget-checkout [data-role="continue"] {
+  background: #C8102E !important;
+  color: #000000 !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  letter-spacing: 2.5px !important;
+  text-transform: uppercase !important;
+  border-radius: 14px !important;
+  padding: 20px 32px !important;
+  border: none !important;
+  box-shadow: 0 18px 60px -20px rgba(200, 16, 46, 0.6) !important;
+  transition: all 0.3s ease !important;
+  margin-top: 14px !important;
+  display: block !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+.widget-checkout [data-role="next-step"]:hover,
+.widget-checkout [data-role="continue"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 25px 60px -15px rgba(200, 16, 46, 0.7) !important;
+  background: #C99A45 !important;
+}
+.widget-checkout [data-role="continue"] i {
+  margin-left: 8px !important;
+}
+.widget-checkout [data-role="back"] {
+  color: rgba(0, 0, 0, 0.55) !important;
+  text-decoration: underline !important;
+  font-size: 13px !important;
+  margin-top: 14px !important;
+  display: inline-block !important;
+}
+.widget-checkout [data-role="back"]:hover {
+  color: #9E0B22 !important;
+}
+.widget-checkout .checkout-summary,
+.widget-checkout .checkout-summary.cart-items-wrapper {
+  background: #FFFDF8 !important;
+  border-radius: 14px !important;
+  padding: 28px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+  border: 1px solid rgba(200, 16, 46,0.35) !important;
+  margin-top: 25px !important;
+  color: #1A1612 !important;
+}
+.widget-checkout .checkout-summary h3 {
+  font-family: 'Georgia', serif !important;
+  color: #1A1612 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 0 18px 0 !important;
+  letter-spacing: 0.5px !important;
+}
+.widget-checkout .checkout-summary h3::before {
+  content: none !important;
+}
+.widget-checkout .cart-container .cart-labels {
+  background: #FFF6E0 !important;
+  border: 1px solid rgba(200, 16, 46, 0.25) !important;
+  padding: 10px 14px !important;
+  border-radius: 6px !important;
+  margin-bottom: 12px !important;
+}
+.widget-checkout .cart-container .cart-labels span {
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
+  color: #9E0B22 !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+}
+.widget-checkout .cart-container .product-info,
+.widget-checkout .cart-container .product-info a {
+  color: #1A1612 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.widget-checkout .cart-container .qty,
+.widget-checkout .cart-container .row-total {
+  color: #1A1612 !important;
+  font-size: 14px !important;
+}
+.widget-checkout .subtotal-wrapper {
+  padding: 6px 0 !important;
+}
+.widget-checkout .subtotal-wrapper .subtotal {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 14px !important;
+}
+.widget-checkout .subtotal-wrapper .subtotal-price {
+  color: #1A1612 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+.widget-checkout .grand-total-wrapper {
+  padding: 16px 0 8px 0 !important;
+  border-top: 2px solid rgba(200, 16, 46, 0.5) !important;
+  margin-top: 10px !important;
+}
+.widget-checkout .grand-total-wrapper .subtotal {
+  color: #1A1612 !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px !important;
+}
+.widget-checkout .grand-total-wrapper .subtotal-price.grand-total {
+  color: #9E0B22 !important;
+  font-family: 'Georgia', serif !important;
+  font-size: 30px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+}
+.widget-checkout .promo-code-toggle-btn {
+  color: #9E0B22 !important;
+  font-weight: 600 !important;
+  text-decoration: underline !important;
+  font-size: 13px !important;
+  cursor: pointer !important;
+}
+.widget-checkout .discount-code-btn {
+  background: rgba(200, 16, 46, 0.12) !important;
+  color: #9E0B22 !important;
+  padding: 12px 20px !important;
+  border: 1px solid rgba(200, 16, 46, 0.5) !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+.widget-checkout .discount-code-btn:hover {
+  background: #C8102E !important;
+  color: #000000 !important;
+}
+.widget-checkout .secured-checkout-wrapper {
+  margin-top: 22px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid rgba(200, 16, 46, 0.35) !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+.widget-checkout .secured-checkout-wrapper > div {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+.widget-checkout .secured-checkout-wrapper svg {
+  fill: #C8102E !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+.widget-checkout .secured-checkout-wrapper span {
+  color: rgba(0, 0, 0, 0.6) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+.widget-checkout .store-policies a {
+  color: #9E0B22 !important;
+  font-size: 12px !important;
+  text-decoration: underline !important;
+  margin-right: 14px !important;
+  display: inline-block !important;
+  margin-bottom: 8px !important;
+}
+.widget-checkout .store-policies a:hover {
+  color: #C8102E !important;
+}
+.widget-checkout .error-message {
+  color: #e25041 !important;
+  font-size: 13px !important;
+  margin-top: 8px !important;
+}
+.widget-checkout .checkout-spinner {
+  border-color: #C8102E !important;
+}
+.widget-checkout .free-shipping-bar {
+  display: none !important;
+}
+/* Само Наложен платеж — скрий всички други методи на плащане */
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper {
+  display: none !important;
+}
+.widget-checkout .payment-mehtods-wrapper .tick-wrapper[data-payment="cod"] {
+  display: flex !important;
+}
+/* Скрий бутона "Следваща стъпка" — да остане само "Завърши поръчката" */
+.widget-checkout [data-role="next-step"] {
+  display: none !important;
+}
+/* Скрий всички полета за парола, login и регистрация */
+.widget-checkout [data-role="member-login"],
+.widget-checkout [data-role="password"],
+.widget-checkout [data-role="password-fields"],
+.widget-checkout [data-role="login-btn"],
+.widget-checkout [data-role="prompt-login"],
+.widget-checkout .password-fields-wrapper,
+.widget-checkout .checkout-info input[type="password"] {
+  display: none !important;
+}
+/* Скрий country selector / флагче към телефонния номер */
+.iti__flag,
+.iti__flag-container,
+.iti__selected-flag,
+.iti__arrow,
+.iti__country-list,
+.iti__dropdown-content,
+.iti--allow-dropdown .iti__flag-container,
+.iti--separate-dial-code .iti__selected-flag,
+.intl-tel-input .flag-container,
+.intl-tel-input .selected-flag,
+.intl-tel-input .country-list,
+.intl-tel-input .flag,
+.intl-tel-input .iti-flag,
+.intl-tel-input .arrow,
+select[name="phoneCountry"],
+select[name="phoneCountryCode"],
+select[name="phone_country"],
+select[name="phoneCountryIso"],
+.phone-country-select,
+.phone-country-wrapper,
+.phone-flag-wrapper,
+.country-flag,
+.country-code-select,
+.flag-dropdown,
+[class*="country-flag"],
+[class*="phoneCountry"],
+[class*="phone-country"],
+[class*="phone-flag"] {
+  display: none !important;
+}
+.widget-checkout input[type="tel"]::before,
+.widget-checkout input[type="tel"] + *::before,
+.widget-checkout .iti::before,
+.widget-checkout .intl-tel-input::before {
+  content: none !important;
+  display: none !important;
+}
+.widget-checkout .iti,
+.widget-checkout .intl-tel-input,
+.widget-checkout .iti--allow-dropdown,
+.widget-checkout .iti--separate-dial-code {
+  width: 100% !important;
+  display: block !important;
+  padding-left: 0 !important;
+}
+.widget-checkout .iti input[type="tel"],
+.widget-checkout .iti input.phone-input,
+.widget-checkout .intl-tel-input input[type="tel"],
+.widget-checkout .iti--allow-dropdown input[type="tel"],
+.widget-checkout .iti--separate-dial-code input[type="tel"],
+.widget-checkout input[type="tel"] {
+  padding-left: 16px !important;
+  margin-left: 0 !important;
+  width: 100% !important;
+  position: static !important;
+  background-image: none !important;
+}
+@media screen and (max-width: 768px) {
+  .widget-checkout .checkout-info[data-step="info"] {
+    padding: 22px 18px !important;
+    border-radius: 12px !important;
+  }
+  .widget-checkout .checkout-summary {
+    padding: 22px 18px !important;
+  }
+  .widget-checkout .checkout-info h3 {
+    font-size: 18px !important;
+  }
+  .widget-checkout .grand-total-wrapper .subtotal-price.grand-total {
+    font-size: 26px !important;
+  }
+  .widget-checkout [data-role="next-step"],
+  .widget-checkout [data-role="continue"] {
+    padding: 18px 24px !important;
+    font-size: 14px !important;
+    letter-spacing: 2px !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .widget-checkout .checkout-info .input-row {
+    flex-direction: column !important;
+    gap: 0 !important;
+  }
+  .widget-checkout .steps-breadcrumbs-inner {
+    padding: 10px 14px !important;
+    gap: 8px !important;
+  }
+  .widget-checkout .checkout-style-1 .checkout-step {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+  }
+}
+
+/* ===== ДОПЪЛНЕНИЯ ЗА ТОЗИ ЧЕКАУТ (извън тествания шаблон) ===== */
+/* Доставка: Еконт / Pigeon */
+.widget-checkout #mw-shipping .mw-couriers-choose {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(200, 16, 46, 0.35) !important;
+  border-radius: 10px !important;
+  padding: 12px 14px !important;
+  margin-bottom: 10px !important;
+  color: #1A1612 !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-choose.mw-couriers-selected {
+  border-color: #C8102E !important;
+  box-shadow: 0 0 0 3px rgba(200, 16, 46, 0.18) !important;
+}
+.widget-checkout #mw-shipping .mw-table td,
+.widget-checkout #mw-shipping .mw-couriers-text,
+.widget-checkout #mw-shipping .mw-couriers-text i {
+  color: #1A1612 !important;
+  font-size: 15px !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+}
+.widget-checkout #mw-shipping input[type="radio"] {
+  accent-color: #C8102E !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-menu {
+  border: 1.5px solid rgba(200, 16, 46, 0.45) !important;
+  border-radius: 8px !important;
+  background: #FFFFFF !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-dd,
+.widget-checkout #mw-shipping .mw-couriers-dd-menu {
+  background: #FFFFFF !important;
+  color: #1A1612 !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-office {
+  color: #1A1612 !important;
+  font-size: 13px !important;
+}
+.widget-checkout #mw-shipping .mw-couriers-office:hover {
+  background: #FFF6E0 !important;
+}
+.widget-checkout #mw-shipping .mw-error {
+  color: #e25041 !important;
+  font-size: 13px !important;
+}
+/* Допълнителни оферти (bump) */
+.widget-checkout .bump-wrapper > .tick-wrapper {
+  background: #FFF6E0 !important;
+  border-color: rgba(200, 16, 46, 0.55) !important;
+  border-radius: 14px !important;
+  color: #1A1612 !important;
+}
+.widget-checkout .bump-wrapper .bump-badge {
+  display: inline-block !important;
+  background: #C8102E !important;
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 11px !important;
+  letter-spacing: 1.5px !important;
+  border-radius: 99px !important;
+  padding: 6px 12px !important;
+}
+.widget-checkout .bump-wrapper .bump-title,
+.widget-checkout .bump-wrapper h4 {
+  color: #1A1612 !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+}
+.widget-checkout .bump-wrapper .bump-description span {
+  color: rgba(0, 0, 0, 0.65) !important;
+  font-size: 13px !important;
+}
+.widget-checkout .bump-wrapper input[type="checkbox"] {
+  accent-color: #C8102E !important;
+}
+.widget-checkout .bump-wrapper .bump-add.inactive-bump {
+  background: #C8102E !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+}
+.widget-checkout .bump-wrapper .bump-add.active-bump {
+  background: #1A1612 !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+}
+.widget-checkout .bump-wrapper .remove-bump {
+  color: #9E0B22 !important;
+  text-decoration: underline !important;
+}
+
+/* Телефон: скрит избор на държава (нова версия на полето) */
+.widget-checkout .iti__country-container,
+.widget-checkout .iti__selected-country,
+.widget-checkout .iti__dropdown-content {
+  display: none !important;
+}
+/* скритото поле остава скрито, когато полето с код е заредило */
+.widget-checkout input.phone-input-hidden:has(+ .iti) {
+  display: none !important;
+}
+
+/* Черен петък: червен бутон за поръчка */
+.widget-checkout [data-role="continue"] {
+  background: linear-gradient(100deg, #a50b23, #d4152f 50%, #a50b23) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 14px 34px -12px rgba(200, 16, 46, 0.7) !important;
+}
+.widget-checkout [data-role="continue"]:hover {
+  background: #e3263f !important;
+}
+/* Количка: снимка на продукта */
+.widget-checkout .cart-container .cart-row .image img {
+  border-radius: 8px !important;
+}
+</style>
+
+<div class="bxc">
+  <div class="bxc-ticker" aria-hidden="true"><div class="bxc-ticker-in">
+    <span>Черен петък</span><span>8 + 4 парфюма подарък</span><span>Наложен платеж</span><span>28,90 € за комплекта</span>
+    <span>Черен петък</span><span>8 + 4 парфюма подарък</span><span>Наложен платеж</span><span>28,90 € за комплекта</span>
+  </div></div>
+  <div class="bxc-top"><div class="bxc-wrap">
+    <div class="bxc-steps" aria-label="Стъпки на поръчката">
+      <div class="bxc-st bxc-done"><i>✓</i>Комплект</div><div class="bxc-ln"></div>
+      <div class="bxc-st bxc-now"><i>2</i>Данни</div><div class="bxc-ln bxc-off"></div>
+      <div class="bxc-st"><i>3</i>Готово</div>
+    </div>
+    <h2 class="bxc-h">Завърши <span>поръчката</span></h2>
+    <p class="bxc-sub">Име, телефон, населено място и офис на Еконт или адрес – това е всичко. Нищо не плащаш сега.</p>
+    <div class="bxc-set">
+      <div class="bxc-set-name">8 парфюма + <em>4 подарък</em><br>+ кутия + изненада</div>
+      <div class="bxc-set-price">28,90 €</div>
+      <div class="bxc-qty">Можеш да поръчаш и повече комплекти: <b>2&nbsp;–&nbsp;57,80&nbsp;€</b> · <b>3&nbsp;–&nbsp;86,70&nbsp;€</b>. Цената на доставката се показва във формата преди потвърждение.</div>
+    </div>
+    <div class="bxc-cod"><i>💶</i><div><b>Наложен платеж</b><span>Без карта и без предплащане – плащаш на куриера при получаване.</span></div></div>
+    <p class="bxc-dis">Парфюмите се подбират на случаен принцип според наличността. Не се предлага избор на конкретни аромати.</p>
+    <div class="bxc-down">Попълни формата<em>↓</em></div>
+  </div></div>
+</div>
+
+<div class="bxc bxc-bottom" id="bxcBottom" style="display:none">
+  <div class="bxc-wrap">
+    <div class="bxc-qa">
+      <details><summary>Мога ли да избера ароматите?</summary><p>Не. Парфюмите се подбират на случаен принцип според наличността. Гарантирано получаваш 4 мъжки + 4 дамски парфюма и още 2 мъжки + 2 дамски подарък, плюс кутия и подарък изненада.</p></details>
+      <details><summary>Трябва ли да платя сега?</summary><p>Не. Плащаш с наложен платеж на куриера, когато получиш пратката.</p></details>
+      <details><summary>Колко струва доставката?</summary><p>Зависи дали е до офис на Еконт или до адрес. Сумата се вижда във формата, преди да потвърдиш.</p></details>
+    </div>
+    <a href="#" class="bxc-up" id="bxcUp">↑ Обратно към формата</a>
+    <div class="bxc-foot"><b>UNI ARABIAN</b><span>© 2026 · Всички права запазени</span></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  function wc(){ return document.querySelector('.widget-checkout'); }
+  /* 1. Блокът с въпросите отива точно под чекаута */
+  function placeBottom(){
+    var b=document.getElementById('bxcBottom'), w=wc();
+    if(!b||!w) return false;
+    var host=w.querySelector('.main-widget-content')||w;
+    if(b.parentNode!==host||host.lastElementChild!==b) host.appendChild(b);
+    b.style.display='';
+    return true;
+  }
+  /* 2. Телефонът винаги с България (+359), флагчето е скрито */
+  function phoneBG(){
+    var api=window.intlTelInput||window.intlTelInputGlobals; if(!api||!api.getInstance) return;
+    document.querySelectorAll('.widget-checkout input.iti__tel-input').forEach(function(inp){
+      try{ var it=api.getInstance(inp); if(it&&it.getSelectedCountryData&&it.getSelectedCountryData().iso2!=='bg') it.setCountry('bg'); }catch(e){}
+    });
+  }
+  /* 3. Наложен платеж е избран по подразбиране */
+  function codDefault(){
+    var cod=document.querySelector('.widget-checkout [data-payment="cod"] input[type="radio"]');
+    if(cod&&!cod.checked) cod.click();
+  }
+  /* 4. Без bump „продукт изненада“ (подаръкът изненада вече е в комплекта) */
+  function noSurprise(){
+    document.querySelectorAll('.widget-checkout .bump-wrapper').forEach(function(w){
+      if(/изненада/i.test(w.textContent)){ w.classList.add('bxc-nobump'); var cb=w.querySelector('input[type="checkbox"]'); if(cb&&cb.checked) cb.click(); }
+    });
+  }
+  /* 5. Напомняне за случайния подбор + задължителна отметка за общите условия над бутона за поръчка */
+  var DIS2='Парфюмите се подбират на случаен принцип според наличността. Не се предлага избор на конкретни аромати.';
+  function agreeBox(){
+    var btn=document.querySelector('.widget-checkout a[data-role="continue"]'); if(!btn) return;
+    var box=btn.closest('.next-prev-buttons')||btn.parentNode;
+    if(box.querySelector('.bxc-agree')) return;
+    var d=document.createElement('div'); d.className='bxc-dis2'; d.textContent=DIS2;
+    var l=document.createElement('label'); l.className='bxc-agree';
+    l.innerHTML='<input type="checkbox" id="bxcAgree"><span>Съгласен/на съм с общите условия и с обработката на личните ми данни за изпълнение на поръчката.</span>';
+    var m=document.createElement('div'); m.className='bxc-agree-msg'; m.textContent='Моля, отбележи, че си съгласен/на с условията.';
+    box.insertBefore(m,box.firstChild); box.insertBefore(l,m); box.insertBefore(d,l);
+    l.querySelector('input').addEventListener('change',function(){ if(this.checked) l.classList.remove('bxc-err'); });
+    /* текст на бутона: „Завърши поръчката“ (иконата ✓ остава) */
+    for(var n=btn.firstChild;n;n=n.nextSibling){ if(n.nodeType===3&&n.textContent.trim()){ n.textContent='ЗАВЪРШИ ПОРЪЧКАТА'; btn.title='ЗАВЪРШИ ПОРЪЧКАТА'; break; } }
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.widget-checkout a[data-role="continue"]'); if(!b) return;
+    var c=document.getElementById('bxcAgree');
+    if(c&&!c.checked){ e.preventDefault(); e.stopImmediatePropagation(); var l=c.closest('.bxc-agree'); l.classList.add('bxc-err'); l.scrollIntoView({behavior:'smooth',block:'center'}); }
+  },true);
+  var up=document.getElementById('bxcUp');
+  if(up) up.addEventListener('click',function(e){ var w=wc(); if(w){ e.preventDefault(); w.scrollIntoView({behavior:'smooth',block:'start'}); } });
+  var tries=0;
+  (function tick(){
+    var ok=placeBottom(); phoneBG(); codDefault(); noSurprise(); agreeBox();
+    if(++tries<20&&!(ok&&tries>6)) setTimeout(tick,500);
+  })();
+})();
+</script>
