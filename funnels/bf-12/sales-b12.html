@@ -151,6 +151,11 @@
   #bx .bx-ph { width:108px !important; height:108px !important; } #bx .bx-p2 { margin-left:-54px !important; }
   #bx .bx-box { width:260px !important; margin-left:-130px !important; }
 }
+#bx .bx-sr { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
+#bx a.bx-ban { display:block !important; max-width:560px !important; margin:0 auto 14px !important; border-radius:18px !important; overflow:hidden !important; background:#fff !important; box-shadow:0 20px 44px -22px rgba(80,40,0,.45); text-decoration:none !important; }
+#bx a.bx-ban img { display:block !important; width:100% !important; height:auto !important; max-width:none !important; border:0 !important; }
+#bx .bx-hero a.bx-ban { margin-top:4px !important; }
+#bx .bx-final a.bx-ban { margin:0 auto 14px !important; box-shadow:none; }
 @media (prefers-reduced-motion:reduce) { #bx#bx *, #bx#bx *::before, #bx#bx *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; } }
 </style>
 
@@ -159,37 +164,8 @@
 
   <!-- 1. ПЪРВИ ЕКРАН -->
   <header class="bx-hero" id="bxHero"><div class="bx-wrap">
-    <div class="bx-fire">🔥 Черен петък 🔥</div>
-    <h1>Вземи 8 парфюма и получи <span class="bx-red">още 4 подарък!</span></h1>
-    <div class="bx-sub">12 парфюма + кутия + <span class="bx-hl">изненада</span></div>
-
-    <div class="bx-vis" aria-label="Комплект от 12 парфюма в кутия">
-      <div class="bx-ph bx-p1"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/0-02-05-ab39d92cc185749616a9dd75b9bf41312b6c560b404dc765478f2f958251245f_22a373766b1-4375222.webp?format=webp" alt="" width="1200" height="1200"></div>
-      <div class="bx-ph bx-p2"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6420-0966253.jpeg?format=webp" alt="" width="1200" height="1200"></div>
-      <div class="bx-ph bx-p3"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/ac8d5db3-07ae-4b97-b11c-b4360791d1c7-2602202.png?format=webp" alt="" width="1200" height="1200"></div>
-      <div class="bx-box"><svg viewBox="0 0 300 175" role="img" aria-label="Кафява кутия за доставка">
-<defs><linearGradient id="bxCf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d6a86f"/><stop offset="1" stop-color="#b9864d"/></linearGradient>
-<linearGradient id="bxCs" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a97543"/><stop offset="1" stop-color="#8d5f34"/></linearGradient></defs>
-<path d="M18 44 L232 44 L254 10 L40 10 Z" fill="#cfa067"/>
-<path d="M18 44 L232 44 L254 10 L40 10 Z" fill="#000" opacity=".06"/>
-<path d="M232 44 L282 24 L282 142 L232 172 Z" fill="url(#bxCs)"/>
-<path d="M232 44 L282 24 L294 4 L248 20 Z" fill="#bb8b55"/>
-<rect x="18" y="44" width="214" height="128" fill="url(#bxCf)"/>
-<rect x="18" y="44" width="214" height="7" fill="#000" opacity=".12"/>
-<rect x="112" y="44" width="28" height="128" fill="#9c6b38" opacity=".45"/>
-<rect x="38" y="92" width="64" height="46" rx="3" fill="#fffdf6"/>
-<rect x="38" y="92" width="64" height="12" rx="3" fill="#d90f1f"/>
-<text x="70" y="101.5" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-weight="700" font-size="8" fill="#fff" letter-spacing="1">ЧЕРЕН ПЕТЪК</text>
-<text x="70" y="119" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-weight="700" font-size="15" fill="#111">12</text>
-<text x="70" y="131" text-anchor="middle" font-family="Oswald, Arial, sans-serif" font-weight="700" font-size="7.5" fill="#111" letter-spacing="1">ПАРФЮМА</text>
-<path d="M180 120 l8 -10 l8 10 M188 110 v20" stroke="#5b3a1a" stroke-opacity=".55" stroke-width="2.5" fill="none"/>
-<path d="M200 120 l8 -10 l8 10 M208 110 v20" stroke="#5b3a1a" stroke-opacity=".55" stroke-width="2.5" fill="none"/>
-</svg></div>
-      <div class="bx-badge"><small>САМО</small><b>28,90 €</b></div>
-      <div class="bx-q" aria-hidden="true">?</div>
-    </div>
-
-    <div class="bx-price"><span>Целият<br>комплект</span><b>28,90 €</b></div>
+    <h1 class="bx-sr">Черен петък: вземи 8 парфюма и получи още 4 подарък – 12 парфюма + кутия + изненада за 28,90 €</h1>
+    <a href="#" class="bx-ban" data-go aria-label="Поръчай комплекта"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/ba78f0d9-d570-4a19-aef5-ffb4e160c82f-4729164.png?format=webp" alt="Черен петък: 8 парфюма + 4 подарък + кутия + изненада за 28,90 €" width="1097" height="1200"></a>
     <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Плащаш при получаване · наложен платеж</small></a></div>
     <div class="bx-icons">
       <div><i>📦</i>8 + 4 парфюма подарък</div>
@@ -205,23 +181,7 @@
     <div class="bx-tag">Какво получаваш</div>
     <h2>Една кутия. 12 аромата. <span class="bx-red">Още повече подаръци!</span></h2>
 
-    <div class="bx-card bx-blk">
-      <h3>8 парфюма в комплекта</h3>
-      <div class="bx-mf"><span>4 мъжки</span><span class="bx-f">4 дамски</span></div>
-      <div class="bx-grid"><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/0-02-05-ab39d92cc185749616a9dd75b9bf41312b6c560b404dc765478f2f958251245f_22a373766b1-4375222.webp?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6420-0966253.jpeg?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/IMG_6419-0966253.jpeg?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/ac8d5db3-07ae-4b97-b11c-b4360791d1c7-2602202.png?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/0-02-05-347e9bbe8edc2701593be6a2dc30e7ff3a9deabb8d623dfe30b5223c34fe5a41_22a3737f0f8-4375217.webp?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/57d5f244-4b0f-4077-b58f-7637d88f165e-2601562.png?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/thumbnails/640x480/Images/3a52da47-83a0-41ed-9748-a554238863ca-0162751.png?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/a0828692-8860-477c-aa45-33aca10b470e-2601992.png?format=webp" alt="" width="600" height="600" loading="lazy"></div></div>
-    </div>
-    <div class="bx-plus">+</div>
-    <div class="bx-card bx-blk bx-gift">
-      <div class="bx-ribbon">🎁 Подарък</div>
-      <h3>4 парфюма подарък</h3>
-      <div class="bx-mf"><span>2 мъжки</span><span class="bx-f">2 дамски</span></div>
-      <div class="bx-grid"><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/7a1ef8e0-bdc3-4b4b-a92a-9f4d4314af7c-2134633.png?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/da53be3e-c482-453e-a82a-2003544798f3-3971838.png?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/81056299-fe5e-4d77-ada0-c74817eb2708-2134598.png?format=webp" alt="" width="600" height="600" loading="lazy"></div><div><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/bc6bb449-efe1-4c05-870d-ea79986f828a-2134623.png?format=webp" alt="" width="600" height="600" loading="lazy"></div></div>
-    </div>
-    <div class="bx-plus">+</div>
-    <div class="bx-duo">
-      <div class="bx-card bx-mini"><svg viewBox="0 0 120 100" aria-hidden="true"><path d="M10 34 L82 34 L104 18 L32 18 Z" fill="#cfa067"/><path d="M82 34 L104 18 L104 76 L82 94 Z" fill="#9f6d3d"/><rect x="10" y="34" width="72" height="60" fill="#c99760"/><rect x="40" y="34" width="12" height="60" fill="#9c6b38" opacity=".45"/><path d="M40 34 L52 34 L74 18 L62 18 Z" fill="#9c6b38" opacity=".45"/></svg><b>Кутия подарък</b><span>Всичко пристига в една кутия</span></div>
-      <div class="bx-card bx-mini"><div class="bx-qbig" aria-hidden="true">?</div><b>Подарък изненада</b><span>Още един подарък в пратката</span></div>
-    </div>
+    <a href="#" class="bx-ban" data-go aria-label="Поръчай комплекта"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/4ebf19f5-84e1-4b28-8213-9ce430730017-4729162.png?format=webp" alt="Какво получаваш: 8 парфюма (4 мъжки + 4 дамски), 4 парфюма подарък (2 мъжки + 2 дамски), кутия и подарък изненада" width="1097" height="1200" loading="lazy"></a>
     <p class="bx-note">Парфюмите в комплекта се подбират на случаен принцип според наличността. Показаните изображения са илюстративни и конкретните аромати могат да се различават.</p>
     <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Целият комплект – 28,90 €</small></a></div>
   </div></section>
@@ -283,10 +243,9 @@
   <!-- 5. ФИНАЛ -->
   <section class="bx-sec" id="bxFinal"><div class="bx-wrap">
     <div class="bx-card bx-final">
-      <h2>Вземи своя <span class="bx-red">Black Friday</span> комплект!</h2>
-      <div class="bx-sum">8 парфюма + <em>4 подарък</em><br>+ кутия + изненада</div>
-      <div class="bx-big">28,90 €</div>
-      <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Попълваш формата отдолу за 30 секунди</small></a></div>
+      <h2 class="bx-sr">Вземи своя Black Friday комплект!</h2>
+      <a href="#" class="bx-ban" data-go aria-label="Поръчай комплекта"><img src="https://content.app-sources.com/s/698084040813523351/uploads/Images/ca26a3e2-4413-45be-a664-03e12cfb4c97-4729157.png?format=webp" alt="Вземи своя Black Friday комплект: 8 парфюма + 4 подарък + кутия + изненада за 28,90 €" width="1097" height="1200" loading="lazy"></a>
+      <div class="bx-btnw"><a href="#" class="bx-cta" data-go>Поръчай сега<small>Формата е точно отдолу</small></a></div>
       <p class="bx-note">Парфюмите в комплекта се подбират на случаен принцип според наличността. Показаните изображения са илюстративни и конкретните аромати могат да се различават.</p>
     </div>
   </div></section>
