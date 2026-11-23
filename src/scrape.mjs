@@ -54,7 +54,10 @@ export async function readProduct(browser, url) {
 
     const raw = await page.evaluate(() => {
       const el = document.querySelector('script[type="application/ld+json"]');
-      const old = document.querySelector('.old_price');
+      // .old_price се среща и в карусела "свързани продукти" по-долу на страницата.
+      // Несвитен document.querySelector('.old_price') вади първия сблъсък там, не
+      // цената на самия продукт — затова е скопиран до .single-price-box.
+      const old = document.querySelector('.single-price-box .old_price');
       return { ld: el ? el.textContent : null, oldPrice: old ? old.textContent : null };
     });
     if (!raw.ld) throw new Error(`Няма JSON-LD: ${url}`);
